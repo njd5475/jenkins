@@ -23,6 +23,24 @@
  */
 package jenkins.util;
 
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.Nonnull;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+import org.apache.commons.lang.StringUtils;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
 import edu.umd.cs.findbugs.annotations.CheckForNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.EnvVars;
@@ -32,24 +50,7 @@ import hudson.model.Computer;
 import hudson.model.TaskListener;
 import hudson.remoting.Channel;
 import hudson.slaves.ComputerListener;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Nonnull;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 import jenkins.security.MasterToSlaveCallable;
-
-import jenkins.util.io.OnMaster;
-import org.apache.commons.lang.StringUtils;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
 
 /**
  * Centralizes calls to {@link System#getProperty(String)} and related calls.
@@ -89,7 +90,7 @@ public class SystemProperties {
     private static @Nonnull Handler handler = NULL_HANDLER;
 
     // declared in WEB-INF/web.xml
-    public static final class Listener implements ServletContextListener, OnMaster {
+    public static final class Listener implements ServletContextListener {
 
         /**
          * Called by the servlet container to initialize the {@link ServletContext}.

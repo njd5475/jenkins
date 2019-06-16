@@ -24,26 +24,25 @@
  */
 package hudson.model;
 
-import hudson.Functions;
-import hudson.Util;
-import jenkins.model.Jenkins;
-import jenkins.util.SystemProperties;
-import hudson.security.PermissionScope;
-import jenkins.util.io.OnMaster;
-import jline.internal.Nullable;
-import org.kohsuke.stapler.StaplerRequest;
-
 import java.io.IOException;
 import java.util.Collection;
 
-import hudson.search.SearchableModelObject;
-import hudson.security.Permission;
-import hudson.security.PermissionGroup;
-import hudson.security.AccessControlled;
-import hudson.util.Secret;
-
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+
+import org.kohsuke.stapler.StaplerRequest;
+
+import hudson.Functions;
+import hudson.Util;
+import hudson.search.SearchableModelObject;
+import hudson.security.AccessControlled;
+import hudson.security.Permission;
+import hudson.security.PermissionGroup;
+import hudson.security.PermissionScope;
+import hudson.util.Secret;
+import jenkins.model.Jenkins;
+import jenkins.util.SystemProperties;
+import jline.internal.Nullable;
 
 /**
  * Basic configuration unit in Hudson.
@@ -74,7 +73,7 @@ import javax.annotation.Nonnull;
  * @see Items
  * @see ItemVisitor
  */
-public interface Item extends PersistenceRoot, SearchableModelObject, AccessControlled, OnMaster {
+public interface Item extends PersistenceRoot, SearchableModelObject, AccessControlled {
     /**
      * Gets the parent that contains this item.
      */

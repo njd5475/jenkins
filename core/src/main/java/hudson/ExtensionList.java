@@ -23,16 +23,6 @@
  */
 package hudson;
 
-import com.google.common.collect.Lists;
-import hudson.init.InitMilestone;
-import hudson.model.Hudson;
-import jenkins.ExtensionComponentSet;
-import jenkins.model.Jenkins;
-import hudson.util.AdaptedIterator;
-import hudson.util.DescriptorList;
-import hudson.util.Iterators;
-import hudson.ExtensionPoint.LegacyInstancesAreScopedToHudson;
-
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,9 +35,20 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import jenkins.util.io.OnMaster;
+
+import com.google.common.collect.Lists;
+
+import hudson.ExtensionPoint.LegacyInstancesAreScopedToHudson;
+import hudson.init.InitMilestone;
+import hudson.model.Hudson;
+import hudson.util.AdaptedIterator;
+import hudson.util.DescriptorList;
+import hudson.util.Iterators;
+import jenkins.ExtensionComponentSet;
+import jenkins.model.Jenkins;
 
 /**
  * Retains the known extension instances for the given type 'T'.
@@ -70,7 +71,7 @@ import jenkins.util.io.OnMaster;
  * @see jenkins.model.Jenkins#getExtensionList(Class)
  * @see jenkins.model.Jenkins#getDescriptorList(Class)
  */
-public class ExtensionList<T> extends AbstractList<T> implements OnMaster {
+public class ExtensionList<T> extends AbstractList<T> {
     /**
      * @deprecated as of 1.417
      *      Use {@link #jenkins}

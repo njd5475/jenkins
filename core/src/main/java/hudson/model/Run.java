@@ -27,43 +27,11 @@
  */
 package hudson.model;
 
-import com.jcraft.jzlib.GZIPInputStream;
-import com.thoughtworks.xstream.XStream;
-import hudson.AbortException;
-import hudson.BulkChange;
-import hudson.EnvVars;
-import hudson.ExtensionList;
-import hudson.ExtensionPoint;
-import hudson.FeedAdapter;
-import hudson.Functions;
-import hudson.console.AnnotatedLargeText;
-import hudson.console.ConsoleLogFilter;
-import hudson.console.ConsoleNote;
-import hudson.console.ModelHyperlinkNote;
-import hudson.console.PlainTextConsoleOutputStream;
-import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
-import java.nio.file.StandardOpenOption;
-import jenkins.util.SystemProperties;
-import hudson.Util;
-import hudson.XmlFile;
-import hudson.cli.declarative.CLIMethod;
-import hudson.model.Descriptor.FormException;
-import hudson.model.listeners.RunListener;
-import hudson.model.listeners.SaveableListener;
-import hudson.model.queue.SubTask;
-import hudson.search.SearchIndexBuilder;
-import hudson.security.ACL;
-import hudson.security.AccessControlled;
-import hudson.security.Permission;
-import hudson.security.PermissionGroup;
-import hudson.security.PermissionScope;
-import hudson.tasks.BuildWrapper;
-import hudson.tasks.Fingerprinter.FingerprintAction;
-import hudson.util.FormApply;
-import hudson.util.LogTaskListener;
-import hudson.util.ProcessTree;
-import hudson.util.XStream2;
+import static java.util.logging.Level.FINE;
+import static java.util.logging.Level.FINER;
+import static java.util.logging.Level.INFO;
+import static java.util.logging.Level.SEVERE;
+import static java.util.logging.Level.WARNING;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -76,6 +44,9 @@ import java.io.RandomAccessFile;
 import java.io.Reader;
 import java.io.Serializable;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.StandardOpenOption;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -94,28 +65,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
-import static java.util.logging.Level.*;
-
 import java.util.logging.Logger;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
-import jenkins.model.ArtifactManager;
-import jenkins.model.ArtifactManagerConfiguration;
-import jenkins.model.ArtifactManagerFactory;
-import jenkins.model.BuildDiscarder;
-import jenkins.model.Jenkins;
-import jenkins.model.JenkinsLocationConfiguration;
-import jenkins.model.PeepholePermalink;
-import jenkins.model.RunAction2;
-import jenkins.model.StandardArtifactManager;
-import jenkins.model.lazy.BuildReference;
-import jenkins.model.lazy.LazyBuildMixIn;
-import jenkins.security.MasterToSlaveCallable;
-import jenkins.util.VirtualFile;
-import jenkins.util.io.OnMaster;
-import net.sf.json.JSONObject;
+
 import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.Authentication;
 import org.apache.commons.io.IOUtils;
@@ -133,6 +89,56 @@ import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
+import com.jcraft.jzlib.GZIPInputStream;
+import com.thoughtworks.xstream.XStream;
+
+import hudson.AbortException;
+import hudson.BulkChange;
+import hudson.EnvVars;
+import hudson.ExtensionList;
+import hudson.ExtensionPoint;
+import hudson.FeedAdapter;
+import hudson.Functions;
+import hudson.Util;
+import hudson.XmlFile;
+import hudson.cli.declarative.CLIMethod;
+import hudson.console.AnnotatedLargeText;
+import hudson.console.ConsoleLogFilter;
+import hudson.console.ConsoleNote;
+import hudson.console.ModelHyperlinkNote;
+import hudson.console.PlainTextConsoleOutputStream;
+import hudson.model.Descriptor.FormException;
+import hudson.model.listeners.RunListener;
+import hudson.model.listeners.SaveableListener;
+import hudson.model.queue.SubTask;
+import hudson.search.SearchIndexBuilder;
+import hudson.security.ACL;
+import hudson.security.AccessControlled;
+import hudson.security.Permission;
+import hudson.security.PermissionGroup;
+import hudson.security.PermissionScope;
+import hudson.tasks.BuildWrapper;
+import hudson.tasks.Fingerprinter.FingerprintAction;
+import hudson.util.FormApply;
+import hudson.util.LogTaskListener;
+import hudson.util.ProcessTree;
+import hudson.util.XStream2;
+import jenkins.model.ArtifactManager;
+import jenkins.model.ArtifactManagerConfiguration;
+import jenkins.model.ArtifactManagerFactory;
+import jenkins.model.BuildDiscarder;
+import jenkins.model.Jenkins;
+import jenkins.model.JenkinsLocationConfiguration;
+import jenkins.model.PeepholePermalink;
+import jenkins.model.RunAction2;
+import jenkins.model.StandardArtifactManager;
+import jenkins.model.lazy.BuildReference;
+import jenkins.model.lazy.LazyBuildMixIn;
+import jenkins.security.MasterToSlaveCallable;
+import jenkins.util.SystemProperties;
+import jenkins.util.VirtualFile;
+import net.sf.json.JSONObject;
+
 /**
  * A particular execution of {@link Job}.
  *
@@ -146,7 +152,7 @@ import org.kohsuke.stapler.interceptor.RequirePOST;
  */
 @ExportedBean
 public abstract class Run <JobT extends Job<JobT,RunT>,RunT extends Run<JobT,RunT>>
-        extends Actionable implements ExtensionPoint, Comparable<RunT>, AccessControlled, PersistenceRoot, DescriptorByNameOwner, OnMaster, StaplerProxy {
+        extends Actionable implements ExtensionPoint, Comparable<RunT>, AccessControlled, PersistenceRoot, DescriptorByNameOwner, StaplerProxy {
 
     /**
      * The original {@link Queue.Item#getId()} has not yet been mapped onto the {@link Run} instance.

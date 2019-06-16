@@ -23,13 +23,61 @@
  */
 package hudson.model;
 
+import static hudson.util.QuotedStringTokenizer.quote;
+import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
+
+import java.beans.Introspector;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.IdentityHashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+
+import org.apache.commons.io.IOUtils;
+import org.jvnet.tiger_types.Types;
+import org.kohsuke.stapler.Ancestor;
+import org.kohsuke.stapler.BindInterceptor;
+import org.kohsuke.stapler.Facet;
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.Stapler;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.WebApp;
+import org.kohsuke.stapler.jelly.JellyCompatibleFacet;
+import org.kohsuke.stapler.lang.Klass;
+import org.springframework.util.StringUtils;
+
+import hudson.BulkChange;
 import hudson.DescriptorExtensionList;
+import hudson.ExtensionList;
 import hudson.PluginWrapper;
 import hudson.RelativePath;
-import hudson.XmlFile;
-import hudson.BulkChange;
-import hudson.ExtensionList;
 import hudson.Util;
+import hudson.XmlFile;
 import hudson.model.listeners.SaveableListener;
 import hudson.util.FormApply;
 import hudson.util.FormValidation.CheckMethod;
@@ -40,47 +88,8 @@ import jenkins.model.GlobalConfiguration;
 import jenkins.model.GlobalConfigurationCategory;
 import jenkins.model.Jenkins;
 import jenkins.security.RedactSecretJsonInErrorMessageSanitizer;
-import jenkins.util.io.OnMaster;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.kohsuke.stapler.*;
-import org.kohsuke.stapler.jelly.JellyCompatibleFacet;
-import org.kohsuke.stapler.lang.Klass;
-import org.springframework.util.StringUtils;
-import org.jvnet.tiger_types.Types;
-import org.apache.commons.io.IOUtils;
-
-import static hudson.util.QuotedStringTokenizer.*;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
-
-import javax.servlet.ServletException;
-import javax.servlet.RequestDispatcher;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Type;
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.beans.Introspector;
-import java.util.IdentityHashMap;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Metadata about a configurable instance.
@@ -131,7 +140,7 @@ import javax.annotation.Nullable;
  * @author Kohsuke Kawaguchi
  * @see Describable
  */
-public abstract class Descriptor<T extends Describable<T>> implements Saveable, OnMaster {
+public abstract class Descriptor<T extends Describable<T>> implements Saveable {
     /**
      * The class being described by this descriptor.
      */

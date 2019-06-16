@@ -24,7 +24,30 @@
  */
 package hudson.model;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
+import org.acegisecurity.Authentication;
+import org.jvnet.localizer.Localizable;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.ProtectedExternally;
+import org.kohsuke.stapler.BindInterceptor;
+import org.kohsuke.stapler.Stapler;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
+
 import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
+
 import hudson.Extension;
 import hudson.ExtensionPoint;
 import hudson.FilePath;
@@ -50,29 +73,9 @@ import hudson.util.DescribableList;
 import hudson.util.EnumConverter;
 import hudson.util.TagCloud;
 import hudson.util.TagCloud.WeightFunction;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.logging.Logger;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import jenkins.model.Jenkins;
 import jenkins.util.SystemProperties;
-import jenkins.util.io.OnMaster;
 import net.sf.json.JSONObject;
-import org.acegisecurity.Authentication;
-import org.jvnet.localizer.Localizable;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.ProtectedExternally;
-import org.kohsuke.stapler.BindInterceptor;
-import org.kohsuke.stapler.Stapler;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.export.Exported;
-import org.kohsuke.stapler.export.ExportedBean;
 
 /**
  * Base type of Jenkins agents (although in practice, you probably extend {@link Slave} to define a new agent type).
@@ -93,7 +96,7 @@ import org.kohsuke.stapler.export.ExportedBean;
  * @see Computer
  */
 @ExportedBean
-public abstract class Node extends AbstractModelObject implements ReconfigurableDescribable<Node>, ExtensionPoint, AccessControlled, OnMaster, Saveable {
+public abstract class Node extends AbstractModelObject implements ReconfigurableDescribable<Node>, ExtensionPoint, AccessControlled, Saveable {
 
     private static final Logger LOGGER = Logger.getLogger(Node.class.getName());
 
