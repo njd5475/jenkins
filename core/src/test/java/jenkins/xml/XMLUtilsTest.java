@@ -24,25 +24,26 @@
 
 package jenkins.xml;
 
-import jenkins.util.xml.XMLUtils;
-
-import org.junit.Assert;
-import org.junit.Test;
+import static org.hamcrest.core.StringContains.containsString;
+import static org.junit.Assert.assertThat;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
+
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
 
-import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.assertThat;
+import org.junit.Assert;
+import org.junit.Test;
 import org.jvnet.hudson.test.Issue;
 import org.xml.sax.SAXException;
+
+import jenkins.util.xml.XMLUtils;
 
 public class XMLUtilsTest {
 

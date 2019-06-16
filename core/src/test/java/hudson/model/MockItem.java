@@ -23,10 +23,10 @@
  */
 package hudson.model;
 
-import hudson.model.queue.CauseOfBlockage;
-
 import java.util.Collections;
 import java.util.List;
+
+import hudson.model.queue.CauseOfBlockage;
 
 /**
  * @author <a href="mailto:tom.fennelly@gmail.com">tom.fennelly@gmail.com</a>

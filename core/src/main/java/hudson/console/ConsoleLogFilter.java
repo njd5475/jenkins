@@ -24,6 +24,12 @@
 
 package hudson.console;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.Serializable;
+
+import javax.annotation.Nonnull;
+
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.Util;
@@ -32,12 +38,6 @@ import hudson.model.Computer;
 import hudson.model.Run;
 import hudson.tasks.BuildWrapper;
 import hudson.util.ArgumentListBuilder;
-
-import javax.annotation.Nonnull;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.Serializable;
-import jenkins.util.JenkinsJVM;
 
 /**
  * A hook to allow filtering of information that is written to the console log.

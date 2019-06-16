@@ -25,19 +25,6 @@ package hudson.slaves;
 
 import static org.junit.Assert.assertEquals;
 
-import hudson.remoting.Callable;
-import jenkins.model.Jenkins;
-import hudson.model.Node;
-import hudson.model.TaskListener;
-import hudson.model.Computer;
-import hudson.model.TopLevelItem;
-import hudson.XmlFile;
-import hudson.Launcher;
-import hudson.FilePath;
-import hudson.model.labels.LabelAtom;
-import hudson.util.ClockDifference;
-import hudson.util.DescribableList;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
@@ -45,6 +32,19 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
+
+import hudson.FilePath;
+import hudson.Launcher;
+import hudson.XmlFile;
+import hudson.model.Computer;
+import hudson.model.Node;
+import hudson.model.TaskListener;
+import hudson.model.TopLevelItem;
+import hudson.model.labels.LabelAtom;
+import hudson.remoting.Callable;
+import hudson.util.ClockDifference;
+import hudson.util.DescribableList;
+import jenkins.model.Jenkins;
 
 /**
  * @author Kohsuke Kawaguchi

@@ -28,7 +28,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
-import hudson.model.Run;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.jvnet.hudson.test.Issue;
@@ -36,6 +35,8 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import hudson.model.Run;
 
 /**
  * @author Ignacio Albors

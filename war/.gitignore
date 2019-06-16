@@ -7,3 +7,5 @@ node_modules/
 
 # Generated JavaScript Bundles
 jsbundles
+/.apt_generated/
+/.apt_generated_tests/

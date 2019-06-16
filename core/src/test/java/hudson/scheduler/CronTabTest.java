@@ -23,21 +23,23 @@
  */
 package hudson.scheduler;
 
-import antlr.ANTLRException;
+import static java.util.Calendar.MONDAY;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
 import org.jvnet.hudson.test.Issue;
 import org.jvnet.hudson.test.Url;
 
-import static java.util.Calendar.MONDAY;
-import java.util.List;
+import antlr.ANTLRException;
 
 /**
  * @author Kohsuke Kawaguchi

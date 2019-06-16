@@ -23,24 +23,23 @@
  */
 package hudson.model;
 
-import hudson.model.MultiStageTimeSeries.TimeScale;
-import hudson.model.queue.SubTask;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
-import org.apache.commons.io.IOUtils;
+
+import javax.imageio.ImageIO;
+
 import org.jfree.chart.JFreeChart;
 import org.junit.Test;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import hudson.model.MultiStageTimeSeries.TimeScale;
+import hudson.model.queue.SubTask;
 
 /**
  * @author Kohsuke Kawaguchi

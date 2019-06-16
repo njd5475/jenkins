@@ -3,12 +3,6 @@ package hudson.model;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-import hudson.model.Descriptor.FormException;
-import hudson.search.SearchIndex;
-import hudson.search.SearchIndexBuilder;
-import hudson.search.SearchItem;
-import hudson.views.ViewsTabBar;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +18,12 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
+
+import hudson.model.Descriptor.FormException;
+import hudson.search.SearchIndex;
+import hudson.search.SearchIndexBuilder;
+import hudson.search.SearchItem;
+import hudson.views.ViewsTabBar;
 
 public class ViewTest {
 

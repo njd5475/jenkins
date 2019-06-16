@@ -24,17 +24,19 @@
 
 package hudson.os;
 
-import hudson.Functions;
-import org.apache.commons.io.IOUtils;
+import static org.junit.Assert.assertTrue;
 
-import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertTrue;
+import javax.annotation.Nonnull;
+
+import org.apache.commons.io.IOUtils;
+
+import hudson.Functions;
 
 // adapted from:
 // https://blogs.msdn.microsoft.com/twistylittlepassagesallalike/2011/04/23/everyone-quotes-command-line-arguments-the-wrong-way/

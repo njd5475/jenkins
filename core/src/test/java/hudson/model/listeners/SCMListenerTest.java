@@ -24,6 +24,12 @@
 
 package hudson.model.listeners;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+import org.jvnet.hudson.test.Issue;
+import org.mockito.Mockito;
+
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 import hudson.model.BuildListener;
@@ -31,10 +37,6 @@ import hudson.model.Run;
 import hudson.model.TaskListener;
 import hudson.scm.ChangeLogSet;
 import hudson.scm.SCM;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.jvnet.hudson.test.Issue;
-import org.mockito.Mockito;
 
 @SuppressWarnings("deprecation")
 public class SCMListenerTest {

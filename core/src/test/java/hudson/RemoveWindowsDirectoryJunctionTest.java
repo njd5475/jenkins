@@ -9,13 +9,14 @@ import static org.junit.Assume.assumeTrue;
 
 import java.io.File;
 
-import hudson.os.WindowsUtil;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.jvnet.hudson.test.For;
 import org.jvnet.hudson.test.Issue;
+
+import hudson.os.WindowsUtil;
 
 @For(Util.class)
 // https://superuser.com/q/343074

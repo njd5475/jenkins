@@ -23,11 +23,14 @@
  */
 package hudson.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 /**

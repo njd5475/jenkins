@@ -23,14 +23,15 @@
  */
 package hudson.triggers;
 
-import antlr.ANTLRException;
-import hudson.scheduler.CronTabList;
-import hudson.scheduler.Hash;
+import java.util.TimeZone;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.jvnet.hudson.test.Issue;
 
-import java.util.TimeZone;
+import antlr.ANTLRException;
+import hudson.scheduler.CronTabList;
+import hudson.scheduler.Hash;
 
 /**
  * @author Kanstantsin Shautsou

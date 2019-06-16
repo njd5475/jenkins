@@ -1,8 +1,9 @@
 package jenkins;
 
-import net.sf.json.JSONObject;
 import org.junit.Test;
 import org.jvnet.hudson.test.Issue;
+
+import net.sf.json.JSONObject;
 
 /**
  * @author Kohsuke Kawaguchi

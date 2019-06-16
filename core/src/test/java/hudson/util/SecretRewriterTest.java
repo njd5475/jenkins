@@ -1,22 +1,27 @@
 package hudson.util;
 
-import hudson.FilePath;
-import hudson.Functions;
-import hudson.model.TaskListener;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeFalse;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 import java.util.regex.Pattern;
+
 import javax.crypto.Cipher;
-import jenkins.security.ConfidentialStoreRule;
+
 import org.apache.commons.io.FileUtils;
-import static org.junit.Assert.*;
-import static org.junit.Assume.*;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
+import hudson.FilePath;
+import hudson.Functions;
+import hudson.model.TaskListener;
+import jenkins.security.ConfidentialStoreRule;
 
 public class SecretRewriterTest {
 

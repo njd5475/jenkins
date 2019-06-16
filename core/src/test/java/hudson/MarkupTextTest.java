@@ -25,11 +25,12 @@ package hudson;
 
 import static org.junit.Assert.assertEquals;
 
-import hudson.MarkupText.SubText;
-import org.junit.Test;
-
 import java.util.List;
 import java.util.regex.Pattern;
+
+import org.junit.Test;
+
+import hudson.MarkupText.SubText;
 
 /**
  * @author Kohsuke Kawaguchi

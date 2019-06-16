@@ -1,9 +1,10 @@
 package hudson.util;
 
-import hudson.Util;
+import java.security.SecureRandom;
+
 import org.junit.rules.ExternalResource;
 
-import java.security.SecureRandom;
+import hudson.Util;
 
 /**
  * JUnit rule that cleans that sets a temporary {@link Secret#SECRET} value.

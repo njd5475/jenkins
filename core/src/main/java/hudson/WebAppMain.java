@@ -23,33 +23,23 @@
  */
 package hudson;
 
-import hudson.security.ACLContext;
+import static java.util.logging.Level.SEVERE;
+import static java.util.logging.Level.WARNING;
+
+import java.io.File;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.StandardOpenOption;
-import jenkins.util.SystemProperties;
-import com.thoughtworks.xstream.converters.reflection.PureJavaReflectionProvider;
-import com.thoughtworks.xstream.core.JVM;
-import hudson.model.Hudson;
-import hudson.security.ACL;
-import hudson.util.BootFailure;
-import jenkins.model.Jenkins;
-import hudson.util.HudsonIsLoading;
-import hudson.util.IncompatibleServletVersionDetected;
-import hudson.util.IncompatibleVMDetected;
-import hudson.util.InsufficientPermissionDetected;
-import hudson.util.NoHomeDir;
-import hudson.util.RingBufferLogHandler;
-import hudson.util.NoTempDir;
-import hudson.util.IncompatibleAntVersionDetected;
-import hudson.util.HudsonFailedToLoad;
-import hudson.util.ChartUtil;
-import hudson.util.AWTProblem;
-import jenkins.util.JenkinsJVM;
-import org.jvnet.localizer.LocaleProvider;
-import org.kohsuke.stapler.jelly.JellyFacet;
-import org.apache.tools.ant.types.FileSet;
+import java.security.Security;
+import java.util.Date;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -60,18 +50,31 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.ServletResponse;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.Date;
-import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.security.Security;
-import java.util.logging.LogRecord;
 
-import static java.util.logging.Level.*;
+import org.apache.tools.ant.types.FileSet;
+import org.jvnet.localizer.LocaleProvider;
+import org.kohsuke.stapler.jelly.JellyFacet;
+
+import com.thoughtworks.xstream.converters.reflection.PureJavaReflectionProvider;
+import com.thoughtworks.xstream.core.JVM;
+
+import hudson.model.Hudson;
+import hudson.security.ACL;
+import hudson.security.ACLContext;
+import hudson.util.AWTProblem;
+import hudson.util.BootFailure;
+import hudson.util.ChartUtil;
+import hudson.util.HudsonFailedToLoad;
+import hudson.util.HudsonIsLoading;
+import hudson.util.IncompatibleAntVersionDetected;
+import hudson.util.IncompatibleServletVersionDetected;
+import hudson.util.IncompatibleVMDetected;
+import hudson.util.InsufficientPermissionDetected;
+import hudson.util.NoHomeDir;
+import hudson.util.NoTempDir;
+import hudson.util.RingBufferLogHandler;
+import jenkins.model.Jenkins;
+import jenkins.util.SystemProperties;
 
 /**
  * Entry point when Hudson is used as a webapp.
@@ -98,7 +101,6 @@ public class WebAppMain implements ServletContextListener {
      * Creates the sole instance of {@link jenkins.model.Jenkins} and register it to the {@link ServletContext}.
      */
     public void contextInitialized(ServletContextEvent event) {
-        JenkinsJVMAccess._setJenkinsJVM(true);
         final ServletContext context = event.getServletContext();
         File home=null;
         try {
@@ -392,18 +394,10 @@ public class WebAppMain implements ServletContextListener {
             // Logger is in the system classloader, so if we don't do this
             // the whole web app will never be undeployed.
             Logger.getLogger("").removeHandler(handler);
-        } finally {
-            JenkinsJVMAccess._setJenkinsJVM(false);
         }
     }
 
     private static final Logger LOGGER = Logger.getLogger(WebAppMain.class.getName());
-
-    private static final class JenkinsJVMAccess extends JenkinsJVM {
-        private static void _setJenkinsJVM(boolean jenkinsJVM) {
-            JenkinsJVM.setJenkinsJVM(jenkinsJVM);
-        }
-    }
 
     private static final String[] HOME_NAMES = {"JENKINS_HOME","HUDSON_HOME"};
 }

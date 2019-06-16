@@ -24,18 +24,26 @@
 
 package hudson.util;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Base64;
 import java.util.Random;
 import java.util.regex.Pattern;
+
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
-import jenkins.model.Jenkins;
-import jenkins.security.ConfidentialStoreRule;
+
 import org.apache.commons.lang.RandomStringUtils;
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.Test;
+
+import jenkins.model.Jenkins;
+import jenkins.security.ConfidentialStoreRule;
 
 public class SecretTest {
 

@@ -1,14 +1,21 @@
 package jenkins.security;
 
-import hudson.FilePath;
-import hudson.Functions;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
+
 import org.apache.commons.io.FileUtils;
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
+import hudson.FilePath;
+import hudson.Functions;
 
 public class DefaultConfidentialStoreTest {
 

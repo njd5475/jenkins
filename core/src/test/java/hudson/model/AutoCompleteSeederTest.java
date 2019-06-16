@@ -24,14 +24,17 @@
 
 package hudson.model;
 
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.Collection;
-import org.junit.runners.Parameterized;
-import org.junit.runner.RunWith;
-import hudson.model.AbstractProject.AbstractProjectDescriptor.AutoCompleteSeeder;
+import java.util.List;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+import hudson.model.AbstractProject.AbstractProjectDescriptor.AutoCompleteSeeder;
 
 /**
  *

@@ -1,7 +1,7 @@
 package hudson.util;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static junit.framework.TestCase.fail;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -10,8 +10,8 @@ import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static junit.framework.TestCase.fail;
-import static org.junit.Assert.assertTrue;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class RetrierTest {
     private static Logger LOG = Logger.getLogger(RetrierTest.class.getName());

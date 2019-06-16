@@ -24,10 +24,12 @@
 
 package jenkins.model;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
-import org.junit.Test;
-import static org.junit.Assert.*;
+
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.jvnet.hudson.test.Issue;
 

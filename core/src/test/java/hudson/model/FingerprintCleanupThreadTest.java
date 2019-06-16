@@ -23,10 +23,10 @@
  */
 package hudson.model;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -35,9 +35,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import javax.annotation.Nonnull;
+
+import org.junit.Test;
 
 public class FingerprintCleanupThreadTest {
 

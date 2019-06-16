@@ -1,8 +1,9 @@
 package hudson.os;
 
-import hudson.util.StreamTaskListener;
 import java.io.File;
 import java.nio.file.Files;
+
+import hudson.util.StreamTaskListener;
 import jenkins.security.MasterToSlaveCallable;
 
 /**

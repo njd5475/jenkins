@@ -23,17 +23,24 @@
  */
 package hudson.model;
 
-import hudson.Util;
-import hudson.model.Fingerprint.RangeSet;
-import java.io.File;
-import jenkins.model.FingerprintFacet;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.io.File;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
+import hudson.Util;
+import hudson.model.Fingerprint.RangeSet;
+import jenkins.model.FingerprintFacet;
 
 /**
  * @author Kohsuke Kawaguchi

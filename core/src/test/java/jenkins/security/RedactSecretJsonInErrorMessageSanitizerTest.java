@@ -23,12 +23,13 @@
  */
 package jenkins.security;
 
-import net.sf.json.JSONObject;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+
 import org.junit.Test;
 import org.jvnet.hudson.test.Issue;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
+import net.sf.json.JSONObject;
 
 @Issue("SECURITY-765")
 public class RedactSecretJsonInErrorMessageSanitizerTest {

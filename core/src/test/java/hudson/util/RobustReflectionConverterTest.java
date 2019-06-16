@@ -23,10 +23,9 @@
  */
 package hudson.util;
 
-import static org.junit.Assert.*;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.converters.ConversionException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -34,6 +33,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.junit.Test;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.converters.ConversionException;
 
 /**
  * @author Kohsuke Kawaguchi

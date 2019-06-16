@@ -25,9 +25,9 @@ package hudson;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
-
 import java.net.Proxy;
+
+import org.junit.Test;
 
 public class ProxyConfigurationTest {
 

@@ -1,11 +1,13 @@
 package hudson.slaves;
 
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 
-import com.google.common.testing.EqualsTester;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,10 +17,10 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import hudson.remoting.Channel;
 
-import java.util.Map;
-import java.util.HashMap;
+import com.google.common.testing.EqualsTester;
+
+import hudson.remoting.Channel;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ ChannelPinger.class })

@@ -29,11 +29,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
-import hudson.model.ViewGroup;
-import hudson.model.View;
-import hudson.security.ACL;
-import hudson.security.Permission;
-import jenkins.model.Jenkins;
 
 import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.Authentication;
@@ -49,6 +44,12 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import hudson.model.View;
+import hudson.model.ViewGroup;
+import hudson.security.ACL;
+import hudson.security.Permission;
+import jenkins.model.Jenkins;
 
 @PrepareForTest(Jenkins.class)
 @RunWith(PowerMockRunner.class)

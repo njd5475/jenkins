@@ -24,14 +24,19 @@
 
 package hudson.logging;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.jvnet.hudson.test.Issue;
 
 public class LogRecorderTest {

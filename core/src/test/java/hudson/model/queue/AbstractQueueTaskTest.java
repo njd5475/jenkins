@@ -24,11 +24,15 @@
 
 package hudson.model.queue;
 
-import hudson.model.Queue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+
 import java.io.IOException;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.jvnet.hudson.test.Issue;
+
+import hudson.model.Queue;
 
 @SuppressWarnings("deprecation")
 public class AbstractQueueTaskTest {

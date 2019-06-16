@@ -23,13 +23,13 @@
  */
 package hudson;
 
-import hudson.model.Action;
-import hudson.model.Computer;
-import hudson.model.Item;
-import hudson.model.ItemGroup;
-import hudson.model.TopLevelItem;
-import hudson.model.View;
-import hudson.model.ViewGroup;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.when;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
@@ -40,9 +40,8 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import jenkins.model.Jenkins;
+
 import org.apache.commons.io.IOUtils;
-import static org.junit.Assert.*;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,13 +49,18 @@ import org.jvnet.hudson.test.Issue;
 import org.kohsuke.stapler.Ancestor;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
-
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import hudson.model.Action;
+import hudson.model.Computer;
+import hudson.model.Item;
+import hudson.model.ItemGroup;
+import hudson.model.TopLevelItem;
+import hudson.model.View;
+import hudson.model.ViewGroup;
+import jenkins.model.Jenkins;
 
 @RunWith(PowerMockRunner.class)
 @PowerMockIgnore({"com.sun.org.apache.xerces.*", "javax.xml.*", "org.xml.*"})

@@ -24,12 +24,14 @@
 
 package hudson.model;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
-
 import java.util.Collections;
 import java.util.List;
 

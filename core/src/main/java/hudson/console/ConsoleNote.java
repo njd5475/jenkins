@@ -23,19 +23,6 @@
  */
 package hudson.console;
 
-import hudson.ExtensionPoint;
-import hudson.Functions;
-import hudson.MarkupText;
-import hudson.model.Describable;
-import jenkins.model.Jenkins;
-import hudson.model.Run;
-import hudson.remoting.ObjectInputStreamEx;
-import hudson.util.IOUtils;
-import hudson.util.UnbufferedBase64InputStream;
-import org.apache.commons.codec.binary.Base64OutputStream;
-import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.apache.tools.ant.BuildListener;
-
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -49,15 +36,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import com.jcraft.jzlib.GZIPInputStream;
-import com.jcraft.jzlib.GZIPOutputStream;
-import hudson.remoting.ClassFilter;
-import jenkins.security.HMACConfidentialKey;
-import jenkins.util.JenkinsJVM;
-import jenkins.util.SystemProperties;
+
+import org.apache.commons.codec.binary.Base64OutputStream;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.apache.tools.ant.BuildListener;
 import org.jenkinsci.remoting.util.AnonymousClassWarnings;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import com.jcraft.jzlib.GZIPInputStream;
+import com.jcraft.jzlib.GZIPOutputStream;
+
+import hudson.ExtensionPoint;
+import hudson.Functions;
+import hudson.MarkupText;
+import hudson.model.Describable;
+import hudson.model.Run;
+import hudson.remoting.ClassFilter;
+import hudson.remoting.ObjectInputStreamEx;
+import hudson.util.IOUtils;
+import hudson.util.UnbufferedBase64InputStream;
+import jenkins.model.Jenkins;
+import jenkins.security.HMACConfidentialKey;
+import jenkins.util.SystemProperties;
 
 /**
  * Data that hangs off from a console output.
@@ -197,7 +198,7 @@ public abstract class ConsoleNote<T> implements Serializable, Describable<Consol
     private ByteArrayOutputStream encodeToBytes() throws IOException {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         try (OutputStream gzos = new GZIPOutputStream(buf);
-             ObjectOutputStream oos = JenkinsJVM.isJenkinsJVM() ? AnonymousClassWarnings.checkingObjectOutputStream(gzos) : new ObjectOutputStream(gzos)) {
+             ObjectOutputStream oos = AnonymousClassWarnings.checkingObjectOutputStream(gzos)) {
             oos.writeObject(this);
         }
 
@@ -205,11 +206,9 @@ public abstract class ConsoleNote<T> implements Serializable, Describable<Consol
 
         try (DataOutputStream dos = new DataOutputStream(new Base64OutputStream(buf2, true, -1, null))) {
             buf2.write(PREAMBLE);
-            if (JenkinsJVM.isJenkinsJVM()) { // else we are in another JVM and cannot sign; result will be ignored unless INSECURE
-                byte[] mac = MAC.mac(buf.toByteArray());
-                dos.writeInt(-mac.length); // negative to differentiate from older form
-                dos.write(mac);
-            }
+            byte[] mac = MAC.mac(buf.toByteArray());
+            dos.writeInt(-mac.length); // negative to differentiate from older form
+            dos.write(mac);
             dos.writeInt(buf.size());
             buf.writeTo(dos);
         }

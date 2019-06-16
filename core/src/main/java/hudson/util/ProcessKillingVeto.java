@@ -23,17 +23,14 @@
  */
 package hudson.util;
 
-import hudson.ExtensionList;
-import hudson.ExtensionPoint;
-import hudson.util.ProcessTreeRemoting.IOSProcess;
-
-import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
-import jenkins.util.JenkinsJVM;
+import hudson.ExtensionList;
+import hudson.ExtensionPoint;
+import hudson.util.ProcessTreeRemoting.IOSProcess;
 
 /**
  * Allows extensions to veto killing processes. If at least one extension vetoes
@@ -75,10 +72,7 @@ public abstract class ProcessKillingVeto implements ExtensionPoint {
      *         list if Jenkins is not available, never null.
      */
     public static List<ProcessKillingVeto> all() {
-        if (JenkinsJVM.isJenkinsJVM()) {
-            return _all();
-        }
-        return Collections.emptyList();
+        return _all();
     }
 
     /**

@@ -23,16 +23,6 @@
  */
 package hudson;
 
-import com.google.common.collect.Lists;
-import com.thoughtworks.xstream.XStream;
-import hudson.model.AbstractDescribableImpl;
-import hudson.model.Descriptor;
-import hudson.model.Saveable;
-import hudson.model.listeners.SaveableListener;
-import hudson.util.FormValidation;
-import hudson.util.Scrambler;
-import hudson.util.Secret;
-import hudson.util.XStream2;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,11 +39,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
+
 import javax.annotation.CheckForNull;
-import jenkins.model.Jenkins;
-import jenkins.security.stapler.StaplerAccessibleType;
-import jenkins.util.JenkinsJVM;
-import jenkins.util.SystemProperties;
+
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NTCredentials;
@@ -65,6 +53,21 @@ import org.jvnet.robust_http_client.RetryableHttpStream;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.google.common.collect.Lists;
+import com.thoughtworks.xstream.XStream;
+
+import hudson.model.AbstractDescribableImpl;
+import hudson.model.Descriptor;
+import hudson.model.Saveable;
+import hudson.model.listeners.SaveableListener;
+import hudson.util.FormValidation;
+import hudson.util.Scrambler;
+import hudson.util.Secret;
+import hudson.util.XStream2;
+import jenkins.model.Jenkins;
+import jenkins.security.stapler.StaplerAccessibleType;
+import jenkins.util.SystemProperties;
 
 /**
  * HTTP proxy configuration.
@@ -269,9 +272,7 @@ public final class ProxyConfiguration extends AbstractDescribableImpl<ProxyConfi
             con.setConnectTimeout(DEFAULT_CONNECT_TIMEOUT_MILLIS);
         }
         
-        if (JenkinsJVM.isJenkinsJVM()) { // this code may run on a slave
-            decorate(con);
-        }
+        decorate(con);
 
         return con;
     }
@@ -322,15 +323,11 @@ public final class ProxyConfiguration extends AbstractDescribableImpl<ProxyConfi
 
     @CheckForNull
     private static ProxyConfiguration get() {
-        if (JenkinsJVM.isJenkinsJVM()) {
-            return _get();
-        }
-        return null;
+      return _get();  
     }
 
     @CheckForNull
     private static ProxyConfiguration _get() {
-        JenkinsJVM.checkJenkinsJVM();
         // this code could be called between the JVM flag being set and theInstance initialized
         Jenkins jenkins = Jenkins.getInstance();
         return jenkins == null ? null : jenkins.proxy;

@@ -24,11 +24,11 @@
 package hudson.console;
 
 import static org.junit.Assert.assertEquals;
-import hudson.MarkupText;
 
 import org.junit.Test;
-
 import org.jvnet.hudson.test.Issue;
+
+import hudson.MarkupText;
 
 /**
  * @author Alan Harder

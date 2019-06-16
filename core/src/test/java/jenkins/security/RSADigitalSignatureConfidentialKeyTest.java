@@ -23,11 +23,14 @@
  */
 package jenkins.security;
 
-import hudson.remoting.Base64;
+import static org.junit.Assert.assertTrue;
+
 import java.security.Signature;
-import static org.junit.Assert.*;
+
 import org.junit.Rule;
 import org.junit.Test;
+
+import hudson.remoting.Base64;
 
 public class RSADigitalSignatureConfidentialKeyTest {
 

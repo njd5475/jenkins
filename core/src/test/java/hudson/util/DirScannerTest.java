@@ -23,13 +23,17 @@
  */
 package hudson.util;
 
-import hudson.FilePath;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.IOException;
-import static org.junit.Assert.*;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
+import hudson.FilePath;
 
 /**
  * @author Christoph Thelen

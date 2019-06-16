@@ -24,22 +24,25 @@
 
 package hudson;
 
-import hudson.model.StreamBuildListener;
-import hudson.model.TaskListener;
-import hudson.util.ProcessTree;
-import hudson.util.StreamTaskListener;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 
-import jenkins.security.MasterToSlaveCallable;
 import org.apache.commons.io.FileUtils;
-import static org.junit.Assert.*;
-
 import org.junit.Assume;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.jvnet.hudson.test.Issue;
+
+import hudson.model.StreamBuildListener;
+import hudson.model.TaskListener;
+import hudson.util.ProcessTree;
+import hudson.util.StreamTaskListener;
+import jenkins.security.MasterToSlaveCallable;
 
 public class LauncherTest {
 

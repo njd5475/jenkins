@@ -1,17 +1,18 @@
 package jenkins.plugins;
 
-import hudson.util.VersionNumber;
-import jenkins.util.java.JavaUtils;
-import org.apache.commons.io.IOUtils;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.apache.commons.io.IOUtils;
+import org.junit.Test;
+
+import hudson.util.VersionNumber;
+import jenkins.util.java.JavaUtils;
 
 public class DetachedPluginsUtilTest {
     @Test

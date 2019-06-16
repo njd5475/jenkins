@@ -24,15 +24,13 @@
 package hudson.util;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.thoughtworks.xstream.XStreamException;
-import com.thoughtworks.xstream.io.xml.KXml2Driver;
-import com.thoughtworks.xstream.security.ForbiddenClassException;
-import hudson.model.Result;
-import hudson.model.Run;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,9 +39,18 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jenkins.model.Jenkins;
+
 import org.junit.Test;
 import org.jvnet.hudson.test.Issue;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.thoughtworks.xstream.XStreamException;
+import com.thoughtworks.xstream.security.ForbiddenClassException;
+
+import hudson.model.Result;
+import hudson.model.Run;
+import jenkins.model.Jenkins;
 
 /**
  * Tests for XML serialization of java objects.

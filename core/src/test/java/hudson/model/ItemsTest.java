@@ -1,12 +1,12 @@
 package hudson.model;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * @author: <a href="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>

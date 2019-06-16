@@ -23,6 +23,21 @@
  */
 package hudson.util.io;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assume.assumeTrue;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.util.Arrays;
+
+import org.junit.Assume;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+import org.jvnet.hudson.test.Issue;
+
 import hudson.FilePath;
 import hudson.Functions;
 import hudson.Launcher.LocalLauncher;
@@ -30,19 +45,6 @@ import hudson.Util;
 import hudson.model.TaskListener;
 import hudson.util.NullStream;
 import hudson.util.StreamTaskListener;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.util.Arrays;
-import static org.junit.Assert.*;
-import org.junit.Assume;
-import static org.junit.Assume.*;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-import org.jvnet.hudson.test.Issue;
 
 public class TarArchiverTest {
 

@@ -3,13 +3,14 @@ package hudson.util;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import hudson.util.CyclicGraphDetector.CycleDetectedException;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
+import org.junit.Test;
+
+import hudson.util.CyclicGraphDetector.CycleDetectedException;
 
 /**
  * @author Kohsuke Kawaguchi

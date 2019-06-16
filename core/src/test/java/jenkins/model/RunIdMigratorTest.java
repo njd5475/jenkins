@@ -24,9 +24,12 @@
 
 package jenkins.model;
 
-import hudson.Functions;
-import hudson.Util;
-import hudson.util.StreamTaskListener;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -36,15 +39,17 @@ import java.util.TreeMap;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
-import org.apache.commons.io.FileUtils;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.junit.Assume.assumeFalse;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
+import hudson.Functions;
+import hudson.Util;
+import hudson.util.StreamTaskListener;
 
 public class RunIdMigratorTest {
 

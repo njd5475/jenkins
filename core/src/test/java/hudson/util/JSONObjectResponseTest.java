@@ -23,12 +23,13 @@
  */
 package hudson.util;
 
-import net.sf.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import net.sf.json.JSONObject;
 
 /**
  * @author <a href="mailto:tom.fennelly@gmail.com">tom.fennelly@gmail.com</a>

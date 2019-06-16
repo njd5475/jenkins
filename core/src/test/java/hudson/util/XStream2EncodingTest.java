@@ -24,14 +24,18 @@
 
 package hudson.util;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assume.assumeNoException;
+import static org.junit.Assume.assumeThat;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
-import static org.hamcrest.CoreMatchers.*;
+
 import org.junit.After;
-import static org.junit.Assert.*;
-import static org.junit.Assume.*;
 import org.junit.Before;
 import org.junit.Test;
 

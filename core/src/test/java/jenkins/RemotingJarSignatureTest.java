@@ -2,16 +2,17 @@ package jenkins;
 
 import static org.junit.Assert.fail;
 
-import hudson.remoting.Channel;
-import hudson.remoting.Which;
-import org.apache.commons.io.output.NullOutputStream;
-import org.junit.Test;
-
 import java.io.File;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.output.NullOutputStream;
+import org.junit.Test;
+
+import hudson.remoting.Channel;
+import hudson.remoting.Which;
 
 /**
  * @author Kohsuke Kawaguchi

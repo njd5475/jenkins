@@ -3,10 +3,6 @@ package jenkins.model;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
-import hudson.EnvVars;
-import hudson.model.Computer;
-import hudson.model.Job;
-import hudson.model.TaskListener;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +17,11 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import hudson.EnvVars;
+import hudson.model.Computer;
+import hudson.model.Job;
+import hudson.model.TaskListener;
 
 @RunWith(PowerMockRunner.class)
 @PowerMockIgnore({"com.sun.org.apache.xerces.*", "javax.xml.*", "org.xml.*"})

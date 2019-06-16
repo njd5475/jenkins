@@ -23,14 +23,14 @@
  */
 package hudson;
 
-import hudson.util.VersionNumber;
-import jenkins.plugins.DetachedPluginsUtil;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.List;
-
-import static jenkins.plugins.DetachedPluginsUtil.DetachedPlugin;
+import hudson.util.VersionNumber;
+import jenkins.plugins.DetachedPluginsUtil;
+import jenkins.plugins.DetachedPluginsUtil.DetachedPlugin;
 
 /**
  * @author <a href="mailto:tom.fennelly@gmail.com">tom.fennelly@gmail.com</a>

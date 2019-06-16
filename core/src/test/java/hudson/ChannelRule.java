@@ -1,15 +1,17 @@
 package hudson;
 
 
-import hudson.remoting.Channel;
-import hudson.remoting.FastPipedInputStream;
-import hudson.remoting.FastPipedOutputStream;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
 import org.junit.rules.ExternalResource;
+
+import hudson.remoting.Channel;
+import hudson.remoting.FastPipedInputStream;
+import hudson.remoting.FastPipedOutputStream;
 
 /**
  * Test that uses a connected channel.

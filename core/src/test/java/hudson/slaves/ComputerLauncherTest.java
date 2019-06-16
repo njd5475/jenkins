@@ -24,6 +24,8 @@
 
 package hudson.slaves;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -32,7 +34,6 @@ import java.io.StringReader;
 
 import org.apache.commons.io.output.NullOutputStream;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class ComputerLauncherTest {
 

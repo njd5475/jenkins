@@ -1,18 +1,19 @@
 package hudson.model;
 
-import hudson.FilePath;
-import hudson.security.ACL;
-import jenkins.model.Jenkins;
-import org.acegisecurity.Authentication;
-import org.junit.Test;
-import org.jvnet.hudson.test.Issue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 import java.io.File;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import org.acegisecurity.Authentication;
+import org.junit.Test;
+import org.jvnet.hudson.test.Issue;
+
+import hudson.FilePath;
+import hudson.security.ACL;
+import jenkins.model.Jenkins;
 
 /**
  * @author Kohsuke Kawaguchi

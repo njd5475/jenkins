@@ -23,14 +23,14 @@
  */
 package jenkins.model.lazy;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.File;
-import static org.junit.Assert.*;
-
-import jenkins.model.lazy.AbstractLazyLoadRunMap.Direction;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -44,9 +44,15 @@ import java.util.concurrent.Future;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
-import jenkins.util.Timer;
+
+import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.Test;
 import org.jvnet.hudson.test.Issue;
+
+import jenkins.model.lazy.AbstractLazyLoadRunMap.Direction;
+import jenkins.util.Timer;
 
 /**
  * @author Kohsuke Kawaguchi
