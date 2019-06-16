@@ -106,17 +106,18 @@ public class WorkspaceSnapshotSCM extends SCM {
 
         PermalinkList permalinks = job.getPermalinks();
         Permalink p = permalinks.get(permalink);
-        if(p==null)
+        if(p==null) {
             throw new ResolvedFailedException(Messages.WorkspaceSnapshotSCM_NoSuchPermalink(permalink,jobName));
+        }
 
         AbstractBuild<?,?> b = (AbstractBuild<?,?>)p.resolve(job);
-        if(b==null)
+        if(b==null) {
             throw new ResolvedFailedException(Messages.WorkspaceSnapshotSCM_NoBuild(permalink,jobName));
-
+        }
         WorkspaceSnapshot snapshot = b.getAction(WorkspaceSnapshot.class);
-        if(snapshot==null)
+        if(snapshot==null) {
             throw new ResolvedFailedException(Messages.WorkspaceSnapshotSCM_NoWorkspace(jobName,permalink));
-
+        }
         return new Snapshot(snapshot,b);
     }
 

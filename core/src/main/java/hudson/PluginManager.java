@@ -886,15 +886,17 @@ public abstract class PluginManager extends AbstractModelObject implements OnMas
             if (p == null) {
                 p = strategy.createPluginWrapper(arc);
             }
-            if (p.supportsDynamicLoad()== YesNoMaybe.NO)
+            if (p.supportsDynamicLoad()== YesNoMaybe.NO) {
                 throw new RestartRequiredException(Messages._PluginManager_PluginDoesntSupportDynamicLoad_RestartRequired(sn));
+            }
 
             // there's no need to do cyclic dependency check, because we are deploying one at a time,
             // so existing plugins can't be depending on this newly deployed one.
 
             plugins.add(p);
-            if (p.isActive())
+            if (p.isActive()) {
                 activePlugins.add(p);
+            }
             synchronized (((UberClassLoader) uberClassLoader).loaded) {
                 ((UberClassLoader) uberClassLoader).loaded.clear();
             }

@@ -29,6 +29,7 @@ import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
 /**
+ * FIXME: Remove this class from existence and using instances to perform version evaluation.
  * Utility class for Java environment management and checks.
  * @author Oleg Nenashev
  */
