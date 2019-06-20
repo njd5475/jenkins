@@ -1800,13 +1800,8 @@ public class Functions {
     }
 
     public static Locale getCurrentLocale() {
-        Locale locale=null;
         StaplerRequest req = Stapler.getCurrentRequest();
-        if(req!=null)
-            locale = req.getLocale();
-        if(locale==null)
-            locale = Locale.getDefault();
-        return locale;
+        return req == null ? Locale.getDefault() : req.getLocale();
     }
 
     /**
