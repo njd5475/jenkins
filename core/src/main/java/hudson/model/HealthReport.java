@@ -23,20 +23,24 @@
  */
 package hudson.model;
 
-import com.thoughtworks.xstream.converters.UnmarshallingContext;
-import hudson.diagnosis.OldDataMonitor;
-import hudson.util.XStream2;
-import jenkins.model.Jenkins;
-import jenkins.util.NonLocalizable;
-import org.jvnet.localizer.Localizable;
-import org.kohsuke.stapler.export.Exported;
-import org.kohsuke.stapler.export.ExportedBean;
-
-import java.io.*;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
+
+import com.dj.runner.locales.Localizable;
+import com.dj.runner.locales.LocalizedString;
+import com.dj.runner.locales.VerbatimString;
+import com.thoughtworks.xstream.converters.UnmarshallingContext;
+
+import hudson.diagnosis.OldDataMonitor;
+import hudson.util.XStream2;
+import jenkins.model.Jenkins;
+import jenkins.util.NonLocalizable;
 
 /**
  * Represents health of something (typically project).
@@ -116,13 +120,13 @@ public class HealthReport implements Serializable, Comparable<HealthReport> {
      *                    <code>/images/32x32/</code> depending on the icon size selected by the user.
      *                    When calculating the url to display for absolute paths, the getIconUrl(String) method
      *                    will replace /32x32/ in the path with the appropriate size.
-     * @param description The health icon's tool-tip.
+     * @param healthreportEmptystring The health icon's tool-tip.
      * @deprecated since 2008-10-18.
      *     Use {@link #HealthReport(int, String, org.jvnet.localizer.Localizable)}
      */
     @Deprecated
-    public HealthReport(int score, String iconUrl, String description) {
-        this(score, iconUrl, new NonLocalizable(description));
+    public HealthReport(int score, String iconUrl, LocalizedString healthreportEmptystring) {
+        this(score, iconUrl, new VerbatimString(healthreportEmptystring.toLocale()));
     }
 
     /**
@@ -181,7 +185,7 @@ public class HealthReport implements Serializable, Comparable<HealthReport> {
      */
     @Deprecated
     public HealthReport(int score, String description) {
-        this(score, null, description);
+        this(score, null, new VerbatimString(description));
     }
 
     /**
@@ -198,7 +202,7 @@ public class HealthReport implements Serializable, Comparable<HealthReport> {
      * Create a new HealthReport.
      */
     public HealthReport() {
-        this(100, HEALTH_UNKNOWN_IMG, Messages._HealthReport_EmptyString());
+        this(100, HEALTH_UNKNOWN_IMG, LocalizedString._HealthReport_EmptyString);
     }
 
     /**

@@ -24,9 +24,12 @@
 
 package hudson.views;
 
-import hudson.Extension;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
 
 public class WeatherColumn extends ListViewColumn {
     @DataBoundConstructor
@@ -37,7 +40,7 @@ public class WeatherColumn extends ListViewColumn {
     public static class DescriptorImpl extends ListViewColumnDescriptor {
         @Override
         public String getDisplayName() {
-            return Messages.WeatherColumn_DisplayName();
+            return LocalizedString.WeatherColumn_DisplayName.toString();
         }
     }
 

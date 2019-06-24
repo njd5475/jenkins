@@ -1,10 +1,10 @@
 package hudson.model;
 
-import hudson.ExtensionList;
-import hudson.ExtensionPoint;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import hudson.ExtensionList;
+import hudson.ExtensionPoint;
 
 /**
  * Extension point for adding transient {@link Action}s to {@link View}s.

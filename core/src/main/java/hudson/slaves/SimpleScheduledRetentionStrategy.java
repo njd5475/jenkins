@@ -23,19 +23,9 @@
  */
 package hudson.slaves;
 
-import antlr.ANTLRException;
-import hudson.Extension;
 import static hudson.Util.fixNull;
-import hudson.model.Computer;
-import hudson.model.Descriptor;
-import hudson.model.Queue;
-import hudson.scheduler.CronTabList;
-import hudson.util.FormValidation;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.QueryParameter;
+import static java.util.logging.Level.INFO;
 
-import javax.annotation.concurrent.GuardedBy;
 import java.io.InvalidObjectException;
 import java.io.ObjectStreamException;
 import java.util.Calendar;
@@ -43,7 +33,22 @@ import java.util.GregorianCalendar;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static java.util.logging.Level.INFO;
+
+import javax.annotation.concurrent.GuardedBy;
+
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.QueryParameter;
+
+import com.dj.runner.locales.LocalizedString;
+
+import antlr.ANTLRException;
+import hudson.Extension;
+import hudson.model.Computer;
+import hudson.model.Descriptor;
+import hudson.model.Queue;
+import hudson.scheduler.CronTabList;
+import hudson.util.FormValidation;
 
 /**
  * {@link RetentionStrategy} that controls the agent based on a schedule.
@@ -208,7 +213,7 @@ public class SimpleScheduledRetentionStrategy extends RetentionStrategy<SlaveCom
                                 LOGGER.log(INFO, "Disconnecting computer {0} as it has finished its scheduled uptime",
                                         new Object[]{c.getName()});
                                 c.disconnect(OfflineCause
-                                        .create(Messages._SimpleScheduledRetentionStrategy_FinishedUpTime()));
+                                        .create(LocalizedString._SimpleScheduledRetentionStrategy_FinishedUpTime));
                             } else {
                                 c.setAcceptingTasks(false);
                             }
@@ -222,7 +227,7 @@ public class SimpleScheduledRetentionStrategy extends RetentionStrategy<SlaveCom
                                 LOGGER.log(INFO, "Disconnecting computer {0} as it has finished all jobs running when "
                                         + "it completed its scheduled uptime", new Object[]{c.getName()});
                                 c.disconnect(OfflineCause
-                                        .create(Messages._SimpleScheduledRetentionStrategy_FinishedUpTime()));
+                                        .create(LocalizedString._SimpleScheduledRetentionStrategy_FinishedUpTime));
                             }
                         }
                     });
@@ -231,7 +236,7 @@ public class SimpleScheduledRetentionStrategy extends RetentionStrategy<SlaveCom
                 // no need to get the queue lock as the user has selected the break builds option!
                 LOGGER.log(INFO, "Disconnecting computer {0} as it has finished its scheduled uptime",
                         new Object[]{c.getName()});
-                c.disconnect(OfflineCause.create(Messages._SimpleScheduledRetentionStrategy_FinishedUpTime()));
+                c.disconnect(OfflineCause.create(LocalizedString._SimpleScheduledRetentionStrategy_FinishedUpTime));
             }
         }
         return 1;
@@ -246,7 +251,7 @@ public class SimpleScheduledRetentionStrategy extends RetentionStrategy<SlaveCom
     @Extension @Symbol("schedule")
     public static class DescriptorImpl extends Descriptor<RetentionStrategy<?>> {
         public String getDisplayName() {
-            return Messages.SimpleScheduledRetentionStrategy_displayName();
+            return LocalizedString.SimpleScheduledRetentionStrategy_displayName.toString();
         }
 
         /**

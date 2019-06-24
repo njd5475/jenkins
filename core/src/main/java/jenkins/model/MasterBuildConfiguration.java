@@ -23,13 +23,16 @@
  */
 package jenkins.model;
 
-import hudson.Extension;
-import hudson.model.Node.Mode;
-import net.sf.json.JSONObject;
+import java.io.IOException;
+
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.StaplerRequest;
 
-import java.io.IOException;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.Node.Mode;
+import net.sf.json.JSONObject;
 
 /**
  * Adds the configuration regarding building on master.
@@ -53,7 +56,7 @@ public class MasterBuildConfiguration extends GlobalConfiguration {
             // for compatibility reasons, this value is stored in Jenkins
             String num = json.getString("numExecutors");
             if (!num.matches("\\d+")) {
-                throw new FormException(Messages.Hudson_Computer_IncorrectNumberOfExecutors(),"numExecutors");
+                throw new FormException(LocalizedString.Hudson_Computer_IncorrectNumberOfExecutors,"numExecutors");
             }
             
             j.setNumExecutors(json.getInt("numExecutors"));

@@ -23,10 +23,10 @@
  */
 package hudson.util;
 
+import java.util.Map;
+
 import hudson.EnvVars;
 import hudson.util.ProcessTree.OSProcess;
-
-import java.util.Map;
 
 /**
  * Kills a process tree to clean up the mess left by a build.

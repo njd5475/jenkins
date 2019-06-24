@@ -23,15 +23,18 @@
  */
 package hudson.node_monitors;
 
-import hudson.model.Computer;
-import hudson.remoting.Callable;
-import hudson.Extension;
-import jenkins.security.MasterToSlaveCallable;
-import net.sf.json.JSONObject;
+import java.io.IOException;
+
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.StaplerRequest;
 
-import java.io.IOException;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.Computer;
+import hudson.remoting.Callable;
+import jenkins.security.MasterToSlaveCallable;
+import net.sf.json.JSONObject;
 
 /**
  * Discovers the architecture of the system to display in the agent list page.
@@ -47,7 +50,7 @@ public class ArchitectureMonitor extends NodeMonitor {
         }
 
         public String getDisplayName() {
-            return Messages.ArchitectureMonitor_DisplayName();
+            return LocalizedString.ArchitectureMonitor_DisplayName.toString();
         }
 
         public NodeMonitor newInstance(StaplerRequest req, JSONObject formData) throws FormException {

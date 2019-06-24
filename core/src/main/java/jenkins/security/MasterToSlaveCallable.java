@@ -1,10 +1,11 @@
 package jenkins.security;
 
+import org.jenkinsci.remoting.RoleChecker;
+
 import hudson.remoting.Callable;
 import hudson.remoting.Channel;
 import hudson.remoting.ChannelClosedException;
 import jenkins.slaves.RemotingVersionInfo;
-import org.jenkinsci.remoting.RoleChecker;
 
 
 /**

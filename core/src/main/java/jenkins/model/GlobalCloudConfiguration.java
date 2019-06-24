@@ -1,12 +1,13 @@
 package jenkins.model;
 
-import hudson.Extension;
-import hudson.slaves.Cloud;
-import net.sf.json.JSONObject;
+import java.io.IOException;
+
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.StaplerRequest;
 
-import java.io.IOException;
+import hudson.Extension;
+import hudson.slaves.Cloud;
+import net.sf.json.JSONObject;
 
 /**
  * Adds the {@link Cloud} configuration to the system config page.

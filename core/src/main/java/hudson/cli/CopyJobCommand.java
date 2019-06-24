@@ -23,12 +23,15 @@
  */
 package hudson.cli;
 
-import jenkins.model.Jenkins;
-import hudson.model.TopLevelItem;
+import org.kohsuke.args4j.Argument;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.model.Item;
+import hudson.model.TopLevelItem;
+import jenkins.model.Jenkins;
 import jenkins.model.ModifiableTopLevelItemGroup;
-import org.kohsuke.args4j.Argument;
 
 
 /**
@@ -40,7 +43,7 @@ import org.kohsuke.args4j.Argument;
 public class CopyJobCommand extends CLICommand {
     @Override
     public String getShortDescription() {
-        return Messages.CopyJobCommand_ShortDescription();
+        return LocalizedString.CopyJobCommand_ShortDescription.toString();
     }
 
     @Argument(metaVar="SRC",usage="Name of the job to copy",required=true)

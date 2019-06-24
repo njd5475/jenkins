@@ -24,18 +24,21 @@
 package hudson.model;
 
 import java.util.logging.Logger;
-import jenkins.model.Jenkins;
-import net.sf.json.JSONObject;
 
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.export.Exported;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.util.EnumConverter;
 import hudson.util.RunList;
-import org.kohsuke.stapler.Stapler;
-import org.kohsuke.stapler.QueryParameter;
+import jenkins.model.Jenkins;
+import net.sf.json.JSONObject;
 
 public class RunParameterDefinition extends SimpleParameterDefinition {
 
@@ -140,7 +143,7 @@ public class RunParameterDefinition extends SimpleParameterDefinition {
     public static class DescriptorImpl extends ParameterDescriptor {
         @Override
         public String getDisplayName() {
-            return Messages.RunParameterDefinition_DisplayName();
+            return LocalizedString.RunParameterDefinition_DisplayName.toString();
         }
 
         @Override

@@ -23,17 +23,12 @@
  */
 package hudson.model;
 
-import hudson.util.FormValidation;
-import hudson.views.ListViewColumn;
-import hudson.views.ListViewColumnDescriptor;
-import hudson.views.ViewJobFilter;
-
 import java.util.Iterator;
 import java.util.List;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import jenkins.model.DirectlyModifiableTopLevelItemGroup;
-import jenkins.model.Jenkins;
+
 import org.apache.commons.lang.StringUtils;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.DoNotUse;
@@ -41,6 +36,15 @@ import org.kohsuke.stapler.AncestorInPath;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.util.FormValidation;
+import hudson.views.ListViewColumn;
+import hudson.views.ListViewColumnDescriptor;
+import hudson.views.ViewJobFilter;
+import jenkins.model.DirectlyModifiableTopLevelItemGroup;
+import jenkins.model.Jenkins;
 
 /**
  * {@link Descriptor} for {@link View}.
@@ -148,7 +152,7 @@ public abstract class ViewDescriptor extends Descriptor<View> {
                 continue;
             }
             if (StringUtils.equals(v.getDisplayName(), value)) {
-                return FormValidation.warning(Messages.View_DisplayNameNotUniqueWarning(value));
+                return FormValidation.warning(LocalizedString.View_DisplayNameNotUniqueWarning.toLocale(value));
             }
         }
         return FormValidation.ok();

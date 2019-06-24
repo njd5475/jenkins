@@ -23,10 +23,10 @@
  */
 package hudson.scheduler;
 
+import java.util.Calendar;
+
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
-
-import java.util.Calendar;
 
 /**
  * This exception is thrown when trying to determine the previous or next occurrence of a given date determines

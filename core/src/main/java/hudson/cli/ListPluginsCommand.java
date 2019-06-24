@@ -24,12 +24,16 @@
 package hudson.cli;
 
 import java.util.List;
+
+import org.kohsuke.args4j.Argument;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.PluginManager;
 import hudson.PluginWrapper;
 import hudson.model.UpdateSite;
 import jenkins.model.Jenkins;
-import org.kohsuke.args4j.Argument;
 
 /**
  * Outputs a list of installed plugins.
@@ -40,7 +44,7 @@ import org.kohsuke.args4j.Argument;
 public class ListPluginsCommand extends CLICommand {
     @Override
     public String getShortDescription() {
-        return Messages.ListPluginsCommand_ShortDescription();
+        return LocalizedString.ListPluginsCommand_ShortDescription.toString();
     }
 
     @Argument(metaVar = "NAME", usage = "Name of a specific plugin", required = false)

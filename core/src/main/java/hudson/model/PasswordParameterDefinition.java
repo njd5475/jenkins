@@ -23,15 +23,18 @@
  */
 package hudson.model;
 
-import net.sf.json.JSONObject;
 import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.DataBoundConstructor;
-import hudson.Extension;
-import hudson.util.Secret;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.DoNotUse;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.StaplerRequest;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.util.Secret;
+import net.sf.json.JSONObject;
 
 /**
  * Parameter whose value is a {@link Secret} and is hidden from the UI.
@@ -100,7 +103,7 @@ public class PasswordParameterDefinition extends SimpleParameterDefinition {
     public final static class ParameterDescriptorImpl extends ParameterDescriptor {
         @Override
         public String getDisplayName() {
-            return Messages.PasswordParameterDefinition_DisplayName();
+            return LocalizedString.PasswordParameterDefinition_DisplayName.toString();
         }
     }
 }

@@ -23,6 +23,24 @@
  */
 package hudson.scm;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.AbortException;
 import hudson.DescriptorExtensionList;
 import hudson.Extension;
@@ -48,21 +66,8 @@ import hudson.security.Permission;
 import hudson.security.PermissionGroup;
 import hudson.security.PermissionScope;
 import hudson.tasks.Builder;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import jenkins.model.Jenkins;
 import jenkins.util.SystemProperties;
-import org.kohsuke.stapler.export.Exported;
-import org.kohsuke.stapler.export.ExportedBean;
 
 /**
  * Captures the configuration information in it.
@@ -716,12 +721,12 @@ public abstract class SCM implements Describable<SCM>, ExtensionPoint {
         return s;
     }
 
-    public static final PermissionGroup PERMISSIONS = new PermissionGroup(SCM.class, Messages._SCM_Permissions_Title());
+    public static final PermissionGroup PERMISSIONS = new PermissionGroup(SCM.class, LocalizedString._SCM_Permissions_Title);
     /**
      * Permission to create new tags.
      * @since 1.171
      */
-    public static final Permission TAG = new Permission(PERMISSIONS,"Tag",Messages._SCM_TagPermission_Description(),Permission.CREATE, PermissionScope.ITEM);
+    public static final Permission TAG = new Permission(PERMISSIONS,"Tag",LocalizedString._SCM_TagPermission_Description,Permission.CREATE, PermissionScope.ITEM);
 
     /**
      * Returns all the registered {@link SCMDescriptor}s.

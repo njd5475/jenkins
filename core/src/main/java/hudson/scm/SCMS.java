@@ -23,16 +23,16 @@
  */
 package hudson.scm;
 
-import hudson.model.AbstractProject;
-import hudson.model.Descriptor.FormException;
-import hudson.util.DescriptorList;
-import hudson.Extension;
-
 import java.util.List;
+
+import javax.servlet.ServletException;
 
 import org.kohsuke.stapler.StaplerRequest;
 
-import javax.servlet.ServletException;
+import hudson.Extension;
+import hudson.model.AbstractProject;
+import hudson.model.Descriptor.FormException;
+import hudson.util.DescriptorList;
 
 /**
  * List of all installed SCMs.

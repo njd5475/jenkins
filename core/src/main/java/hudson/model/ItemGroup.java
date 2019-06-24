@@ -23,13 +23,16 @@
  */
 package hudson.model;
 
-import hudson.model.listeners.ItemListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
-import java.io.File;
 import java.util.List;
+
 import javax.annotation.CheckForNull;
+
 import org.acegisecurity.AccessDeniedException;
+
+import hudson.model.listeners.ItemListener;
 
 /**
  * Represents a grouping inherent to a kind of {@link Item}s.

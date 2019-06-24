@@ -23,15 +23,15 @@
  */
 package hudson.scm;
 
-import hudson.model.Descriptor;
-import hudson.model.Descriptor.FormException;
-import hudson.util.DescriptorList;
-import hudson.Extension;
-import org.kohsuke.stapler.StaplerRequest;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kohsuke.stapler.StaplerRequest;
+
+import hudson.Extension;
+import hudson.model.Descriptor;
+import hudson.model.Descriptor.FormException;
+import hudson.util.DescriptorList;
 import net.sf.json.JSONObject;
 
 /**

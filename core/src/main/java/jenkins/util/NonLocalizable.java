@@ -1,35 +1,43 @@
 package jenkins.util;
 
-import org.jvnet.localizer.Localizable;
-
 import java.util.Locale;
+
+import com.dj.runner.locales.Localizable;
 
 /**
  * {@link Localizable} implementation that actually doesn't localize.
  */
-public class NonLocalizable extends Localizable {
-    /**
-     * The string that we don't know how to localize
-     */
-    private final String nonLocalizable;
+public class NonLocalizable implements Localizable {
+  /**
+   * The string that we don't know how to localize
+   */
+  private final String nonLocalizable;
 
-    /**
-     * Creates a non-localizable string.
-     *
-     * @param nonLocalizable the string.
-     */
-    public NonLocalizable(String nonLocalizable) {
-        super(null, null);
-        this.nonLocalizable = nonLocalizable;
-    }
+  /**
+   * Creates a non-localizable string.
+   *
+   * @param nonLocalizable the string.
+   */
+  public NonLocalizable(String nonLocalizable) {
+    this.nonLocalizable = nonLocalizable;
+  }
 
-    @Override
-    public String toString(Locale locale) {
-        return nonLocalizable;
-    }
+  public String toString(Locale locale) {
+    return nonLocalizable;
+  }
 
-    @Override
-    public String toString() {
-        return nonLocalizable;
-    }
+  @Override
+  public String toString() {
+    return nonLocalizable;
+  }
+
+  @Override
+  public String toLocale(Object... args) {
+    return toString();
+  }
+
+  @Override
+  public String toLocale() {
+    return toString();
+  }
 }

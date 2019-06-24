@@ -33,6 +33,8 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import com.dj.runner.locales.LocalizedString;
+
 /**
  * Tests for {@link JenkinsLocationConfiguration}.
  * @author Oleg Nenashev
@@ -60,7 +62,7 @@ public class JenkinsLocationConfigurationTest {
         final String email2="test@bar.foo";
         
         // Assert the default value
-        assertEquals(Messages.Mailer_Address_Not_Configured(), config.getAdminAddress());
+        assertEquals(LocalizedString.Mailer_Address_Not_Configured, config.getAdminAddress());
         
         // Basic case
         config.setAdminAddress(email);
@@ -82,6 +84,6 @@ public class JenkinsLocationConfigurationTest {
         
         // Reset it
         config.setAdminAddress(null);
-        assertEquals(Messages.Mailer_Address_Not_Configured(), config.getAdminAddress());
+        assertEquals(LocalizedString.Mailer_Address_Not_Configured, config.getAdminAddress());
     }
 }

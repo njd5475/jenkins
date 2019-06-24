@@ -23,26 +23,19 @@
  */
 package hudson;
 
-import hudson.model.TaskListener;
-import jenkins.util.MemoryReductionUtil;
-import hudson.util.QuotedStringTokenizer;
-import hudson.util.VariableResolver;
-import jenkins.util.SystemProperties;
-
-import jenkins.util.io.PathRemover;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.output.NullOutputStream;
-import org.apache.commons.lang.time.FastDateFormat;
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.taskdefs.Copy;
-import org.apache.tools.ant.types.FileSet;
-
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.Writer;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.InetAddress;
@@ -75,7 +68,20 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.Properties;
+import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.SimpleTimeZone;
+import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
@@ -90,8 +96,29 @@ import javax.annotation.Nullable;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.output.NullOutputStream;
+import org.apache.commons.lang.time.FastDateFormat;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.taskdefs.Copy;
+import org.apache.tools.ant.types.FileSet;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.args4j.spi.Messages;
 import org.kohsuke.stapler.StaplerRequest;
+
+import com.dj.runner.locales.Localizable;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.model.TaskListener;
+import hudson.util.QuotedStringTokenizer;
+import hudson.util.VariableResolver;
+import jenkins.util.MemoryReductionUtil;
+import jenkins.util.SystemProperties;
+import jenkins.util.io.PathRemover;
 
 /**
  * Various utility methods that don't have more proper home.
@@ -709,23 +736,23 @@ public class Util {
         long millisecs = duration;
 
         if (years > 0)
-            return makeTimeSpanString(years, Messages.Util_year(years), months, Messages.Util_month(months));
+            return makeTimeSpanString(years, LocalizedString.Util_year.toLocale(years), months, LocalizedString.Util_month.toLocale(months));
         else if (months > 0)
-            return makeTimeSpanString(months, Messages.Util_month(months), days, Messages.Util_day(days));
+            return makeTimeSpanString(months, LocalizedString.Util_month.toLocale(months), days, LocalizedString.Util_day.toLocale(days));
         else if (days > 0)
-            return makeTimeSpanString(days, Messages.Util_day(days), hours, Messages.Util_hour(hours));
+            return makeTimeSpanString(days, LocalizedString.Util_day.toLocale(days), hours, LocalizedString.Util_hour.toLocale(hours));
         else if (hours > 0)
-            return makeTimeSpanString(hours, Messages.Util_hour(hours), minutes, Messages.Util_minute(minutes));
+            return makeTimeSpanString(hours, LocalizedString.Util_hour.toLocale(hours), minutes, LocalizedString.Util_minute.toLocale(minutes));
         else if (minutes > 0)
-            return makeTimeSpanString(minutes, Messages.Util_minute(minutes), seconds, Messages.Util_second(seconds));
+            return makeTimeSpanString(minutes, LocalizedString.Util_minute.toLocale(minutes), seconds, LocalizedString.Util_second.toLocale(seconds));
         else if (seconds >= 10)
-            return Messages.Util_second(seconds);
+            return LocalizedString.Util_second.toLocale(seconds);
         else if (seconds >= 1)
-            return Messages.Util_second(seconds+(float)(millisecs/100)/10); // render "1.2 sec"
+            return LocalizedString.Util_second.toLocale(seconds+(float)(millisecs/100)/10); // render "1.2 sec"
         else if(millisecs>=100)
-            return Messages.Util_second((float)(millisecs/10)/100); // render "0.12 sec".
+            return LocalizedString.Util_second.toLocale((float)(millisecs/10)/100); // render "0.12 sec".
         else
-            return Messages.Util_millisecond(millisecs);
+            return LocalizedString.Util_millisecond.toLocale(millisecs);
     }
 
 
@@ -756,7 +783,7 @@ public class Util {
      */
     @Nonnull
     public static String getPastTimeString(long duration) {
-        return Messages.Util_pastTime(getTimeSpanString(duration));
+        return LocalizedString.Util_pastTime.toLocale(getTimeSpanString(duration));
     }
 
 
@@ -1620,4 +1647,8 @@ public class Util {
      */
     @Restricted(value = NoExternalUse.class)
     public static boolean NATIVE_CHMOD_MODE = SystemProperties.getBoolean(Util.class.getName() + ".useNativeChmodAndMode");
+
+    public static Object escape(Localizable scmtriggerNoSchedulesNoHooks) {
+      return escape(scmtriggerNoSchedulesNoHooks.toLocale());
+    }
 }

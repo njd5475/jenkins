@@ -1,14 +1,18 @@
 package jenkins.security.s2m;
 
-import hudson.Extension;
-import hudson.model.AdministrativeMonitor;
+import java.io.IOException;
+
+import javax.inject.Inject;
+
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.HttpResponses;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import javax.inject.Inject;
-import java.io.IOException;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.AdministrativeMonitor;
 
 /**
  * If {@link AdminWhitelistRule#masterKillSwitch} is on, warn the user.
@@ -31,7 +35,7 @@ public class MasterKillSwitchWarning extends AdministrativeMonitor {
 
     @Override
     public String getDisplayName() {
-        return Messages.MasterKillSwitchWarning_DisplayName();
+        return LocalizedString.MasterKillSwitchWarning_DisplayName.toString();
     }
 
     @RequirePOST

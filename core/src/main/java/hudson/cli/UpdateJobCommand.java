@@ -23,12 +23,15 @@
  */
 package hudson.cli;
 
-import hudson.Extension;
-import hudson.model.AbstractItem;
-import org.kohsuke.args4j.Argument;
-
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
+
+import org.kohsuke.args4j.Argument;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.AbstractItem;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -40,7 +43,7 @@ public class UpdateJobCommand extends CLICommand {
 
     @Override
     public String getShortDescription() {
-        return Messages.UpdateJobCommand_ShortDescription();
+        return LocalizedString.UpdateJobCommand_ShortDescription.toString();
     }
 
     protected int run() throws Exception {

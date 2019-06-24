@@ -1,13 +1,13 @@
 package jenkins.model;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import hudson.model.AbstractItem;
 import hudson.model.ItemGroup;
 import hudson.model.Job;
 import hudson.model.TopLevelItem;
 import hudson.model.TopLevelItemDescriptor;
-
-import java.util.Collection;
-import java.util.Collections;
 
 /**
  * Default base implementation of {@link TopLevelItem}.

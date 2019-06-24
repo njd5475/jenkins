@@ -23,42 +23,30 @@
  */
 package hudson;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
-import java.io.SequenceInputStream;
-import java.io.Writer;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.security.interfaces.RSAPublicKey;
-import javax.annotation.Nullable;
-
-import hudson.model.AperiodicWork;
-import hudson.util.VersionNumber;
-import jenkins.model.Jenkins;
-import jenkins.model.identity.InstanceIdentityProvider;
-import jenkins.security.stapler.StaplerAccessibleType;
-import jenkins.slaves.RemotingVersionInfo;
-import jenkins.util.SystemProperties;
-import hudson.slaves.OfflineCause;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.SocketAddress;
-import java.util.Arrays;
-import jenkins.AgentProtocol;
-
-import java.io.BufferedWriter;
-import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.SequenceInputStream;
+import java.io.Writer;
 import java.net.BindException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.nio.channels.ServerSocketChannel;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.security.interfaces.RSAPublicKey;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.annotation.Nullable;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.Charsets;
@@ -68,6 +56,19 @@ import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import com.dj.runner.locales.LocalizedString;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import hudson.model.AperiodicWork;
+import hudson.slaves.OfflineCause;
+import hudson.util.VersionNumber;
+import jenkins.AgentProtocol;
+import jenkins.model.Jenkins;
+import jenkins.model.identity.InstanceIdentityProvider;
+import jenkins.security.stapler.StaplerAccessibleType;
+import jenkins.slaves.RemotingVersionInfo;
+import jenkins.util.SystemProperties;
 
 /**
  * Listens to incoming TCP connections, for example from agents.
@@ -388,7 +389,7 @@ public final class TcpSlaveAgentListener extends Thread {
          */
         @Override
         public String getDisplayName() {
-            return Messages.TcpSlaveAgentListener_PingAgentProtocol_displayName();
+            return LocalizedString.TcpSlaveAgentListener_PingAgentProtocol_displayName.toString();
         }
 
         @Override

@@ -24,18 +24,20 @@
 
 package hudson.cli;
 
+import java.util.HashSet;
+import java.util.List;
+
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.Option;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.AbortException;
 import hudson.Extension;
 import hudson.model.Computer;
 import hudson.model.ComputerSet;
 import hudson.util.EditDistance;
 import jenkins.model.Jenkins;
-
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.Option;
-
-import java.util.HashSet;
-import java.util.List;
 
 /**
  * CLI Command, which puts the Jenkins node offline.
@@ -53,7 +55,7 @@ public class OfflineNodeCommand extends CLICommand {
 
     @Override
     public String getShortDescription() {
-        return Messages.OfflineNodeCommand_ShortDescription();
+        return LocalizedString.OfflineNodeCommand_ShortDescription.toString();
     }
 
     @Override
@@ -72,8 +74,8 @@ public class OfflineNodeCommand extends CLICommand {
                     }
                     String adv = EditDistance.findNearest(node_s, names);
                     throw new IllegalArgumentException(adv == null ?
-                            hudson.model.Messages.Computer_NoSuchSlaveExistsWithoutAdvice(node_s) :
-                            hudson.model.Messages.Computer_NoSuchSlaveExists(node_s, adv));
+                            LocalizedString.Computer_NoSuchSlaveExistsWithoutAdvice.toLocale(node_s) :
+                            LocalizedString.Computer_NoSuchSlaveExists.toLocale(node_s, adv));
                 }
                 computer.cliOffline(cause);
             } catch (Exception e) {

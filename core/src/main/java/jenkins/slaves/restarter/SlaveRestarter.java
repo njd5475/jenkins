@@ -1,10 +1,10 @@
 package jenkins.slaves.restarter;
 
-import hudson.ExtensionList;
-import hudson.ExtensionPoint;
-
 import java.io.Serializable;
 import java.util.logging.Logger;
+
+import hudson.ExtensionList;
+import hudson.ExtensionPoint;
 
 /**
  * Extension point to control how to restart an inbound agent when it loses the connection with the master.

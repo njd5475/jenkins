@@ -23,19 +23,6 @@
  */
 package jenkins.security.apitoken;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import hudson.Util;
-import hudson.util.Secret;
-import jenkins.security.Messages;
-import net.sf.json.JSONObject;
-import org.apache.commons.lang.StringUtils;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -53,6 +40,22 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
+
+import org.apache.commons.lang.StringUtils;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import com.dj.runner.locales.LocalizedString;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import hudson.Util;
+import hudson.util.Secret;
+import net.sf.json.JSONObject;
 
 @Restricted(NoExternalUse.class)
 public class ApiTokenStore {
@@ -379,7 +382,7 @@ public class ApiTokenStore {
     
         public static @Nonnull HashedToken buildNewFromLegacy(@Nonnull HashValue value, boolean migrationFromExistingLegacy) {
             HashedToken result = new HashedToken();
-            result.name = Messages.ApiTokenProperty_LegacyTokenName();
+            result.name = LocalizedString.ApiTokenProperty_LegacyTokenName.toLocale();
             if(migrationFromExistingLegacy){
                 // we do not know when the legacy token was created
                 result.creationDate = null;

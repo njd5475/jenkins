@@ -23,27 +23,29 @@
  */
 package hudson.slaves;
 
-import hudson.Extension;
-import hudson.model.ComputerSet;
-import hudson.model.Descriptor;
-import hudson.model.Slave;
-import hudson.model.Node;
-import jenkins.model.Jenkins;
-import hudson.util.DescriptorList;
-import hudson.util.FormValidation;
-import hudson.DescriptorExtensionList;
-import hudson.Util;
-import hudson.model.Failure;
-
 import java.io.IOException;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
 
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
-import javax.servlet.ServletException;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.DescriptorExtensionList;
+import hudson.Extension;
+import hudson.Util;
+import hudson.model.ComputerSet;
+import hudson.model.Descriptor;
+import hudson.model.Failure;
+import hudson.model.Node;
+import hudson.model.Slave;
+import hudson.util.DescriptorList;
+import hudson.util.FormValidation;
+import jenkins.model.Jenkins;
 
 /**
  * {@link Descriptor} for {@link Slave}.
@@ -99,7 +101,7 @@ public abstract class NodeDescriptor extends Descriptor<Node> {
     public FormValidation doCheckName(@QueryParameter String value ) {
         String name = Util.fixEmptyAndTrim(value);
         if(name==null)
-            return FormValidation.error(Messages.NodeDescriptor_CheckName_Mandatory());
+            return FormValidation.error(LocalizedString.NodeDescriptor_CheckName_Mandatory);
         try {
             Jenkins.checkGoodName(name);
         } catch (Failure f) {

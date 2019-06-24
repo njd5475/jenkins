@@ -1,8 +1,9 @@
 package hudson.views;
 
+import org.kohsuke.stapler.DataBoundConstructor;
+
 import hudson.model.Descriptor;
 import hudson.model.ListView;
-import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
  * {@link Descriptor} for {@link ListViewColumn}.

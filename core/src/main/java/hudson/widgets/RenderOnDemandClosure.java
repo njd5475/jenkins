@@ -23,9 +23,17 @@
  */
 package hudson.widgets;
 
-import hudson.Util;
-import hudson.model.Descriptor;
-import hudson.util.PackedMap;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.servlet.ServletException;
+
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.Script;
@@ -37,15 +45,9 @@ import org.kohsuke.stapler.framework.adjunct.AdjunctsInPage;
 import org.kohsuke.stapler.jelly.DefaultScriptInvoker;
 import org.xml.sax.SAXException;
 
-import javax.servlet.ServletException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import hudson.Util;
+import hudson.model.Descriptor;
+import hudson.util.PackedMap;
 
 /**
  * Captured Jelly {@link Script} that can be rendered later on demand from JavaScript.

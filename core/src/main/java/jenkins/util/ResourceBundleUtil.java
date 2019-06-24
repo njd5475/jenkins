@@ -23,20 +23,22 @@
  */
 package jenkins.util;
 
-import net.sf.json.JSONObject;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import hudson.PluginWrapper;
-import java.util.logging.Logger;
 import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import hudson.PluginWrapper;
 import jenkins.model.Jenkins;
+import net.sf.json.JSONObject;
 
 /**
  * Simple {@link java.util.ResourceBundle} utility class.

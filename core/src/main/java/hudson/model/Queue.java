@@ -24,65 +24,15 @@
  */
 package hudson.model;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
-import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
-import hudson.BulkChange;
-import hudson.Extension;
-import hudson.ExtensionList;
-import hudson.ExtensionPoint;
-import hudson.Util;
-import hudson.XmlFile;
-import hudson.init.Initializer;
 import static hudson.init.InitMilestone.JOB_LOADED;
 import static hudson.util.Iterators.reverse;
-
-import hudson.cli.declarative.CLIResolver;
-import hudson.model.labels.LabelAssignmentAction;
-import hudson.model.queue.AbstractQueueTask;
-import hudson.model.queue.Executables;
-import hudson.model.queue.QueueListener;
-import hudson.model.queue.QueueTaskFuture;
-import hudson.model.queue.ScheduleResult;
-import hudson.model.queue.ScheduleResult.Created;
-import hudson.model.queue.SubTask;
-import hudson.model.queue.FutureImpl;
-import hudson.model.queue.MappingWorksheet;
-import hudson.model.queue.MappingWorksheet.Mapping;
-import hudson.model.queue.QueueSorter;
-import hudson.model.queue.QueueTaskDispatcher;
-import hudson.model.queue.Tasks;
-import hudson.model.queue.WorkUnit;
-import hudson.model.Node.Mode;
-import hudson.model.listeners.SaveableListener;
-import hudson.model.queue.CauseOfBlockage;
-import hudson.model.queue.FoldableAction;
-import hudson.model.queue.CauseOfBlockage.BecauseLabelIsBusy;
-import hudson.model.queue.CauseOfBlockage.BecauseNodeIsOffline;
-import hudson.model.queue.CauseOfBlockage.BecauseLabelIsOffline;
-import hudson.model.queue.CauseOfBlockage.BecauseNodeIsBusy;
-import hudson.model.queue.WorkUnitContext;
-import hudson.security.ACL;
-import hudson.security.AccessControlled;
-import java.nio.file.Files;
-
-import hudson.util.Futures;
-import jenkins.security.QueueItemAuthenticatorProvider;
-import jenkins.security.stapler.StaplerAccessibleType;
-import jenkins.util.SystemProperties;
-import jenkins.util.Timer;
-import hudson.triggers.SafeTimerTask;
-import java.util.concurrent.TimeUnit;
-import hudson.util.XStream2;
-import hudson.util.ConsistentHash;
-import hudson.util.ConsistentHash.Hash;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -101,41 +51,90 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
 import javax.servlet.ServletException;
 
-import jenkins.model.Jenkins;
-import jenkins.security.QueueItemAuthenticator;
-import jenkins.util.AtmostOneTaskExecutor;
 import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.Authentication;
 import org.jenkinsci.bytecode.AdaptField;
 import org.jenkinsci.remoting.RoleChecker;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.DoNotUse;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.HttpResponses;
+import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
+import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.DoNotUse;
-
+import com.dj.runner.locales.LocalizedString;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnegative;
+import hudson.BulkChange;
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.ExtensionPoint;
+import hudson.Util;
+import hudson.XmlFile;
+import hudson.cli.declarative.CLIResolver;
+import hudson.init.Initializer;
+import hudson.model.Node.Mode;
+import hudson.model.labels.LabelAssignmentAction;
+import hudson.model.listeners.SaveableListener;
+import hudson.model.queue.AbstractQueueTask;
+import hudson.model.queue.CauseOfBlockage;
+import hudson.model.queue.CauseOfBlockage.BecauseLabelIsBusy;
+import hudson.model.queue.CauseOfBlockage.BecauseLabelIsOffline;
+import hudson.model.queue.CauseOfBlockage.BecauseNodeIsBusy;
+import hudson.model.queue.CauseOfBlockage.BecauseNodeIsOffline;
+import hudson.model.queue.Executables;
+import hudson.model.queue.FoldableAction;
+import hudson.model.queue.FutureImpl;
+import hudson.model.queue.MappingWorksheet;
+import hudson.model.queue.MappingWorksheet.Mapping;
+import hudson.model.queue.QueueListener;
+import hudson.model.queue.QueueSorter;
+import hudson.model.queue.QueueTaskDispatcher;
+import hudson.model.queue.QueueTaskFuture;
+import hudson.model.queue.ScheduleResult;
+import hudson.model.queue.ScheduleResult.Created;
+import hudson.model.queue.SubTask;
+import hudson.model.queue.Tasks;
+import hudson.model.queue.WorkUnit;
+import hudson.model.queue.WorkUnitContext;
+import hudson.security.ACL;
+import hudson.security.AccessControlled;
+import hudson.triggers.SafeTimerTask;
+import hudson.util.ConsistentHash;
+import hudson.util.ConsistentHash.Hash;
+import hudson.util.Futures;
+import hudson.util.XStream2;
+import jenkins.model.Jenkins;
 import jenkins.model.queue.AsynchronousExecution;
 import jenkins.model.queue.CompositeCauseOfBlockage;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.interceptor.RequirePOST;
+import jenkins.security.QueueItemAuthenticator;
+import jenkins.security.QueueItemAuthenticatorProvider;
+import jenkins.security.stapler.StaplerAccessibleType;
+import jenkins.util.AtmostOneTaskExecutor;
+import jenkins.util.SystemProperties;
+import jenkins.util.Timer;
 
 /**
  * Build queue.
@@ -269,7 +268,7 @@ public class Queue extends ResourceController implements Saveable {
         public @CheckForNull CauseOfBlockage getCauseOfBlockage(BuildableItem item) {
             Node node = getNode();
             if (node == null) {
-                return CauseOfBlockage.fromMessage(Messages._Queue_node_has_been_removed_from_configuration(executor.getOwner().getDisplayName()));
+                return CauseOfBlockage.fromMessage(LocalizedString._Queue_node_has_been_removed_from_configuration.asLocale(executor.getOwner().getDisplayName()));
             }
             CauseOfBlockage reason = node.canTake(item);
             if (reason != null) {
@@ -283,7 +282,7 @@ public class Queue extends ResourceController implements Saveable {
             }
             // inlining isAvailable:
             if (workUnit != null) { // unlikely in practice (should not have even found this executor if so)
-                return CauseOfBlockage.fromMessage(Messages._Queue_executor_slot_already_in_use());
+                return CauseOfBlockage.fromMessage(LocalizedString._Queue_executor_slot_already_in_use);
             }
             if (executor.getOwner().isOffline()) {
                 return new CauseOfBlockage.BecauseNodeIsOffline(node);
@@ -1207,7 +1206,7 @@ public class Queue extends ResourceController implements Saveable {
             // But both are public non-final methods, so, we need to keep backward compatibility here.
             // And check one more time across all `buildables` and `pendings` for O(N) each.
             if (!i.task.isConcurrentBuild() && (buildables.containsKey(i.task) || pendings.containsKey(i.task))) {
-                return CauseOfBlockage.fromMessage(Messages._Queue_InProgress());
+                return CauseOfBlockage.fromMessage(LocalizedString._Queue_InProgress);
             }
         }
 
@@ -1232,8 +1231,8 @@ public class Queue extends ResourceController implements Saveable {
             ResourceActivity r = getBlockingActivity(task);
             if (r != null) {
                 if (r == task) // blocked by itself, meaning another build is in progress
-                    return CauseOfBlockage.fromMessage(Messages._Queue_InProgress());
-                return CauseOfBlockage.fromMessage(Messages._Queue_BlockedBy(r.getDisplayName()));
+                    return CauseOfBlockage.fromMessage(LocalizedString._Queue_InProgress);
+                return CauseOfBlockage.fromMessage(LocalizedString._Queue_BlockedBy.asLocale(r.getDisplayName()));
             }
         }
 
@@ -1559,7 +1558,7 @@ public class Queue extends ResourceController implements Saveable {
                         r.run();
                     } else {
                         LOGGER.log(Level.FINEST, "Item {0} was unable to be made a buildable and is now a blocked item.", topTaskDisplayName);
-                        new BlockedItem(top, CauseOfBlockage.fromMessage(Messages._Queue_HudsonIsAboutToShutDown())).enter(this);
+                        new BlockedItem(top, CauseOfBlockage.fromMessage(LocalizedString._Queue_HudsonIsAboutToShutDown)).enter(this);
                     }
                 } else {
                     // this can't be built now because another build is in progress
@@ -2486,9 +2485,9 @@ public class Queue extends ResourceController implements Saveable {
         public CauseOfBlockage getCauseOfBlockage() {
             long diff = timestamp.getTimeInMillis() - System.currentTimeMillis();
             if (diff >= 0)
-                return CauseOfBlockage.fromMessage(Messages._Queue_InQuietPeriod(Util.getTimeSpanString(diff)));
+                return CauseOfBlockage.fromMessage(LocalizedString._Queue_InQuietPeriod.asLocale(Util.getTimeSpanString(diff)));
             else
-                return CauseOfBlockage.fromMessage(Messages._Queue_FinishedWaiting());
+                return CauseOfBlockage.fromMessage(LocalizedString._Queue_FinishedWaiting);
         }
 
         @Override
@@ -2638,7 +2637,7 @@ public class Queue extends ResourceController implements Saveable {
         public CauseOfBlockage getCauseOfBlockage() {
             Jenkins jenkins = Jenkins.getInstance();
             if(isBlockedByShutdown(task))
-                return CauseOfBlockage.fromMessage(Messages._Queue_HudsonIsAboutToShutDown());
+                return CauseOfBlockage.fromMessage(LocalizedString._Queue_HudsonIsAboutToShutDown);
 
             List<CauseOfBlockage> causesOfBlockage = transientCausesOfBlockage;
 
@@ -2662,7 +2661,7 @@ public class Queue extends ResourceController implements Saveable {
             } else if (causesOfBlockage != null && new ComputerSet().getIdleExecutors() > 0) {
                 return new CompositeCauseOfBlockage(causesOfBlockage);
             } else {
-                return CauseOfBlockage.createNeedsMoreExecutor(Messages._Queue_WaitingForNextAvailableExecutor());
+                return CauseOfBlockage.createNeedsMoreExecutor(LocalizedString._Queue_WaitingForNextAvailableExecutor);
             }
         }
 

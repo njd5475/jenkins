@@ -23,66 +23,69 @@
  */
 package hudson.tasks;
 
-import hudson.Extension;
-import hudson.model.PersistentDescriptor;
-import jenkins.MasterToSlaveFileCallable;
-import hudson.Launcher;
-import hudson.Functions;
-import hudson.EnvVars;
-import hudson.Util;
+import java.io.File;
+import java.io.IOException;
+import java.io.ObjectStreamException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Properties;
+import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.jar.Attributes;
+import java.util.jar.JarFile;
+import java.util.jar.Manifest;
+import java.util.regex.Pattern;
+
+import javax.annotation.Nonnull;
+
+import org.apache.commons.lang.StringUtils;
+import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.StaplerRequest;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.CopyOnWrite;
+import hudson.EnvVars;
+import hudson.Extension;
+import hudson.Functions;
+import hudson.Launcher;
 import hudson.Launcher.LocalLauncher;
+import hudson.Util;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 import hudson.model.BuildListener;
 import hudson.model.Computer;
 import hudson.model.EnvironmentSpecific;
 import hudson.model.Node;
-import jenkins.model.Jenkins;
-import jenkins.mvn.GlobalMavenConfig;
-import jenkins.mvn.GlobalSettingsProvider;
-import jenkins.mvn.SettingsProvider;
+import hudson.model.PersistentDescriptor;
 import hudson.model.TaskListener;
 import hudson.remoting.VirtualChannel;
 import hudson.slaves.NodeSpecific;
 import hudson.tasks._maven.MavenConsoleAnnotator;
+import hudson.tools.DownloadFromUrlInstaller;
 import hudson.tools.ToolDescriptor;
 import hudson.tools.ToolInstallation;
-import hudson.tools.DownloadFromUrlInstaller;
 import hudson.tools.ToolInstaller;
 import hudson.tools.ToolProperty;
 import hudson.util.ArgumentListBuilder;
+import hudson.util.FormValidation;
 import hudson.util.NullStream;
 import hudson.util.StreamTaskListener;
 import hudson.util.VariableResolver;
 import hudson.util.VariableResolver.ByMap;
 import hudson.util.VariableResolver.Union;
-import hudson.util.FormValidation;
 import hudson.util.XStream2;
+import jenkins.MasterToSlaveFileCallable;
+import jenkins.model.Jenkins;
+import jenkins.mvn.GlobalMavenConfig;
+import jenkins.mvn.GlobalSettingsProvider;
+import jenkins.mvn.SettingsProvider;
 import jenkins.security.MasterToSlaveCallable;
 import net.sf.json.JSONObject;
-
-import org.apache.commons.lang.StringUtils;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.StaplerRequest;
-
-import javax.annotation.Nonnull;
-import java.io.File;
-import java.io.IOException;
-import java.io.ObjectStreamException;
-import java.util.ArrayList;
-import java.util.Properties;
-import java.util.StringTokenizer;
-import java.util.List;
-import java.util.Collections;
-import java.util.Set;
-import java.util.jar.Attributes;
-import java.util.jar.JarFile;
-import java.util.jar.Manifest;
-import java.util.regex.Pattern;
 
 /**
  * Build by using Maven.
@@ -319,7 +322,7 @@ public class Maven extends Builder {
             	mi = mi.forEnvironment(env);
                 String exec = mi.getExecutable(launcher);
                 if(exec==null) {
-                    listener.fatalError(Messages.Maven_NoExecutable(mi.getHome()));
+                    listener.fatalError(LocalizedString.Maven_NoExecutable.toLocale(mi.getHome()));
                     return false;
                 }
                 args.add(exec);
@@ -371,7 +374,7 @@ public class Maven extends Builder {
                 }
             } catch (IOException e) {
                 Util.displayIOException(e,listener);
-                Functions.printStackTrace(e, listener.fatalError(Messages.Maven_ExecFailed()));
+                Functions.printStackTrace(e, listener.fatalError(LocalizedString.Maven_ExecFailed));
                 return false;
             }
             startIndex = endIndex + 1;
@@ -444,7 +447,7 @@ public class Maven extends Builder {
         }
 
         public String getDisplayName() {
-            return Messages.Maven_DisplayName();
+            return LocalizedString.Maven_DisplayName.toString();
         }
         
         public GlobalSettingsProvider getDefaultGlobalSettingsProvider() {
@@ -696,7 +699,7 @@ public class Maven extends Builder {
                 File maven2File = new File(value,MAVEN_2_INSTALLATION_COMMON_FILE);
 
                 if(!maven1File.exists() && !maven2File.exists())
-                    return FormValidation.error(Messages.Maven_NotMavenDirectory(value));
+                    return FormValidation.error(LocalizedString.Maven_NotMavenDirectory.toLocale(value));
 
                 return FormValidation.ok();
             }
@@ -744,7 +747,7 @@ public class Maven extends Builder {
         @Extension @Symbol("maven")
         public static final class DescriptorImpl extends DownloadFromUrlInstaller.DescriptorImpl<MavenInstaller> {
             public String getDisplayName() {
-                return Messages.InstallFromApache();
+                return LocalizedString.InstallFromApache.toString();
             }
 
             @Override

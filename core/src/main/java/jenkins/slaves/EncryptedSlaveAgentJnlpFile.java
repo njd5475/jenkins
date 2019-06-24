@@ -1,15 +1,13 @@
 package jenkins.slaves;
 
-import hudson.security.AccessControlled;
-import hudson.security.Permission;
-import hudson.slaves.SlaveComputer;
-import hudson.util.Secret;
-
-import hudson.Util;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.ResponseImpl;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
+import java.security.SecureRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -20,14 +18,17 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletResponseWrapper;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.security.GeneralSecurityException;
-import java.security.SecureRandom;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.ResponseImpl;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+
+import hudson.Util;
+import hudson.security.AccessControlled;
+import hudson.security.Permission;
+import hudson.slaves.SlaveComputer;
+import hudson.util.Secret;
 
 /**
  * Serves the JNLP file.

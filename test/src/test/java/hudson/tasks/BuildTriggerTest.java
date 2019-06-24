@@ -23,45 +23,21 @@
  */
 package hudson.tasks;
 
-import static org.junit.Assert.*;
-import hudson.Launcher;
-import hudson.maven.MavenModuleSet;
-import hudson.maven.MavenModuleSetBuild;
-import hudson.model.AbstractBuild;
-import hudson.model.AbstractProject;
-import hudson.model.Action;
-import hudson.model.BuildListener;
-import hudson.model.Cause;
-import hudson.model.Computer;
-import hudson.model.FreeStyleBuild;
-import hudson.model.FreeStyleProject;
-import hudson.model.DependencyGraph;
-import hudson.model.DependencyGraph.Dependency;
-import hudson.model.Item;
-import hudson.model.Result;
-import hudson.model.Run;
-import hudson.model.TaskListener;
-import hudson.model.User;
-import hudson.security.ACL;
-import hudson.security.AuthorizationMatrixProperty;
-import hudson.security.LegacySecurityRealm;
-import hudson.security.Permission;
-import hudson.security.ProjectMatrixAuthorizationStrategy;
-import hudson.util.FormValidation;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.List;
 
 import javax.annotation.CheckForNull;
-
-import jenkins.model.Jenkins;
-import jenkins.security.QueueItemAuthenticatorConfiguration;
-import jenkins.triggers.ReverseBuildTriggerTest;
 
 import org.acegisecurity.Authentication;
 import org.acegisecurity.context.SecurityContext;
@@ -78,11 +54,41 @@ import org.jvnet.hudson.test.ExtractResourceSCM;
 import org.jvnet.hudson.test.Issue;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.jvnet.hudson.test.JenkinsRule.WebClient;
-import org.jvnet.hudson.test.TestBuilder;
 import org.jvnet.hudson.test.MockBuilder;
 import org.jvnet.hudson.test.MockQueueItemAuthenticator;
+import org.jvnet.hudson.test.TestBuilder;
 import org.jvnet.hudson.test.ToolInstallations;
 import org.xml.sax.SAXException;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Launcher;
+import hudson.maven.MavenModuleSet;
+import hudson.maven.MavenModuleSetBuild;
+import hudson.model.AbstractBuild;
+import hudson.model.AbstractProject;
+import hudson.model.Action;
+import hudson.model.BuildListener;
+import hudson.model.Cause;
+import hudson.model.Computer;
+import hudson.model.DependencyGraph;
+import hudson.model.DependencyGraph.Dependency;
+import hudson.model.FreeStyleBuild;
+import hudson.model.FreeStyleProject;
+import hudson.model.Item;
+import hudson.model.Result;
+import hudson.model.Run;
+import hudson.model.TaskListener;
+import hudson.model.User;
+import hudson.security.ACL;
+import hudson.security.AuthorizationMatrixProperty;
+import hudson.security.LegacySecurityRealm;
+import hudson.security.Permission;
+import hudson.security.ProjectMatrixAuthorizationStrategy;
+import hudson.util.FormValidation;
+import jenkins.model.Jenkins;
+import jenkins.security.QueueItemAuthenticatorConfiguration;
+import jenkins.triggers.ReverseBuildTriggerTest;
 
 public class BuildTriggerTest {
 
@@ -227,7 +233,7 @@ public class BuildTriggerTest {
         */
         assertEquals(Collections.singletonList(downstream), upstream.getDownstreamProjects());
         // Downstream projects whose existence we are not aware of will silently not be triggered:
-        assertDoCheck(alice, Messages.BuildTrigger_NoSuchProject(downstreamName, "upstream"), upstream, downstreamName);
+        assertDoCheck(alice, LocalizedString.BuildTrigger_NoSuchProject.toLocale(downstreamName, "upstream"), upstream, downstreamName);
         assertDoCheck(alice, null, null, downstreamName);
         FreeStyleBuild b = j.buildAndAssertSuccess(upstream);
         j.assertLogNotContains(downstreamName, b);
@@ -238,7 +244,7 @@ public class BuildTriggerTest {
         grantedPermissions.put(Item.READ, Collections.singleton("alice"));
         AuthorizationMatrixProperty amp = new AuthorizationMatrixProperty(grantedPermissions);
         downstream.addProperty(amp);
-        assertDoCheck(alice, Messages.BuildTrigger_you_have_no_permission_to_build_(downstreamName), upstream, downstreamName);
+        assertDoCheck(alice, LocalizedString.BuildTrigger_you_have_no_permission_to_build_.toLocale(downstreamName), upstream, downstreamName);
         assertDoCheck(alice, null, null, downstreamName);
         b = j.buildAndAssertSuccess(upstream);
         j.assertLogContains(downstreamName, b);
@@ -261,7 +267,7 @@ public class BuildTriggerTest {
         assertEquals(b, cause.getUpstreamRun());
         // Now if we have configured some QIA’s but they are not active on this job, we should normally fall back to running as anonymous. Which would normally have no permissions:
         QueueItemAuthenticatorConfiguration.get().getAuthenticators().replace(new MockQueueItemAuthenticator(Collections.singletonMap("upstream", Jenkins.ANONYMOUS)));
-        assertDoCheck(alice, Messages.BuildTrigger_you_have_no_permission_to_build_(downstreamName), upstream, downstreamName);
+        assertDoCheck(alice, LocalizedString.BuildTrigger_you_have_no_permission_to_build_.toLocale(downstreamName), upstream, downstreamName);
         assertDoCheck(alice, null, null, downstreamName);
         b = j.buildAndAssertSuccess(upstream);
         j.assertLogNotContains(downstreamName, b);
@@ -287,7 +293,7 @@ public class BuildTriggerTest {
         amp = new AuthorizationMatrixProperty(grantedPermissions);
         downstream.addProperty(amp);
         QueueItemAuthenticatorConfiguration.get().getAuthenticators().clear();
-        assertDoCheck(alice, Messages.BuildTrigger_NoSuchProject(downstreamName, "upstream"), upstream, downstreamName);
+        assertDoCheck(alice, LocalizedString.BuildTrigger_NoSuchProject.toLocale(downstreamName, "upstream"), upstream, downstreamName);
         assertDoCheck(alice, null, null, downstreamName);
         b = j.buildAndAssertSuccess(upstream);
         j.assertLogContains(downstreamName, b);

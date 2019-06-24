@@ -23,37 +23,7 @@
  */
 package hudson.model;
 
-import com.google.common.collect.ImmutableList;
-import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
-import com.thoughtworks.xstream.converters.Converter;
-import com.thoughtworks.xstream.converters.MarshallingContext;
-import com.thoughtworks.xstream.converters.UnmarshallingContext;
-import com.thoughtworks.xstream.converters.basic.DateConverter;
-import com.thoughtworks.xstream.converters.collections.CollectionConverter;
-import com.thoughtworks.xstream.io.HierarchicalStreamReader;
-import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
-import hudson.Util;
-import hudson.XmlFile;
-import hudson.BulkChange;
-import hudson.Extension;
-import hudson.model.listeners.ItemListener;
-import hudson.model.listeners.SaveableListener;
-import hudson.security.ACL;
-import hudson.security.ACLContext;
-import hudson.util.AtomicFileWriter;
-import hudson.util.HexBinaryConverter;
-import hudson.util.Iterators;
-import hudson.util.PersistedList;
-import hudson.util.RunList;
-import hudson.util.XStream2;
 import java.io.EOFException;
-import jenkins.model.FingerprintFacet;
-import jenkins.model.Jenkins;
-import jenkins.model.TransientFingerprintFacetFactory;
-import org.apache.commons.lang.StringUtils;
-import org.kohsuke.stapler.export.Exported;
-import org.kohsuke.stapler.export.ExportedBean;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -71,11 +41,44 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+
 import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.Authentication;
+import org.apache.commons.lang.StringUtils;
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
 import org.xmlpull.v1.XmlPullParserException;
+
+import com.google.common.collect.ImmutableList;
+import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
+import com.thoughtworks.xstream.converters.Converter;
+import com.thoughtworks.xstream.converters.MarshallingContext;
+import com.thoughtworks.xstream.converters.UnmarshallingContext;
+import com.thoughtworks.xstream.converters.basic.DateConverter;
+import com.thoughtworks.xstream.converters.collections.CollectionConverter;
+import com.thoughtworks.xstream.io.HierarchicalStreamReader;
+import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+
+import hudson.BulkChange;
+import hudson.Extension;
+import hudson.Util;
+import hudson.XmlFile;
+import hudson.model.listeners.ItemListener;
+import hudson.model.listeners.SaveableListener;
+import hudson.security.ACL;
+import hudson.security.ACLContext;
+import hudson.util.AtomicFileWriter;
+import hudson.util.HexBinaryConverter;
+import hudson.util.Iterators;
+import hudson.util.PersistedList;
+import hudson.util.RunList;
+import hudson.util.XStream2;
+import jenkins.model.FingerprintFacet;
+import jenkins.model.Jenkins;
+import jenkins.model.TransientFingerprintFacetFactory;
 
 /**
  * A file being tracked by Jenkins.

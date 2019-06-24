@@ -23,7 +23,12 @@
  */
 package hudson.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.google.common.collect.Maps;
+
 import hudson.Extension;
 import hudson.ExtensionPoint;
 import hudson.model.Queue.Task;
@@ -32,10 +37,6 @@ import hudson.model.queue.MappingWorksheet.ExecutorChunk;
 import hudson.model.queue.MappingWorksheet.Mapping;
 import hudson.util.ConsistentHash;
 import hudson.util.ConsistentHash.Hash;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Strategy that decides which {@link Task} gets run on which {@link Executor}.

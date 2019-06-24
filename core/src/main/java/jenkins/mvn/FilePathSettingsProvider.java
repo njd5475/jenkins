@@ -1,5 +1,13 @@
 package jenkins.mvn;
 
+import java.io.File;
+
+import org.apache.commons.lang.StringUtils;
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.EnvVars;
 import hudson.Extension;
 import hudson.FilePath;
@@ -7,12 +15,6 @@ import hudson.Util;
 import hudson.model.AbstractBuild;
 import hudson.model.TaskListener;
 import hudson.util.IOUtils;
-
-import java.io.File;
-
-import org.apache.commons.lang.StringUtils;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
  * @author <a href="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
@@ -67,7 +69,7 @@ public class FilePathSettingsProvider extends SettingsProvider {
 
         @Override
         public String getDisplayName() {
-            return Messages.FilePathSettingsProvider_DisplayName();
+            return LocalizedString.FilePathSettingsProvider_DisplayName.toString();
         }
     }
 }

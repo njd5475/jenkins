@@ -23,10 +23,13 @@
  */
 package hudson.views;
 
-import hudson.Extension;
-import hudson.model.AbstractItem;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.AbstractItem;
 
 public class BuildButtonColumn extends ListViewColumn {
     @DataBoundConstructor
@@ -37,14 +40,14 @@ public class BuildButtonColumn extends ListViewColumn {
         if (job instanceof AbstractItem) {
             return ((AbstractItem) job).getTaskNoun();
         }
-        return hudson.model.Messages.AbstractItem_TaskNoun();
+        return LocalizedString.AbstractItem_TaskNoun.toString();
     }
 
     @Extension(ordinal=DEFAULT_COLUMNS_ORDINAL_ACTIONS_START-1) @Symbol("buildButton")
     public static class DescriptorImpl extends ListViewColumnDescriptor {
         @Override
         public String getDisplayName() {
-            return Messages.BuildButtonColumn_DisplayName();
+            return LocalizedString.BuildButtonColumn_DisplayName.toString();
         }
     }
 }

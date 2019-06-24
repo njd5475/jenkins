@@ -1,13 +1,16 @@
 package jenkins.slaves;
 
+import java.security.SecureRandom;
+
+import javax.annotation.Nonnull;
+
+import org.jenkinsci.remoting.engine.JnlpClientDatabase;
+import org.jenkinsci.remoting.engine.JnlpConnectionStateListener;
+
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.Util;
 import hudson.model.Slave;
-import java.security.SecureRandom;
-import javax.annotation.Nonnull;
-import org.jenkinsci.remoting.engine.JnlpClientDatabase;
-import org.jenkinsci.remoting.engine.JnlpConnectionStateListener;
 
 /**
  * Receives incoming agents connecting through {@link JnlpSlaveAgentProtocol2}, {@link JnlpSlaveAgentProtocol3}, {@link JnlpSlaveAgentProtocol4}.

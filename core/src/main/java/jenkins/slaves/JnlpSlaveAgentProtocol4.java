@@ -23,9 +23,6 @@
  */
 package jenkins.slaves;
 
-import hudson.Extension;
-import hudson.ExtensionList;
-import hudson.model.Computer;
 import java.io.IOException;
 import java.net.Socket;
 import java.security.KeyManagementException;
@@ -40,17 +37,25 @@ import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.inject.Inject;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
-import jenkins.AgentProtocol;
-import jenkins.model.identity.InstanceIdentityProvider;
+
 import org.jenkinsci.Symbol;
 import org.jenkinsci.remoting.engine.JnlpConnectionState;
 import org.jenkinsci.remoting.engine.JnlpProtocol4Handler;
 import org.jenkinsci.remoting.protocol.IOHub;
 import org.jenkinsci.remoting.protocol.cert.PublicKeyMatchingX509ExtendedTrustManager;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.model.Computer;
+import jenkins.AgentProtocol;
+import jenkins.model.identity.InstanceIdentityProvider;
 
 /**
  * Master-side implementation for JNLP4-connect protocol.
@@ -171,7 +176,7 @@ public class JnlpSlaveAgentProtocol4 extends AgentProtocol {
      */
     @Override
     public String getDisplayName() {
-        return Messages.JnlpSlaveAgentProtocol4_displayName();
+        return LocalizedString.JnlpSlaveAgentProtocol4_displayName.toString();
     }
 
     /**

@@ -25,9 +25,87 @@
  */
 package hudson;
 
+import static hudson.FilePath.TarCompression.GZIP;
+import static hudson.Util.fileToPath;
+import static hudson.Util.fixEmpty;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InterruptedIOException;
+import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.RandomAccessFile;
+import java.io.Serializable;
+import java.io.Writer;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.file.FileSystemException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.io.input.CountingInputStream;
+import org.apache.commons.lang.StringUtils;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.DirectoryScanner;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.types.FileSet;
+import org.apache.tools.zip.ZipEntry;
+import org.apache.tools.zip.ZipFile;
+import org.jenkinsci.remoting.RoleChecker;
+import org.jenkinsci.remoting.RoleSensitive;
+import org.jenkinsci.remoting.SerializableOnlyOverRemoting;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.Stapler;
+
+import com.dj.runner.locales.LocalizedString;
 import com.google.common.annotations.VisibleForTesting;
 import com.jcraft.jzlib.GZIPInputStream;
 import com.jcraft.jzlib.GZIPOutputStream;
+
 import hudson.Launcher.LocalLauncher;
 import hudson.Launcher.RemoteLauncher;
 import hudson.model.AbstractProject;
@@ -58,58 +136,6 @@ import hudson.util.IOUtils;
 import hudson.util.NamingThreadFactory;
 import hudson.util.io.Archiver;
 import hudson.util.io.ArchiverFactory;
-
-
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InterruptedIOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.RandomAccessFile;
-import java.io.Serializable;
-import java.io.Writer;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.file.FileSystemException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
-import java.nio.file.LinkOption;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.attribute.FileAttribute;
-import java.nio.file.attribute.PosixFilePermission;
-import java.nio.file.attribute.PosixFilePermissions;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import jenkins.FilePathFilter;
 import jenkins.MasterToSlaveFileCallable;
 import jenkins.SlaveToMasterFileCallable;
@@ -118,31 +144,6 @@ import jenkins.model.Jenkins;
 import jenkins.security.MasterToSlaveCallable;
 import jenkins.util.ContextResettingExecutorService;
 import jenkins.util.VirtualFile;
-import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
-import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.io.input.CountingInputStream;
-import org.apache.commons.lang.StringUtils;
-import org.apache.tools.ant.DirectoryScanner;
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.types.FileSet;
-import org.apache.tools.zip.ZipEntry;
-import org.apache.tools.zip.ZipFile;
-import org.jenkinsci.remoting.RoleChecker;
-import org.jenkinsci.remoting.RoleSensitive;
-import org.jenkinsci.remoting.SerializableOnlyOverRemoting;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.Function;
-import org.kohsuke.stapler.Stapler;
-
-import static hudson.FilePath.TarCompression.GZIP;
-import static hudson.Util.fileToPath;
-import static hudson.Util.fixEmpty;
-import java.io.NotSerializableException;
-
-import java.util.Collections;
-import org.apache.tools.ant.BuildException;
         
 /**
  * {@link File} like object with remoting support.
@@ -2673,7 +2674,7 @@ public final class FilePath implements SerializableOnlyOverRemoting {
             @Override
             public String invoke(File dir, VirtualChannel channel) throws IOException, InterruptedException {
                 if(fileMasks.startsWith("~"))
-                    return Messages.FilePath_TildaDoesntWork();
+                    return LocalizedString.FilePath_TildaDoesntWork.toString();
 
                 StringTokenizer tokens = new StringTokenizer(fileMasks,",");
 
@@ -2685,7 +2686,7 @@ public final class FilePath implements SerializableOnlyOverRemoting {
                     // JENKINS-5253 - if we can get some match in case insensitive mode
                     // and user requested case sensitive match, notify the user
                     if (caseSensitive && hasMatch(dir, fileMask, false)) {
-                        return Messages.FilePath_validateAntFileMask_matchWithCaseInsensitive(fileMask);
+                        return LocalizedString.FilePath_validateAntFileMask_matchWithCaseInsensitive.toLocale(fileMask);
                     }
 
                     // in 1.172 we introduced an incompatible change to stop using ' ' as the separator
@@ -2695,7 +2696,7 @@ public final class FilePath implements SerializableOnlyOverRemoting {
                         for (String token : Util.tokenize(fileMask))
                             matched &= hasMatch(dir,token,caseSensitive);
                         if(matched)
-                            return Messages.FilePath_validateAntFileMask_whitespaceSeparator();
+                            return LocalizedString.FilePath_validateAntFileMask_whitespaceSeparator.toString();
                     }
 
                     // a common mistake is to assume the wrong base dir, and there are two variations
@@ -2710,7 +2711,7 @@ public final class FilePath implements SerializableOnlyOverRemoting {
                             f=f.substring(idx+1);
 
                             if(hasMatch(dir,f,caseSensitive))
-                                return Messages.FilePath_validateAntFileMask_doesntMatchAndSuggest(fileMask,f);
+                                return LocalizedString.FilePath_validateAntFileMask_doesntMatchAndSuggest.toLocale(fileMask,f);
                         }
                     }
 
@@ -2738,7 +2739,7 @@ public final class FilePath implements SerializableOnlyOverRemoting {
                                     prefix+=f.substring(0,idx)+'/';
                                     f=f.substring(idx+1);
                                     if(hasMatch(dir,prefix+fileMask,caseSensitive))
-                                        return Messages.FilePath_validateAntFileMask_doesntMatchAndSuggest(fileMask, prefix+fileMask);
+                                        return LocalizedString.FilePath_validateAntFileMask_doesntMatchAndSuggest.toLocale(fileMask, prefix+fileMask);
                                 }
                             }
                         }
@@ -2752,17 +2753,17 @@ public final class FilePath implements SerializableOnlyOverRemoting {
                             if(hasMatch(dir,pattern,caseSensitive)) {
                                 // found a match
                                 if(previous==null)
-                                    return Messages.FilePath_validateAntFileMask_portionMatchAndSuggest(fileMask,pattern);
+                                    return LocalizedString.FilePath_validateAntFileMask_portionMatchAndSuggest.toLocale(fileMask,pattern);
                                 else
-                                    return Messages.FilePath_validateAntFileMask_portionMatchButPreviousNotMatchAndSuggest(fileMask,pattern,previous);
+                                    return LocalizedString.FilePath_validateAntFileMask_portionMatchButPreviousNotMatchAndSuggest.toLocale(fileMask,pattern,previous);
                             }
 
                             int idx = findSeparator(pattern);
                             if(idx<0) {// no more path component left to go back
                                 if(pattern.equals(fileMask))
-                                    return Messages.FilePath_validateAntFileMask_doesntMatchAnything(fileMask);
+                                    return LocalizedString.FilePath_validateAntFileMask_doesntMatchAnything.toLocale(fileMask);
                                 else
-                                    return Messages.FilePath_validateAntFileMask_doesntMatchAnythingAndSuggest(fileMask,pattern);
+                                    return LocalizedString.FilePath_validateAntFileMask_doesntMatchAnythingAndSuggest.toLocale(fileMask,pattern);
                             }
 
                             // cut off the trailing component and try again
@@ -2893,7 +2894,7 @@ public final class FilePath implements SerializableOnlyOverRemoting {
             if(errorIfNotExist)     return FormValidation.error(msg);
             else                    return FormValidation.warning(msg);
         } catch (InterruptedException e) {
-            return FormValidation.ok(Messages.FilePath_did_not_manage_to_validate_may_be_too_sl(value));
+            return FormValidation.ok(LocalizedString.FilePath_did_not_manage_to_validate_may_be_too_sl.toLocale(value));
         }
     }
 
@@ -2919,7 +2920,7 @@ public final class FilePath implements SerializableOnlyOverRemoting {
         if(value==null) return FormValidation.ok();
 
         // a common mistake is to use wildcard
-        if(value.contains("*")) return FormValidation.error(Messages.FilePath_validateRelativePath_wildcardNotAllowed());
+        if(value.contains("*")) return FormValidation.error(LocalizedString.FilePath_validateRelativePath_wildcardNotAllowed);
 
         try {
             if(!exists())    // no base directory. can't check
@@ -2931,17 +2932,17 @@ public final class FilePath implements SerializableOnlyOverRemoting {
                     if(!path.isDirectory())
                         return FormValidation.ok();
                     else
-                        return FormValidation.error(Messages.FilePath_validateRelativePath_notFile(value));
+                        return FormValidation.error(LocalizedString.FilePath_validateRelativePath_notFile.toLocale(value));
                 } else {
                     if(path.isDirectory())
                         return FormValidation.ok();
                     else
-                        return FormValidation.error(Messages.FilePath_validateRelativePath_notDirectory(value));
+                        return FormValidation.error(LocalizedString.FilePath_validateRelativePath_notDirectory.toLocale(value));
                 }
             }
 
-            String msg = expectingFile ? Messages.FilePath_validateRelativePath_noSuchFile(value) : 
-                Messages.FilePath_validateRelativePath_noSuchDirectory(value);
+            String msg = expectingFile ? LocalizedString.FilePath_validateRelativePath_noSuchFile.toLocale(value) : 
+                LocalizedString.FilePath_validateRelativePath_noSuchDirectory.toLocale(value);
             if(errorIfNotExist)     return FormValidation.error(msg);
             else                    return FormValidation.warning(msg);
         } catch (InterruptedException e) {

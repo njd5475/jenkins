@@ -24,11 +24,14 @@
 
 package jenkins.model;
 
+import javax.annotation.Nonnull;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.model.Executor;
 import hudson.model.Job;
 import hudson.model.Run;
 import hudson.model.queue.CauseOfBlockage;
-import javax.annotation.Nonnull;
 
 /**
  * Indicates that a new build is blocked because the previous build is already in progress.
@@ -52,10 +55,10 @@ public class BlockedBecauseOfBuildInProgress extends CauseOfBlockage {
         Executor e = build.getExecutor();
         String eta = "";
         if (e != null) {
-            eta = Messages.BlockedBecauseOfBuildInProgress_ETA(e.getEstimatedRemainingTime());
+            eta = LocalizedString.BlockedBecauseOfBuildInProgress_ETA.toLocale(e.getEstimatedRemainingTime());
         }
         int lbn = build.getNumber();
-        return Messages.BlockedBecauseOfBuildInProgress_shortDescription(lbn, eta);
+        return LocalizedString.BlockedBecauseOfBuildInProgress_shortDescription.toLocale(lbn, eta);
     }
 
 }

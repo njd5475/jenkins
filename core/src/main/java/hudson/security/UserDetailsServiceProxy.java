@@ -28,6 +28,8 @@ import org.acegisecurity.userdetails.UserDetailsService;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.springframework.dao.DataAccessException;
 
+import com.dj.runner.locales.LocalizedString;
+
 /**
  * {@link UserDetailsService} proxy that delegates to another instance.
  * 
@@ -40,7 +42,7 @@ public class UserDetailsServiceProxy implements UserDetailsService {
         UserDetailsService uds = delegate;  // fix the reference for concurrency support
 
         if(uds ==null)
-            throw new UserMayOrMayNotExistException(Messages.UserDetailsServiceProxy_UnableToQuery(username));
+            throw new UserMayOrMayNotExistException(LocalizedString.UserDetailsServiceProxy_UnableToQuery.toLocale(username));
         return uds.loadUserByUsername(username);
     }
 

@@ -1,9 +1,10 @@
 package hudson.model.queue;
 
+import javax.annotation.CheckForNull;
+
 import hudson.model.Queue;
 import hudson.model.Queue.Item;
 import hudson.model.Queue.WaitingItem;
-import javax.annotation.CheckForNull;
 
 /**
  * Result of {@link Queue#schedule2}

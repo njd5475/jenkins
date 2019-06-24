@@ -23,15 +23,20 @@
  */
 package hudson.model;
 
-import hudson.model.UpdateCenter.DownloadJob;
-import hudson.model.UpdateCenter.DownloadJob.Success;
-import hudson.model.UpdateCenter.DownloadJob.Failure;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeNotNull;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.jvnet.hudson.test.Issue;
 import org.jvnet.hudson.test.JenkinsRule;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.model.UpdateCenter.DownloadJob;
+import hudson.model.UpdateCenter.DownloadJob.Failure;
+import hudson.model.UpdateCenter.DownloadJob.Success;
 
 /**
  *
@@ -59,7 +64,7 @@ public class UpdateCenter2Test {
     @Test public void getLastUpdatedString() {
         UpdateSite.neverUpdate = false;
         assertTrue(j.jenkins.getUpdateCenter().getById("default").isDue());
-        assertEquals(Messages.UpdateCenter_n_a(), j.jenkins.getUpdateCenter().getLastUpdatedString());
+        assertEquals(LocalizedString.UpdateCenter_n_a, j.jenkins.getUpdateCenter().getLastUpdatedString());
     }
 
     @Issue("SECURITY-234")

@@ -24,12 +24,14 @@
 
 package jenkins.security;
 
-import hudson.security.ACL;
-import hudson.security.ACLContext;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ScheduledExecutorService;
-import jenkins.util.InterceptingScheduledExecutorService;
+
 import org.acegisecurity.Authentication;
+
+import hudson.security.ACL;
+import hudson.security.ACLContext;
+import jenkins.util.InterceptingScheduledExecutorService;
 
 /**
  * Variant of {@link ImpersonatingExecutorService} for scheduled services.

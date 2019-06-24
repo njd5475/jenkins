@@ -23,13 +23,14 @@
  */
 package hudson.security;
 
-import org.acegisecurity.Authentication;
-import org.acegisecurity.acls.sid.Sid;
+import static java.util.logging.Level.FINE;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import static java.util.logging.Level.FINE;
+
+import org.acegisecurity.Authentication;
+import org.acegisecurity.acls.sid.Sid;
 
 /**
  * Access control list.

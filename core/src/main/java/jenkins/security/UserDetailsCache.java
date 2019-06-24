@@ -23,26 +23,29 @@
  */
 package jenkins.security;
 
-import com.google.common.cache.Cache;
-import com.google.common.util.concurrent.UncheckedExecutionException;
-import hudson.Extension;
-import hudson.ExtensionList;
-import hudson.security.UserMayOrMayNotExistException;
-import jenkins.model.Jenkins;
-import jenkins.util.SystemProperties;
+import static com.google.common.cache.CacheBuilder.newBuilder;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
 import org.acegisecurity.userdetails.UserDetails;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.springframework.dao.DataAccessException;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
+import com.google.common.cache.Cache;
+import com.google.common.util.concurrent.UncheckedExecutionException;
 
-import static com.google.common.cache.CacheBuilder.newBuilder;
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.security.UserMayOrMayNotExistException;
+import jenkins.model.Jenkins;
+import jenkins.util.SystemProperties;
 
 /**
  * Cache layer for {@link org.acegisecurity.userdetails.UserDetails} lookup.

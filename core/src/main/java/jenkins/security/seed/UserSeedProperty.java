@@ -23,15 +23,12 @@
  */
 package jenkins.security.seed;
 
-import hudson.BulkChange;
-import hudson.Extension;
-import hudson.model.User;
-import hudson.model.UserProperty;
-import hudson.model.UserPropertyDescriptor;
-import hudson.util.HttpResponses;
-import jenkins.model.Jenkins;
-import jenkins.security.LastGrantedAuthoritiesProperty;
-import jenkins.util.SystemProperties;
+import java.io.IOException;
+import java.security.SecureRandom;
+import java.util.Objects;
+
+import javax.annotation.Nonnull;
+
 import org.apache.commons.codec.binary.Hex;
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
@@ -41,10 +38,17 @@ import org.kohsuke.stapler.AncestorInPath;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import javax.annotation.Nonnull;
-import java.io.IOException;
-import java.security.SecureRandom;
-import java.util.Objects;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.BulkChange;
+import hudson.Extension;
+import hudson.model.User;
+import hudson.model.UserProperty;
+import hudson.model.UserPropertyDescriptor;
+import hudson.util.HttpResponses;
+import jenkins.model.Jenkins;
+import jenkins.security.LastGrantedAuthoritiesProperty;
+import jenkins.util.SystemProperties;
 
 /**
  * The seed stored in this property is used to have a revoke feature on the session 
@@ -110,7 +114,7 @@ public class UserSeedProperty extends UserProperty {
     @Symbol("userSeed")
     public static final class DescriptorImpl extends UserPropertyDescriptor {
         public @Nonnull String getDisplayName() {
-            return Messages.UserSeedProperty_DisplayName();
+            return LocalizedString.UserSeedProperty_DisplayName.toString();
         }
 
         public UserSeedProperty newInstance(User user) {

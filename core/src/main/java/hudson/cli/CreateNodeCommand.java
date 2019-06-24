@@ -24,14 +24,16 @@
 
 package hudson.cli;
 
+import org.kohsuke.args4j.Argument;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.model.Computer;
 import hudson.model.Node;
 import hudson.model.Slave;
 import hudson.model.User;
 import jenkins.model.Jenkins;
-
-import org.kohsuke.args4j.Argument;
 
 /**
  * @author ogondza
@@ -46,7 +48,7 @@ public class CreateNodeCommand extends CLICommand {
     @Override
     public String getShortDescription() {
 
-        return Messages.CreateNodeCommand_ShortDescription();
+        return LocalizedString.CreateNodeCommand_ShortDescription.toString();
     }
 
     @Override

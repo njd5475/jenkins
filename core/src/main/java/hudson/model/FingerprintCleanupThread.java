@@ -23,17 +23,18 @@
  */
 package hudson.model;
 
-import hudson.Extension;
-import hudson.ExtensionList;
-import hudson.Functions;
-import jenkins.model.Jenkins;
+import java.io.File;
+import java.io.IOException;
+import java.util.regex.Pattern;
+
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.regex.Pattern;
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.Functions;
+import jenkins.model.Jenkins;
 
 /**
  * Scans the fingerprint database and remove old records

@@ -23,15 +23,16 @@
  */
 package hudson.security.csrf;
 
+import javax.annotation.Nonnull;
+
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.StaplerRequest;
+
 import hudson.Extension;
 import jenkins.model.GlobalConfiguration;
 import jenkins.model.GlobalConfigurationCategory;
 import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.StaplerRequest;
-
-import javax.annotation.Nonnull;
 
 /**
  * Show the crumb configuration to the system config page.

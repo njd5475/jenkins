@@ -23,13 +23,13 @@
  */
 package hudson.security;
 
-import hudson.model.UserProperty;
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
+import hudson.model.UserProperty;
 
 /**
  * Remembers identifiers given by {@link FederatedLoginService} to this user.

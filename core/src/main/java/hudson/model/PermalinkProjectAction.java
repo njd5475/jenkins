@@ -23,10 +23,12 @@
  */
 package hudson.model;
 
-import jenkins.model.PeepholePermalink;
-
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import com.dj.runner.locales.LocalizedString;
+
+import jenkins.model.PeepholePermalink;
 
 /**
  * Optional interface for {@link Action}s that are attached
@@ -95,7 +97,7 @@ public interface PermalinkProjectAction extends Action {
 
         public static final Permalink LAST_BUILD = new Permalink() {
             public String getDisplayName() {
-                return Messages.Permalink_LastBuild();
+                return LocalizedString.Permalink_LastBuild.toString();
             }
 
             public String getId() {
@@ -108,7 +110,7 @@ public interface PermalinkProjectAction extends Action {
         };
         public static final Permalink LAST_STABLE_BUILD = new PeepholePermalink() {
             public String getDisplayName() {
-                return Messages.Permalink_LastStableBuild();
+                return LocalizedString.Permalink_LastStableBuild.toString();
             }
 
             public String getId() {
@@ -122,7 +124,7 @@ public interface PermalinkProjectAction extends Action {
         };
         public static final Permalink LAST_SUCCESSFUL_BUILD = new PeepholePermalink() {
             public String getDisplayName() {
-                return Messages.Permalink_LastSuccessfulBuild();
+                return LocalizedString.Permalink_LastSuccessfulBuild.toString();
             }
 
             public String getId() {
@@ -136,7 +138,7 @@ public interface PermalinkProjectAction extends Action {
         };
         public static final Permalink LAST_FAILED_BUILD = new PeepholePermalink() {
             public String getDisplayName() {
-                return Messages.Permalink_LastFailedBuild();
+                return LocalizedString.Permalink_LastFailedBuild.toString();
             }
 
             public String getId() {
@@ -151,7 +153,7 @@ public interface PermalinkProjectAction extends Action {
 
         public static final Permalink LAST_UNSTABLE_BUILD = new PeepholePermalink() {
             public String getDisplayName() {
-                return Messages.Permalink_LastUnstableBuild();
+                return LocalizedString.Permalink_LastUnstableBuild.toString();
             }
 
             public String getId() {
@@ -166,7 +168,7 @@ public interface PermalinkProjectAction extends Action {
 
         public static final Permalink LAST_UNSUCCESSFUL_BUILD = new PeepholePermalink() {
             public String getDisplayName() {
-                return Messages.Permalink_LastUnsuccessfulBuild();
+                return LocalizedString.Permalink_LastUnsuccessfulBuild.toString();
             }
 
             public String getId() {
@@ -180,7 +182,7 @@ public interface PermalinkProjectAction extends Action {
         };
         public static final Permalink LAST_COMPLETED_BUILD = new Permalink() {
             public String getDisplayName() {
-                return Messages.Permalink_LastCompletedBuild();
+                return LocalizedString.Permalink_LastCompletedBuild.toString();
             }
 
             public String getId() {

@@ -23,9 +23,6 @@
  */
 package hudson.model;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import hudson.FilePath;
-import hudson.Util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -50,12 +47,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
-import jenkins.model.Jenkins;
-import jenkins.security.MasterToSlaveCallable;
-import jenkins.util.SystemProperties;
-import jenkins.util.VirtualFile;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipOutputStream;
@@ -64,6 +59,14 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import hudson.FilePath;
+import hudson.Util;
+import jenkins.model.Jenkins;
+import jenkins.security.MasterToSlaveCallable;
+import jenkins.util.SystemProperties;
+import jenkins.util.VirtualFile;
 
 /**
  * Has convenience methods to serve file system.

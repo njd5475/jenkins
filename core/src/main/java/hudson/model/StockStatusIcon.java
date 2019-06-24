@@ -1,9 +1,10 @@
 package hudson.model;
 
-import jenkins.model.Jenkins;
-import org.jvnet.localizer.LocaleProvider;
-import org.jvnet.localizer.Localizable;
 import org.kohsuke.stapler.Stapler;
+
+import com.dj.runner.locales.Localizable;
+
+import jenkins.model.Jenkins;
 
 /**
  * {@link StatusIcon} for stock icon in Hudson.
@@ -12,25 +13,24 @@ import org.kohsuke.stapler.Stapler;
  * @since 1.390.
  */
 public final class StockStatusIcon extends AbstractStatusIcon {
-    private final Localizable description;
-    private final String image;
+  private final Localizable description;
+  private final String      image;
 
-    /**
-     * @param image
-     *      Short file name like "folder.gif" that points to a stock icon in Hudson.
-     * @param description
-     *      Used as {@link #getDescription()}.
-     */
-    public StockStatusIcon(String image, Localizable description) {
-        this.image = image;
-        this.description = description;
-    }
+  /**
+   * @param image       Short file name like "folder.gif" that points to a stock
+   *                    icon in Hudson.
+   * @param description Used as {@link #getDescription()}.
+   */
+  public StockStatusIcon(String image, Localizable description) {
+    this.image       = image;
+    this.description = description;
+  }
 
-    public String getImageOf(String size) {
-        return Stapler.getCurrentRequest().getContextPath()+ Jenkins.RESOURCE_PATH+"/images/"+size+'/'+image;
-    }
+  public String getImageOf(String size) {
+    return Stapler.getCurrentRequest().getContextPath() + Jenkins.RESOURCE_PATH + "/images/" + size + '/' + image;
+  }
 
-    public String getDescription() {
-        return description.toString(LocaleProvider.getLocale());
-    }
+  public String getDescription() {
+    return description.toString();
+  }
 }

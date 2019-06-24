@@ -1,5 +1,12 @@
 package jenkins.mvn;
 
+import java.io.File;
+
+import org.apache.commons.lang.StringUtils;
+import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.EnvVars;
 import hudson.Extension;
 import hudson.FilePath;
@@ -7,11 +14,6 @@ import hudson.Util;
 import hudson.model.AbstractBuild;
 import hudson.model.TaskListener;
 import hudson.util.IOUtils;
-
-import java.io.File;
-
-import org.apache.commons.lang.StringUtils;
-import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
  * @author <a href="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
@@ -67,7 +69,7 @@ public class FilePathGlobalSettingsProvider extends GlobalSettingsProvider {
 
         @Override
         public String getDisplayName() {
-            return Messages.FilePathGlobalSettingsProvider_DisplayName();
+            return LocalizedString.FilePathGlobalSettingsProvider_DisplayName.toString();
         }
 
     }

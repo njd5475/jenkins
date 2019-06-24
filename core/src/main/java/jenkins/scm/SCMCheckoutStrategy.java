@@ -1,5 +1,8 @@
 package jenkins.scm;
 
+import java.io.File;
+import java.io.IOException;
+
 import hudson.ExtensionPoint;
 import hudson.Launcher;
 import hudson.model.AbstractBuild;
@@ -11,9 +14,6 @@ import hudson.model.BuildableItemWithBuildWrappers;
 import hudson.model.Executor;
 import hudson.scm.SCM;
 import hudson.tasks.BuildWrapper;
-
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Controls the check out behavior in {@link AbstractBuild}.

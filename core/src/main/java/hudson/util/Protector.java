@@ -23,13 +23,14 @@
  */
 package hudson.util;
 
-import javax.crypto.SecretKey;
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 
 
 /**

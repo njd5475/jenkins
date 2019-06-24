@@ -23,17 +23,21 @@
  */
 package hudson.views;
 
-import hudson.model.Descriptor;
-import net.sf.json.JSONObject;
-import static org.hamcrest.Matchers.*;
-import org.junit.Assert;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
+
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.jvnet.hudson.test.Issue;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.kohsuke.stapler.MockStaplerRequestBuilder;
 import org.kohsuke.stapler.StaplerRequest;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.model.Descriptor;
+import net.sf.json.JSONObject;
 
 /**
  * Tests of {@link GlobalDefaultViewConfiguration}.
@@ -57,7 +61,7 @@ public class GlobalDefaultViewConfigurationTest {
             c.configure(create, params);
         } catch(Descriptor.FormException ex) {
             assertThat("Wrong exception message for the form failure", 
-                    ex.getMessage(), containsString(Messages.GlobalDefaultViewConfiguration_ViewDoesNotExist(viewName)));
+                    ex.getMessage(), containsString(LocalizedString.GlobalDefaultViewConfiguration_ViewDoesNotExist.toLocale(viewName)));
             return;
         }
         Assert.fail("Expected FormException");

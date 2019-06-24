@@ -23,11 +23,11 @@
  */
 package hudson;
 
+import java.io.IOException;
+
+import hudson.model.AbstractBuild;
 import hudson.model.Action;
 import hudson.model.TaskListener;
-import hudson.model.AbstractBuild;
-
-import java.io.IOException;
 
 /**
  * Represents a workspace snapshot created by {@link FileSystemProvisioner}.

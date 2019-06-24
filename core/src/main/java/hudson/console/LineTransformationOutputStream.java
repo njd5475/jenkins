@@ -23,10 +23,10 @@
  */
 package hudson.console;
 
-import hudson.util.ByteArrayOutputStream2;
-
 import java.io.IOException;
 import java.io.OutputStream;
+
+import hudson.util.ByteArrayOutputStream2;
 
 /**
  * Filtering {@link OutputStream} that buffers text by line, so that the derived class

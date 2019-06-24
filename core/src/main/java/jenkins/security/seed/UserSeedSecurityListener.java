@@ -23,17 +23,18 @@
  */
 package jenkins.security.seed;
 
-import hudson.Extension;
-import hudson.model.User;
-import jenkins.security.SecurityListener;
+import javax.annotation.Nonnull;
+import javax.servlet.http.HttpSession;
+
 import org.acegisecurity.userdetails.UserDetails;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
 
-import javax.annotation.Nonnull;
-import javax.servlet.http.HttpSession;
+import hudson.Extension;
+import hudson.model.User;
+import jenkins.security.SecurityListener;
 
 /**
  * Inject the user seed inside the session (when there is an existing request) as part of the re-authentication mechanism

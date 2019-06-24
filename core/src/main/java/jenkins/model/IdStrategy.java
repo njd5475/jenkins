@@ -23,23 +23,27 @@
  */
 package jenkins.model;
 
-import hudson.DescriptorExtensionList;
-import hudson.Extension;
-import hudson.ExtensionPoint;
-import hudson.model.AbstractDescribableImpl;
-import hudson.util.CaseInsensitiveComparator;
+import java.util.Comparator;
+import java.util.Locale;
+import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.annotation.Nonnull;
+
 import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.ProtectedExternally;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import javax.annotation.Nonnull;
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.function.Function;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.DescriptorExtensionList;
+import hudson.Extension;
+import hudson.ExtensionPoint;
+import hudson.model.AbstractDescribableImpl;
+import hudson.util.CaseInsensitiveComparator;
 
 /**
  * The strategy to use for manipulating converting names (e.g. user names, group names, etc) into ids.
@@ -234,7 +238,7 @@ public abstract class IdStrategy extends AbstractDescribableImpl<IdStrategy> imp
             @Nonnull
             @Override
             public String getDisplayName() {
-                return Messages.IdStrategy_CaseInsensitive_DisplayName();
+                return LocalizedString.IdStrategy_CaseInsensitive_DisplayName.toString();
             }
         }
     }
@@ -281,7 +285,7 @@ public abstract class IdStrategy extends AbstractDescribableImpl<IdStrategy> imp
              */
             @Override
             public String getDisplayName() {
-                return Messages.IdStrategy_CaseSensitive_DisplayName();
+                return LocalizedString.IdStrategy_CaseSensitive_DisplayName.toString();
             }
         }
     }
@@ -335,7 +339,7 @@ public abstract class IdStrategy extends AbstractDescribableImpl<IdStrategy> imp
              */
             @Override
             public String getDisplayName() {
-                return Messages.IdStrategy_CaseSensitiveEmailAddress_DisplayName();
+                return LocalizedString.IdStrategy_CaseSensitiveEmailAddress_DisplayName.toString();
             }
         }
     }

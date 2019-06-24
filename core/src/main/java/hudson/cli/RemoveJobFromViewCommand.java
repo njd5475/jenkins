@@ -25,12 +25,14 @@ package hudson.cli;
 
 import java.util.List;
 
-import hudson.Extension;
-import hudson.model.TopLevelItem;
-import hudson.model.DirectlyModifiableView;
-import hudson.model.View;
-
 import org.kohsuke.args4j.Argument;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.DirectlyModifiableView;
+import hudson.model.TopLevelItem;
+import hudson.model.View;
 
 /**
  * @author ogondza
@@ -47,7 +49,7 @@ public class RemoveJobFromViewCommand extends CLICommand {
 
     @Override
     public String getShortDescription() {
-        return Messages.RemoveJobFromViewCommand_ShortDescription();
+        return LocalizedString.RemoveJobFromViewCommand_ShortDescription.toString();
     }
 
     @Override

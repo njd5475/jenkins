@@ -1,10 +1,5 @@
 package jenkins.model.lazy;
 
-import groovy.util.MapEntry;
-import hudson.util.AdaptedIterator;
-import hudson.util.Iterators;
-
-import javax.annotation.Nullable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,6 +10,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
+
+import javax.annotation.Nullable;
+
+import groovy.util.MapEntry;
+import hudson.util.AdaptedIterator;
+import hudson.util.Iterators;
 
 /**
  * Take {@code SortedMap<Integer,BuildReference<R>>} and make it look like {@code SortedMap<Integer,R>}.

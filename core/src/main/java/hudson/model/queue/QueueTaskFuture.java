@@ -1,9 +1,9 @@
 package hudson.model.queue;
 
-import hudson.model.Queue.Executable;
-
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+
+import hudson.model.Queue.Executable;
 
 /**
  * {@link Future} that can be used to wait for the start and the end of the task execution

@@ -24,7 +24,40 @@
  */
 package hudson.model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.jar.JarFile;
+import java.util.jar.Manifest;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.servlet.ServletException;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.DataBoundSetter;
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+
+import com.dj.runner.locales.LocalizedString;
 import com.google.common.collect.ImmutableSet;
+
 import hudson.DescriptorExtensionList;
 import hudson.EnvVars;
 import hudson.FilePath;
@@ -47,38 +80,10 @@ import hudson.slaves.SlaveComputer;
 import hudson.util.ClockDifference;
 import hudson.util.DescribableList;
 import hudson.util.FormValidation;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.jar.JarFile;
-import java.util.jar.Manifest;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import javax.servlet.ServletException;
 import jenkins.model.Jenkins;
 import jenkins.security.MasterToSlaveCallable;
 import jenkins.slaves.WorkspaceLocator;
 import jenkins.util.SystemProperties;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.DataBoundSetter;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
 
 /**
  * Information about a Hudson agent node.
@@ -91,7 +96,7 @@ import org.kohsuke.stapler.StaplerResponse;
  * TODO: move out more stuff to {@link DumbSlave}.
  * 
  * On February, 2016 a general renaming was done internally: the "slave" term was replaced by
- * "Agent". This change was applied in: UI labels/HTML pages, javadocs and log messages.
+ * "Agent". This change was applied in: UI labels/HTML pages, javadocs and log Localized.
  * Java classes, fields, methods, etc were not renamed to avoid compatibility issues.
  * See <a href="https://jenkins-ci.org/issue/27268">JENKINS-27268</a>.
  *
@@ -207,13 +212,13 @@ public abstract class Slave extends Node implements Serializable {
             userId = user!=null ? user.getId() : "anonymous";
         }
         if (name.equals(""))
-            throw new FormException(Messages.Slave_InvalidConfig_NoName(), null);
+            throw new FormException(LocalizedString.Slave_InvalidConfig_NoName, null);
 
 //        if (remoteFS.equals(""))
-//            throw new FormException(Messages.Slave_InvalidConfig_NoRemoteDir(name), null);
+//            throw new FormException(Localized.Slave_InvalidConfig_NoRemoteDir(name), null);
 
         if (this.numExecutors<=0)
-            throw new FormException(Messages.Slave_InvalidConfig_Executors(name), null);
+            throw new FormException(LocalizedString.Slave_InvalidConfig_Executors.toLocale(name), null);
     }
 
     /**
@@ -581,13 +586,13 @@ public abstract class Slave extends Node implements Serializable {
          */
         public FormValidation doCheckRemoteFS(@QueryParameter String value) throws IOException, ServletException {
             if(Util.fixEmptyAndTrim(value)==null)
-                return FormValidation.error(Messages.Slave_Remote_Director_Mandatory());
+                return FormValidation.error(LocalizedString.Slave_Remote_Director_Mandatory);
 
             if(value.startsWith("\\\\") || value.startsWith("/net/"))
-                return FormValidation.warning(Messages.Slave_Network_Mounted_File_System_Warning());
+                return FormValidation.warning(LocalizedString.Slave_Network_Mounted_File_System_Warning);
 
             if (Util.isRelativePath(value)) {
-                return FormValidation.warning(Messages.Slave_Remote_Relative_Path_Warning());
+                return FormValidation.warning(LocalizedString.Slave_Remote_Relative_Path_Warning);
             }
 
             return FormValidation.ok();

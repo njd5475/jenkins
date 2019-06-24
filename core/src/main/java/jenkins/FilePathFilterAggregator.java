@@ -1,12 +1,12 @@
 package jenkins;
 
-import hudson.Extension;
-import hudson.FilePath;
-import hudson.remoting.ChannelProperty;
-
 import java.io.File;
 import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import hudson.Extension;
+import hudson.FilePath;
+import hudson.remoting.ChannelProperty;
 
 /**
  * Maintains a bundle of {@link FilePathFilter} and implement a hook that broadcasts to all the filters.

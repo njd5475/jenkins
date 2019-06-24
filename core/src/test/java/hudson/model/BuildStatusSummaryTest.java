@@ -9,6 +9,8 @@ import static org.mockito.Mockito.when;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.model.Run.Summary;
 
 /**
@@ -42,7 +44,7 @@ public class BuildStatusSummaryTest {
         when(this.build.isBuilding()).thenReturn(true);
         
         Summary summary = this.build.getBuildStatusSummary();
-        assertEquals(Messages.Run_Summary_Unknown(), summary.message);
+        assertEquals(LocalizedString.Run_Summary_Unknown, summary.message);
     }
     
     @Test
@@ -52,20 +54,20 @@ public class BuildStatusSummaryTest {
         
         Summary summary = this.build.getBuildStatusSummary();
         assertFalse(summary.isWorse);
-        assertEquals(Messages.Run_Summary_Stable(), summary.message);
+        assertEquals(LocalizedString.Run_Summary_Stable, summary.message);
         
         // same if there is no previous build
         when(this.build.getPreviousBuild()).thenReturn(null);
         summary = this.build.getBuildStatusSummary();
         assertFalse(summary.isWorse);
-        assertEquals(Messages.Run_Summary_Stable(), summary.message);
+        assertEquals(LocalizedString.Run_Summary_Stable, summary.message);
         
         // from NOT_BUILD should also mean normal success and not 'back to normal'
         when(this.prevBuild.getResult()).thenReturn(Result.NOT_BUILT);
         
         summary = this.build.getBuildStatusSummary();
         assertFalse(summary.isWorse);
-        assertEquals(Messages.Run_Summary_Stable(), summary.message);
+        assertEquals(LocalizedString.Run_Summary_Stable, summary.message);
         
         
         // same if previous one was aborted
@@ -73,7 +75,7 @@ public class BuildStatusSummaryTest {
         
         summary = this.build.getBuildStatusSummary();
         assertFalse(summary.isWorse);
-        assertEquals(Messages.Run_Summary_Stable(), summary.message);
+        assertEquals(LocalizedString.Run_Summary_Stable, summary.message);
     }
     
     @Test
@@ -84,7 +86,7 @@ public class BuildStatusSummaryTest {
         Summary summary = this.build.getBuildStatusSummary();
         
         assertFalse(summary.isWorse);
-        assertEquals(Messages.Run_Summary_BackToNormal(), summary.message);
+        assertEquals(LocalizedString.Run_Summary_BackToNormal, summary.message);
         
         // same from unstable:
         when(this.prevBuild.getResult()).thenReturn(Result.UNSTABLE);
@@ -92,7 +94,7 @@ public class BuildStatusSummaryTest {
         summary = this.build.getBuildStatusSummary();
         
         assertFalse(summary.isWorse);
-        assertEquals(Messages.Run_Summary_BackToNormal(), summary.message);
+        assertEquals(LocalizedString.Run_Summary_BackToNormal, summary.message);
     }
     
     @Test
@@ -103,7 +105,7 @@ public class BuildStatusSummaryTest {
         Summary summary = this.build.getBuildStatusSummary();
         
         assertFalse(summary.isWorse);
-        assertEquals(Messages.Run_Summary_BrokenForALongTime(), summary.message);
+        assertEquals(LocalizedString.Run_Summary_BrokenForALongTime, summary.message);
     }
     
     @Test
@@ -115,7 +117,7 @@ public class BuildStatusSummaryTest {
         Summary summary = this.build.getBuildStatusSummary();
         
         assertTrue(summary.isWorse);
-        assertEquals(Messages.Run_Summary_BrokenSinceThisBuild(), summary.message);
+        assertEquals(LocalizedString.Run_Summary_BrokenSinceThisBuild, summary.message);
     }
     
     @Test
@@ -131,7 +133,7 @@ public class BuildStatusSummaryTest {
         Summary summary = this.build.getBuildStatusSummary();
         
         assertFalse(summary.isWorse);
-        assertEquals(Messages.Run_Summary_BrokenSince(this.prevBuild.getDisplayName()), summary.message);
+        assertEquals(LocalizedString.Run_Summary_BrokenSince.toLocale(this.prevBuild.getDisplayName()), summary.message);
     }
     
     @Test
@@ -142,7 +144,7 @@ public class BuildStatusSummaryTest {
         Summary summary = this.build.getBuildStatusSummary();
         
         assertTrue(summary.isWorse);
-        //assertEquals(Messages.Run_Summary_Stable(), summary.message);
+        //assertEquals(Localized.Run_Summary_Stable(), summary.message);
     }
     
     @Test
@@ -153,7 +155,7 @@ public class BuildStatusSummaryTest {
         Summary summary = this.build.getBuildStatusSummary();
         
         assertFalse(summary.isWorse);
-        assertEquals(Messages.Run_Summary_Unstable(), summary.message);
+        assertEquals(LocalizedString.Run_Summary_Unstable, summary.message);
     }
 
     @Test
@@ -164,7 +166,7 @@ public class BuildStatusSummaryTest {
         Summary summary = this.build.getBuildStatusSummary();
         
         assertFalse(summary.isWorse);
-        assertEquals(Messages.Run_Summary_Unstable(), summary.message);
+        assertEquals(LocalizedString.Run_Summary_Unstable, summary.message);
     }
     
     @Test
@@ -175,7 +177,7 @@ public class BuildStatusSummaryTest {
         Summary summary = this.build.getBuildStatusSummary();
         
         assertTrue(summary.isWorse);
-        //assertEquals(Messages.Run_Summary_Unstable(), summary.message);
+        //assertEquals(Localized.Run_Summary_Unstable(), summary.message);
     }
     
     @Test
@@ -184,7 +186,7 @@ public class BuildStatusSummaryTest {
         Summary summary = this.build.getBuildStatusSummary();
         
         assertFalse(summary.isWorse);
-        assertEquals(Messages.Run_Summary_Aborted(), summary.message);
+        assertEquals(LocalizedString.Run_Summary_Aborted, summary.message);
     }
     
     @Test
@@ -193,7 +195,7 @@ public class BuildStatusSummaryTest {
         Summary summary = this.build.getBuildStatusSummary();
         
         assertFalse(summary.isWorse);
-        assertEquals(Messages.Run_Summary_NotBuilt(), summary.message);
+        assertEquals(LocalizedString.Run_Summary_NotBuilt, summary.message);
     }
     
 }

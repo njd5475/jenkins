@@ -24,7 +24,6 @@
 
 package hudson.cli.handlers;
 
-import jenkins.model.ParameterizedJobMixIn;
 import org.kohsuke.MetaInfServices;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.DoNotUse;
@@ -32,6 +31,8 @@ import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.OptionDef;
 import org.kohsuke.args4j.spi.OptionHandler;
 import org.kohsuke.args4j.spi.Setter;
+
+import jenkins.model.ParameterizedJobMixIn;
 
 /**
  * Refer to {@link jenkins.model.ParameterizedJobMixIn.ParameterizedJob} by its name.

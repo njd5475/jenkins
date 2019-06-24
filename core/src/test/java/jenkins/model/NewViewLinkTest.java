@@ -17,6 +17,8 @@ import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.model.Action;
 import hudson.model.View;
 
@@ -51,7 +53,7 @@ public class NewViewLinkTest {
 
         assertEquals(1, actions.size());
         final Action action = actions.get(0);
-        assertEquals(Messages.NewViewLink_NewView(), action.getDisplayName());
+        assertEquals(LocalizedString.NewViewLink_NewView, action.getDisplayName());
         assertEquals(NewViewLink.ICON_FILE_NAME, action.getIconFileName());
         assertEquals(rootUrl + NewViewLink.URL_NAME, action.getUrlName());
     }

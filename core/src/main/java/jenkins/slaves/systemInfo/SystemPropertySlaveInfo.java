@@ -1,7 +1,10 @@
 package jenkins.slaves.systemInfo;
 
-import hudson.Extension;
 import org.jenkinsci.Symbol;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -10,6 +13,6 @@ import org.jenkinsci.Symbol;
 public class SystemPropertySlaveInfo extends SlaveSystemInfo {
     @Override
     public String getDisplayName() {
-        return Messages.SystemPropertySlaveInfo_DisplayName();
+        return LocalizedString.SystemPropertySlaveInfo_DisplayName.toString();
     }
 }

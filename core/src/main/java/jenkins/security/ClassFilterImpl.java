@@ -24,12 +24,6 @@
 
 package jenkins.security;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.ImmutableSet;
-import hudson.ExtensionList;
-import hudson.Main;
-import hudson.remoting.ClassFilter;
-import hudson.remoting.Which;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -51,13 +45,23 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import jenkins.model.Jenkins;
-import jenkins.util.SystemProperties;
+
 import org.apache.commons.io.IOUtils;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.ImmutableSet;
+
+import hudson.ExtensionList;
+import hudson.Main;
+import hudson.remoting.ClassFilter;
+import hudson.remoting.Which;
+import jenkins.model.Jenkins;
+import jenkins.util.SystemProperties;
 
 /**
  * Customized version of {@link ClassFilter#DEFAULT}.

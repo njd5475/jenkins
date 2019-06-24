@@ -1,21 +1,24 @@
 package hudson.cli;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.args4j.Option;
+import org.kohsuke.stapler.export.Flavor;
+import org.kohsuke.stapler.export.Model;
+import org.kohsuke.stapler.export.ModelBuilder;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.model.Run;
 import hudson.scm.ChangeLogSet;
 import hudson.scm.ChangeLogSet.Entry;
 import hudson.util.QuotedStringTokenizer;
 import jenkins.scm.RunWithSCM;
-import org.kohsuke.args4j.Option;
-import org.kohsuke.stapler.export.Flavor;
-import org.kohsuke.stapler.export.Model;
-import org.kohsuke.stapler.export.ModelBuilder;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
 
 /**
  * Retrieves a change list for the specified builds.
@@ -27,7 +30,7 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 public class ListChangesCommand extends RunRangeCommand {
     @Override
     public String getShortDescription() {
-        return Messages.ListChangesCommand_ShortDescription();
+        return LocalizedString.ListChangesCommand_ShortDescription.toString();
     }
 
 //    @Override

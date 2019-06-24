@@ -5,15 +5,6 @@
  */
 package hudson.security.csrf;
 
-import hudson.util.MultipartFormDataParser;
-import jenkins.model.Jenkins;
-import org.acegisecurity.providers.anonymous.AnonymousAuthenticationToken;
-import org.kohsuke.MetaInfServices;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.ForwardToView;
-import org.kohsuke.stapler.interceptor.RequirePOST;
-
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.logging.Level;
@@ -27,6 +18,16 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.acegisecurity.providers.anonymous.AnonymousAuthenticationToken;
+import org.kohsuke.MetaInfServices;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.ForwardToView;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import hudson.util.MultipartFormDataParser;
+import jenkins.model.Jenkins;
 
 /**
  * Checks for and validates crumbs on requests that cause state changes, to

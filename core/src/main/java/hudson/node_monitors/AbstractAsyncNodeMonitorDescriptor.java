@@ -1,12 +1,8 @@
 package hudson.node_monitors;
 
-import hudson.model.Computer;
-import hudson.remoting.Callable;
-import hudson.remoting.VirtualChannel;
-import jenkins.model.Jenkins;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.logging.Level.WARNING;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,8 +17,13 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Logger;
 
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.logging.Level.WARNING;
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
+import hudson.model.Computer;
+import hudson.remoting.Callable;
+import hudson.remoting.VirtualChannel;
+import jenkins.model.Jenkins;
 
 /**
  * Sophisticated version of {@link AbstractNodeMonitorDescriptor} that

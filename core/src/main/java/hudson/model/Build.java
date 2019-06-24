@@ -23,15 +23,7 @@
  */
 package hudson.model;
 
-import hudson.Functions;
-import hudson.Launcher;
-import hudson.tasks.BuildStep;
-import hudson.tasks.BuildWrapper;
-import hudson.tasks.Builder;
-import hudson.tasks.Recorder;
-import hudson.tasks.Notifier;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
+import static hudson.model.Result.FAILURE;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,11 +31,23 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import static hudson.model.Result.FAILURE;
 import javax.annotation.Nonnull;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Functions;
+import hudson.Launcher;
+import hudson.tasks.BuildStep;
+import hudson.tasks.BuildWrapper;
+import hudson.tasks.Builder;
+import hudson.tasks.Notifier;
+import hudson.tasks.Recorder;
 
 /**
  * A build of a {@link Project}.
@@ -196,7 +200,7 @@ public abstract class Build <P extends Project<P,B>,B extends Build<P,B>>
                 performAllBuildSteps(listener, project.getPublishersList(), false);
                 performAllBuildSteps(listener, project.getProperties(), false);
             } catch (Exception x) {
-                Functions.printStackTrace(x, listener.error(Messages.Build_post_build_steps_failed()));
+                Functions.printStackTrace(x, listener.error(LocalizedString.Build_post_build_steps_failed));
             }
             super.cleanUp(listener);
         }

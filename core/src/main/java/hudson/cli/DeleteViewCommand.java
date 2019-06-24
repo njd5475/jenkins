@@ -23,16 +23,18 @@
  */
 package hudson.cli;
 
-import hudson.AbortException;
-import hudson.Extension;
-import hudson.cli.handlers.ViewOptionHandler;
-import hudson.model.ViewGroup;
-import hudson.model.View;
+import java.util.HashSet;
+import java.util.List;
 
 import org.kohsuke.args4j.Argument;
 
-import java.util.HashSet;
-import java.util.List;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.AbortException;
+import hudson.Extension;
+import hudson.cli.handlers.ViewOptionHandler;
+import hudson.model.View;
+import hudson.model.ViewGroup;
 
 /**
  * @author ogondza, pjanouse
@@ -47,7 +49,7 @@ public class DeleteViewCommand extends CLICommand {
     @Override
     public String getShortDescription() {
 
-        return Messages.DeleteViewCommand_ShortDescription();
+        return LocalizedString.DeleteViewCommand_ShortDescription.toString();
     }
 
     @Override

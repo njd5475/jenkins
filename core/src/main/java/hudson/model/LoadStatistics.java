@@ -23,14 +23,17 @@
  */
 package hudson.model;
 
-import hudson.Extension;
-import jenkins.util.SystemProperties;
-import hudson.model.MultiStageTimeSeries.TimeScale;
-import hudson.model.MultiStageTimeSeries.TrendChart;
-import hudson.model.queue.SubTask;
-import hudson.util.ColorPalette;
-import hudson.util.NoOverlapCategoryAxis;
-import jenkins.model.Jenkins;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.io.IOException;
+import java.io.Serializable;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.CheckForNull;
+
 import org.jenkinsci.Symbol;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -43,17 +46,19 @@ import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.ui.RectangleInsets;
 import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.export.ExportedBean;
 import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
 
-import java.awt.*;
-import java.io.IOException;
-import java.io.Serializable;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.concurrent.TimeUnit;
-import java.util.List;
-import javax.annotation.CheckForNull;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.MultiStageTimeSeries.TimeScale;
+import hudson.model.MultiStageTimeSeries.TrendChart;
+import hudson.model.queue.SubTask;
+import hudson.util.ColorPalette;
+import hudson.util.NoOverlapCategoryAxis;
+import jenkins.model.Jenkins;
+import jenkins.util.SystemProperties;
 
 /**
  * Utilization statistics for a node or a set of nodes.
@@ -137,20 +142,20 @@ public abstract class LoadStatistics {
 
 
     protected LoadStatistics(int initialOnlineExecutors, int initialBusyExecutors) {
-        this.definedExecutors = new MultiStageTimeSeries(Messages._LoadStatistics_Legends_DefinedExecutors(),
+        this.definedExecutors = new MultiStageTimeSeries(LocalizedString._LoadStatistics_Legends_DefinedExecutors,
                 ColorPalette.YELLOW, initialOnlineExecutors, DECAY);
         this.onlineExecutors = new MultiStageTimeSeries(
-                Messages._LoadStatistics_Legends_OnlineExecutors(), ColorPalette.BLUE, initialOnlineExecutors,DECAY);
-        this.connectingExecutors = new MultiStageTimeSeries(Messages._LoadStatistics_Legends_ConnectingExecutors(),
+                LocalizedString._LoadStatistics_Legends_OnlineExecutors, ColorPalette.BLUE, initialOnlineExecutors,DECAY);
+        this.connectingExecutors = new MultiStageTimeSeries(LocalizedString._LoadStatistics_Legends_ConnectingExecutors,
                 ColorPalette.YELLOW, 0, DECAY);
         this.busyExecutors = new MultiStageTimeSeries(
-                Messages._LoadStatistics_Legends_BusyExecutors(), ColorPalette.RED, initialBusyExecutors,DECAY);
-        this.idleExecutors = new MultiStageTimeSeries(Messages._LoadStatistics_Legends_IdleExecutors(),
+                LocalizedString._LoadStatistics_Legends_BusyExecutors, ColorPalette.RED, initialBusyExecutors,DECAY);
+        this.idleExecutors = new MultiStageTimeSeries(LocalizedString._LoadStatistics_Legends_IdleExecutors,
                 ColorPalette.YELLOW, initialOnlineExecutors - initialBusyExecutors, DECAY);
-        this.availableExecutors = new MultiStageTimeSeries(Messages._LoadStatistics_Legends_AvailableExecutors(),
+        this.availableExecutors = new MultiStageTimeSeries(LocalizedString._LoadStatistics_Legends_AvailableExecutors,
                 ColorPalette.YELLOW, initialOnlineExecutors - initialBusyExecutors, DECAY);
         this.queueLength = new MultiStageTimeSeries(
-                Messages._LoadStatistics_Legends_QueueLength(),ColorPalette.GREY, 0, DECAY);
+                LocalizedString._LoadStatistics_Legends_QueueLength,ColorPalette.GREY, 0, DECAY);
         this.totalExecutors = onlineExecutors;
         modern = isModern(getClass());
     }

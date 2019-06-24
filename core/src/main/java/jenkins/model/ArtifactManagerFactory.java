@@ -24,11 +24,13 @@
 
 package jenkins.model;
 
+import javax.annotation.CheckForNull;
+
+import org.kohsuke.stapler.DataBoundConstructor;
+
 import hudson.ExtensionPoint;
 import hudson.model.AbstractDescribableImpl;
 import hudson.model.Run;
-import javax.annotation.CheckForNull;
-import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
  * Pluggable ability to manage transfer and/or storage of build artifacts.

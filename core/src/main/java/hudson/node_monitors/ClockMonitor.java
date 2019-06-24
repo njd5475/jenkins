@@ -23,18 +23,20 @@
  */
 package hudson.node_monitors;
 
-import hudson.model.Computer;
-import hudson.model.Node;
-import hudson.remoting.Callable;
-import hudson.util.ClockDifference;
-import hudson.Extension;
+import java.io.IOException;
+
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 
-import java.io.IOException;
+import com.dj.runner.locales.LocalizedString;
 
+import hudson.Extension;
+import hudson.model.Computer;
+import hudson.model.Node;
+import hudson.remoting.Callable;
+import hudson.util.ClockDifference;
 import net.sf.json.JSONObject;
 
 /**
@@ -70,7 +72,7 @@ public class ClockMonitor extends NodeMonitor {
         }
 
         public String getDisplayName() {
-            return Messages.ClockMonitor_DisplayName();
+            return LocalizedString.ClockMonitor_DisplayName.toString();
         }
 
         @Override

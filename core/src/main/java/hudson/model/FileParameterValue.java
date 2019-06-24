@@ -23,12 +23,6 @@
  */
 package hudson.model;
 
-import hudson.EnvVars;
-import hudson.FilePath;
-import hudson.Launcher;
-import hudson.tasks.BuildWrapper;
-import hudson.util.VariableResolver;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,6 +31,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
+
 import javax.servlet.ServletException;
 
 import org.apache.commons.fileupload.FileItem;
@@ -51,6 +46,12 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
+
+import hudson.EnvVars;
+import hudson.FilePath;
+import hudson.Launcher;
+import hudson.tasks.BuildWrapper;
+import hudson.util.VariableResolver;
 
 /**
  * {@link ParameterValue} for {@link FileParameterDefinition}.

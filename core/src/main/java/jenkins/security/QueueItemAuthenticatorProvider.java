@@ -1,14 +1,15 @@
 package jenkins.security;
 
-import hudson.Extension;
-import hudson.ExtensionList;
-import hudson.ExtensionPoint;
-
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+
+import javax.annotation.Nonnull;
+
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.ExtensionPoint;
 
 /**
  * There are cases where a plugin need to provide a {@link QueueItemAuthenticator} that cannot be controlled or

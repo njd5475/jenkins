@@ -24,8 +24,65 @@
  */
 package hudson.model;
 
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.Source;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
+import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.lang.StringUtils;
+import org.apache.tools.ant.filters.StringInputStream;
+import org.jenkins.ui.icon.Icon;
+import org.jenkins.ui.icon.IconSet;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.DoNotUse;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.HttpResponses;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.Stapler;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.WebMethod;
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+import org.xml.sax.SAXException;
+
+import com.dj.runner.locales.LocalizedString;
 import com.thoughtworks.xstream.converters.ConversionException;
 import com.thoughtworks.xstream.io.StreamException;
+
 import hudson.DescriptorExtensionList;
 import hudson.Extension;
 import hudson.ExtensionPoint;
@@ -55,7 +112,6 @@ import hudson.util.RunList;
 import hudson.util.XStream2;
 import hudson.views.ListViewColumn;
 import hudson.widgets.Widget;
-import javax.annotation.Nonnull;
 import jenkins.model.Jenkins;
 import jenkins.model.ModelObjectWithChildren;
 import jenkins.model.ModelObjectWithContextMenu;
@@ -66,63 +122,9 @@ import jenkins.scm.RunWithSCM;
 import jenkins.security.stapler.StaplerAccessibleType;
 import jenkins.util.ProgressiveRendering;
 import jenkins.util.xml.XMLUtils;
-
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.lang.StringUtils;
-import org.apache.tools.ant.filters.StringInputStream;
-import org.jenkins.ui.icon.Icon;
-import org.jenkins.ui.icon.IconSet;
-import org.kohsuke.accmod.restrictions.DoNotUse;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.HttpResponses;
-import org.kohsuke.stapler.Stapler;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-import org.kohsuke.stapler.WebMethod;
-import org.kohsuke.stapler.export.Exported;
-import org.kohsuke.stapler.export.ExportedBean;
-import org.kohsuke.stapler.interceptor.RequirePOST;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.transform.Source;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Serializable;
-import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-
-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
-
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.QueryParameter;
-import org.xml.sax.SAXException;
 
 /**
  * Encapsulates the rendering of the list of {@link TopLevelItem}s
@@ -254,7 +256,7 @@ public abstract class View extends AbstractModelObject implements AccessControll
         if(name.equals(newName))    return; // noop
         Jenkins.checkGoodName(newName);
         if(owner.getView(newName)!=null)
-            throw new FormException(Messages.Hudson_ViewAlreadyExists(newName),"name");
+            throw new FormException(LocalizedString.Hudson_ViewAlreadyExists.toLocale(newName),"name");
         String oldName = name;
         name = newName;
         owner.onViewRenamed(this,oldName,newName);
@@ -352,7 +354,7 @@ public abstract class View extends AbstractModelObject implements AccessControll
     }
 
     public String getNewPronoun() {
-        return AlternativeUiTextProvider.get(NEW_PRONOUN, this, Messages.AbstractItem_Pronoun());
+        return AlternativeUiTextProvider.get(NEW_PRONOUN, this, LocalizedString.AbstractItem_Pronoun);
     }
 
     /**
@@ -1054,7 +1056,7 @@ public abstract class View extends AbstractModelObject implements AccessControll
         }
 
         if (getOwner().getItemGroup().getItem(value) != null) {
-            return FormValidation.error(Messages.Hudson_JobAlreadyExists(value));
+            return FormValidation.error(LocalizedString.Hudson_JobAlreadyExists.toLocale(value));
         }
 
         // looks good
@@ -1283,14 +1285,14 @@ public abstract class View extends AbstractModelObject implements AccessControll
         }
     };
 
-    public static final PermissionGroup PERMISSIONS = new PermissionGroup(View.class,Messages._View_Permissions_Title());
+    public static final PermissionGroup PERMISSIONS = new PermissionGroup(View.class,LocalizedString._View_Permissions_Title);
     /**
      * Permission to create new views.
      */
-    public static final Permission CREATE = new Permission(PERMISSIONS,"Create", Messages._View_CreatePermission_Description(), Permission.CREATE, PermissionScope.ITEM_GROUP);
-    public static final Permission DELETE = new Permission(PERMISSIONS,"Delete", Messages._View_DeletePermission_Description(), Permission.DELETE, PermissionScope.ITEM_GROUP);
-    public static final Permission CONFIGURE = new Permission(PERMISSIONS,"Configure", Messages._View_ConfigurePermission_Description(), Permission.CONFIGURE, PermissionScope.ITEM_GROUP);
-    public static final Permission READ = new Permission(PERMISSIONS,"Read", Messages._View_ReadPermission_Description(), Permission.READ, PermissionScope.ITEM_GROUP);
+    public static final Permission CREATE = new Permission(PERMISSIONS,"Create", LocalizedString._View_CreatePermission_Description, Permission.CREATE, PermissionScope.ITEM_GROUP);
+    public static final Permission DELETE = new Permission(PERMISSIONS,"Delete", LocalizedString._View_DeletePermission_Description, Permission.DELETE, PermissionScope.ITEM_GROUP);
+    public static final Permission CONFIGURE = new Permission(PERMISSIONS,"Configure", LocalizedString._View_ConfigurePermission_Description, Permission.CONFIGURE, PermissionScope.ITEM_GROUP);
+    public static final Permission READ = new Permission(PERMISSIONS,"Read", LocalizedString._View_ReadPermission_Description, Permission.READ, PermissionScope.ITEM_GROUP);
 
     // to simplify access from Jelly
     public static Permission getItemCreatePermission() {
@@ -1313,7 +1315,7 @@ public abstract class View extends AbstractModelObject implements AccessControll
         String name = req.getParameter("name");
         Jenkins.checkGoodName(name);
         if(owner.getView(name)!=null)
-            throw new Failure(Messages.Hudson_ViewAlreadyExists(name));
+            throw new Failure(LocalizedString.Hudson_ViewAlreadyExists.toLocale(name));
 
         if (mode==null || mode.length()==0) {
             if(isXmlSubmission) {
@@ -1323,7 +1325,7 @@ public abstract class View extends AbstractModelObject implements AccessControll
                 rsp.setStatus(HttpServletResponse.SC_OK);
                 return v;
             } else
-                throw new Failure(Messages.View_MissingMode());
+                throw new Failure(LocalizedString.View_MissingMode);
         }
 
         View v;

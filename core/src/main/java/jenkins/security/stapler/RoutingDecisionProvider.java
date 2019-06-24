@@ -23,9 +23,9 @@
  */
 package jenkins.security.stapler;
 
-import hudson.ExtensionPoint;
-
 import javax.annotation.Nonnull;
+
+import hudson.ExtensionPoint;
 
 public abstract class RoutingDecisionProvider implements ExtensionPoint {
     enum Decision {

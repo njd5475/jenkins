@@ -23,11 +23,11 @@
  */
 package jenkins.model;
 
+import java.util.List;
+
 import hudson.ExtensionPoint;
 import hudson.model.Describable;
 import hudson.model.Descriptor;
-
-import java.util.List;
 
 /**
  * Participates in the rendering of the login page

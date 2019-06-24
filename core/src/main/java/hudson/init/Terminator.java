@@ -1,14 +1,15 @@
 package hudson.init;
 
-import org.jvnet.hudson.annotation_indexer.Indexed;
+import static hudson.init.TermMilestone.COMPLETED;
+import static hudson.init.TermMilestone.STARTED;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static hudson.init.TermMilestone.*;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import org.jvnet.hudson.annotation_indexer.Indexed;
 
 /**
  * Like {@link Initializer} but used during the shut down.
@@ -52,7 +53,7 @@ public @interface Terminator {
     String[] attains() default {};
 
     /**
-     * Key in {@code Messages.properties} that represents what this task is about. Used for rendering the progress.
+     * Key in {@code Localized.properties} that represents what this task is about. Used for rendering the progress.
      * Defaults to "${short class name}.${method Name}".
      */
     String displayName() default "";

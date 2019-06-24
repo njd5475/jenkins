@@ -23,9 +23,11 @@
  */
 package hudson.model;
 
+import java.util.Locale;
+
 import org.jvnet.localizer.Localizable;
 
-import java.util.Locale;
+import com.dj.runner.locales.LocalizedString;
 
 /**
  * Describes an {@link Result} trend by taking the comparing the result of the current and the previous build.
@@ -38,44 +40,44 @@ public enum ResultTrend {
      * Previous build was {@link Result#FAILURE} or {@link Result#UNSTABLE}
      * and is now {@link Result#SUCCESS}.
      */
-    FIXED(Messages._ResultTrend_Fixed()),
+    FIXED(LocalizedString._ResultTrend_Fixed),
     /**
      * Build as well as previous build (if it has a previous build) are {@link Result#SUCCESS}
      */
-    SUCCESS(Messages._ResultTrend_Success()),
+    SUCCESS(LocalizedString._ResultTrend_Success),
     /**
      * Previous build was {@link Result#FAILURE} and is now 'only' {@link Result#UNSTABLE}.
      */
-    NOW_UNSTABLE(Messages._ResultTrend_NowUnstable()),
+    NOW_UNSTABLE(LocalizedString._ResultTrend_NowUnstable),
     /**
      * Build as well as previous build are {@link Result#UNSTABLE}.
      */
-    STILL_UNSTABLE(Messages._ResultTrend_StillUnstable()),
+    STILL_UNSTABLE(LocalizedString._ResultTrend_StillUnstable),
     /**
      * Previous build (if there is one) was {@link Result#SUCCESS} and current build is {@link Result#UNSTABLE}.
      */
-    UNSTABLE(Messages._ResultTrend_Unstable()),
+    UNSTABLE(LocalizedString._ResultTrend_Unstable),
     /**
      * Build as well as previous build are {@link Result#FAILURE}.
      */
-    STILL_FAILING(Messages._ResultTrend_StillFailing()),
+    STILL_FAILING(LocalizedString._ResultTrend_StillFailing),
     /**
      * Previous build (if there is one) was {@link Result#SUCCESS} or {@link Result#UNSTABLE}
      * and current build is {@link Result#FAILURE}.
      */
-    FAILURE(Messages._ResultTrend_Failure()),
+    FAILURE(LocalizedString._ResultTrend_Failure),
     /**
      * Build was aborted.
      */
-    ABORTED(Messages._ResultTrend_Aborted()),
+    ABORTED(LocalizedString._ResultTrend_Aborted),
     /**
      * Build didn't run (yet).
      */
-    NOT_BUILT(Messages._ResultTrend_NotBuilt());
+    NOT_BUILT(LocalizedString._ResultTrend_NotBuilt);
     
-    private final Localizable description;
+    private final LocalizedString description;
 
-    ResultTrend(Localizable description) {
+    ResultTrend(LocalizedString description) {
         this.description = description;
     }
     

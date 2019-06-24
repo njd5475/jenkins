@@ -23,14 +23,6 @@
  */
 package hudson.model;
 
-import hudson.Extension;
-import hudson.Util;
-import hudson.model.Descriptor.FormException;
-import hudson.security.ACL;
-import hudson.util.FormValidation;
-import hudson.views.MyViewsTabBar;
-import hudson.views.ViewsTabBar;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Collection;
@@ -40,9 +32,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.annotation.CheckForNull;
 import javax.servlet.ServletException;
-
-import jenkins.model.Jenkins;
-import net.sf.json.JSONObject;
 
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
@@ -55,6 +44,18 @@ import org.kohsuke.stapler.StaplerFallback;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.Util;
+import hudson.model.Descriptor.FormException;
+import hudson.security.ACL;
+import hudson.util.FormValidation;
+import hudson.views.MyViewsTabBar;
+import hudson.views.ViewsTabBar;
+import jenkins.model.Jenkins;
+import net.sf.json.JSONObject;
 
 /**
  * A UserProperty that remembers user-private views.
@@ -191,11 +192,11 @@ public class MyViewsProperty extends UserProperty implements ModifiableViewGroup
         if (exists) {
         	return (getView(view)!=null) ?
             		FormValidation.ok() :
-            		FormValidation.error(Messages.MyViewsProperty_ViewExistsCheck_NotExist(view));
+            		FormValidation.error(LocalizedString.MyViewsProperty_ViewExistsCheck_NotExist.toLocale(view));
         } else {
         	return (getView(view)==null) ?
         			FormValidation.ok() :
-        			FormValidation.error(Messages.MyViewsProperty_ViewExistsCheck_AlreadyExists(view));
+        			FormValidation.error(LocalizedString.MyViewsProperty_ViewExistsCheck_AlreadyExists.toLocale(view));
         }
     }
 
@@ -205,7 +206,7 @@ public class MyViewsProperty extends UserProperty implements ModifiableViewGroup
 
     ///// Action methods /////
     public String getDisplayName() {
-        return Messages.MyViewsProperty_DisplayName();
+        return LocalizedString.MyViewsProperty_DisplayName.toString();
     }
 
     public String getIconFileName() {
@@ -221,7 +222,7 @@ public class MyViewsProperty extends UserProperty implements ModifiableViewGroup
 
         @Override
         public String getDisplayName() {
-            return Messages.MyViewsProperty_DisplayName();
+            return LocalizedString.MyViewsProperty_DisplayName.toString();
         }
 
         @Override
@@ -257,7 +258,7 @@ public class MyViewsProperty extends UserProperty implements ModifiableViewGroup
     public static class GlobalAction implements RootAction {
 
 		public String getDisplayName() {
-			return Messages.MyViewsProperty_GlobalAction_DisplayName();
+			return LocalizedString.MyViewsProperty_GlobalAction_DisplayName.toString();
 		}
 
 		public String getIconFileName() {

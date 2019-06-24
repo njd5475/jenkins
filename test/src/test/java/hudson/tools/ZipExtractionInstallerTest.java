@@ -23,27 +23,11 @@
  */
 package hudson.tools;
 
-import com.gargoylesoftware.htmlunit.HttpMethod;
-import com.gargoylesoftware.htmlunit.WebRequest;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
-import com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine;
-import com.gargoylesoftware.htmlunit.javascript.host.xml.XMLHttpRequest;
-import hudson.model.JDK;
-import hudson.model.User;
-import hudson.util.FormValidation;
-import jenkins.model.Jenkins;
-import net.sourceforge.htmlunit.corejs.javascript.Function;
-import net.sourceforge.htmlunit.corejs.javascript.Scriptable;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-import org.jvnet.hudson.test.Issue;
-import org.jvnet.hudson.test.JenkinsRule;
-import org.jvnet.hudson.test.MockAuthorizationStrategy;
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -54,10 +38,30 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+import org.jvnet.hudson.test.Issue;
+import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.MockAuthorizationStrategy;
+
+import com.dj.runner.locales.LocalizedString;
+import com.gargoylesoftware.htmlunit.HttpMethod;
+import com.gargoylesoftware.htmlunit.WebRequest;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine;
+import com.gargoylesoftware.htmlunit.javascript.host.xml.XMLHttpRequest;
+
+import hudson.model.JDK;
+import hudson.model.User;
+import hudson.util.FormValidation;
+import jenkins.model.Jenkins;
+import net.sourceforge.htmlunit.corejs.javascript.Function;
+import net.sourceforge.htmlunit.corejs.javascript.Scriptable;
 
 public class ZipExtractionInstallerTest {
     
@@ -133,7 +137,7 @@ public class ZipExtractionInstallerTest {
         lastRequest = jsEngine.getLastRequest();
         body = URLDecoder.decode(getPrivateWebRequestField(lastRequest).getRequestBody(), "UTF-8");
         assertThat(body, containsString(INVALID_URL));
-        assertThat(lastRequest.getResponseText(), containsString(Messages.ZipExtractionInstaller_malformed_url()));
+        assertThat(lastRequest.getResponseText(), containsString(LocalizedString.ZipExtractionInstaller_malformed_url.toString()));
     }
     
     private class SpyingJavaScriptEngine extends JavaScriptEngine {

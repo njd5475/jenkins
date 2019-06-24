@@ -23,22 +23,25 @@
  */
 package hudson.diagnosis;
 
-import hudson.Extension;
-import hudson.Util;
-import hudson.model.AdministrativeMonitor;
-import jenkins.security.stapler.StaplerDispatchable;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.HttpRedirect;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.HttpResponses;
 import org.kohsuke.stapler.QueryParameter;
-
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import jenkins.model.Jenkins;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.Util;
+import hudson.model.AdministrativeMonitor;
+import jenkins.model.Jenkins;
+import jenkins.security.stapler.StaplerDispatchable;
 
 /**
  * Looks out for a broken reverse proxy setup that doesn't rewrite the location header correctly.
@@ -100,7 +103,7 @@ public class ReverseProxySetupMonitor extends AdministrativeMonitor {
 
     @Override
     public String getDisplayName() {
-        return Messages.ReverseProxySetupMonitor_DisplayName();
+        return LocalizedString.ReverseProxySetupMonitor_DisplayName.toString();
     }
 }
 

@@ -23,16 +23,17 @@
  */
 package jenkins.security;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.JsonInErrorMessageSanitizer;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.JsonInErrorMessageSanitizer;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 @Restricted(NoExternalUse.class)
 public class RedactSecretJsonInErrorMessageSanitizer implements JsonInErrorMessageSanitizer {

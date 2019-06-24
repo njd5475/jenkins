@@ -23,6 +23,15 @@
  */
 package hudson.util;
 
+import java.util.AbstractList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import javax.annotation.CheckForNull;
+
+import org.kohsuke.stapler.Stapler;
+
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.model.Describable;
@@ -30,13 +39,6 @@ import hudson.model.Descriptor;
 import hudson.model.Descriptor.FormException;
 import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
-import org.kohsuke.stapler.Stapler;
-
-import java.util.AbstractList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import javax.annotation.CheckForNull;
 
 /**
  * List of {@link Descriptor}s.

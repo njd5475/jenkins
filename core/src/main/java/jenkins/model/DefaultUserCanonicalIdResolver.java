@@ -24,12 +24,12 @@
  */
 package jenkins.model;
 
+import java.util.Map;
+
 import hudson.Extension;
 import hudson.Functions;
 import hudson.model.Descriptor;
 import hudson.model.User;
-
-import java.util.Map;
 
 /**
  * Default User.CanonicalIdResolver to escape unsupported characters and generate user ID.

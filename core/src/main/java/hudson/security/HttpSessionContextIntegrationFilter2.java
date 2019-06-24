@@ -23,21 +23,23 @@
  */
 package hudson.security;
 
-import hudson.model.User;
-import jenkins.security.NonSerializableSecurityContext;
-import jenkins.security.seed.UserSeedProperty;
-import org.acegisecurity.context.HttpSessionContextIntegrationFilter;
-import org.acegisecurity.context.SecurityContext;
-import org.acegisecurity.Authentication;
-import org.acegisecurity.providers.anonymous.AnonymousAuthenticationToken;
+import java.io.IOException;
 
+import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
+
+import org.acegisecurity.Authentication;
+import org.acegisecurity.context.HttpSessionContextIntegrationFilter;
+import org.acegisecurity.context.SecurityContext;
+import org.acegisecurity.providers.anonymous.AnonymousAuthenticationToken;
+
+import hudson.model.User;
+import jenkins.security.NonSerializableSecurityContext;
+import jenkins.security.seed.UserSeedProperty;
 
 /**
  * Erases the {@link SecurityContext} persisted in {@link HttpSession}

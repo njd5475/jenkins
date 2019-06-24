@@ -23,22 +23,23 @@
  */
 package hudson.security;
 
-import java.util.Properties;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 import java.io.IOException;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.acegisecurity.Authentication;
+import org.acegisecurity.AuthenticationException;
+import org.acegisecurity.ui.webapp.AuthenticationProcessingFilter;
+
 import hudson.Util;
 import hudson.model.User;
 import jenkins.security.SecurityListener;
 import jenkins.security.seed.UserSeedProperty;
-import org.acegisecurity.Authentication;
-import org.acegisecurity.AuthenticationException;
-import org.acegisecurity.ui.webapp.AuthenticationProcessingFilter;
 
 /**
  * {@link AuthenticationProcessingFilter} with a change for Jenkins so that

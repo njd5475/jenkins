@@ -23,13 +23,13 @@
  */
 package hudson.tasks._maven;
 
-import hudson.console.LineTransformationOutputStream;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.regex.Matcher;
+
+import hudson.console.LineTransformationOutputStream;
 
 /**
  * Filter {@link OutputStream} that places annotations that marks various Maven outputs.

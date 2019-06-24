@@ -23,13 +23,14 @@
  */
 package hudson.security;
 
-import jenkins.model.Jenkins;
-import jenkins.security.ConfidentialStore;
-import org.acegisecurity.ui.rememberme.RememberMeServices;
-import org.acegisecurity.Authentication;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.acegisecurity.Authentication;
+import org.acegisecurity.ui.rememberme.RememberMeServices;
+
+import jenkins.model.Jenkins;
+import jenkins.security.ConfidentialStore;
 
 /**
  * {@link RememberMeServices} proxy.

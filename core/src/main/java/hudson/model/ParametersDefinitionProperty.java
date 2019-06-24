@@ -24,9 +24,8 @@
  */
 package hudson.model;
 
-import hudson.Extension;
-import hudson.Util;
-import hudson.model.Queue.WaitingItem;
+import static javax.servlet.http.HttpServletResponse.SC_CREATED;
+
 import java.io.IOException;
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -35,16 +34,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
-import static javax.servlet.http.HttpServletResponse.SC_CREATED;
-import jenkins.model.Jenkins;
-import jenkins.model.OptionalJobProperty;
-import jenkins.model.ParameterizedJobMixIn;
-import jenkins.util.TimeDuration;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
@@ -54,6 +48,18 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.Util;
+import hudson.model.Queue.WaitingItem;
+import jenkins.model.Jenkins;
+import jenkins.model.OptionalJobProperty;
+import jenkins.model.ParameterizedJobMixIn;
+import jenkins.util.TimeDuration;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * Keeps a list of the parameters defined for a project.
@@ -226,7 +232,7 @@ public class ParametersDefinitionProperty extends OptionalJobProperty<Job<?, ?>>
 
         @Override
         public String getDisplayName() {
-            return Messages.ParametersDefinitionProperty_DisplayName();
+            return LocalizedString.ParametersDefinitionProperty_DisplayName.toString();
         }
     }
 

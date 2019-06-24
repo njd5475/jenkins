@@ -24,13 +24,16 @@
 package hudson.init.impl;
 
 import static hudson.init.InitMilestone.JOB_LOADED;
-import hudson.init.Initializer;
-import jenkins.model.Jenkins;
-import hudson.model.Messages;
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.init.Initializer;
+import jenkins.model.Jenkins;
 
 /**
  * Prepares userContent folder and put a readme if it doesn't exist.
@@ -42,7 +45,7 @@ public class InitialUserContent {
         File userContentDir = new File(h.getRootDir(), "userContent");
         if(!userContentDir.exists()) {
             userContentDir.mkdirs();
-            FileUtils.writeStringToFile(new File(userContentDir,"readme.txt"), Messages.Hudson_USER_CONTENT_README() + "\n");
+            FileUtils.writeStringToFile(new File(userContentDir,"readme.txt"), LocalizedString.Hudson_USER_CONTENT_README + "\n");
         }
     }
 }

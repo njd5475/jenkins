@@ -23,10 +23,6 @@
  */
 package hudson.model;
 
-import jenkins.model.IdStrategy;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -35,6 +31,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import jenkins.model.IdStrategy;
 
 @Restricted(NoExternalUse.class)
 class UserIdMigrator {

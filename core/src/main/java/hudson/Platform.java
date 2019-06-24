@@ -23,10 +23,10 @@
  */
 package hudson;
 
-import hudson.util.VersionNumber;
-
 import java.io.File;
 import java.util.Locale;
+
+import hudson.util.VersionNumber;
 
 /**
  * Strategy object that absorbs the platform differences.

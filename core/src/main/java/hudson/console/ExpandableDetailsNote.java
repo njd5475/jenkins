@@ -23,12 +23,12 @@
  */
 package hudson.console;
 
-import hudson.Extension;
-import hudson.MarkupText;
-
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import hudson.Extension;
+import hudson.MarkupText;
 
 /**
  * Renders a button that can be clicked to reveal additional block tag (and HTML inside it.)

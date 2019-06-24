@@ -23,16 +23,6 @@
  */
 package jenkins.telemetry.impl;
 
-import hudson.Extension;
-import jenkins.model.DownloadSettings;
-import jenkins.model.Jenkins;
-import jenkins.telemetry.Telemetry;
-import jenkins.util.SystemProperties;
-import net.sf.json.JSONObject;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-
-import javax.annotation.Nonnull;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -40,6 +30,18 @@ import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.TreeMap;
+
+import javax.annotation.Nonnull;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import hudson.Extension;
+import jenkins.model.DownloadSettings;
+import jenkins.model.Jenkins;
+import jenkins.telemetry.Telemetry;
+import jenkins.util.SystemProperties;
+import net.sf.json.JSONObject;
 
 /**
  * Telemetry implementation gathering information about system properties.

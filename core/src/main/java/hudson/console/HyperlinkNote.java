@@ -23,19 +23,20 @@
  */
 package hudson.console;
 
-import hudson.Extension;
-import hudson.MarkupText;
-import jenkins.model.Jenkins;
+import java.io.IOException;
+import java.util.function.BiFunction;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
 
-import java.io.IOException;
-import java.util.function.BiFunction;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import hudson.Extension;
+import hudson.MarkupText;
+import jenkins.model.Jenkins;
 
 /**
  * Turns a text into a hyperlink by specifying the URL separately.

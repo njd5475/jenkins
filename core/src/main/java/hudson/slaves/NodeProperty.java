@@ -23,31 +23,33 @@
  */
 package hudson.slaves;
 
-import hudson.EnvVars;
-import hudson.ExtensionPoint;
-import hudson.FilePath;
-import hudson.Launcher;
-import hudson.DescriptorExtensionList;
-import hudson.model.Descriptor.FormException;
-import hudson.model.Queue.BuildableItem;
-import hudson.model.ReconfigurableDescribable;
-import hudson.model.TaskListener;
-import hudson.model.queue.CauseOfBlockage;
-import hudson.scm.SCM;
-import hudson.model.AbstractBuild;
-import hudson.model.BuildListener;
-import hudson.model.Environment;
-import jenkins.model.Jenkins;
-import hudson.model.Node;
-import hudson.model.Queue.Task;
-import net.sf.json.JSONObject;
-import org.kohsuke.stapler.StaplerRequest;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Nonnull;
+
+import org.kohsuke.stapler.StaplerRequest;
+
+import hudson.DescriptorExtensionList;
+import hudson.EnvVars;
+import hudson.ExtensionPoint;
+import hudson.FilePath;
+import hudson.Launcher;
+import hudson.model.AbstractBuild;
+import hudson.model.BuildListener;
+import hudson.model.Descriptor.FormException;
+import hudson.model.Environment;
+import hudson.model.Node;
+import hudson.model.Queue.BuildableItem;
+import hudson.model.Queue.Task;
+import hudson.model.ReconfigurableDescribable;
+import hudson.model.TaskListener;
+import hudson.model.queue.CauseOfBlockage;
+import hudson.scm.SCM;
+import jenkins.model.Jenkins;
+import net.sf.json.JSONObject;
 
 /**
  * Extensible property of {@link Node}.
@@ -162,7 +164,7 @@ public abstract class NodeProperty<N extends Node> implements ReconfigurableDesc
      *      Note that this is an override, so it doesn't contain environment variables that are
      *      currently set for the agent process itself.
      * @param listener
-     *      Can be used to send messages.
+     *      Can be used to send Localized.
      *
      * @since 1.489
      */

@@ -23,7 +23,10 @@
  */
 package hudson.security;
 
+import java.util.Set;
+
 import com.google.common.collect.ImmutableSet;
+
 import hudson.model.Build;
 import hudson.model.Computer;
 import hudson.model.Item;
@@ -33,8 +36,6 @@ import hudson.model.ModelObject;
 import hudson.model.Node;
 import hudson.model.Run;
 import jenkins.model.Jenkins;
-
-import java.util.Set;
 
 /**
  * Represents the model class {@link Permission} acts on and scoped to.

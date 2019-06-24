@@ -23,6 +23,9 @@
  */
 package hudson.scm;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionListView;
@@ -33,8 +36,6 @@ import hudson.model.AbstractBuild;
 import hudson.model.Run;
 import hudson.scm.ChangeLogSet.Entry;
 import hudson.util.CopyOnWriteList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Performs mark up on changelog messages to be displayed.

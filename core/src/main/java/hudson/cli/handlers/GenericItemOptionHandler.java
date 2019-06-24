@@ -24,13 +24,9 @@
 
 package hudson.cli.handlers;
 
-import hudson.model.Item;
-import hudson.model.Items;
-import hudson.security.ACL;
-import hudson.security.ACLContext;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jenkins.model.Jenkins;
+
 import org.acegisecurity.Authentication;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
@@ -38,6 +34,12 @@ import org.kohsuke.args4j.OptionDef;
 import org.kohsuke.args4j.spi.OptionHandler;
 import org.kohsuke.args4j.spi.Parameters;
 import org.kohsuke.args4j.spi.Setter;
+
+import hudson.model.Item;
+import hudson.model.Items;
+import hudson.security.ACL;
+import hudson.security.ACLContext;
+import jenkins.model.Jenkins;
 
 /**
  * Refers to an {@link Item} by its name.

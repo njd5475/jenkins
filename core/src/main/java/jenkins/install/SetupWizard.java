@@ -3,8 +3,15 @@ package jenkins.install;
 import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.apache.commons.lang.StringUtils.defaultIfBlank;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.HttpRetryException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
@@ -23,20 +30,22 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import jenkins.model.JenkinsLocationConfiguration;
-import jenkins.security.seed.UserSeedProperty;
-import jenkins.util.SystemProperties;
-import jenkins.util.UrlHelper;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.DoNotUse;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
 
 import hudson.BulkChange;
 import hudson.Extension;
@@ -55,22 +64,14 @@ import hudson.security.csrf.DefaultCrumbIssuer;
 import hudson.util.HttpResponses;
 import hudson.util.PluginServletFilter;
 import hudson.util.VersionNumber;
-import java.io.File;
-import java.net.HttpRetryException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Iterator;
-import java.util.List;
-
 import jenkins.model.Jenkins;
+import jenkins.model.JenkinsLocationConfiguration;
 import jenkins.security.s2m.AdminWhitelistRule;
+import jenkins.security.seed.UserSeedProperty;
+import jenkins.util.SystemProperties;
+import jenkins.util.UrlHelper;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.kohsuke.accmod.restrictions.DoNotUse;
-import org.kohsuke.stapler.interceptor.RequirePOST;
 
 /**
  * A Jenkins instance used during first-run to provide a limited set of services while
@@ -314,14 +315,14 @@ public class SetupWizard extends PageDecorator {
         checkRootUrl(errors, rootUrl);
         
         if(!errors.isEmpty()){
-            return HttpResponses.errorJSON(Messages.SetupWizard_ConfigureInstance_ValidationErrors(), errors);
+            return HttpResponses.errorJSON(LocalizedString.SetupWizard_ConfigureInstance_ValidationErrors.toLocale(), errors);
         }
         
         // use the parameters to configure the instance
         useRootUrl(errors, rootUrl);
         
         if(!errors.isEmpty()){
-            return HttpResponses.errorJSON(Messages.SetupWizard_ConfigureInstance_ValidationErrors(), errors);
+            return HttpResponses.errorJSON(LocalizedString.SetupWizard_ConfigureInstance_ValidationErrors.toLocale(), errors);
         }
         
         InstallUtil.proceedToNextStateFrom(InstallState.CONFIGURE_INSTANCE);
@@ -336,11 +337,11 @@ public class SetupWizard extends PageDecorator {
     
     private void checkRootUrl(Map<String, String> errors, @CheckForNull String rootUrl){
         if(rootUrl == null){
-            errors.put("rootUrl", Messages.SetupWizard_ConfigureInstance_RootUrl_Empty());
+            errors.put("rootUrl", LocalizedString.SetupWizard_ConfigureInstance_RootUrl_Empty.toLocale());
             return;
         }
         if(!UrlHelper.isValidRootUrl(rootUrl)){
-            errors.put("rootUrl", Messages.SetupWizard_ConfigureInstance_RootUrl_Invalid());
+            errors.put("rootUrl", LocalizedString.SetupWizard_ConfigureInstance_RootUrl_Invalid.toLocale());
         }
     }
     

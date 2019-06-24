@@ -24,6 +24,8 @@
 
 package jenkins.model.item_category;
 
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 
 /**
@@ -43,12 +45,12 @@ public class StandaloneProjectsCategory extends ItemCategory {
 
     @Override
     public String getDescription() {
-        return Messages.StandaloneProjects_Description();
+        return LocalizedString.StandaloneProjects_Description.toString();
     }
 
     @Override
     public String getDisplayName() {
-        return Messages.StandaloneProjects_DisplayName();
+        return LocalizedString.StandaloneProjects_DisplayName.toString();
     }
 
     @Override

@@ -1,13 +1,14 @@
 package jenkins.model;
 
+import java.io.IOException;
+
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.StaplerRequest;
+
 import hudson.Extension;
 import hudson.slaves.NodeProperty;
 import hudson.slaves.NodePropertyDescriptor;
 import net.sf.json.JSONObject;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.StaplerRequest;
-
-import java.io.IOException;
 
 /**
  * Include {@link NodePropertyDescriptor} configurations.

@@ -23,10 +23,10 @@
  */
 package hudson.model;
 
-import hudson.util.DescriptorList;
-import hudson.Extension;
-
 import java.util.List;
+
+import hudson.Extension;
+import hudson.util.DescriptorList;
 
 /**
  * List of all installed {@link Job} types.

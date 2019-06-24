@@ -23,18 +23,23 @@
  */
 package hudson.util;
 
-import hudson.Functions;
-import hudson.Util;
 import java.io.IOException;
 import java.util.Locale;
+
 import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
-import jenkins.model.Jenkins;
+
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Functions;
+import hudson.Util;
+import jenkins.model.Jenkins;
 
 /**
  * Represents a failure in a form field doFillXYZ method.
@@ -95,7 +100,7 @@ public abstract class FormFillFailure extends IOException implements HttpRespons
 
         return _errorWithMarkup(Util.escape(message) +
                 " <a href='#' class='showDetails'>"
-                + Messages.FormValidation_Error_Details()
+                + LocalizedString.FormValidation_Error_Details
                 + "</a><pre style='display:none'>"
                 + Util.escape(Functions.printThrowable(e)) +
                 "</pre>", kind

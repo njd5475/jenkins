@@ -1,20 +1,22 @@
 package hudson.cli;
 
-import hudson.Extension;
-import hudson.model.Job;
-import hudson.model.Run;
-
 import java.io.Serializable;
 
 import org.apache.commons.io.IOUtils;
 import org.kohsuke.args4j.Argument;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.Job;
+import hudson.model.Run;
 
 @Extension
 public class SetBuildDescriptionCommand extends CLICommand implements Serializable {
 
     @Override
     public String getShortDescription() {
-        return Messages.SetBuildDescriptionCommand_ShortDescription();
+        return LocalizedString.SetBuildDescriptionCommand_ShortDescription.toString();
      }
 
     @Argument(metaVar="JOB",usage="Name of the job to build",required=true,index=0)

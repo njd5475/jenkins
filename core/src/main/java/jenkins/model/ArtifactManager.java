@@ -24,6 +24,11 @@
 
 package jenkins.model;
 
+import java.io.IOException;
+import java.util.Map;
+
+import javax.annotation.Nonnull;
+
 import hudson.FilePath;
 import hudson.Launcher;
 import hudson.model.AbstractBuild;
@@ -31,9 +36,6 @@ import hudson.model.BuildListener;
 import hudson.model.Run;
 import hudson.model.TaskListener;
 import hudson.tasks.ArtifactArchiver;
-import java.io.IOException;
-import java.util.Map;
-import javax.annotation.Nonnull;
 import jenkins.util.VirtualFile;
 
 /**

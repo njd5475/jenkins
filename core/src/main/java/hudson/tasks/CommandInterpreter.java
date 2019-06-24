@@ -23,24 +23,27 @@
  */
 package hudson.tasks;
 
+import java.io.IOException;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.Nonnull;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.EnvVars;
 import hudson.FilePath;
+import hudson.Functions;
 import hudson.Launcher;
 import hudson.Proc;
 import hudson.Util;
-import hudson.EnvVars;
-import hudson.Functions;
 import hudson.model.AbstractBuild;
 import hudson.model.BuildListener;
 import hudson.model.Node;
 import hudson.model.Result;
 import hudson.model.TaskListener;
 import hudson.remoting.ChannelClosedException;
-
-import java.io.IOException;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Nonnull;
 
 /**
  * Common part between {@link Shell} and {@link BatchFile}.
@@ -94,7 +97,7 @@ public abstract class CommandInterpreter extends Builder {
                 script = createScriptFile(ws);
             } catch (IOException e) {
                 Util.displayIOException(e,listener);
-                Functions.printStackTrace(e, listener.fatalError(Messages.CommandInterpreter_UnableToProduceScript()));
+                Functions.printStackTrace(e, listener.fatalError(LocalizedString.CommandInterpreter_UnableToProduceScript));
                 return false;
             }
 
@@ -114,7 +117,7 @@ public abstract class CommandInterpreter extends Builder {
                 }
             } catch (IOException e) {
                 Util.displayIOException(e, listener);
-                Functions.printStackTrace(e, listener.fatalError(Messages.CommandInterpreter_CommandFailed()));
+                Functions.printStackTrace(e, listener.fatalError(LocalizedString.CommandInterpreter_CommandFailed));
             }
             return r==0;
         } finally {
@@ -133,10 +136,10 @@ public abstract class CommandInterpreter extends Builder {
                     LOGGER.log(Level.FINE, "Script deletion failed", e);
                 } else {
                     Util.displayIOException(e,listener);
-                    Functions.printStackTrace(e, listener.fatalError(Messages.CommandInterpreter_UnableToDelete(script)));
+                    Functions.printStackTrace(e, listener.fatalError(LocalizedString.CommandInterpreter_UnableToDelete.toLocale(script)));
                 }
             } catch (Exception e) {
-                Functions.printStackTrace(e, listener.fatalError(Messages.CommandInterpreter_UnableToDelete(script)));
+                Functions.printStackTrace(e, listener.fatalError(LocalizedString.CommandInterpreter_UnableToDelete.toLocale(script)));
             }
         }
     }

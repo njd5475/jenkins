@@ -23,18 +23,20 @@
  */
 package jenkins.security.apitoken;
 
-import hudson.model.User;
-import jenkins.security.ApiTokenProperty;
-import jenkins.security.Messages;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.jvnet.hudson.test.Issue;
 import org.jvnet.hudson.test.JenkinsRule;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.model.User;
+import jenkins.security.ApiTokenProperty;
 
 public class ApiTokenPropertyConfigurationTest {
     
@@ -54,7 +56,7 @@ public class ApiTokenPropertyConfigurationTest {
             assertEquals(1, withToken.getTokenList().size());
             
             String tokenValue = withToken.getApiToken();
-            Assert.assertNotEquals(Messages.ApiTokenProperty_NoLegacyToken(), tokenValue);
+            Assert.assertNotEquals(LocalizedString.ApiTokenProperty_NoLegacyToken, tokenValue);
         }
         
         config.setTokenGenerationOnCreationEnabled(false);
@@ -65,7 +67,7 @@ public class ApiTokenPropertyConfigurationTest {
             assertEquals(0, withoutToken.getTokenList().size());
             
             String tokenValue = withoutToken.getApiToken();
-            Assert.assertEquals(Messages.ApiTokenProperty_NoLegacyToken(), tokenValue);
+            Assert.assertEquals(com.dj.runner.locales.LocalizedString.ApiTokenProperty_NoLegacyToken, tokenValue);
         }
     }
 }

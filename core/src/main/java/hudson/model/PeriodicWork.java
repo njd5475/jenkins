@@ -23,22 +23,22 @@
  */
 package hudson.model;
 
-import hudson.ExtensionListListener;
-import hudson.init.Initializer;
-import hudson.triggers.SafeTimerTask;
-import hudson.ExtensionPoint;
-import hudson.Extension;
-import hudson.ExtensionList;
-import jenkins.util.Timer;
+import static hudson.init.InitMilestone.JOB_LOADED;
 
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
-import java.util.Random;
 
-import static hudson.init.InitMilestone.JOB_LOADED;
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.ExtensionListListener;
+import hudson.ExtensionPoint;
+import hudson.init.Initializer;
+import hudson.triggers.SafeTimerTask;
 import hudson.triggers.Trigger;
+import jenkins.util.Timer;
 
 /**
  * Extension point to perform a periodic task in Hudson (through {@link Timer}.)

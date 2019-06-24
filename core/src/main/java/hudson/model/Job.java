@@ -23,7 +23,54 @@
  */
 package hudson.model;
 
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
+import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
+
+import java.awt.Color;
+import java.awt.Paint;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.GregorianCalendar;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.servlet.ServletException;
+
+import org.apache.commons.io.FileUtils;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.StackedAreaRenderer;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.ui.RectangleInsets;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.stapler.StaplerOverridable;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.Localizable;
+import com.dj.runner.locales.LocalizedString;
 import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
+
 import hudson.BulkChange;
 import hudson.EnvVars;
 import hudson.Extension;
@@ -62,24 +109,6 @@ import hudson.util.TextFile;
 import hudson.widgets.HistoryWidget;
 import hudson.widgets.HistoryWidget.Adapter;
 import hudson.widgets.Widget;
-import java.awt.Color;
-import java.awt.Paint;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.GregorianCalendar;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import javax.servlet.ServletException;
 import jenkins.model.BuildDiscarder;
 import jenkins.model.BuildDiscarderProperty;
 import jenkins.model.DirectlyModifiableTopLevelItemGroup;
@@ -94,30 +123,6 @@ import jenkins.security.HexStringConfidentialKey;
 import jenkins.triggers.SCMTriggerItem;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
-import org.apache.commons.io.FileUtils;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.axis.CategoryLabelPositions;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.StackedAreaRenderer;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.ui.RectangleInsets;
-import org.jvnet.localizer.Localizable;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.CmdLineException;
-import org.kohsuke.stapler.StaplerOverridable;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-import org.kohsuke.stapler.export.Exported;
-import org.kohsuke.stapler.interceptor.RequirePOST;
-
-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
-import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 
 /**
  * A job is an runnable entity under the monitoring of Hudson.
@@ -311,7 +316,7 @@ public abstract class Job<JobT extends Job<JobT, RunT>, RunT extends Run<JobT, R
 
     @Override
     public String getPronoun() {
-        return AlternativeUiTextProvider.get(PRONOUN, this, Messages.Job_Pronoun());
+        return AlternativeUiTextProvider.get(PRONOUN, this, LocalizedString.Job_Pronoun);
     }
 
     /**
@@ -1255,7 +1260,7 @@ public abstract class Job<JobT extends Job<JobT, RunT>, RunT extends Run<JobT, R
         RunT u = getLastFailedBuild();
         if (i != null && u == null) {
                 // no failures, like ever
-                return new HealthReport(100, Messages._Job_BuildStability(Messages._Job_NoRecentBuildFailed()));
+                return new HealthReport(100, LocalizedString._Job_BuildStability.toLocale(LocalizedString._Job_NoRecentBuildFailed));
         }
         if (i != null && u.getNumber() <= i.getNumber()) {
             SortedMap<Integer, ? extends RunT> runs = _getRuns();
@@ -1295,16 +1300,16 @@ public abstract class Job<JobT extends Job<JobT, RunT>, RunT extends Run<JobT, R
 
             Localizable description;
             if (failCount == 0) {
-                description = Messages._Job_NoRecentBuildFailed();
+                description = LocalizedString._Job_NoRecentBuildFailed;
             } else if (totalCount == failCount) {
                 // this should catch the case where totalCount == 1
                 // as failCount must be between 0 and totalCount
                 // and we can't get here if failCount == 0
-                description = Messages._Job_AllRecentBuildFailed();
+                description = LocalizedString._Job_AllRecentBuildFailed;
             } else {
-                description = Messages._Job_NOfMFailed(failCount, totalCount);
+                description = LocalizedString._Job_NOfMFailed.asLocale(failCount, totalCount);
             }
-            return new HealthReport(score, Messages._Job_BuildStability(description));
+            return new HealthReport(score, LocalizedString._Job_BuildStability.toLocale(description));
         }
         return null;
     }
@@ -1482,7 +1487,7 @@ public abstract class Job<JobT extends Job<JobT, RunT>, RunT extends Run<JobT, R
                 final JFreeChart chart = ChartFactory.createStackedAreaChart(null, // chart
                                                                                     // title
                         null, // unused
-                        Messages.Job_minutes(), // range axis label
+                        LocalizedString.Job_minutes.toLocale(), // range axis label
                         dataset, // data
                         PlotOrientation.VERTICAL, // orientation
                         false, // include legend
@@ -1575,7 +1580,7 @@ public abstract class Job<JobT extends Job<JobT, RunT>, RunT extends Run<JobT, R
     @Override
     protected void checkRename(String newName) throws Failure {
         if (isBuilding()) {
-            throw new Failure(Messages.Job_NoRenameWhileBuilding());
+            throw new Failure(LocalizedString.Job_NoRenameWhileBuilding);
         }
     }
 

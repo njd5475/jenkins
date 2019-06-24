@@ -54,6 +54,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
+import com.dj.runner.locales.LocalizedString;
 import com.google.common.collect.Lists;
 import com.thoughtworks.xstream.XStream;
 
@@ -362,10 +363,10 @@ public final class ProxyConfiguration extends AbstractDescribableImpl<ProxyConfi
             try {
                 port = Integer.parseInt(value);
             } catch (NumberFormatException e) {
-                return FormValidation.error(Messages.PluginManager_PortNotANumber());
+                return FormValidation.error(LocalizedString.PluginManager_PortNotANumber);
             }
             if (port < 0 || port > 65535) {
-                return FormValidation.error(Messages.PluginManager_PortNotInRange(0, 65535));
+                return FormValidation.error(LocalizedString.PluginManager_PortNotInRange.toLocale(0, 65535));
             }
             return FormValidation.ok();
         }
@@ -379,7 +380,7 @@ public final class ProxyConfiguration extends AbstractDescribableImpl<ProxyConfi
             Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
 
             if (Util.fixEmptyAndTrim(testUrl) == null) {
-                return FormValidation.error(Messages.ProxyConfiguration_TestUrlRequired());
+                return FormValidation.error(LocalizedString.ProxyConfiguration_TestUrlRequired);
             }
 
             String host = testUrl;
@@ -387,7 +388,7 @@ public final class ProxyConfiguration extends AbstractDescribableImpl<ProxyConfi
                 URL url = new URL(testUrl);
                 host = url.getHost();
             } catch (MalformedURLException e) {
-                return FormValidation.error(Messages.ProxyConfiguration_MalformedTestUrl(testUrl));
+                return FormValidation.error(LocalizedString.ProxyConfiguration_MalformedTestUrl.toLocale(testUrl));
             }
 
             GetMethod method = null;
@@ -405,17 +406,17 @@ public final class ProxyConfiguration extends AbstractDescribableImpl<ProxyConfi
                 
                 int code = client.executeMethod(method);
                 if (code != HttpURLConnection.HTTP_OK) {
-                    return FormValidation.error(Messages.ProxyConfiguration_FailedToConnect(testUrl, code));
+                    return FormValidation.error(LocalizedString.ProxyConfiguration_FailedToConnect.toLocale(testUrl, code));
                 }
             } catch (IOException e) {
-                return FormValidation.error(e, Messages.ProxyConfiguration_FailedToConnectViaProxy(testUrl));
+                return FormValidation.error(e, LocalizedString.ProxyConfiguration_FailedToConnectViaProxy.toLocale(testUrl));
             } finally {
                 if (method != null) {
                     method.releaseConnection();
                 }
             }
             
-            return FormValidation.ok(Messages.ProxyConfiguration_Success());
+            return FormValidation.ok(LocalizedString.ProxyConfiguration_Success);
         }
 
         private boolean isNoProxyHost(String host, String noProxyHost) {

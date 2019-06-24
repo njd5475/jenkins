@@ -1,14 +1,15 @@
 package jenkins.security.s2m;
 
-import hudson.Extension;
-
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+
+import org.kohsuke.stapler.StaplerRequest;
+
+import hudson.Extension;
 import jenkins.model.GlobalConfiguration;
 import jenkins.model.GlobalConfigurationCategory;
 import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
-import org.kohsuke.stapler.StaplerRequest;
 
 /**
  * Exposes {@link AdminWhitelistRule#masterKillSwitch} to the admin.

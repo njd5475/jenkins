@@ -1,12 +1,13 @@
 package jenkins.scm;
 
+import java.util.List;
+
 import com.google.common.collect.Lists;
+
 import hudson.DescriptorExtensionList;
 import hudson.model.AbstractProject;
 import hudson.model.Descriptor;
 import jenkins.model.Jenkins;
-
-import java.util.List;
 
 /**
  * {@link Descriptor} for {@link SCMCheckoutStrategy}.

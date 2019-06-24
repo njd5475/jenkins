@@ -23,17 +23,20 @@
  */
 package hudson.node_monitors;
 
+import java.io.IOException;
+import java.text.ParseException;
+
+import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.model.Computer;
 import hudson.model.Node;
+import hudson.node_monitors.DiskSpaceMonitorDescriptor.DiskSpace;
 import hudson.remoting.Callable;
 import jenkins.model.Jenkins;
-import hudson.node_monitors.DiskSpaceMonitorDescriptor.DiskSpace;
-import org.kohsuke.stapler.DataBoundConstructor;
-
-import java.io.IOException;
-import java.text.ParseException;
 
 /**
  * Checks available disk space of the remote FS root.
@@ -62,7 +65,7 @@ public class DiskSpaceMonitor extends AbstractDiskSpaceMonitor {
 
     public static final DiskSpaceMonitorDescriptor DESCRIPTOR = new DiskSpaceMonitorDescriptor() {
         public String getDisplayName() {
-            return Messages.DiskSpaceMonitor_DisplayName();
+            return LocalizedString.DiskSpaceMonitor_DisplayName.toString();
         }
 
         @Override

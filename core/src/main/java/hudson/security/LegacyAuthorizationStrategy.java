@@ -23,15 +23,18 @@
  */
 package hudson.security;
 
-import hudson.Extension;
-import hudson.model.Descriptor;
-import jenkins.model.Jenkins;
+import java.util.Collection;
+import java.util.Collections;
+
 import org.acegisecurity.acls.sid.GrantedAuthoritySid;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import java.util.Collection;
-import java.util.Collections;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.Descriptor;
+import jenkins.model.Jenkins;
 
 /**
  * {@link AuthorizationStrategy} implementation that emulates the legacy behavior.
@@ -58,7 +61,7 @@ public final class LegacyAuthorizationStrategy extends AuthorizationStrategy {
     @Extension @Symbol("legacy")
     public static final class DescriptorImpl extends Descriptor<AuthorizationStrategy> {
         public String getDisplayName() {
-            return Messages.LegacyAuthorizationStrategy_DisplayName();
+            return LocalizedString.LegacyAuthorizationStrategy_DisplayName.toString();
         }
     }
 }

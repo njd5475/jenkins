@@ -15,16 +15,18 @@ Lesser General Public License for more details.
  */
 package hudson.util.jna;
 
-import com.sun.jna.Structure;
-import com.sun.jna.Native;
-import com.sun.jna.WString;
-import com.sun.jna.Pointer;
-import com.sun.jna.win32.StdCallLibrary;
-import com.sun.jna.ptr.PointerByReference;
-import com.sun.jna.ptr.IntByReference;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.List;
+
+import com.sun.jna.Native;
+import com.sun.jna.Pointer;
+import com.sun.jna.Structure;
+import com.sun.jna.WString;
+import com.sun.jna.ptr.IntByReference;
+import com.sun.jna.ptr.PointerByReference;
+import com.sun.jna.win32.StdCallLibrary;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  *

@@ -23,32 +23,15 @@
  */
 package hudson.model;
 
-import hudson.PluginWrapper;
-import hudson.Util;
-import hudson.Extension;
-import hudson.node_monitors.ArchitectureMonitor.DescriptorImpl;
-import hudson.util.Secret;
 import static java.util.concurrent.TimeUnit.DAYS;
 
-import jenkins.model.Jenkins;
-import net.sf.json.JSONObject;
-import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.kohsuke.stapler.StaplerRequest;
-
-import javax.crypto.Cipher;
-import javax.crypto.CipherOutputStream;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import javax.crypto.CipherInputStream;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.FilterOutputStream;
-import java.io.OutputStream;
-import java.io.FilterInputStream;
-import java.io.InputStream;
 import java.io.DataInputStream;
+import java.io.FilterInputStream;
+import java.io.FilterOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.Key;
@@ -60,8 +43,28 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+
+import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
+import javax.crypto.CipherOutputStream;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.kohsuke.stapler.StaplerRequest;
+
 import com.jcraft.jzlib.GZIPOutputStream;
+
+import hudson.Extension;
+import hudson.PluginWrapper;
+import hudson.Util;
+import hudson.node_monitors.ArchitectureMonitor.DescriptorImpl;
+import hudson.util.Secret;
+import jenkins.model.Jenkins;
 import jenkins.util.SystemProperties;
+import net.sf.json.JSONObject;
 
 /**
  * @author Kohsuke Kawaguchi

@@ -23,11 +23,12 @@
  */
 package hudson.security;
 
+import javax.servlet.http.HttpSession;
+
 import org.acegisecurity.Authentication;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.userdetails.UserDetails;
 
-import javax.servlet.http.HttpSession;
 import jenkins.security.NonSerializableSecurityContext;
 
 /**

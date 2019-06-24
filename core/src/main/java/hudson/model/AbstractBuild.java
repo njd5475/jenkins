@@ -23,50 +23,8 @@
  */
 package hudson.model;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSortedSet;
-import hudson.AbortException;
-import hudson.EnvVars;
-import hudson.FilePath;
-import hudson.Functions;
-import hudson.Launcher;
-import jenkins.scm.RunWithSCM;
-import jenkins.util.SystemProperties;
-import hudson.console.ModelHyperlinkNote;
-import hudson.model.Fingerprint.BuildPtr;
-import hudson.model.Fingerprint.RangeSet;
-import hudson.model.labels.LabelAtom;
-import hudson.model.listeners.RunListener;
-import hudson.model.listeners.SCMListener;
-import hudson.remoting.ChannelClosedException;
-import hudson.remoting.RequestAbortedException;
-import hudson.scm.ChangeLogParser;
-import hudson.scm.ChangeLogSet;
-import hudson.scm.ChangeLogSet.Entry;
-import hudson.scm.NullChangeLogParser;
-import hudson.scm.SCM;
-import hudson.scm.SCMRevisionState;
-import hudson.slaves.NodeProperty;
-import hudson.slaves.WorkspaceList;
-import hudson.slaves.WorkspaceList.Lease;
-import hudson.slaves.OfflineCause;
-import hudson.tasks.BuildStep;
-import hudson.tasks.BuildStepMonitor;
-import hudson.tasks.BuildTrigger;
-import hudson.tasks.BuildWrapper;
-import hudson.tasks.Builder;
-import hudson.tasks.Fingerprinter.FingerprintAction;
-import hudson.tasks.Publisher;
-import hudson.util.*;
-import jenkins.model.Jenkins;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.Stapler;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-import org.kohsuke.stapler.export.Exported;
-import org.xml.sax.SAXException;
+import static java.util.logging.Level.WARNING;
 
-import javax.servlet.ServletException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InterruptedIOException;
@@ -83,14 +41,62 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import javax.servlet.ServletException;
+
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.Stapler;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.interceptor.RequirePOST;
+import org.xml.sax.SAXException;
 
-import static java.util.logging.Level.WARNING;
+import com.dj.runner.locales.LocalizedString;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSortedSet;
 
+import hudson.AbortException;
+import hudson.EnvVars;
+import hudson.FilePath;
+import hudson.Functions;
+import hudson.Launcher;
+import hudson.console.ModelHyperlinkNote;
+import hudson.model.Fingerprint.BuildPtr;
+import hudson.model.Fingerprint.RangeSet;
+import hudson.model.labels.LabelAtom;
+import hudson.model.listeners.RunListener;
+import hudson.model.listeners.SCMListener;
+import hudson.remoting.ChannelClosedException;
+import hudson.remoting.RequestAbortedException;
+import hudson.scm.ChangeLogParser;
+import hudson.scm.ChangeLogSet;
+import hudson.scm.ChangeLogSet.Entry;
+import hudson.scm.NullChangeLogParser;
+import hudson.scm.SCM;
+import hudson.scm.SCMRevisionState;
+import hudson.slaves.NodeProperty;
+import hudson.slaves.OfflineCause;
+import hudson.slaves.WorkspaceList;
+import hudson.slaves.WorkspaceList.Lease;
+import hudson.tasks.BuildStep;
+import hudson.tasks.BuildStepMonitor;
+import hudson.tasks.BuildTrigger;
+import hudson.tasks.BuildWrapper;
+import hudson.tasks.Builder;
+import hudson.tasks.Fingerprinter.FingerprintAction;
+import hudson.tasks.Publisher;
+import hudson.util.AdaptedIterator;
+import hudson.util.HttpResponses;
+import hudson.util.Iterators;
+import hudson.util.VariableResolver;
+import jenkins.model.Jenkins;
 import jenkins.model.lazy.BuildReference;
 import jenkins.model.lazy.LazyBuildMixIn;
+import jenkins.scm.RunWithSCM;
+import jenkins.util.SystemProperties;
 
 /**
  * Base implementation of {@link Run}s that build software.
@@ -462,9 +468,9 @@ public abstract class AbstractBuild<P extends AbstractProject<P,R>,R extends Abs
             launcher = createLauncher(listener);
             if (!Jenkins.getInstance().getNodes().isEmpty()) {
                 if (node instanceof Jenkins) {
-                    listener.getLogger().print(Messages.AbstractBuild_BuildingOnMaster());
+                    listener.getLogger().print(LocalizedString.AbstractBuild_BuildingOnMaster);
                 } else {
-                    listener.getLogger().print(Messages.AbstractBuild_BuildingRemotely(ModelHyperlinkNote.encodeTo("/computer/" + builtOn, node.getDisplayName())));
+                    listener.getLogger().print(LocalizedString.AbstractBuild_BuildingRemotely.toLocale(ModelHyperlinkNote.encodeTo("/computer/" + builtOn, node.getDisplayName())));
                     Set<LabelAtom> assignedLabels = new HashSet<>(node.getAssignedLabels());
                     assignedLabels.remove(node.getSelfLabel());
                     if (!assignedLabels.isEmpty()) {
@@ -482,13 +488,13 @@ public abstract class AbstractBuild<P extends AbstractProject<P,R>,R extends Abs
                     }
                 }
             } else {
-                listener.getLogger().print(Messages.AbstractBuild_Building());
+                listener.getLogger().print(LocalizedString.AbstractBuild_Building);
             }
             
             lease = decideWorkspace(node, Computer.currentComputer().getWorkspaceList());
 
             workspace = lease.path.getRemote();
-            listener.getLogger().println(Messages.AbstractBuild_BuildingInWorkspace(workspace));
+            listener.getLogger().println(LocalizedString.AbstractBuild_BuildingInWorkspace.toLocale(workspace));
             node.getFileSystemProvisioner().prepareWorkspace(AbstractBuild.this,lease.path,listener);
 
             for (WorkspaceListener wl : WorkspaceListener.all()) {
@@ -1051,7 +1057,7 @@ public abstract class AbstractBuild<P extends AbstractProject<P,R>,R extends Abs
 
                 AbstractBuild<?,?> b = p.getBuildByNumber(i);
                 if (b!=null)
-                    return Messages.AbstractBuild_KeptBecause(p.hasPermission(Item.READ) ? b.toString() : "?");
+                    return LocalizedString.AbstractBuild_KeptBecause.toLocale(p.hasPermission(Item.READ) ? b.toString() : "?");
             }
         }
 

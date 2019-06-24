@@ -23,11 +23,12 @@
  */
 package hudson.model;
 
+import org.kohsuke.stapler.StaplerRequest;
+
 import hudson.DescriptorExtensionList;
 import hudson.ExtensionPoint;
 import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
-import org.kohsuke.stapler.StaplerRequest;
 
 /**
  * Extensible property of {@link View}.

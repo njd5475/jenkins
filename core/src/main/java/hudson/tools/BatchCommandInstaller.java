@@ -24,12 +24,16 @@
 
 package hudson.tools;
 
+import java.io.ObjectStreamException;
+
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.util.LineEndingConversion;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.DataBoundConstructor;
-import java.io.ObjectStreamException;
 
 /**
  * Installs tool via script execution of Batch script.
@@ -62,7 +66,7 @@ public class BatchCommandInstaller extends AbstractCommandInstaller {
 
         @Override
         public String getDisplayName() {
-            return Messages.BatchCommandInstaller_DescriptorImpl_displayName();
+            return LocalizedString.BatchCommandInstaller_DescriptorImpl_displayName.toString();
         }        
     }
 }

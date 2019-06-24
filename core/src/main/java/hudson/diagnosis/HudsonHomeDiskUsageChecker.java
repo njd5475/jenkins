@@ -23,12 +23,13 @@
  */
 package hudson.diagnosis;
 
-import hudson.Extension;
-import jenkins.model.Jenkins;
-import hudson.model.PeriodicWork;
+import java.util.logging.Logger;
+
 import org.jenkinsci.Symbol;
 
-import java.util.logging.Logger;
+import hudson.Extension;
+import hudson.model.PeriodicWork;
+import jenkins.model.Jenkins;
 
 /**
  * Periodically checks the disk usage of {@code JENKINS_HOME},

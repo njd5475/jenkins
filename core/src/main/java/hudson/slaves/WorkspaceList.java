@@ -23,20 +23,21 @@
  */
 package hudson.slaves;
 
-import hudson.FilePath;
-import hudson.Functions;
-import jenkins.util.SystemProperties;
-import hudson.model.Computer;
-import hudson.model.DirectoryBrowserSupport;
 import java.io.Closeable;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.Nonnull;
+
+import hudson.FilePath;
+import hudson.Functions;
+import hudson.model.Computer;
+import hudson.model.DirectoryBrowserSupport;
+import jenkins.util.SystemProperties;
 
 /**
  * Used by {@link Computer} to keep track of workspaces that are actively in use.

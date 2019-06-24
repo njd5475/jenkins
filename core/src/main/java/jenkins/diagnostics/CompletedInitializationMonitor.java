@@ -23,13 +23,16 @@
  */
 package jenkins.diagnostics;
 
+import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.init.InitMilestone;
 import hudson.model.AdministrativeMonitor;
 import jenkins.model.Jenkins;
-import org.jenkinsci.Symbol;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
 
 /**
  * Performs monitoring of {@link Jenkins} {@link InitMilestone} status.
@@ -43,7 +46,7 @@ public class CompletedInitializationMonitor extends AdministrativeMonitor {
 
     @Override
     public String getDisplayName() {
-        return Messages.CompletedInitializationMonitor_DisplayName();
+        return LocalizedString.CompletedInitializationMonitor_DisplayName.toString();
     }
 
     @Override

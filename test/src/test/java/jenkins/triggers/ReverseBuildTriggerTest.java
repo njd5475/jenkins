@@ -24,7 +24,30 @@
 
 package jenkins.triggers;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.core.IsNot.not;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.acegisecurity.Authentication;
+import org.junit.Before;
+import org.junit.ClassRule;
+import org.junit.Rule;
+import org.junit.Test;
+import org.jvnet.hudson.test.BuildWatcher;
+import org.jvnet.hudson.test.Issue;
+import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.MockAuthorizationStrategy;
+import org.jvnet.hudson.test.MockQueueItemAuthenticator;
+
+import com.dj.runner.locales.LocalizedString;
 import com.google.common.collect.ImmutableMap;
+
 import hudson.model.Cause;
 import hudson.model.Computer;
 import hudson.model.FreeStyleBuild;
@@ -37,27 +60,8 @@ import hudson.model.User;
 import hudson.tasks.BuildTrigger;
 import hudson.tasks.BuildTriggerTest;
 import hudson.triggers.Trigger;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import jenkins.model.Jenkins;
 import jenkins.security.QueueItemAuthenticatorConfiguration;
-import org.acegisecurity.Authentication;
-
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.ClassRule;
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.jvnet.hudson.test.BuildWatcher;
-import org.jvnet.hudson.test.Issue;
-import org.jvnet.hudson.test.JenkinsRule;
-import org.jvnet.hudson.test.MockAuthorizationStrategy;
-import org.jvnet.hudson.test.MockQueueItemAuthenticator;
 
 public class ReverseBuildTriggerTest {
 
@@ -119,7 +123,7 @@ public class ReverseBuildTriggerTest {
         QueueItemAuthenticatorConfiguration.get().getAuthenticators().add(new MockQueueItemAuthenticator(ImmutableMap.of(upstreamName, User.get("admin").impersonate(), downstreamName, Jenkins.ANONYMOUS)));
         b = r.buildAndAssertSuccess(upstream);
         r.assertLogContains(downstreamName, b);
-        r.assertLogContains(Messages.ReverseBuildTrigger_running_as_cannot_even_see_for_trigger_f("anonymous", upstreamName, downstreamName), b);
+        r.assertLogContains(LocalizedString.ReverseBuildTrigger_running_as_cannot_even_see_for_trigger_f.toLocale("anonymous", upstreamName, downstreamName), b);
         r.waitUntilNoActivity();
         assertEquals(1, downstream.getLastBuild().number);
         // Auth for upstream is defined but cannot see downstream, so no message is printed about it:

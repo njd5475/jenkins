@@ -1,20 +1,23 @@
 package jenkins.model.lazy;
 
-import hudson.Extension;
-import hudson.ExtensionList;
-import hudson.ExtensionPoint;
-import jenkins.util.SystemProperties;
-import hudson.model.Run;
 import java.lang.ref.Reference;
 import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import jenkins.model.lazy.LazyBuildMixIn.RunMixIn;
+
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.ExtensionPoint;
+import hudson.model.Run;
+import jenkins.model.lazy.LazyBuildMixIn.RunMixIn;
+import jenkins.util.SystemProperties;
 
 /**
  * Reference (by default a {@link SoftReference}) to a build object.

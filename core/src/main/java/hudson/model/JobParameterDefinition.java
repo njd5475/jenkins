@@ -23,11 +23,11 @@
  */
 package hudson.model;
 
-import jenkins.model.Jenkins;
-import net.sf.json.JSONObject;
-
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
+
+import jenkins.model.Jenkins;
+import net.sf.json.JSONObject;
 
 public class JobParameterDefinition extends SimpleParameterDefinition {
 

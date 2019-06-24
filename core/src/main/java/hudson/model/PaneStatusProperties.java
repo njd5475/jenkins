@@ -1,8 +1,6 @@
 package hudson.model;
 
 import static java.lang.String.format;
-import hudson.Extension;
-import hudson.util.PersistedList;
 
 import java.io.IOException;
 
@@ -10,6 +8,9 @@ import javax.servlet.http.HttpSession;
 
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.Stapler;
+
+import hudson.Extension;
+import hudson.util.PersistedList;
 
 public class PaneStatusProperties extends UserProperty implements Saveable {
 	

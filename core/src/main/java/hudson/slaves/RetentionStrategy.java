@@ -23,23 +23,31 @@
  */
 package hudson.slaves;
 
-import hudson.ExtensionPoint;
-import hudson.Util;
-import hudson.DescriptorExtensionList;
-import hudson.Extension;
-import hudson.model.*;
-import hudson.util.DescriptorList;
 import java.util.Collections;
 import java.util.HashMap;
-import jenkins.model.Jenkins;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.DataBoundConstructor;
-
-import javax.annotation.concurrent.GuardedBy;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.GuardedBy;
+
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.DescriptorExtensionList;
+import hudson.Extension;
+import hudson.ExtensionPoint;
+import hudson.Util;
+import hudson.model.AbstractDescribableImpl;
+import hudson.model.Computer;
+import hudson.model.Descriptor;
+import hudson.model.Node;
+import hudson.model.Queue;
+import hudson.util.DescriptorList;
+import jenkins.model.Jenkins;
 
 /**
  * Controls when to take {@link Computer} offline, bring it back online, or even to destroy it.
@@ -166,7 +174,7 @@ public abstract class RetentionStrategy<T extends Computer> extends AbstractDesc
         @Extension(ordinal=100) @Symbol("always")
         public static class DescriptorImpl extends Descriptor<RetentionStrategy<?>> {
             public String getDisplayName() {
-                return Messages.RetentionStrategy_Always_displayName();
+                return LocalizedString.RetentionStrategy_Always_displayName.toString();
             }
         }
     }
@@ -279,7 +287,7 @@ public abstract class RetentionStrategy<T extends Computer> extends AbstractDesc
         public static class DescriptorImpl extends Descriptor<RetentionStrategy<?>> {
             @Override
             public String getDisplayName() {
-                return Messages.RetentionStrategy_Demand_displayName();
+                return LocalizedString.RetentionStrategy_Demand_displayName.toString();
             }
         }
     }

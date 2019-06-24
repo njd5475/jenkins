@@ -23,14 +23,16 @@
  */
 package jenkins.model;
 
-import com.google.common.collect.ImmutableList;
-import hudson.model.InvisibleAction;
-import hudson.model.Run;
+import java.util.Collection;
+import java.util.List;
+
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 
-import java.util.Collection;
-import java.util.List;
+import com.google.common.collect.ImmutableList;
+
+import hudson.model.InvisibleAction;
+import hudson.model.Run;
 
 /**
  * Action added to {@link Run} to record the cause of interruption.

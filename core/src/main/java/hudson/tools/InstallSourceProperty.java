@@ -23,15 +23,18 @@
  */
 package hudson.tools;
 
-import hudson.Extension;
-import hudson.util.DescribableList;
-import hudson.model.Descriptor;
-import hudson.model.Saveable;
+import java.io.IOException;
+import java.util.List;
+
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import java.util.List;
-import java.io.IOException;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.Descriptor;
+import hudson.model.Saveable;
+import hudson.util.DescribableList;
 
 /**
  * {@link ToolProperty} that shows auto installation options.
@@ -65,7 +68,7 @@ public class InstallSourceProperty extends ToolProperty<ToolInstallation> {
     @Extension @Symbol("installSource")
     public static class DescriptorImpl extends ToolPropertyDescriptor {
         public String getDisplayName() {
-            return Messages.InstallSourceProperty_DescriptorImpl_displayName();
+            return LocalizedString.InstallSourceProperty_DescriptorImpl_displayName.toString();
         }
     }
 }

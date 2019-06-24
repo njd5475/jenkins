@@ -23,9 +23,9 @@
  */
 package hudson.model;
 
-import hudson.Functions;
-
 import javax.annotation.CheckForNull;
+
+import hudson.Functions;
 
 /**
  * Object that contributes additional information, behaviors, and UIs to {@link ModelObject}

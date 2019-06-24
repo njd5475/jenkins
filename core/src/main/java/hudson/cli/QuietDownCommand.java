@@ -24,11 +24,14 @@
 
 package hudson.cli;
 
-import hudson.Extension;
-import jenkins.model.Jenkins;
+import java.util.logging.Logger;
+
 import org.kohsuke.args4j.Option;
 
-import java.util.logging.Logger;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import jenkins.model.Jenkins;
 
 /**
  * Quiet down Jenkins - preparation for a restart
@@ -49,7 +52,7 @@ public class QuietDownCommand extends CLICommand {
 
     @Override
     public String getShortDescription() {
-        return Messages.QuietDownCommand_ShortDescription();
+        return LocalizedString.QuietDownCommand_ShortDescription.toString();
     }
 
     @Override

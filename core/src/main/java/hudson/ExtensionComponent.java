@@ -24,10 +24,11 @@
 
 package hudson;
 
-import hudson.model.Describable;
-import hudson.model.Descriptor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import hudson.model.Describable;
+import hudson.model.Descriptor;
 import jenkins.ExtensionFilter;
 
 /**

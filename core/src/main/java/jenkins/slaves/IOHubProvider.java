@@ -23,13 +23,15 @@
  */
 package jenkins.slaves;
 
-import hudson.Extension;
-import hudson.init.Terminator;
-import hudson.model.Computer;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.jenkinsci.remoting.protocol.IOHub;
+
+import hudson.Extension;
+import hudson.init.Terminator;
+import hudson.model.Computer;
 
 /**
  * Singleton holder of {@link IOHub}

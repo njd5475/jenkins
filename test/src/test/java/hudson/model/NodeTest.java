@@ -23,15 +23,46 @@
  */
 package hudson.model;
 
+import static org.hamcrest.core.StringEndsWith.endsWith;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.concurrent.Callable;
+
+import org.acegisecurity.context.SecurityContextHolder;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.jvnet.hudson.test.Issue;
+import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.MockQueueItemAuthenticator;
+import org.jvnet.hudson.test.RunLoadCounter;
+import org.jvnet.hudson.test.TestExtension;
+
+import com.dj.runner.locales.LocalizedString;
 import com.gargoylesoftware.htmlunit.HttpMethod;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebRequest;
+
 import hudson.EnvVars;
 import hudson.FilePath;
 import hudson.maven.MavenModuleSet;
 import hudson.model.Node.Mode;
 import hudson.model.Queue.WaitingItem;
-import hudson.model.labels.*;
+import hudson.model.labels.LabelAtom;
+import hudson.model.labels.LabelExpression;
 import hudson.model.queue.CauseOfBlockage;
 import hudson.security.ACL;
 import hudson.security.ACLContext;
@@ -45,26 +76,8 @@ import hudson.slaves.OfflineCause;
 import hudson.slaves.OfflineCause.ByCLI;
 import hudson.slaves.OfflineCause.UserCause;
 import hudson.util.TagCloud;
-import java.net.HttpURLConnection;
-
-import java.util.*;
-import java.util.concurrent.Callable;
-
 import jenkins.model.Jenkins;
 import jenkins.security.QueueItemAuthenticatorConfiguration;
-import org.acegisecurity.context.SecurityContextHolder;
-
-import static org.hamcrest.core.StringEndsWith.endsWith;
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.jvnet.hudson.test.Issue;
-import org.jvnet.hudson.test.RunLoadCounter;
-import org.jvnet.hudson.test.JenkinsRule;
-import org.jvnet.hudson.test.MockQueueItemAuthenticator;
-import org.jvnet.hudson.test.TestExtension;
 
 /**
  *
@@ -200,11 +213,11 @@ public class NodeTest {
         assertNull("Node should take project which is assigned to its label.", node.canTake(item));
         assertNull("Node should take project which is assigned to its label.", node.canTake(item2));
         assertNotNull("Node should not take project which is not assigned to its label.", node.canTake(item3));
-        String message = Messages._Node_LabelMissing(node.getNodeName(),j.jenkins.getLabel("notContained")).toString();
+        String message = LocalizedString._Node_LabelMissing.toLocale(node.getNodeName(),j.jenkins.getLabel("notContained")).toString();
         assertEquals("Cause of blockage should be missing label.", message, node.canTake(item3).getShortDescription());
         ((Slave)node).setMode(Node.Mode.EXCLUSIVE);
         assertNotNull("Node should not take project which has null label because it is in exclusive mode.", node.canTake(item2));
-        message = Messages._Node_BecauseNodeIsReserved(node.getNodeName()).toString();
+        message = LocalizedString._Node_BecauseNodeIsReserved.toLocale(node.getNodeName()).toString();
         assertEquals("Cause of blockage should be reserved label.", message, node.canTake(item2).getShortDescription());
         node.getNodeProperties().add(new NodePropertyImpl());
         notTake = true;
@@ -220,7 +233,7 @@ public class NodeTest {
         notTake = false;
         QueueItemAuthenticatorConfiguration.get().getAuthenticators().add(new MockQueueItemAuthenticator(Collections.singletonMap(project.getFullName(), user.impersonate())));
         assertNotNull("Node should not take project because user does not have build permission.", node.canTake(item));
-        message = Messages._Node_LackingBuildPermission(item.authenticate().getName(),node.getNodeName()).toString();
+        message = LocalizedString._Node_LackingBuildPermission.toLocale(item.authenticate().getName(),node.getNodeName()).toString();
         assertEquals("Cause of blockage should be bussy label.", message, node.canTake(item).getShortDescription());
     }
 

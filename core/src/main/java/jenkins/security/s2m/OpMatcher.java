@@ -1,8 +1,8 @@
 package jenkins.security.s2m;
 
-import jenkins.ReflectiveFilePathFilter;
-
 import java.io.File;
+
+import jenkins.ReflectiveFilePathFilter;
 
 /**
  * Tests a match against file operation name of {@link ReflectiveFilePathFilter#op(String, File)}.

@@ -1,15 +1,15 @@
 package jenkins.security.s2m;
 
-import hudson.CopyOnWrite;
-import hudson.util.TextFile;
-import jenkins.model.Jenkins;
-import jenkins.util.io.LinesStream;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Collection;
+
+import hudson.CopyOnWrite;
+import hudson.util.TextFile;
+import jenkins.model.Jenkins;
+import jenkins.util.io.LinesStream;
 
 /**
  * Abstraction of a line-by-line configuration text file that gets parsed into some in-memory data form.

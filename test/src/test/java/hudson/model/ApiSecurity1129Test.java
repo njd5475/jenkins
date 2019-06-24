@@ -1,17 +1,20 @@
 package hudson.model;
 
-import com.gargoylesoftware.htmlunit.WebResponse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.jvnet.hudson.test.Issue;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.xml.sax.SAXException;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import com.dj.runner.locales.LocalizedString;
+import com.gargoylesoftware.htmlunit.WebResponse;
 
 //TODO after the security fix, it could be merged inside ApiTest
 public class ApiSecurity1129Test {
@@ -27,7 +30,7 @@ public class ApiSecurity1129Test {
     public void wrapperXss() throws Exception {
         String wrapper = "html%20xmlns=\"http://www.w3.org/1999/xhtml\"><script>alert(%27XSS%20Detected%27)</script></html><!--";
 
-        checkWrapperParam(wrapper, HttpServletResponse.SC_BAD_REQUEST, Messages.Api_WrapperParamInvalid());
+        checkWrapperParam(wrapper, HttpServletResponse.SC_BAD_REQUEST, LocalizedString.Api_WrapperParamInvalid.toString());
     }
 
     /**
@@ -38,7 +41,7 @@ public class ApiSecurity1129Test {
     @Test
     public void wrapperBadName() throws Exception {
         String wrapper = "-badname";
-        checkWrapperParam(wrapper, HttpServletResponse.SC_BAD_REQUEST, Messages.Api_WrapperParamInvalid());
+        checkWrapperParam(wrapper, HttpServletResponse.SC_BAD_REQUEST, LocalizedString.Api_WrapperParamInvalid.toString());
 
     }
 

@@ -24,85 +24,83 @@
  */
 package hudson.model;
 
-import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
-import hudson.AbortException;
-import hudson.XmlFile;
-import hudson.Util;
-import hudson.Functions;
-import hudson.BulkChange;
-import hudson.cli.declarative.CLIResolver;
-import hudson.model.Queue.Executable;
-import hudson.model.listeners.ItemListener;
-import hudson.model.listeners.SaveableListener;
-import hudson.model.queue.Tasks;
-import hudson.model.queue.WorkUnit;
-import hudson.security.ACLContext;
-import hudson.security.AccessControlled;
-import hudson.security.ACL;
-import hudson.util.AlternativeUiTextProvider;
-import hudson.util.AlternativeUiTextProvider.Message;
-import hudson.util.AtomicFileWriter;
-import hudson.util.FormValidation;
-import hudson.util.IOUtils;
-import hudson.util.Secret;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-import jenkins.model.DirectlyModifiableTopLevelItemGroup;
-import jenkins.model.Jenkins;
-import jenkins.model.queue.ItemDeletion;
-import jenkins.security.NotReallyRoleSensitiveCallable;
-import jenkins.util.xml.XMLUtils;
-
-import org.apache.tools.ant.taskdefs.Copy;
-import org.apache.tools.ant.types.FileSet;
-import org.kohsuke.stapler.HttpResponses;
-import org.kohsuke.stapler.StaplerProxy;
-import org.kohsuke.stapler.WebMethod;
-import org.kohsuke.stapler.export.Exported;
-import org.kohsuke.stapler.export.ExportedBean;
+import static hudson.model.queue.Executables.getParentOf;
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.annotation.Nonnull;
-
-import org.acegisecurity.AccessDeniedException;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.HttpResponses;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-import org.kohsuke.stapler.Stapler;
-import org.kohsuke.stapler.HttpDeletable;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.CmdLineException;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.interceptor.RequirePOST;
-import org.xml.sax.SAXException;
-
 import javax.servlet.ServletException;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import static hudson.model.queue.Executables.getParentOf;
-import hudson.model.queue.SubTask;
-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
-
+import org.acegisecurity.AccessDeniedException;
 import org.apache.commons.io.FileUtils;
+import org.apache.tools.ant.taskdefs.Copy;
+import org.apache.tools.ant.types.FileSet;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.stapler.Ancestor;
+import org.kohsuke.stapler.HttpDeletable;
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.HttpResponses;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.Stapler;
+import org.kohsuke.stapler.StaplerProxy;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.WebMethod;
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+import org.xml.sax.SAXException;
+
+import com.dj.runner.locales.LocalizedString;
+import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
+
+import hudson.AbortException;
+import hudson.BulkChange;
+import hudson.Functions;
+import hudson.Util;
+import hudson.XmlFile;
+import hudson.cli.declarative.CLIResolver;
+import hudson.model.Queue.Executable;
+import hudson.model.listeners.ItemListener;
+import hudson.model.listeners.SaveableListener;
+import hudson.model.queue.SubTask;
+import hudson.model.queue.Tasks;
+import hudson.model.queue.WorkUnit;
+import hudson.security.ACL;
+import hudson.security.ACLContext;
+import hudson.security.AccessControlled;
+import hudson.util.AlternativeUiTextProvider;
+import hudson.util.AlternativeUiTextProvider.Message;
+import hudson.util.AtomicFileWriter;
+import hudson.util.FormValidation;
+import hudson.util.IOUtils;
+import hudson.util.Secret;
+import jenkins.model.DirectlyModifiableTopLevelItemGroup;
+import jenkins.model.Jenkins;
+import jenkins.model.queue.ItemDeletion;
+import jenkins.security.NotReallyRoleSensitiveCallable;
+import jenkins.util.xml.XMLUtils;
 
 /**
  * Partial default implementation of {@link Item}.
@@ -145,7 +143,7 @@ public abstract class AbstractItem extends Actionable implements Item, HttpDelet
      * {@link Item}. Must start with a capital letter.
      */
     public String getPronoun() {
-        return AlternativeUiTextProvider.get(PRONOUN, this, Messages.AbstractItem_Pronoun());
+        return AlternativeUiTextProvider.get(PRONOUN, this, LocalizedString.AbstractItem_Pronoun);
     }
 
     /**
@@ -154,7 +152,7 @@ public abstract class AbstractItem extends Actionable implements Item, HttpDelet
      * @since 2.50
      */
     public String getTaskNoun() {
-        return AlternativeUiTextProvider.get(TASK_NOUN, this, Messages.AbstractItem_TaskNoun());
+        return AlternativeUiTextProvider.get(TASK_NOUN, this, LocalizedString.AbstractItem_TaskNoun);
     }
 
     @Exported
@@ -288,7 +286,7 @@ public abstract class AbstractItem extends Actionable implements Item, HttpDelet
             Jenkins.checkGoodName(newName);
             assert newName != null; // Would have thrown Failure
             if (newName.equals(name)) {
-                return FormValidation.warning(Messages.AbstractItem_NewNameUnchanged());
+                return FormValidation.warning(LocalizedString.AbstractItem_NewNameUnchanged);
             }
             Jenkins.get().getProjectNamingStrategy().checkName(newName);
             checkIfNameIsUsed(newName);
@@ -307,7 +305,7 @@ public abstract class AbstractItem extends Actionable implements Item, HttpDelet
         try {
             Item item = getParent().getItem(newName);
             if (item != null) {
-                throw new Failure(Messages.AbstractItem_NewNameInUse(newName));
+                throw new Failure(LocalizedString.AbstractItem_NewNameInUse.toLocale(newName));
             }
             try (ACLContext ctx = ACL.as(ACL.SYSTEM)) {
                 item = getParent().getItem(newName);
@@ -318,7 +316,7 @@ public abstract class AbstractItem extends Actionable implements Item, HttpDelet
                                 new Object[] {this.getFullName(), newName, ctx.getPreviousContext().getAuthentication().getName(), Item.DISCOVER.name} );
                     }
                     // Don't explicitly mention that there is another item with the same name.
-                    throw new Failure(Messages.Jenkins_NotAllowedName(newName));
+                    throw new Failure(LocalizedString.Jenkins_NotAllowedName.toLocale(newName));
                 }
             }
         } catch(AccessDeniedException ex) {
@@ -327,7 +325,7 @@ public abstract class AbstractItem extends Actionable implements Item, HttpDelet
                         "User {2} has {3} permission, but no {4} for existing job with the same name",
                         new Object[] {this.getFullName(), newName, User.current(), Item.DISCOVER.name, Item.READ.name} );
             }
-            throw new Failure(Messages.AbstractItem_NewNameInUse(newName));
+            throw new Failure(LocalizedString.AbstractItem_NewNameInUse.toLocale(newName));
         }
     }
 
@@ -684,7 +682,7 @@ public abstract class AbstractItem extends Actionable implements Item, HttpDelet
         boolean ownsRegistration = ItemDeletion.register(this);
         if (!ownsRegistration && ItemDeletion.isRegistered(this)) {
             // we are not the owning thread and somebody else is concurrently deleting this exact item
-            throw new Failure(Messages.AbstractItem_BeingDeleted(getPronoun()));
+            throw new Failure(LocalizedString.AbstractItem_BeingDeleted.toLocale(getPronoun()));
         }
         try {
             // if a build is in progress. Cancel it.
@@ -765,7 +763,7 @@ public abstract class AbstractItem extends Actionable implements Item, HttpDelet
                         Thread.sleep(50L);
                     }
                     if (!buildsInProgress.isEmpty()) {
-                        throw new Failure(Messages.AbstractItem_FailureToStopBuilds(
+                        throw new Failure(LocalizedString.AbstractItem_FailureToStopBuilds.toLocale(
                                 buildsInProgress.size(), getFullDisplayName()
                         ));
                     }
@@ -964,8 +962,8 @@ public abstract class AbstractItem extends Actionable implements Item, HttpDelet
         AbstractItem item = Jenkins.getInstance().getItemByFullName(name, AbstractItem.class);
         if (item==null) {
             AbstractItem project = Items.findNearest(AbstractItem.class, name, Jenkins.getInstance());
-            throw new CmdLineException(null, project == null ? Messages.AbstractItem_NoSuchJobExistsWithoutSuggestion(name)
-                    : Messages.AbstractItem_NoSuchJobExists(name, project.getFullName()));
+            throw new CmdLineException(null, project == null ? LocalizedString.AbstractItem_NoSuchJobExistsWithoutSuggestion.toLocale(name)
+                    : LocalizedString.AbstractItem_NoSuchJobExists.toLocale(name, project.getFullName()));
         }
         return item;
     }

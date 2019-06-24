@@ -23,19 +23,19 @@
  */
 package hudson.scm;
 
-import hudson.ExtensionPoint;
+import java.io.IOException;
+import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.kohsuke.stapler.export.ExportedBean;
+
 import hudson.DescriptorExtensionList;
 import hudson.Extension;
+import hudson.ExtensionPoint;
 import hudson.model.AbstractDescribableImpl;
 import hudson.model.Descriptor;
 import jenkins.model.Jenkins;
-
-import java.io.IOException;
-import java.io.Serializable;
-import java.net.URL;
-import java.net.MalformedURLException;
-
-import org.kohsuke.stapler.export.ExportedBean;
 
 /**
  * Connects Hudson to repository browsers like ViewCVS or FishEye,

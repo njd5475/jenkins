@@ -23,20 +23,7 @@
  */
 package hudson.model;
 
-import hudson.Util;
-import hudson.EnvVars;
-import hudson.diagnosis.OldDataMonitor;
-import hudson.model.Queue.QueueAction;
-import hudson.model.labels.LabelAssignmentAction;
-import hudson.model.queue.SubTask;
-import hudson.tasks.BuildStep;
-import hudson.tasks.BuildWrapper;
-import hudson.util.VariableResolver;
-import jenkins.model.RunAction2;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.export.Exported;
-import org.kohsuke.stapler.export.ExportedBean;
+import static com.google.common.collect.Sets.newHashSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,10 +37,27 @@ import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.common.collect.Lists;
-import static com.google.common.collect.Sets.newHashSet;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
+
+import com.dj.runner.locales.LocalizedString;
+import com.google.common.collect.Lists;
+
+import hudson.EnvVars;
+import hudson.Util;
+import hudson.diagnosis.OldDataMonitor;
+import hudson.model.Queue.QueueAction;
+import hudson.model.labels.LabelAssignmentAction;
+import hudson.model.queue.SubTask;
+import hudson.tasks.BuildStep;
+import hudson.tasks.BuildWrapper;
+import hudson.util.VariableResolver;
+import jenkins.model.RunAction2;
 import jenkins.util.SystemProperties;
 
 /**
@@ -202,7 +206,7 @@ public class ParametersAction implements RunAction2, Iterable<ParameterValue>, Q
     }
 
     public String getDisplayName() {
-        return Messages.ParameterAction_DisplayName();
+        return LocalizedString.ParameterAction_DisplayName.toString();
     }
 
     public String getIconFileName() {

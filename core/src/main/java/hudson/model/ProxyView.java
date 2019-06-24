@@ -23,15 +23,11 @@
  */
 package hudson.model;
 
-import hudson.Extension;
-import hudson.Util;
-import hudson.model.Descriptor.FormException;
-import hudson.util.FormValidation;
 import java.io.IOException;
 import java.util.Collection;
+
 import javax.servlet.ServletException;
 
-import jenkins.model.Jenkins;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
@@ -40,6 +36,14 @@ import org.kohsuke.stapler.StaplerFallback;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.Util;
+import hudson.model.Descriptor.FormException;
+import hudson.util.FormValidation;
+import jenkins.model.Jenkins;
 
 /**
  * A view that delegates to another.
@@ -123,7 +127,7 @@ public class ProxyView extends View implements StaplerFallback {
         if(Jenkins.getInstance().getView(view)!=null)
             return FormValidation.ok();
         else
-            return FormValidation.error(Messages.ProxyView_NoSuchViewExists(value));
+            return FormValidation.error(LocalizedString.ProxyView_NoSuchViewExists.toLocale(value));
     }
 
     @Extension @Symbol("proxy")
@@ -131,7 +135,7 @@ public class ProxyView extends View implements StaplerFallback {
 
         @Override
         public String getDisplayName() {
-            return Messages.ProxyView_DisplayName();
+            return LocalizedString.ProxyView_DisplayName.toString();
         }
         
         @Override

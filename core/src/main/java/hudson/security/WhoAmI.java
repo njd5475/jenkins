@@ -1,21 +1,20 @@
 package hudson.security;
 
-import hudson.Extension;
-import hudson.Functions;
-import hudson.model.Api;
-import hudson.model.UnprotectedRootAction;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import jenkins.util.MemoryReductionUtil;
-import jenkins.model.Jenkins;
 
 import org.acegisecurity.Authentication;
 import org.acegisecurity.GrantedAuthority;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
+
+import hudson.Extension;
+import hudson.Functions;
+import hudson.model.Api;
+import hudson.model.UnprotectedRootAction;
+import jenkins.model.Jenkins;
+import jenkins.util.MemoryReductionUtil;
 
 /**
  * Expose the data needed for /whoAmI, so it can be exposed by Api.

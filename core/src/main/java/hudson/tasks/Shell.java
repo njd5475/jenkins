@@ -23,34 +23,37 @@
  */
 package hudson.tasks;
 
-import hudson.FilePath;
-import hudson.Util;
-import hudson.Extension;
-import hudson.model.AbstractProject;
-import hudson.model.PersistentDescriptor;
-import hudson.remoting.VirtualChannel;
-import hudson.util.FormValidation;
 import java.io.IOException;
 import java.io.ObjectStreamException;
-import hudson.util.LineEndingConversion;
-import jenkins.security.MasterToSlaveCallable;
-import net.sf.json.JSONObject;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+
 import org.apache.commons.lang.SystemUtils;
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.DoNotUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
-import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.StaplerRequest;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.dj.runner.locales.LocalizedString;
 
-import javax.annotation.CheckForNull;
+import hudson.Extension;
+import hudson.FilePath;
+import hudson.Util;
+import hudson.model.AbstractProject;
+import hudson.model.PersistentDescriptor;
+import hudson.remoting.VirtualChannel;
+import hudson.util.FormValidation;
+import hudson.util.LineEndingConversion;
+import jenkins.security.MasterToSlaveCallable;
+import net.sf.json.JSONObject;
 
 /**
  * Executes a series of commands by using a shell.
@@ -181,7 +184,7 @@ public class Shell extends CommandInterpreter {
         }
 
         public String getDisplayName() {
-            return Messages.Shell_DisplayName();
+            return LocalizedString.Shell_DisplayName.toString();
         }
 
         /**
@@ -197,13 +200,13 @@ public class Shell extends CommandInterpreter {
             try {
                 unstableReturn = Long.parseLong(value);
             } catch (NumberFormatException e) {
-                return FormValidation.error(hudson.model.Messages.Hudson_NotANumber());
+                return FormValidation.error(LocalizedString.Hudson_NotANumber.toString());
             }
             if (unstableReturn == 0) {
-                return FormValidation.warning(hudson.tasks.Messages.Shell_invalid_exit_code_zero());
+                return FormValidation.warning(LocalizedString.Shell_invalid_exit_code_zero.toString());
             }
             if (unstableReturn < 1 || unstableReturn > 255) {
-                return FormValidation.error(hudson.tasks.Messages.Shell_invalid_exit_code_range(unstableReturn));
+                return FormValidation.error(LocalizedString.Shell_invalid_exit_code_range.toLocale(unstableReturn));
             }
             return FormValidation.ok();
         }

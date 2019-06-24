@@ -24,11 +24,11 @@
 package jenkins.util;
 
 
-import hudson.ExtensionList;
-import hudson.ExtensionPoint;
-
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
+
+import hudson.ExtensionList;
+import hudson.ExtensionPoint;
 
 /**
  * {@link javax.servlet.http.HttpSessionListener} {@link ExtensionPoint} for Jenkins.

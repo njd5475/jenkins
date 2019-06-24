@@ -1,8 +1,8 @@
 package jenkins.security.s2m;
 
-import hudson.FilePath;
-
 import java.util.regex.Pattern;
+
+import hudson.FilePath;
 
 /**
  * One entry of the {@link FilePath} access rule.

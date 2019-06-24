@@ -23,15 +23,16 @@
  */
 package hudson.console;
 
-import hudson.MarkupText;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+
+import hudson.MarkupText;
 
 /**
  * Annotates one line of console output.

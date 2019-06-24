@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import javax.inject.Provider;
 import javax.servlet.http.HttpSession;
 
-import jenkins.security.apitoken.ApiTokenPropertyConfiguration;
 import org.apache.commons.io.FileUtils;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
@@ -23,6 +22,7 @@ import org.kohsuke.stapler.interceptor.RequirePOST;
 import hudson.Extension;
 import hudson.util.HttpResponses;
 import jenkins.model.Jenkins;
+import jenkins.security.apitoken.ApiTokenPropertyConfiguration;
 import net.sf.json.JSONArray;
 
 /**

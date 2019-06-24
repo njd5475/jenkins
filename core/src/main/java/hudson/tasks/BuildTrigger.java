@@ -23,6 +23,29 @@
  */
 package hudson.tasks;
 
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
+import org.acegisecurity.Authentication;
+import org.apache.commons.lang.StringUtils;
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.AncestorInPath;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.StaplerRequest;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.Launcher;
 import hudson.Util;
@@ -48,30 +71,11 @@ import hudson.model.queue.Tasks;
 import hudson.security.ACL;
 import hudson.security.ACLContext;
 import hudson.util.FormValidation;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import jenkins.model.DependencyDeclarer;
 import jenkins.model.Jenkins;
 import jenkins.model.ParameterizedJobMixIn;
 import jenkins.triggers.ReverseBuildTrigger;
 import net.sf.json.JSONObject;
-import org.acegisecurity.Authentication;
-import org.apache.commons.lang.StringUtils;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.AncestorInPath;
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
 
 /**
  * Triggers builds of other projects.
@@ -205,29 +209,29 @@ public class BuildTrigger extends Recorder implements DependencyDeclarer {
                     continue;
                 }
                 if (!downstream.hasPermission(Item.BUILD)) {
-                    listener.getLogger().println(Messages.BuildTrigger_you_have_no_permission_to_build_(ModelHyperlinkNote.encodeTo(downstream)));
+                    listener.getLogger().println(LocalizedString.BuildTrigger_you_have_no_permission_to_build_.toLocale(ModelHyperlinkNote.encodeTo(downstream)));
                     continue;
                 }
                 if (!(downstream instanceof ParameterizedJobMixIn.ParameterizedJob)) {
-                    logger.println(Messages.BuildTrigger_NotBuildable(ModelHyperlinkNote.encodeTo(downstream)));
+                    logger.println(LocalizedString.BuildTrigger_NotBuildable.toLocale(ModelHyperlinkNote.encodeTo(downstream)));
                     continue;
                 }
                 ParameterizedJobMixIn.ParameterizedJob<?, ?> pj = (ParameterizedJobMixIn.ParameterizedJob) downstream;
                 if (pj.isDisabled()) {
-                    logger.println(Messages.BuildTrigger_Disabled(ModelHyperlinkNote.encodeTo(downstream)));
+                    logger.println(LocalizedString.BuildTrigger_Disabled.toLocale(ModelHyperlinkNote.encodeTo(downstream)));
                     continue;
                 }
                 if (!downstream.isBuildable()) { // some other reason; no API to retrieve cause
-                    logger.println(Messages.BuildTrigger_NotBuildable(ModelHyperlinkNote.encodeTo(downstream)));
+                    logger.println(LocalizedString.BuildTrigger_NotBuildable.toLocale(ModelHyperlinkNote.encodeTo(downstream)));
                     continue;
                 }
                 boolean scheduled = pj.scheduleBuild(pj.getQuietPeriod(), new UpstreamCause((Run) build));
                 if (Jenkins.getInstance().getItemByFullName(downstream.getFullName()) == downstream) {
                     String name = ModelHyperlinkNote.encodeTo(downstream);
                     if (scheduled) {
-                        logger.println(Messages.BuildTrigger_Triggering(name));
+                        logger.println(LocalizedString.BuildTrigger_Triggering.toLocale(name));
                     } else {
-                        logger.println(Messages.BuildTrigger_InQueue(name));
+                        logger.println(LocalizedString.BuildTrigger_InQueue.toLocale(name));
                     }
                 }
             }
@@ -272,16 +276,16 @@ public class BuildTrigger extends Recorder implements DependencyDeclarer {
                 AbstractProject p = dep.getDownstreamProject();
                 // Allow shouldTriggerBuild to return false first, in case it is skipping because of a lack of Item.READ/DISCOVER permission:
                 if (p.isDisabled()) {
-                    logger.println(Messages.BuildTrigger_Disabled(ModelHyperlinkNote.encodeTo(p)));
+                    logger.println(LocalizedString.BuildTrigger_Disabled.toLocale(ModelHyperlinkNote.encodeTo(p)));
                     continue;
                 }
                 boolean scheduled = p.scheduleBuild(p.getQuietPeriod(), new UpstreamCause((Run)build), buildActions.toArray(new Action[0]));
                 if (Jenkins.getInstance().getItemByFullName(p.getFullName()) == p) {
                     String name = ModelHyperlinkNote.encodeTo(p);
                     if (scheduled) {
-                        logger.println(Messages.BuildTrigger_Triggering(name));
+                        logger.println(LocalizedString.BuildTrigger_Triggering.toLocale(name));
                     } else {
-                        logger.println(Messages.BuildTrigger_InQueue(name));
+                        logger.println(LocalizedString.BuildTrigger_InQueue.toLocale(name));
                     }
                 } // otherwise upstream users should not know that it happened
             }
@@ -302,7 +306,7 @@ public class BuildTrigger extends Recorder implements DependencyDeclarer {
                         return false; // do not even issue a warning to build log
                     }
                     if (!downstream.hasPermission(Item.BUILD)) {
-                        listener.getLogger().println(Messages.BuildTrigger_you_have_no_permission_to_build_(ModelHyperlinkNote.encodeTo(downstream)));
+                        listener.getLogger().println(LocalizedString.BuildTrigger_you_have_no_permission_to_build_.toLocale(ModelHyperlinkNote.encodeTo(downstream)));
                         return false;
                     }
                     return build.getResult().isBetterOrEqualTo(threshold);
@@ -357,7 +361,7 @@ public class BuildTrigger extends Recorder implements DependencyDeclarer {
     @Extension @Symbol("downstream")
     public static class DescriptorImpl extends BuildStepDescriptor<Publisher> {
         public String getDisplayName() {
-            return Messages.BuildTrigger_DisplayName();
+            return LocalizedString.BuildTrigger_DisplayName.toString();
         }
 
         @Override
@@ -391,7 +395,7 @@ public class BuildTrigger extends Recorder implements DependencyDeclarer {
          */
         public FormValidation doCheck(@AncestorInPath AbstractProject project, @QueryParameter String value) {
             // JENKINS-32525: Check that it behaves gracefully for an unknown context
-            if (project == null) return FormValidation.ok(Messages.BuildTrigger_ok_ancestor_is_null());
+            if (project == null) return FormValidation.ok(LocalizedString.BuildTrigger_ok_ancestor_is_null.toLocale());
             // Require CONFIGURE permission on this project
             if(!project.hasPermission(Item.CONFIGURE))      return FormValidation.ok();
 
@@ -404,20 +408,20 @@ public class BuildTrigger extends Recorder implements DependencyDeclarer {
                     if (item == null) {
                         Job<?, ?> nearest = Items.findNearest(Job.class, projectName, project.getParent());
                         String alternative = nearest != null ? nearest.getRelativeNameFrom(project) : "?";
-                        return FormValidation.error(Messages.BuildTrigger_NoSuchProject(projectName, alternative));
+                        return FormValidation.error(LocalizedString.BuildTrigger_NoSuchProject.toLocale(projectName, alternative));
                     }
                     if(!(item instanceof ParameterizedJobMixIn.ParameterizedJob))
-                        return FormValidation.error(Messages.BuildTrigger_NotBuildable(projectName));
+                        return FormValidation.error(LocalizedString.BuildTrigger_NotBuildable.toLocale(projectName));
                     // check whether the supposed user is expected to be able to build
                     Authentication auth = Tasks.getAuthenticationOf(project);
                     if (!item.hasPermission(auth, Item.BUILD)) {
-                        return FormValidation.error(Messages.BuildTrigger_you_have_no_permission_to_build_(projectName));
+                        return FormValidation.error(LocalizedString.BuildTrigger_you_have_no_permission_to_build_.toLocale(projectName));
                     }
                     hasProjects = true;
                 }
             }
             if (!hasProjects) {
-                return FormValidation.error(Messages.BuildTrigger_NoProjectSpecified());
+                return FormValidation.error(LocalizedString.BuildTrigger_NoProjectSpecified);
             }
 
             return FormValidation.ok();

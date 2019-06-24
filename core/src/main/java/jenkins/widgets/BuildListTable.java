@@ -24,16 +24,16 @@
 
 package jenkins.widgets;
 
+import java.util.Date;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.DoNotUse;
+
 import hudson.Functions;
 import hudson.Util;
 import hudson.model.BallColor;
 import hudson.model.Run;
 import net.sf.json.JSONObject;
-
-import java.util.Date;
-
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.DoNotUse;
 
 @Restricted(DoNotUse.class) // only for buildListTable.jelly
 public class BuildListTable extends RunListProgressiveRendering {

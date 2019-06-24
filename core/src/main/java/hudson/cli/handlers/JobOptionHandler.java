@@ -23,12 +23,13 @@
  */
 package hudson.cli.handlers;
 
-import hudson.model.Job;
+import org.kohsuke.MetaInfServices;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.OptionDef;
-import org.kohsuke.args4j.spi.Setter;
-import org.kohsuke.MetaInfServices;
 import org.kohsuke.args4j.spi.OptionHandler;
+import org.kohsuke.args4j.spi.Setter;
+
+import hudson.model.Job;
 
 /**
  * Refer to {@link Job} by its name.

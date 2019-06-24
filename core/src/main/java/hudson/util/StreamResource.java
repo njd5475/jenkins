@@ -23,10 +23,10 @@
  */
 package hudson.util;
 
-import org.apache.tools.ant.types.Resource;
-
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.tools.ant.types.Resource;
 
 /**
  * Wraps {@link InputStream} to {@link Resource}.

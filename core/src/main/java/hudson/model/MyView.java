@@ -31,14 +31,17 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import jenkins.model.Jenkins;
 import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
-import org.kohsuke.stapler.DataBoundConstructor;
-import hudson.model.Descriptor.FormException;
-import hudson.Extension;
 import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.Descriptor.FormException;
+import jenkins.model.Jenkins;
 
 /**
  * {@link View} that only contains projects for which the current user has access to.
@@ -106,7 +109,7 @@ public class MyView extends View {
         }
 
         public String getDisplayName() {
-            return Messages.MyView_DisplayName();
+            return LocalizedString.MyView_DisplayName.toString();
         }
     }
 }

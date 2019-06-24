@@ -1,12 +1,13 @@
 package hudson.cli;
 
+import java.io.IOException;
+import java.util.List;
+
+import org.kohsuke.args4j.Argument;
+
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 import hudson.model.Fingerprint.RangeSet;
-import org.kohsuke.args4j.Argument;
-
-import java.io.IOException;
-import java.util.List;
 
 /**
  * {@link CLICommand} that acts on a series of {@link AbstractBuild}s.

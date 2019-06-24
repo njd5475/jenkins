@@ -23,10 +23,10 @@
  */
 package hudson;
 
-import hudson.model.Saveable;
-
 import java.io.Closeable;
 import java.io.IOException;
+
+import hudson.model.Saveable;
 
 /**
  * Transaction-like object that can be used to make a bunch of changes to an object, and defer the

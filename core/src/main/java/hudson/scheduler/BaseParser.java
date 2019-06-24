@@ -23,6 +23,8 @@
  */
 package hudson.scheduler;
 
+import com.dj.runner.locales.LocalizedString;
+
 import antlr.ANTLRException;
 import antlr.LLkParser;
 import antlr.ParserSharedInputState;
@@ -71,9 +73,9 @@ abstract class BaseParser extends LLkParser {
         rangeCheck(start, field);
         rangeCheck(end, field);
         if (step <= 0)
-            error(Messages.BaseParser_MustBePositive(step));
+            error(LocalizedString.BaseParser_MustBePositive.toLocale(step));
         if (start>end)
-            error(Messages.BaseParser_StartEndReversed(end,start));
+            error(LocalizedString.BaseParser_StartEndReversed.toLocale(end,start));
 
         long bits = 0;
         for (int i = start; i <= end; i += step) {
@@ -104,7 +106,7 @@ abstract class BaseParser extends LLkParser {
         rangeCheck(s, field);
         rangeCheck(e, field);
         if (step > e - s + 1) {
-            error(Messages.BaseParser_OutOfRange(step, 1, e - s + 1));
+            error(LocalizedString.BaseParser_OutOfRange.toLocale(step, 1, e - s + 1));
             throw new AssertionError();
         } else if (step > 1) {
             long bits = 0;
@@ -114,7 +116,7 @@ abstract class BaseParser extends LLkParser {
             assert bits != 0;
             return bits;
         } else if (step <=0) {
-            error(Messages.BaseParser_MustBePositive(step));
+            error(LocalizedString.BaseParser_MustBePositive.toLocale(step));
             throw new AssertionError();
         } else {
             assert step==NO_STEP;
@@ -125,7 +127,7 @@ abstract class BaseParser extends LLkParser {
     
     protected void rangeCheck(int value, int field) throws ANTLRException {
         if( value<LOWER_BOUNDS[field] || UPPER_BOUNDS[field]<value ) {
-            error(Messages.BaseParser_OutOfRange(value,LOWER_BOUNDS[field],UPPER_BOUNDS[field]));
+            error(LocalizedString.BaseParser_OutOfRange.toLocale(value,LOWER_BOUNDS[field],UPPER_BOUNDS[field]));
         }
     }
 

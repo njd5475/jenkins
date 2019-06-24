@@ -23,12 +23,12 @@
  */
 package hudson.model;
 
+import java.util.Collection;
+
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.model.labels.LabelAtom;
-
-import java.util.Collection;
 
 /**
  * Automatically adds labels to {@link Node}s.

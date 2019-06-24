@@ -1,11 +1,12 @@
 package jenkins.security;
 
+import java.io.IOException;
+
+import javax.annotation.CheckForNull;
+
 import hudson.scm.SCM;
 import hudson.tasks.Builder;
 import hudson.util.Secret;
-
-import javax.annotation.CheckForNull;
-import java.io.IOException;
 import jenkins.slaves.JnlpSlaveAgentProtocol;
 
 /**

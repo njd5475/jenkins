@@ -23,13 +23,15 @@
  */
 package jenkins.security;
 
-import jenkins.util.InterceptingExecutorService;
-import org.acegisecurity.context.SecurityContext;
+import static org.acegisecurity.context.SecurityContextHolder.getContext;
+import static org.acegisecurity.context.SecurityContextHolder.setContext;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 
-import static org.acegisecurity.context.SecurityContextHolder.*;
+import org.acegisecurity.context.SecurityContext;
+
+import jenkins.util.InterceptingExecutorService;
 
 /**
  * Creates a delegating {@link ExecutorService}

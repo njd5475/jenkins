@@ -24,9 +24,9 @@
 
 package hudson.util.io;
 
-import hudson.util.FileVisitor;
-
 import java.io.Closeable;
+
+import hudson.util.FileVisitor;
 
 /**
  * {@link FileVisitor} that creates archive files.

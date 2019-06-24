@@ -23,13 +23,13 @@
  */
 package hudson.model.listeners;
 
+import java.io.IOException;
+
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
-import hudson.scm.PollingResult;
 import hudson.model.AbstractProject;
 import hudson.model.TaskListener;
-
-import java.io.IOException;
+import hudson.scm.PollingResult;
 
 /**
  * A hook for listening to polling activities in Jenkins.

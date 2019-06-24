@@ -1,12 +1,12 @@
 package hudson.util;
 
-import hudson.Util;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
+
+import hudson.Util;
 
 /**
  * Traverses a directed graph and if it contains any cycle, throw an exception.

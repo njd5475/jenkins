@@ -23,11 +23,11 @@
  */
 package hudson.model.queue;
 
-import hudson.model.Queue.Task;
+import java.util.List;
+
 import hudson.model.Action;
 import hudson.model.Queue;
-
-import java.util.List;
+import hudson.model.Queue.Task;
 
 /**
  * An action interface that allows action data to be folded together.

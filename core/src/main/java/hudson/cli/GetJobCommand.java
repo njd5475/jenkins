@@ -23,9 +23,12 @@
  */
 package hudson.cli;
 
+import org.kohsuke.args4j.Argument;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.model.AbstractItem;
-import org.kohsuke.args4j.Argument;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -37,7 +40,7 @@ public class GetJobCommand extends CLICommand {
 
     @Override
     public String getShortDescription() {
-        return Messages.GetJobCommand_ShortDescription();
+        return LocalizedString.GetJobCommand_ShortDescription.toString();
     }
 
     protected int run() throws Exception {

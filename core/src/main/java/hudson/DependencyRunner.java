@@ -24,19 +24,19 @@
  */
 package hudson;
 
-import hudson.model.AbstractProject;
-import jenkins.model.Jenkins;
-import hudson.security.ACL;
-
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.Collection;
 import java.util.logging.Logger;
 
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
+
+import hudson.model.AbstractProject;
+import hudson.security.ACL;
+import jenkins.model.Jenkins;
 
 /**
  * Runs a job on all projects in the order of dependencies

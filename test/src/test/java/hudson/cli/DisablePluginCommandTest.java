@@ -25,27 +25,33 @@
 
 package hudson.cli;
 
-import hudson.Functions;
-import hudson.PluginWrapper;
-import org.apache.commons.lang.StringUtils;
-import org.junit.Assume;
-import org.junit.Rule;
-import org.junit.Test;
-import org.jvnet.hudson.test.Issue;
-import org.jvnet.hudson.test.JenkinsRule;
-import org.jvnet.hudson.test.recipes.WithPlugin;
-
-import java.io.IOException;
-import java.util.function.BiPredicate;
-
 import static hudson.cli.CLICommandInvoker.Matcher.failedWith;
 import static hudson.cli.CLICommandInvoker.Matcher.succeeded;
 import static hudson.cli.DisablePluginCommand.RETURN_CODE_NOT_DISABLED_DEPENDANTS;
 import static hudson.cli.DisablePluginCommand.RETURN_CODE_NO_SUCH_PLUGIN;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+import java.util.function.BiPredicate;
+
+import org.apache.commons.lang.StringUtils;
+import org.junit.Assume;
 import org.junit.Ignore;
+import org.junit.Rule;
+import org.junit.Test;
+import org.jvnet.hudson.test.Issue;
+import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.recipes.WithPlugin;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Functions;
+import hudson.PluginWrapper;
 
 public class DisablePluginCommandTest {
 
@@ -340,7 +346,7 @@ public class DisablePluginCommandTest {
      */
     private boolean checkResultWith(CLICommandInvoker.Result result, BiPredicate<String, String> method, String plugin, PluginWrapper.PluginDisableStatus status) {
             String noMatterFollowingChars = "/!$stop";
-            String outExpected = Messages.DisablePluginCommand_StatusMessage(plugin, status, noMatterFollowingChars);
+            String outExpected = LocalizedString.DisablePluginCommand_StatusMessage.toLocale(plugin, status, noMatterFollowingChars);
             outExpected = StringUtils.substringBefore(outExpected, noMatterFollowingChars);
             return method.test(result.stdout(), outExpected);
     }

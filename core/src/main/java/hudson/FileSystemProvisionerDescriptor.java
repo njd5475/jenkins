@@ -23,10 +23,11 @@
  */
 package hudson;
 
+import java.io.IOException;
+
+import hudson.model.AbstractBuild;
 import hudson.model.Descriptor;
 import hudson.model.TaskListener;
-
-import java.io.IOException;
 
 /**
  * {@link Descriptor} for {@link FileSystemProvisioner}.

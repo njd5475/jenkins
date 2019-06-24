@@ -23,11 +23,6 @@
  */
 package jenkins.util;
 
-import hudson.cli.FullDuplexHttpStream;
-import hudson.model.RootAction;
-import hudson.security.csrf.CrumbExclusion;
-import hudson.util.ChunkedInputStream;
-import hudson.util.ChunkedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -36,13 +31,21 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
+
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponses;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
+
+import hudson.cli.FullDuplexHttpStream;
+import hudson.model.RootAction;
+import hudson.security.csrf.CrumbExclusion;
+import hudson.util.ChunkedInputStream;
+import hudson.util.ChunkedOutputStream;
 
 /**
  * Server-side counterpart to {@link FullDuplexHttpStream}.

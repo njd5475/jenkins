@@ -1,12 +1,19 @@
 package hudson.console;
 
-import hudson.Extension;
-import hudson.model.*;
-import jenkins.model.Jenkins;
+import java.util.logging.Logger;
+
+import javax.annotation.Nonnull;
+
 import org.jenkinsci.Symbol;
 
-import java.util.logging.Logger;
-import javax.annotation.Nonnull;
+import hudson.Extension;
+import hudson.model.Computer;
+import hudson.model.Item;
+import hudson.model.ModelObject;
+import hudson.model.Node;
+import hudson.model.Run;
+import hudson.model.User;
+import jenkins.model.Jenkins;
 
 /**
  * {@link HyperlinkNote} that links to a {@linkplain ModelObject model object},

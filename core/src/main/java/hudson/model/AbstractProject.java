@@ -27,8 +27,53 @@
  */
 package hudson.model;
 
-import antlr.ANTLRException;
+import static hudson.scm.PollingResult.BUILD_NOW;
+import static hudson.scm.PollingResult.NO_CHANGES;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.Vector;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.servlet.ServletException;
+
+import org.jenkinsci.bytecode.AdaptField;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.DoNotUse;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.stapler.AncestorInPath;
+import org.kohsuke.stapler.ForwardToView;
+import org.kohsuke.stapler.HttpRedirect;
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
 import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
+
+import antlr.ANTLRException;
 import hudson.AbortException;
 import hudson.CopyOnWrite;
 import hudson.EnvVars;
@@ -54,8 +99,6 @@ import hudson.model.queue.SubTask;
 import hudson.model.queue.SubTaskContributor;
 import hudson.scm.NullSCM;
 import hudson.scm.PollingResult;
-
-import static hudson.scm.PollingResult.*;
 import hudson.scm.SCM;
 import hudson.scm.SCMRevisionState;
 import hudson.scm.SCMS;
@@ -76,28 +119,6 @@ import hudson.util.AlternativeUiTextProvider.Message;
 import hudson.util.DescribableList;
 import hudson.util.FormValidation;
 import hudson.widgets.HistoryWidget;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.Vector;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import javax.servlet.ServletException;
 import jenkins.model.BlockedBecauseOfBuildInProgress;
 import jenkins.model.Jenkins;
 import jenkins.model.ParameterizedJobMixIn;
@@ -110,21 +131,6 @@ import jenkins.scm.SCMDecisionHandler;
 import jenkins.triggers.SCMTriggerItem;
 import jenkins.util.TimeDuration;
 import net.sf.json.JSONObject;
-import org.jenkinsci.bytecode.AdaptField;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.DoNotUse;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.CmdLineException;
-import org.kohsuke.stapler.AncestorInPath;
-import org.kohsuke.stapler.ForwardToView;
-import org.kohsuke.stapler.HttpRedirect;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-import org.kohsuke.stapler.export.Exported;
-import org.kohsuke.stapler.interceptor.RequirePOST;
 
 /**
  * Base implementation of {@link Job}s that build software.
@@ -447,7 +453,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
      */
     @Override
     public String getPronoun() {
-        return AlternativeUiTextProvider.get(PRONOUN, this,Messages.AbstractProject_Pronoun());
+        return AlternativeUiTextProvider.get(PRONOUN, this,LocalizedString.AbstractProject_Pronoun);
     }
 
     /**
@@ -1038,7 +1044,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
 
         @Override
         public String getShortDescription() {
-            return Messages.AbstractProject_DownstreamBuildInProgress(up.getName());
+            return LocalizedString.AbstractProject_DownstreamBuildInProgress.toLocale(up.getName());
         }
     }
 
@@ -1054,7 +1060,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
 
         @Override
         public String getShortDescription() {
-            return Messages.AbstractProject_UpstreamBuildInProgress(up.getName());
+            return LocalizedString.AbstractProject_UpstreamBuildInProgress.toLocale(up.getName());
         }
     }
 
@@ -1254,22 +1260,22 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
     public PollingResult poll( TaskListener listener ) {
         SCM scm = getScm();
         if (scm==null) {
-            listener.getLogger().println(Messages.AbstractProject_NoSCM());
+            listener.getLogger().println(LocalizedString.AbstractProject_NoSCM);
             return NO_CHANGES;
         }
         if (!isBuildable()) {
-            listener.getLogger().println(Messages.AbstractProject_Disabled());
+            listener.getLogger().println(LocalizedString.AbstractProject_Disabled);
             return NO_CHANGES;
         }
         SCMDecisionHandler veto = SCMDecisionHandler.firstShouldPollVeto(this);
         if (veto != null) {
-            listener.getLogger().println(Messages.AbstractProject_PollingVetoed(veto));
+            listener.getLogger().println(LocalizedString.AbstractProject_PollingVetoed.toLocale(veto));
             return NO_CHANGES;
         }
 
         R lb = getLastBuild();
         if (lb==null) {
-            listener.getLogger().println(Messages.AbstractProject_NoBuilds());
+            listener.getLogger().println(LocalizedString.AbstractProject_NoBuilds);
             return isInQueue() ? NO_CHANGES : BUILD_NOW;
         }
 
@@ -1295,7 +1301,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
             return r;
         } catch (AbortException e) {
             listener.getLogger().println(e.getMessage());
-            listener.fatalError(Messages.AbstractProject_Aborted());
+            listener.fatalError(LocalizedString.AbstractProject_Aborted);
             LOGGER.log(Level.FINE, "Polling "+this+" aborted",e);
             SCMPollListener.firePollingFailed(this, listener,e);
             return NO_CHANGES;
@@ -1304,7 +1310,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
             SCMPollListener.firePollingFailed(this, listener,e);
             return NO_CHANGES;
         } catch (InterruptedException e) {
-            Functions.printStackTrace(e, listener.fatalError(Messages.AbstractProject_PollingABorted()));
+            Functions.printStackTrace(e, listener.fatalError(LocalizedString.AbstractProject_PollingABorted));
             SCMPollListener.firePollingFailed(this, listener,e);
             return NO_CHANGES;
         } catch (RuntimeException e) {
@@ -1343,7 +1349,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
                 long running = Jenkins.getInstance().getInjector().getInstance(Uptime.class).getUptime();
                 long remaining = TimeUnit.MINUTES.toMillis(10)-running;
                 if (remaining>0 && /* this logic breaks tests of polling */!Functions.getIsUnitTest()) {
-                    listener.getLogger().print(Messages.AbstractProject_AwaitingWorkspaceToComeOnline(remaining/1000));
+                    listener.getLogger().print(LocalizedString.AbstractProject_AwaitingWorkspaceToComeOnline.toLocale(remaining/1000));
                     listener.getLogger().println( " (" + workspaceOfflineReason.name() + ")");
                     return NO_CHANGES;
                 }
@@ -1351,7 +1357,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
                 // Do not trigger build, if no suitable agent is online
                 if (workspaceOfflineReason.equals(WorkspaceOfflineReason.all_suitable_nodes_are_offline)) {
                     // No suitable executor is online
-                    listener.getLogger().print(Messages.AbstractProject_AwaitingWorkspaceToComeOnline(running/1000));
+                    listener.getLogger().print(LocalizedString.AbstractProject_AwaitingWorkspaceToComeOnline.toLocale(running/1000));
                     listener.getLogger().println( " (" + workspaceOfflineReason.name() + ")");
                     return NO_CHANGES;
                 }
@@ -1360,21 +1366,21 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
                 if (label != null && label.isSelfLabel()) {
                     // if the build is fixed on a node, then attempting a build will do us
                     // no good. We should just wait for the agent to come back.
-                    listener.getLogger().print(Messages.AbstractProject_NoWorkspace());
+                    listener.getLogger().print(LocalizedString.AbstractProject_NoWorkspace);
                     listener.getLogger().println( " (" + workspaceOfflineReason.name() + ")");
                     return NO_CHANGES;
                 }
 
                 listener.getLogger().println( ws==null
-                    ? Messages.AbstractProject_WorkspaceOffline()
-                    : Messages.AbstractProject_NoWorkspace());
+                    ? LocalizedString.AbstractProject_WorkspaceOffline
+                    : LocalizedString.AbstractProject_NoWorkspace);
                 if (isInQueue()) {
-                    listener.getLogger().println(Messages.AbstractProject_AwaitingBuildForWorkspace());
+                    listener.getLogger().println(LocalizedString.AbstractProject_AwaitingBuildForWorkspace);
                     return NO_CHANGES;
                 }
 
                 // build now, or nothing will ever be built
-                listener.getLogger().print(Messages.AbstractProject_NewBuildForWorkspace());
+                listener.getLogger().print(LocalizedString.AbstractProject_NewBuildForWorkspace);
                 listener.getLogger().println( " (" + workspaceOfflineReason.name() + ")");
                 return BUILD_NOW;
             } else {
@@ -1846,9 +1852,9 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
             Computer c = ws.toComputer();
             String title;
             if (c == null) {
-                title = Messages.AbstractProject_WorkspaceTitle(getDisplayName());
+                title = LocalizedString.AbstractProject_WorkspaceTitle.toLocale(getDisplayName());
             } else {
-                title = Messages.AbstractProject_WorkspaceTitleOnComputer(getDisplayName(), c.getDisplayName());
+                title = LocalizedString.AbstractProject_WorkspaceTitleOnComputer.toLocale(getDisplayName(), c.getDisplayName());
             }
             return new DirectoryBrowserSupport(this, ws, title, "folder.png", true);
         }
@@ -1932,7 +1938,7 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
                 Label.parseExpression(value);
             } catch (ANTLRException e) {
                 return FormValidation.error(e,
-                        Messages.AbstractProject_AssignedLabelString_InvalidBooleanExpression(e.getMessage()));
+                        LocalizedString.AbstractProject_AssignedLabelString_InvalidBooleanExpression.toLocale(e.getMessage()));
             }
             Jenkins j = Jenkins.getInstance();
             Label l = j.getLabel(value);
@@ -1940,10 +1946,10 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
                 for (LabelAtom a : l.listAtoms()) {
                     if (a.isEmpty()) {
                         LabelAtom nearest = LabelAtom.findNearest(a.getName());
-                        return FormValidation.warning(Messages.AbstractProject_AssignedLabelString_NoMatch_DidYouMean(a.getName(),nearest.getDisplayName()));
+                        return FormValidation.warning(LocalizedString.AbstractProject_AssignedLabelString_NoMatch_DidYouMean.toLocale(a.getName(),nearest.getDisplayName()));
                     }
                 }
-                return FormValidation.warning(Messages.AbstractProject_AssignedLabelString_NoMatch());
+                return FormValidation.warning(LocalizedString.AbstractProject_AssignedLabelString_NoMatch);
             }
             if (project != null) {
                 for (AbstractProject.LabelValidator v : j
@@ -1954,14 +1960,14 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
                     }
                 }
             }
-            return FormValidation.okWithMarkup(Messages.AbstractProject_LabelLink(
+            return FormValidation.okWithMarkup(LocalizedString.AbstractProject_LabelLink.toLocale(
                     j.getRootUrl(), Util.escape(l.getName()), l.getUrl(), l.getNodes().size(), l.getClouds().size())
             );
         }
 
         public FormValidation doCheckCustomWorkspace(@QueryParameter String customWorkspace){
         	if(Util.fixEmptyAndTrim(customWorkspace)==null)
-        		return FormValidation.error(Messages.AbstractProject_CustomWorkspaceEmpty());
+        		return FormValidation.error(LocalizedString.AbstractProject_CustomWorkspaceEmpty);
         	else
         		return FormValidation.ok();
         }
@@ -2095,8 +2101,8 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
         AbstractProject item = Jenkins.getInstance().getItemByFullName(name, AbstractProject.class);
         if (item==null) {
             AbstractProject project = AbstractProject.findNearest(name);
-            throw new CmdLineException(null, project == null ? Messages.AbstractItem_NoSuchJobExistsWithoutSuggestion(name)
-                    : Messages.AbstractItem_NoSuchJobExists(name, project.getFullName()));
+            throw new CmdLineException(null, project == null ? LocalizedString.AbstractItem_NoSuchJobExistsWithoutSuggestion.toLocale(name)
+                    : LocalizedString.AbstractItem_NoSuchJobExists.toLocale(name, project.getFullName()));
         }
         return item;
     }

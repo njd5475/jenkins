@@ -1,20 +1,5 @@
 package jenkins.diagnosis;
 
-import com.sun.akuma.JavaVMArguments;
-import hudson.Extension;
-import hudson.Functions;
-import hudson.Util;
-import hudson.model.AdministrativeMonitor;
-import hudson.util.jna.Kernel32Utils;
-
-import java.nio.file.InvalidPathException;
-import java.nio.file.StandardOpenOption;
-import jenkins.model.Jenkins;
-import jenkins.security.stapler.StaplerDispatchable;
-import org.apache.tools.ant.DirectoryScanner;
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.types.FileSet;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -23,12 +8,27 @@ import java.io.Reader;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
+import java.nio.file.InvalidPathException;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.tools.ant.DirectoryScanner;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.types.FileSet;
 import org.jenkinsci.Symbol;
+
+import com.sun.akuma.JavaVMArguments;
+
+import hudson.Extension;
+import hudson.Functions;
+import hudson.Util;
+import hudson.model.AdministrativeMonitor;
+import hudson.util.jna.Kernel32Utils;
+import jenkins.model.Jenkins;
+import jenkins.security.stapler.StaplerDispatchable;
 
 /**
  * Finds crash dump reports and show them in the UI.

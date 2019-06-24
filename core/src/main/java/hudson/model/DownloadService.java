@@ -23,19 +23,8 @@
  */
 package hudson.model;
 
-import hudson.Extension;
-import hudson.ExtensionList;
-import hudson.ExtensionListListener;
-import hudson.ExtensionPoint;
-import hudson.ProxyConfiguration;
-import jenkins.util.SystemProperties;
-import hudson.init.InitMilestone;
-import hudson.init.Initializer;
-import hudson.util.FormValidation;
-import hudson.util.FormValidation.Kind;
-import hudson.util.QuotedStringTokenizer;
-import hudson.util.TextFile;
 import static java.util.concurrent.TimeUnit.DAYS;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,10 +38,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jenkins.model.DownloadSettings;
-import jenkins.model.Jenkins;
-import net.sf.json.JSONException;
-import net.sf.json.JSONObject;
+
 import org.apache.commons.io.IOUtils;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
@@ -60,6 +46,23 @@ import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.ExtensionListListener;
+import hudson.ExtensionPoint;
+import hudson.ProxyConfiguration;
+import hudson.init.InitMilestone;
+import hudson.init.Initializer;
+import hudson.util.FormValidation;
+import hudson.util.FormValidation.Kind;
+import hudson.util.QuotedStringTokenizer;
+import hudson.util.TextFile;
+import jenkins.model.DownloadSettings;
+import jenkins.model.Jenkins;
+import jenkins.util.SystemProperties;
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
 
 /**
  * Service for plugins to periodically retrieve update data files

@@ -1,15 +1,16 @@
 package jenkins.security;
 
-import hudson.Extension;
-import hudson.ExtensionPoint;
-import jenkins.util.SystemProperties;
-import hudson.model.Api;
 import java.util.logging.Logger;
-import jenkins.model.Jenkins;
+
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
-
 import org.kohsuke.stapler.StaplerRequest;
+
+import hudson.Extension;
+import hudson.ExtensionPoint;
+import hudson.model.Api;
+import jenkins.model.Jenkins;
+import jenkins.util.SystemProperties;
 
 /**
  * An extension point for authorizing REST API access to an object where an unsafe result type would be produced.

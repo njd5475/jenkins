@@ -23,23 +23,6 @@
  */
 package jenkins.telemetry;
 
-import com.google.common.annotations.VisibleForTesting;
-import hudson.Extension;
-import hudson.ExtensionList;
-import hudson.ExtensionPoint;
-import hudson.ProxyConfiguration;
-import hudson.model.AsyncPeriodicWork;
-import hudson.model.TaskListener;
-import hudson.model.UsageStatistics;
-import jenkins.model.Jenkins;
-import jenkins.util.SystemProperties;
-import net.sf.json.JSONObject;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -52,6 +35,26 @@ import java.time.LocalDate;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import com.google.common.annotations.VisibleForTesting;
+
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.ExtensionPoint;
+import hudson.ProxyConfiguration;
+import hudson.model.AsyncPeriodicWork;
+import hudson.model.TaskListener;
+import hudson.model.UsageStatistics;
+import jenkins.model.Jenkins;
+import jenkins.util.SystemProperties;
+import net.sf.json.JSONObject;
 
 /**
  * Extension point for collecting JEP-214 telemetry.

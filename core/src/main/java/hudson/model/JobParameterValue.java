@@ -23,10 +23,11 @@
  */
 package hudson.model;
 
-import hudson.EnvVars;
+import java.util.Locale;
+
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import java.util.Locale;
+import hudson.EnvVars;
 
 public class JobParameterValue extends ParameterValue {
     public final Job job;

@@ -24,19 +24,6 @@
 
 package jenkins.security;
 
-import hudson.Extension;
-import hudson.ExtensionList;
-import hudson.PluginWrapper;
-import hudson.model.AdministrativeMonitor;
-import hudson.model.UpdateSite;
-import hudson.util.HttpResponses;
-import jenkins.model.Jenkins;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.interceptor.RequirePOST;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -44,6 +31,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.PluginWrapper;
+import hudson.model.AdministrativeMonitor;
+import hudson.model.UpdateSite;
+import hudson.util.HttpResponses;
+import jenkins.model.Jenkins;
 
 
 /**
@@ -161,6 +164,6 @@ public class UpdateSiteWarningsMonitor extends AdministrativeMonitor {
 
     @Override
     public String getDisplayName() {
-        return Messages.UpdateSiteWarningsMonitor_DisplayName();
+        return LocalizedString.UpdateSiteWarningsMonitor_DisplayName.toString();
     }
 }

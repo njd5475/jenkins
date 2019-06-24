@@ -1,11 +1,14 @@
 package hudson;
 
-import hudson.model.ManagementLink;
 import java.net.URL;
 
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.model.ManagementLink;
 
 /**
  * Show "About Jenkins" link.
@@ -25,12 +28,12 @@ public class AboutJenkins extends ManagementLink {
     }
 
     public String getDisplayName() {
-        return Messages.AboutJenkins_DisplayName();
+        return LocalizedString.AboutJenkins_DisplayName.toLocale();
     }
 
     @Override
     public String getDescription() {
-        return Messages.AboutJenkins_Description();
+        return LocalizedString.AboutJenkins_Description.toLocale();
     }
 
     @Restricted(NoExternalUse.class)

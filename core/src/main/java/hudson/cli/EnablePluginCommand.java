@@ -24,15 +24,18 @@
 
 package hudson.cli;
 
+import java.io.IOException;
+import java.util.List;
+
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.Option;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.PluginManager;
 import hudson.PluginWrapper;
 import jenkins.model.Jenkins;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.Option;
-
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Enables one or more installed plugins. The listed plugins must already be installed along with its dependencies.
@@ -52,7 +55,7 @@ public class EnablePluginCommand extends CLICommand {
 
     @Override
     public String getShortDescription() {
-        return Messages.EnablePluginCommand_ShortDescription();
+        return LocalizedString.EnablePluginCommand_ShortDescription.toString();
     }
 
     @Override
@@ -73,7 +76,7 @@ public class EnablePluginCommand extends CLICommand {
     private boolean enablePlugin(PluginManager manager, String shortName) throws IOException {
         PluginWrapper plugin = manager.getPlugin(shortName);
         if (plugin == null) {
-            throw new IllegalArgumentException(Messages.EnablePluginCommand_NoSuchPlugin(shortName));
+            throw new IllegalArgumentException(LocalizedString.EnablePluginCommand_NoSuchPlugin.toLocale(shortName));
         }
         if (plugin.isEnabled()) {
             return false;
@@ -89,7 +92,7 @@ public class EnablePluginCommand extends CLICommand {
         for (PluginWrapper.Dependency dep : plugin.getDependencies()) {
             PluginWrapper dependency = manager.getPlugin(dep.shortName);
             if (dependency == null) {
-                throw new IllegalArgumentException(Messages.EnablePluginCommand_MissingDependencies(plugin.getShortName(), dep));
+                throw new IllegalArgumentException(LocalizedString.EnablePluginCommand_MissingDependencies.toLocale(plugin.getShortName(), dep));
             }
             if (!dependency.isEnabled()) {
                 enableDependencies(manager, dependency);

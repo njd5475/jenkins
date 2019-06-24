@@ -24,13 +24,11 @@
 
 package jenkins.model;
 
-import hudson.Extension;
-import hudson.Util;
-import hudson.model.Job;
-import hudson.model.RootAction;
-import hudson.model.Run;
-import hudson.util.AtomicFileWriter;
-import hudson.util.StreamTaskListener;
+import static java.util.logging.Level.FINE;
+import static java.util.logging.Level.FINER;
+import static java.util.logging.Level.INFO;
+import static java.util.logging.Level.WARNING;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -53,8 +51,10 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.time.FastDateFormat;
@@ -64,7 +64,13 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerProxy;
 import org.kohsuke.stapler.framework.io.WriterOutputStream;
 
-import static java.util.logging.Level.*;
+import hudson.Extension;
+import hudson.Util;
+import hudson.model.Job;
+import hudson.model.RootAction;
+import hudson.model.Run;
+import hudson.util.AtomicFileWriter;
+import hudson.util.StreamTaskListener;
 
 /**
  * Converts legacy {@code builds} directories to the current format.

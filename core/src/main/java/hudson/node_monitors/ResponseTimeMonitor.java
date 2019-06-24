@@ -23,20 +23,23 @@
  */
 package hudson.node_monitors;
 
-import hudson.Extension;
-import hudson.model.Computer;
-import hudson.remoting.Callable;
-import jenkins.security.MasterToSlaveCallable;
-import net.sf.json.JSONObject;
-import org.kohsuke.stapler.StaplerRequest;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
+
+import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.Computer;
+import hudson.remoting.Callable;
+import jenkins.security.MasterToSlaveCallable;
+import net.sf.json.JSONObject;
 
 /**
  * Monitors the round-trip response time to this agent.
@@ -75,14 +78,14 @@ public class ResponseTimeMonitor extends NodeMonitor {
                     // to this agent. So we should severe the connection, as opposed to marking it temporarily
                     // off line, which still keeps the underlying channel open.
                     c.disconnect(d);
-                    LOGGER.warning(Messages.ResponseTimeMonitor_MarkedOffline(c.getName()));
+                    LOGGER.warning(LocalizedString.ResponseTimeMonitor_MarkedOffline.toLocale(c.getName()));
                 }
             }
             return monitoringData;
         }
 
         public String getDisplayName() {
-            return Messages.ResponseTimeMonitor_DisplayName();
+            return LocalizedString.ResponseTimeMonitor_DisplayName.toString();
         }
 
         @Override
@@ -205,7 +208,7 @@ public class ResponseTimeMonitor extends NodeMonitor {
 //            return buf.toString();
             int fc = failureCount();
             if(fc>0)
-                return Messages.ResponseTimeMonitor_TimeOut(fc);
+                return LocalizedString.ResponseTimeMonitor_TimeOut.toLocale(fc);
             return getAverage()+"ms";
         }
 

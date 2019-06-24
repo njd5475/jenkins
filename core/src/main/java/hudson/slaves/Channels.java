@@ -23,21 +23,6 @@
  */
 package hudson.slaves;
 
-import hudson.Launcher.LocalLauncher;
-import hudson.Proc;
-import hudson.FilePath;
-import hudson.model.Computer;
-import hudson.model.TaskListener;
-import hudson.remoting.Channel;
-import hudson.remoting.ChannelBuilder;
-import hudson.remoting.CommandTransport;
-import hudson.remoting.Launcher;
-import hudson.remoting.SocketChannelStream;
-import hudson.util.ClasspathBuilder;
-import hudson.util.JVMBuilder;
-import hudson.util.StreamCopyThread;
-import jenkins.security.ChannelConfigurator;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOError;
@@ -52,6 +37,21 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import hudson.FilePath;
+import hudson.Launcher.LocalLauncher;
+import hudson.Proc;
+import hudson.model.Computer;
+import hudson.model.TaskListener;
+import hudson.remoting.Channel;
+import hudson.remoting.ChannelBuilder;
+import hudson.remoting.CommandTransport;
+import hudson.remoting.Launcher;
+import hudson.remoting.SocketChannelStream;
+import hudson.util.ClasspathBuilder;
+import hudson.util.JVMBuilder;
+import hudson.util.StreamCopyThread;
+import jenkins.security.ChannelConfigurator;
 
 /**
  * Various convenient subtype of {@link Channel}s.

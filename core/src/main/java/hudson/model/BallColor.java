@@ -23,15 +23,18 @@
  */
 package hudson.model;
 
-import hudson.util.ColorPalette;
-import jenkins.model.Jenkins;
+import java.awt.Color;
+import java.util.Locale;
+
 import org.jenkins.ui.icon.Icon;
 import org.jvnet.localizer.LocaleProvider;
 import org.jvnet.localizer.Localizable;
 import org.kohsuke.stapler.Stapler;
 
-import java.awt.*;
-import java.util.Locale;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.util.ColorPalette;
+import jenkins.model.Jenkins;
 
 /**
  * Ball color used for the build status indication.
@@ -54,31 +57,31 @@ import java.util.Locale;
  * @author Kohsuke Kawaguchi
  */
 public enum BallColor implements StatusIcon {
-    RED("red",Messages._BallColor_Failed(), ColorPalette.RED),
-    RED_ANIME("red_anime",Messages._BallColor_InProgress(), ColorPalette.RED),
-    YELLOW("yellow",Messages._BallColor_Unstable(), ColorPalette.YELLOW),
-    YELLOW_ANIME("yellow_anime",Messages._BallColor_InProgress(), ColorPalette.YELLOW),
-    BLUE("blue",Messages._BallColor_Success(), ColorPalette.BLUE),
-    BLUE_ANIME("blue_anime",Messages._BallColor_InProgress(), ColorPalette.BLUE),
+    RED("red",LocalizedString._BallColor_Failed, ColorPalette.RED),
+    RED_ANIME("red_anime",LocalizedString._BallColor_InProgress, ColorPalette.RED),
+    YELLOW("yellow",LocalizedString._BallColor_Unstables, ColorPalette.YELLOW),
+    YELLOW_ANIME("yellow_anime",LocalizedString._BallColor_InProgress, ColorPalette.YELLOW),
+    BLUE("blue",LocalizedString._BallColor_Success, ColorPalette.BLUE),
+    BLUE_ANIME("blue_anime",LocalizedString._BallColor_InProgress, ColorPalette.BLUE),
     // for historical reasons they are called grey.
-    GREY("grey",Messages._BallColor_Pending(), ColorPalette.GREY),
-    GREY_ANIME("grey_anime",Messages._BallColor_InProgress(), ColorPalette.GREY),
+    GREY("grey",LocalizedString._BallColor_Pending, ColorPalette.GREY),
+    GREY_ANIME("grey_anime",LocalizedString._BallColor_InProgress, ColorPalette.GREY),
 
-    DISABLED("disabled",Messages._BallColor_Disabled(), ColorPalette.GREY),
-    DISABLED_ANIME("disabled_anime",Messages._BallColor_InProgress(), ColorPalette.GREY),
-    ABORTED("aborted",Messages._BallColor_Aborted(), ColorPalette.GREY),
-    ABORTED_ANIME("aborted_anime",Messages._BallColor_InProgress(), ColorPalette.GREY),
-    NOTBUILT("nobuilt",Messages._BallColor_NotBuilt(), ColorPalette.GREY),
-    NOTBUILT_ANIME("nobuilt_anime",Messages._BallColor_InProgress(), ColorPalette.GREY),
+    DISABLED("disabled",LocalizedString._BallColor_Disabled, ColorPalette.GREY),
+    DISABLED_ANIME("disabled_anime",LocalizedString._BallColor_InProgress, ColorPalette.GREY),
+    ABORTED("aborted",LocalizedString._BallColor_Aborted, ColorPalette.GREY),
+    ABORTED_ANIME("aborted_anime",LocalizedString._BallColor_InProgress, ColorPalette.GREY),
+    NOTBUILT("nobuilt",LocalizedString._BallColor_NotBuilt, ColorPalette.GREY),
+    NOTBUILT_ANIME("nobuilt_anime",LocalizedString._BallColor_InProgress, ColorPalette.GREY),
     ;
 
-    private final Localizable description;
+    private final LocalizedString description;
     private final String iconName;
     private final String iconClassName;
     private final String image;
     private final Color baseColor;
 
-    BallColor(String image, Localizable description, Color baseColor) {
+    BallColor(String image, LocalizedString description, Color baseColor) {
         this.iconName = Icon.toNormalizedIconName(image);
         this.iconClassName = Icon.toNormalizedIconNameClass(image);
         this.baseColor = baseColor;

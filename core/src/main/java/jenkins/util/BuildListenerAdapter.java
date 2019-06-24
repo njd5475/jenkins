@@ -24,12 +24,13 @@
 
 package jenkins.util;
 
-import hudson.console.ConsoleNote;
-import hudson.model.BuildListener;
-import hudson.model.TaskListener;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+
+import hudson.console.ConsoleNote;
+import hudson.model.BuildListener;
+import hudson.model.TaskListener;
 
 /**
  * Wraps a {@link TaskListener} as a {@link BuildListener} for compatibility with APIs which historically expected the latter.

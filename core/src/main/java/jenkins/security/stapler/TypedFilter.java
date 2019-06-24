@@ -1,7 +1,14 @@
 package jenkins.security.stapler;
 
-import hudson.ExtensionList;
-import jenkins.util.SystemProperties;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.Nonnull;
+
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.Function;
@@ -13,13 +20,8 @@ import org.kohsuke.stapler.WebApp;
 import org.kohsuke.stapler.interceptor.InterceptorAnnotation;
 import org.kohsuke.stapler.lang.FieldRef;
 
-import javax.annotation.Nonnull;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import hudson.ExtensionList;
+import jenkins.util.SystemProperties;
 
 @Restricted(NoExternalUse.class)
 public class TypedFilter implements FieldRef.Filter, FunctionList.Filter {

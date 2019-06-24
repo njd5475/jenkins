@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.dj.runner.locales.LocalizedString;
+
 public class RetrierTest {
     private static Logger LOG = Logger.getLogger(RetrierTest.class.getName());
 
@@ -49,7 +51,7 @@ public class RetrierTest {
         Boolean finalResult = r.start();
         Assert.assertTrue(finalResult == null ? false : finalResult);
 
-        String text = Messages.Retrier_Success(ACTION, SUCCESSFUL_ATTEMPT);
+        String text = LocalizedString.Retrier_Success.toLocale(ACTION, SUCCESSFUL_ATTEMPT);
         assertTrue(String.format("The log should contain '%s'", text), handler.getView().stream().anyMatch(m -> m.getMessage().contains(text)));
     }
 
@@ -103,7 +105,7 @@ public class RetrierTest {
         Assert.assertTrue(finalResult == null ? false : finalResult);
 
         // Check the log tell us the sleep time
-        String text = Messages.Retrier_Sleeping(SLEEP, ACTION);
+        String text = LocalizedString.Retrier_Sleeping.toLocale(SLEEP, ACTION);
         assertTrue(String.format("The log should contain '%s'", text), handler.getView().stream().anyMatch(m -> m.getMessage().contains(text)));
 
         // recover log level
@@ -144,7 +146,7 @@ public class RetrierTest {
 
         Assert.assertFalse(finalResult == null ? false : finalResult);
 
-        String text = Messages.Retrier_NoSuccess(ACTION, ATTEMPTS);
+        String text = LocalizedString.Retrier_NoSuccess.toLocale(ACTION, ATTEMPTS);
         assertTrue(String.format("The log should contain '%s'", text), handler.getView().stream().anyMatch(m -> m.getMessage().contains(text)));
 
     }
@@ -181,10 +183,10 @@ public class RetrierTest {
         Boolean finalResult = r.start();
         Assert.assertNull(finalResult);
 
-        String textNoSuccess = Messages.Retrier_NoSuccess(ACTION, ATTEMPTS);
+        String textNoSuccess = LocalizedString.Retrier_NoSuccess.toLocale(ACTION, ATTEMPTS);
         assertTrue(String.format("The log should contain '%s'", textNoSuccess), handler.getView().stream().anyMatch(m -> m.getMessage().contains(textNoSuccess)));
 
-        String testException = Messages.Retrier_ExceptionFailed(ATTEMPTS, ACTION);
+        String testException = LocalizedString.Retrier_ExceptionFailed.toLocale(ATTEMPTS, ACTION);
         assertTrue(String.format("The log should contain '%s'", testException), handler.getView().stream().anyMatch(m -> m.getMessage().startsWith(testException)));
 
     }
@@ -224,11 +226,11 @@ public class RetrierTest {
         Assert.assertTrue(finalResult == null ? false : finalResult);
 
         // The action was a success
-        String textSuccess = Messages.Retrier_Success(ACTION, ATTEMPTS);
+        String textSuccess = LocalizedString.Retrier_Success.toLocale(ACTION, ATTEMPTS);
         assertTrue(String.format("The log should contain '%s'", textSuccess), handler.getView().stream().anyMatch(m -> m.getMessage().contains(textSuccess)));
 
         // And the message talking about the allowed raised is also there
-        String testException = Messages.Retrier_ExceptionFailed(ATTEMPTS, ACTION);
+        String testException = LocalizedString.Retrier_ExceptionFailed.toLocale(ATTEMPTS, ACTION);
         assertTrue(String.format("The log should contain '%s'", testException), handler.getView().stream().anyMatch(m -> m.getMessage().startsWith(testException)));
     }
 
@@ -268,11 +270,11 @@ public class RetrierTest {
         Assert.assertTrue(finalResult == null ? false : finalResult);
 
         // The action was a success
-        String textSuccess = Messages.Retrier_Success(ACTION, ATTEMPTS);
+        String textSuccess = LocalizedString.Retrier_Success.toLocale(ACTION, ATTEMPTS);
         assertTrue(String.format("The log should contain '%s'", textSuccess), handler.getView().stream().anyMatch(m -> m.getMessage().contains(textSuccess)));
 
         // And the message talking about the allowed raised is also there
-        String testException = Messages.Retrier_ExceptionFailed(ATTEMPTS, ACTION);
+        String testException = LocalizedString.Retrier_ExceptionFailed.toLocale(ATTEMPTS, ACTION);
         assertTrue(String.format("The log should contain '%s'", testException), handler.getView().stream().anyMatch(m -> m.getMessage().startsWith(testException)));
     }
 
@@ -310,7 +312,7 @@ public class RetrierTest {
             r.start();
             fail("The process should be exited with an unexpected exception");
         } catch (IOException e) {
-            String testFailure = Messages.Retrier_ExceptionThrown(ATTEMPTS, ACTION);
+            String testFailure = LocalizedString.Retrier_ExceptionThrown.toLocale(ATTEMPTS, ACTION);
             assertTrue(String.format("The log should contain '%s'", testFailure), handler.getView().stream().anyMatch(m -> m.getMessage().contains(testFailure)));
         } catch (Exception e) {
             fail(String.format("Unexpected exception: %s", e));

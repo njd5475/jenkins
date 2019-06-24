@@ -25,19 +25,13 @@
 
 package hudson.model;
 
-import hudson.ExtensionList;
-import hudson.PluginManager;
-import hudson.PluginWrapper;
-import hudson.Util;
-import hudson.lifecycle.Lifecycle;
-import hudson.model.UpdateCenter.UpdateCenterJob;
-import hudson.util.FormValidation;
-import hudson.util.FormValidation.Kind;
-import hudson.util.HttpResponses;
-import static jenkins.util.MemoryReductionUtil.*;
-import hudson.util.TextFile;
-import static java.util.concurrent.TimeUnit.*;
-import hudson.util.VersionNumber;
+import static java.util.concurrent.TimeUnit.DAYS;
+import static java.util.concurrent.TimeUnit.HOURS;
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static jenkins.util.MemoryReductionUtil.EMPTY_STRING_ARRAY;
+import static jenkins.util.MemoryReductionUtil.getPresizedMutableMap;
+import static jenkins.util.MemoryReductionUtil.internInPlace;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -60,21 +54,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import io.jenkins.lib.versionnumber.JavaSpecificationVersion;
-import jenkins.model.Jenkins;
-import jenkins.model.DownloadSettings;
-import jenkins.plugins.DetachedPluginsUtil;
-import jenkins.security.UpdateSiteWarningsConfiguration;
-import jenkins.util.JSONSignatureValidator;
-import jenkins.util.SystemProperties;
-import jenkins.util.java.JavaUtils;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONException;
-import net.sf.json.JSONObject;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kohsuke.accmod.Restricted;
@@ -86,6 +70,29 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import hudson.ExtensionList;
+import hudson.PluginManager;
+import hudson.PluginWrapper;
+import hudson.Util;
+import hudson.lifecycle.Lifecycle;
+import hudson.model.UpdateCenter.UpdateCenterJob;
+import hudson.util.FormValidation;
+import hudson.util.FormValidation.Kind;
+import hudson.util.HttpResponses;
+import hudson.util.TextFile;
+import hudson.util.VersionNumber;
+import io.jenkins.lib.versionnumber.JavaSpecificationVersion;
+import jenkins.model.DownloadSettings;
+import jenkins.model.Jenkins;
+import jenkins.plugins.DetachedPluginsUtil;
+import jenkins.security.UpdateSiteWarningsConfiguration;
+import jenkins.util.JSONSignatureValidator;
+import jenkins.util.SystemProperties;
+import jenkins.util.java.JavaUtils;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
 
 /**
  * Source of the update center information, like "http://jenkins-ci.org/update-center.json"

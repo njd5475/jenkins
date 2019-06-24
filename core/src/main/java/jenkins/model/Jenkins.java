@@ -137,6 +137,7 @@ import org.kohsuke.stapler.jelly.JellyClassLoaderTearOff;
 import org.kohsuke.stapler.jelly.JellyRequestDispatcher;
 import org.xml.sax.InputSource;
 
+import com.dj.runner.locales.LocalizedString;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -213,7 +214,6 @@ import hudson.model.ListView;
 import hudson.model.LoadBalancer;
 import hudson.model.LoadStatistics;
 import hudson.model.ManagementLink;
-import hudson.model.Messages;
 import hudson.model.ModifiableViewGroup;
 import hudson.model.NoFingerprintMatch;
 import hudson.model.Node;
@@ -1311,7 +1311,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
 
         @Override
         public String getDisplayName() {
-            return jenkins.model.Messages.EnforceSlaveAgentPortAdministrativeMonitor_displayName();
+            return LocalizedString.EnforceSlaveAgentPortAdministrativeMonitor_displayName.toString();
         }
 
         public String getSystemPropertyName() {
@@ -1341,7 +1341,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
     }
 
     public String getNodeDescription() {
-        return Messages.Hudson_NodeDescription();
+        return LocalizedString.Hudson_NodeDescription.toString();
     }
 
     @Exported
@@ -2030,7 +2030,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
 
     @Override
     public String getDisplayName() {
-        return Messages.Hudson_DisplayName();
+        return LocalizedString.Hudson_DisplayName.toString();
     }
 
     public List<JDK> getJDKs() {
@@ -3957,19 +3957,19 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
      */
     public static void checkGoodName(String name) throws Failure {
         if(name==null || name.length()==0)
-            throw new Failure(Messages.Hudson_NoName());
+            throw new Failure(LocalizedString.Hudson_NoName);
 
         if(".".equals(name.trim()))
-            throw new Failure(Messages.Jenkins_NotAllowedName("."));
+            throw new Failure(LocalizedString.Jenkins_NotAllowedName.toLocale("."));
         if("..".equals(name.trim()))
-            throw new Failure(Messages.Jenkins_NotAllowedName(".."));
+            throw new Failure(LocalizedString.Jenkins_NotAllowedName.toLocale(".."));
         for( int i=0; i<name.length(); i++ ) {
             char ch = name.charAt(i);
             if(Character.isISOControl(ch)) {
-                throw new Failure(Messages.Hudson_ControlCodeNotAllowed(toPrintableName(name)));
+                throw new Failure(LocalizedString.Hudson_ControlCodeNotAllowed.toLocale(toPrintableName(name)));
             }
             if("?*/\\%!@#$^&|<>[]:;".indexOf(ch)!=-1)
-                throw new Failure(Messages.Hudson_UnsafeChar(ch));
+                throw new Failure(LocalizedString.Hudson_UnsafeChar.toLocale(ch));
         }
 
         // looks good
@@ -4333,7 +4333,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
 
         private static class RestartCause extends OfflineCause.SimpleOfflineCause {
             protected RestartCause() {
-                super(Messages._Jenkins_IsRestarting());
+                super(LocalizedString._Jenkins_IsRestarting);
             }
         }
     }
@@ -4538,7 +4538,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
         if(JDK.isDefaultJDKValid(Jenkins.this))
             return FormValidation.ok();
         else
-            return FormValidation.errorWithMarkup(Messages.Hudson_NoJavaInPath(request.getContextPath()));
+            return FormValidation.errorWithMarkup(LocalizedString.Hudson_NoJavaInPath.toLocale(request.getContextPath()));
     }
 
     /**
@@ -4554,7 +4554,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
 
         // already exists?
         if (getView(name) != null)
-            return FormValidation.error(Messages.Hudson_ViewAlreadyExists(name));
+            return FormValidation.error(LocalizedString.Hudson_ViewAlreadyExists.toLocale(name));
 
         // good view name?
         try {
@@ -4580,7 +4580,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
         if(getView(view)==null)
             return FormValidation.ok();
         else
-            return FormValidation.error(Messages.Hudson_ViewAlreadyExists(view));
+            return FormValidation.error(LocalizedString.Hudson_ViewAlreadyExists.toLocale(view));
     }
 
     /**
@@ -4850,10 +4850,10 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
         }
 
         if(!isNameUnique(displayName, jobName)) {
-            return FormValidation.warning(Messages.Jenkins_CheckDisplayName_NameNotUniqueWarning(displayName));
+            return FormValidation.warning(LocalizedString.Jenkins_CheckDisplayName_NameNotUniqueWarning.toLocale(displayName));
         }
         else if(!isDisplayNameUnique(displayName, jobName)){
-            return FormValidation.warning(Messages.Jenkins_CheckDisplayName_DisplayNameNotUniqueWarning(displayName));
+            return FormValidation.warning(LocalizedString.Jenkins_CheckDisplayName_DisplayNameNotUniqueWarning.toLocale(displayName));
         }
         else {
             return FormValidation.ok();
@@ -4880,12 +4880,12 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
 
         @Override
         public String getDisplayName() {
-            return Messages.Hudson_Computer_DisplayName();
+            return LocalizedString.Hudson_Computer_DisplayName.toString();
         }
 
         @Override
         public String getCaption() {
-            return Messages.Hudson_Computer_Caption();
+            return LocalizedString.Hudson_Computer_Caption.toString();
         }
 
         @Override
@@ -5214,8 +5214,8 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
 
     public static final PermissionGroup PERMISSIONS = Permission.HUDSON_PERMISSIONS;
     public static final Permission ADMINISTER = Permission.HUDSON_ADMINISTER;
-    public static final Permission READ = new Permission(PERMISSIONS,"Read",Messages._Hudson_ReadPermission_Description(),Permission.READ,PermissionScope.JENKINS);
-    public static final Permission RUN_SCRIPTS = new Permission(PERMISSIONS, "RunScripts", Messages._Hudson_RunScriptsPermission_Description(),ADMINISTER,PermissionScope.JENKINS);
+    public static final Permission READ = new Permission(PERMISSIONS,"Read",LocalizedString._Hudson_ReadPermission_Description,Permission.READ,PermissionScope.JENKINS);
+    public static final Permission RUN_SCRIPTS = new Permission(PERMISSIONS, "RunScripts", LocalizedString._Hudson_RunScriptsPermission_Description,ADMINISTER,PermissionScope.JENKINS);
 
     /**
      * Urls that are always visible without READ permission.

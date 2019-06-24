@@ -24,21 +24,23 @@
 
 package hudson.model;
 
-import hudson.search.Search;
-import hudson.search.UserSearchProperty;
-import jenkins.model.Jenkins;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.CheckForNull;
+import javax.servlet.ServletException;
+
+import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.export.Flavor;
 
-import javax.servlet.ServletException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.annotation.CheckForNull;
-import org.apache.commons.lang.StringUtils;
+import hudson.search.Search;
+import hudson.search.UserSearchProperty;
+import jenkins.model.Jenkins;
 
 /**
  * Data representation of the auto-completion candidates.

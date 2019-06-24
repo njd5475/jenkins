@@ -23,15 +23,19 @@
  */
 package hudson.model;
 
-import hudson.Extension;
-import hudson.Util;
 import javax.annotation.Nonnull;
-import net.sf.json.JSONObject;
+
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.DoNotUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.Util;
+import net.sf.json.JSONObject;
 
 /**
  * Parameter whose value is a string value.
@@ -111,7 +115,7 @@ public class StringParameterDefinition extends SimpleParameterDefinition {
     public static class DescriptorImpl extends ParameterDescriptor {
         @Override
         public String getDisplayName() {
-            return Messages.StringParameterDefinition_DisplayName();
+            return LocalizedString.StringParameterDefinition_DisplayName.toString();
         }
 
         @Override

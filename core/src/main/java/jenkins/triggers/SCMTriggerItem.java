@@ -24,6 +24,16 @@
 
 package jenkins.triggers;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.model.Action;
 import hudson.model.Item;
 import hudson.model.Job;
@@ -33,12 +43,6 @@ import hudson.scm.NullSCM;
 import hudson.scm.PollingResult;
 import hudson.scm.SCM;
 import hudson.triggers.SCMTrigger;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import jenkins.model.ParameterizedJobMixIn;
 import jenkins.scm.SCMDecisionHandler;
 
@@ -137,7 +141,7 @@ public interface SCMTriggerItem {
             @Override public PollingResult poll(TaskListener listener) {
                 SCMDecisionHandler veto = SCMDecisionHandler.firstShouldPollVeto(asItem());
                 if (veto != null && !veto.shouldPoll(asItem())) {
-                    listener.getLogger().println(Messages.SCMTriggerItem_PollingVetoed(veto));
+                    listener.getLogger().println(LocalizedString.SCMTriggerItem_PollingVetoed.toLocale(veto));
                     return PollingResult.NO_CHANGES;
                 }
                 return delegate.poll(listener);

@@ -25,10 +25,12 @@ package hudson.cli;
 
 import javax.xml.transform.stream.StreamSource;
 
+import org.kohsuke.args4j.Argument;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.model.View;
-
-import org.kohsuke.args4j.Argument;
 
 /**
  * @author ogondza
@@ -43,7 +45,7 @@ public class UpdateViewCommand extends CLICommand {
     @Override
     public String getShortDescription() {
 
-        return Messages.UpdateViewCommand_ShortDescription();
+        return LocalizedString.UpdateViewCommand_ShortDescription.toString();
     }
 
     @Override

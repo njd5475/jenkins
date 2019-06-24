@@ -23,16 +23,20 @@
  */
 package hudson.scm;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.Launcher;
 import hudson.model.Job;
 import hudson.model.Run;
 import hudson.model.TaskListener;
-import java.io.File;
-import java.io.IOException;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
  * No {@link SCM}.
@@ -69,7 +73,7 @@ public class NullSCM extends SCM {
         }
 
         @Override public String getDisplayName() {
-            return Messages.NullSCM_DisplayName();
+            return LocalizedString.NullSCM_DisplayName.toString();
         }
 
     }

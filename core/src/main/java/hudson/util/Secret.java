@@ -24,32 +24,35 @@
  */
 package hudson.util;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.crypto.Cipher;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.Stapler;
+
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
-import jenkins.util.SystemProperties;
-import java.util.Arrays;
-import jenkins.model.Jenkins;
+
 import hudson.Util;
+import jenkins.model.Jenkins;
 import jenkins.security.CryptoConfidentialKey;
-import org.kohsuke.stapler.Stapler;
-
-import javax.crypto.Cipher;
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.util.Base64;
-import java.util.logging.Logger;
-import java.util.regex.Pattern;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
+import jenkins.util.SystemProperties;
 
 /**
  * Glorified {@link String} that uses encryption in the persisted form, to avoid accidental exposure of a secret.

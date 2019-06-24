@@ -23,6 +23,8 @@
  */
 package jenkins.model;
 
+import java.util.Iterator;
+
 import hudson.model.Computer;
 import hudson.model.LoadStatistics;
 import hudson.model.Node;
@@ -32,8 +34,6 @@ import hudson.model.Queue;
 import hudson.model.Queue.Task;
 import hudson.model.queue.SubTask;
 import hudson.util.Iterators;
-
-import java.util.Iterator;
 
 /**
  * {@link LoadStatistics} that track the "free roam" jobs (whose {@link Task#getAssignedLabel()} is null)

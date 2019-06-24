@@ -1,12 +1,13 @@
 package jenkins.security;
 
-import hudson.model.User;
-import hudson.security.SecurityRealm;
-import hudson.security.UserMayOrMayNotExistException;
 import org.acegisecurity.userdetails.UserDetails;
 import org.acegisecurity.userdetails.UserDetailsService;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.springframework.dao.DataAccessException;
+
+import hudson.model.User;
+import hudson.security.SecurityRealm;
+import hudson.security.UserMayOrMayNotExistException;
 
 /**
  * {@link UserDetailsService} for those {@link SecurityRealm}

@@ -1,11 +1,11 @@
 package jenkins.slaves;
 
+import java.io.IOException;
+
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.remoting.Channel;
 import jenkins.model.Jenkins;
-
-import java.io.IOException;
 
 /**
  * Get notified when a channel triggered a ping failure, but before the channel is killed.

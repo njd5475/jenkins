@@ -24,6 +24,20 @@
 
 package jenkins.model;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.Nonnull;
+
+import org.acegisecurity.AccessDeniedException;
+import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.HttpResponse;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.Main;
 import hudson.model.AdministrativeMonitor;
@@ -34,16 +48,6 @@ import hudson.model.PersistentDescriptor;
 import hudson.model.TaskListener;
 import hudson.model.UpdateSite;
 import hudson.util.FormValidation;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.acegisecurity.AccessDeniedException;
-import org.jenkinsci.Symbol;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.HttpResponse;
-
-import javax.annotation.Nonnull;
 
 /**
  * Lets user configure how metadata files should be downloaded.
@@ -139,7 +143,7 @@ public final class DownloadSettings extends GlobalConfiguration implements Persi
 
         @Override
         public String getDisplayName() {
-            return Messages.DownloadSettings_Warning_DisplayName();
+            return LocalizedString.DownloadSettings_Warning_DisplayName.toString();
         }
 
         @Override public boolean isActivated() {

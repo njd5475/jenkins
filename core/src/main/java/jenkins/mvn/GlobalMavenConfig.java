@@ -1,14 +1,14 @@
 package jenkins.mvn;
 
+import javax.annotation.Nonnull;
+
+import org.jenkinsci.Symbol;
+
 import hudson.Extension;
 import hudson.model.PersistentDescriptor;
 import jenkins.model.GlobalConfiguration;
 import jenkins.model.GlobalConfigurationCategory;
 import jenkins.tools.ToolConfigurationCategory;
-
-import org.jenkinsci.Symbol;
-
-import javax.annotation.Nonnull;
 
 //as close as it gets to the global Maven Project configuration
 @Extension(ordinal = 50) @Symbol("maven")

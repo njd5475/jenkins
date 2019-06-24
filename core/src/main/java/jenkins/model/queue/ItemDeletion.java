@@ -23,20 +23,22 @@
  */
 package jenkins.model.queue;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.annotation.concurrent.GuardedBy;
+
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.model.Action;
 import hudson.model.Item;
 import hudson.model.Queue;
 import hudson.model.queue.Tasks;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.GuardedBy;
 
 /**
  * A {@link Queue.QueueDecisionHandler} that blocks items being deleted from entering the queue.

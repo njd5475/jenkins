@@ -23,9 +23,9 @@
  */
 package hudson.security;
 
-import org.acegisecurity.userdetails.UserDetails;
-
 import java.util.Set;
+
+import org.acegisecurity.userdetails.UserDetails;
 
 /**
  * Represents the details of a group.

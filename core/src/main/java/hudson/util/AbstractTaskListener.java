@@ -1,9 +1,10 @@
 package hudson.util;
 
-import hudson.RestrictedSince;
-import hudson.model.TaskListener;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import hudson.RestrictedSince;
+import hudson.model.TaskListener;
 
 
 /**

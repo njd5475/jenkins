@@ -25,24 +25,31 @@ package hudson;
 
 import java.io.IOException;
 
+import com.dj.runner.locales.LocalizedString;
+
 /**
- * Signals a failure where the error was anticipated and diagnosed.
- * When this exception is caught,
- * the stack trace will not be printed, and the build will be marked as a failure.
+ * Signals a failure where the error was anticipated and diagnosed. When this
+ * exception is caught, the stack trace will not be printed, and the build will
+ * be marked as a failure.
  *
  * @author Kohsuke Kawaguchi
-*/
+ */
 public class AbortException extends IOException {
-    public AbortException() {
-    }
+  public AbortException() {
+  }
 
-    /**
-     * When this exception is caught, the specified message will be reported.
-     * @since 1.298
-     */
-    public AbortException(String message) {
-        super(message);
-    }
+  /**
+   * When this exception is caught, the specified message will be reported.
+   * 
+   * @since 1.298
+   */
+  public AbortException(String message) {
+    super(message);
+  }
 
-    private static final long serialVersionUID = 1L;
+  public AbortException(LocalizedString message) {
+    super(message.toLocale());
+  }
+
+  private static final long serialVersionUID = 1L;
 }

@@ -1,13 +1,13 @@
 package jenkins.slaves.restarter;
 
-import hudson.Extension;
+import static java.util.logging.Level.FINE;
+import static org.apache.commons.io.IOUtils.copy;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import static java.util.logging.Level.*;
-import static org.apache.commons.io.IOUtils.*;
+import hudson.Extension;
 
 /**
  * With winsw, restart via winsw

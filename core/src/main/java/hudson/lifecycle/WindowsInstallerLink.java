@@ -23,43 +23,48 @@
  */
 package hudson.lifecycle;
 
+import static hudson.util.jna.SHELLEXECUTEINFO.SEE_MASK_NOCLOSEPROCESS;
+import static hudson.util.jna.SHELLEXECUTEINFO.SW_HIDE;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.servlet.ServletException;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.apache.tools.ant.DefaultLogger;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.taskdefs.Move;
+import org.apache.tools.ant.types.FileSet;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
 import com.sun.jna.Native;
+
+import hudson.AbortException;
+import hudson.Extension;
 import hudson.Functions;
 import hudson.Launcher.LocalLauncher;
 import hudson.model.ManagementLink;
 import hudson.model.TaskListener;
+import hudson.util.StreamTaskListener;
+import hudson.util.jna.DotNet;
 import hudson.util.jna.Kernel32Utils;
 import hudson.util.jna.SHELLEXECUTEINFO;
 import hudson.util.jna.Shell32;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
 import jenkins.model.Jenkins;
-import hudson.AbortException;
-import hudson.Extension;
 import jenkins.util.SystemProperties;
-import hudson.util.StreamTaskListener;
-import hudson.util.jna.DotNet;
-import org.apache.commons.io.IOUtils;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.apache.tools.ant.taskdefs.Move;
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.DefaultLogger;
-import org.apache.tools.ant.types.FileSet;
-import org.kohsuke.stapler.interceptor.RequirePOST;
-
-import javax.servlet.ServletException;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.net.URL;
-
-import static hudson.util.jna.SHELLEXECUTEINFO.*;
 
 /**
  * {@link ManagementLink} that allows the installation as a Windows service.
@@ -92,11 +97,11 @@ public class WindowsInstallerLink extends ManagementLink {
     }
 
     public String getDisplayName() {
-        return Messages.WindowsInstallerLink_DisplayName();
+        return LocalizedString.WindowsInstallerLink_DisplayName.toString();
     }
 
     public String getDescription() {
-        return Messages.WindowsInstallerLink_Description();
+        return LocalizedString.WindowsInstallerLink_Description.toString();
     }
 
     /**

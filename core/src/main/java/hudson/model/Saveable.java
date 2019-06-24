@@ -23,9 +23,10 @@
  */
 package hudson.model;
 
+import java.io.IOException;
+
 import hudson.BulkChange;
 import hudson.model.listeners.SaveableListener;
-import java.io.IOException;
 
 /**
  * Object whose state is persisted to XML.

@@ -1,11 +1,15 @@
 package hudson.security;
 
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.GrantedAuthority;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
+import com.dj.runner.locales.LocalizedString;
+
 import jenkins.util.SystemProperties;
 
 /**
@@ -32,7 +36,7 @@ public class AccessDeniedException2 extends AccessDeniedException {
     }
 
     public AccessDeniedException2(Throwable t, Authentication authentication, Permission permission) {
-        super(Messages.AccessDeniedException2_MissingPermission(authentication.getName(),
+        super(LocalizedString.AccessDeniedException2_MissingPermission.toLocale(authentication.getName(),
                 permission.group.title+"/"+permission.name), t);
         this.authentication = authentication;
         this.permission = permission;

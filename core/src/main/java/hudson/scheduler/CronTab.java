@@ -23,18 +23,24 @@
  */
 package hudson.scheduler;
 
-import antlr.ANTLRException;
+import static java.util.Calendar.DAY_OF_MONTH;
+import static java.util.Calendar.HOUR_OF_DAY;
+import static java.util.Calendar.MINUTE;
+import static java.util.Calendar.MONTH;
 
 import java.io.StringReader;
 import java.util.Calendar;
-import java.util.TimeZone;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.util.Calendar.*;
 import javax.annotation.CheckForNull;
+
+import com.dj.runner.locales.LocalizedString;
+
+import antlr.ANTLRException;
 
 /**
  * Table for driving scheduled tasks.
@@ -484,7 +490,7 @@ public final class CronTab {
                     // this rank has a sparse entry.
                     // if we have a sparse rank, one of them better be the left-most.
                     if(i>0)
-                        return Messages.CronTab_do_you_really_mean_every_minute_when_you(spec, "H " + spec.substring(spec.indexOf(' ') + 1));
+                        return LocalizedString.CronTab_do_you_really_mean_every_minute_when_you.toLocale(spec, "H " + spec.substring(spec.indexOf(' ') + 1));
                     // once we find a sparse rank, upper ranks don't matter
                     break OUTER;
                 }
@@ -498,12 +504,12 @@ public final class CronTab {
             }
         }
         if (daysOfMonth > 5 && daysOfMonth < 28) { // a bit arbitrary
-            return Messages.CronTab_short_cycles_in_the_day_of_month_field_w();
+            return LocalizedString.CronTab_short_cycles_in_the_day_of_month_field_w.toString();
         }
 
         String hashified = hashify(spec);
         if (hashified != null) {
-            return Messages.CronTab_spread_load_evenly_by_using_rather_than_(hashified, spec);
+            return LocalizedString.CronTab_spread_load_evenly_by_using_rather_than_.toLocale(hashified, spec);
         }
 
         return null;

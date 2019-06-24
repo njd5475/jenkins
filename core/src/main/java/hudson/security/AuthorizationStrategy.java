@@ -23,24 +23,35 @@
  */
 package hudson.security;
 
-import hudson.DescriptorExtensionList;
-import hudson.Extension;
-import hudson.ExtensionPoint;
-import hudson.model.*;
-import hudson.slaves.Cloud;
-import hudson.util.DescriptorList;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
-import javax.annotation.Nonnull;
 
-import jenkins.model.Jenkins;
-import jenkins.security.stapler.StaplerAccessibleType;
-import net.sf.json.JSONObject;
+import javax.annotation.Nonnull;
 
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.StaplerRequest;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.DescriptorExtensionList;
+import hudson.Extension;
+import hudson.ExtensionPoint;
+import hudson.model.AbstractDescribableImpl;
+import hudson.model.AbstractItem;
+import hudson.model.AbstractProject;
+import hudson.model.Computer;
+import hudson.model.Describable;
+import hudson.model.Descriptor;
+import hudson.model.Job;
+import hudson.model.Node;
+import hudson.model.User;
+import hudson.model.View;
+import hudson.slaves.Cloud;
+import hudson.util.DescriptorList;
+import jenkins.model.Jenkins;
+import jenkins.security.stapler.StaplerAccessibleType;
+import net.sf.json.JSONObject;
 
 /**
  * Controls authorization throughout Hudson.
@@ -229,7 +240,7 @@ public abstract class AuthorizationStrategy extends AbstractDescribableImpl<Auth
         public static final class DescriptorImpl extends Descriptor<AuthorizationStrategy> {
             @Override
             public String getDisplayName() {
-                return Messages.AuthorizationStrategy_DisplayName();
+                return LocalizedString.AuthorizationStrategy_DisplayName.toString();
             }
 
             @Override

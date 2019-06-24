@@ -79,6 +79,8 @@ import org.junit.rules.TemporaryFolder;
 import org.jvnet.hudson.test.Issue;
 import org.mockito.Mockito;
 
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.FilePath.TarCompression;
 import hudson.model.TaskListener;
 import hudson.os.PosixAPI;
@@ -545,9 +547,9 @@ public class FilePathTest {
             assertValidateAntFileMask(null, d, "**/*.txt");
             assertValidateAntFileMask(null, d, "d1/d2/d3/f.txt");
             assertValidateAntFileMask(null, d, "**/*.html");
-            assertValidateAntFileMask(Messages.FilePath_validateAntFileMask_portionMatchButPreviousNotMatchAndSuggest("**/*.js", "**", "**/*.js"), d, "**/*.js");
-            assertValidateAntFileMask(Messages.FilePath_validateAntFileMask_doesntMatchAnything("index.htm"), d, "index.htm");
-            assertValidateAntFileMask(Messages.FilePath_validateAntFileMask_doesntMatchAndSuggest("f.html", "d1/d2/d3/f.html"), d, "f.html");
+            assertValidateAntFileMask(LocalizedString.FilePath_validateAntFileMask_portionMatchButPreviousNotMatchAndSuggest.toLocale("**/*.js", "**", "**/*.js"), d, "**/*.js");
+            assertValidateAntFileMask(LocalizedString.FilePath_validateAntFileMask_doesntMatchAnything.toLocale("index.htm"), d, "index.htm");
+            assertValidateAntFileMask(LocalizedString.FilePath_validateAntFileMask_doesntMatchAndSuggest.toLocale("f.html", "d1/d2/d3/f.html"), d, "f.html");
             // TODO lots more to test, e.g. multiple patterns separated by commas; ought to have full code coverage for this method
     }
 
@@ -570,7 +572,7 @@ public class FilePathTest {
             }
             assertEquals(null, d.validateAntFileMask("d1/d2/**/f.txt"));
             assertEquals(null, d.validateAntFileMask("d1/d2/**/f.txt", 10));
-            assertEquals(Messages.FilePath_validateAntFileMask_portionMatchButPreviousNotMatchAndSuggest("**/*.js", "**", "**/*.js"), d.validateAntFileMask("**/*.js", 1000));
+            assertEquals(LocalizedString.FilePath_validateAntFileMask_portionMatchButPreviousNotMatchAndSuggest.toLocale("**/*.js", "**", "**/*.js"), d.validateAntFileMask("**/*.js", 1000));
             try {
                 d.validateAntFileMask("**/*.js", 10);
                 fail();
@@ -591,7 +593,7 @@ public class FilePathTest {
             
             assertEquals(null, d.validateAntFileMask("**/d1/**/f.*", FilePath.VALIDATE_ANT_FILE_MASK_BOUND, true));
             assertEquals(null, d.validateAntFileMask("**/d1/**/f.*", FilePath.VALIDATE_ANT_FILE_MASK_BOUND, false));
-            assertEquals(Messages.FilePath_validateAntFileMask_matchWithCaseInsensitive("**/D1/**/F.*"), d.validateAntFileMask("**/D1/**/F.*", FilePath.VALIDATE_ANT_FILE_MASK_BOUND, true));
+            assertEquals(LocalizedString.FilePath_validateAntFileMask_matchWithCaseInsensitive.toLocale("**/D1/**/F.*"), d.validateAntFileMask("**/D1/**/F.*", FilePath.VALIDATE_ANT_FILE_MASK_BOUND, true));
             assertEquals(null, d.validateAntFileMask("**/D1/**/F.*", FilePath.VALIDATE_ANT_FILE_MASK_BOUND, false));
         } finally {
             Util.deleteRecursive(tmp);

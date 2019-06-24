@@ -1,8 +1,9 @@
 package jenkins;
 
+import org.jenkinsci.remoting.RoleChecker;
+
 import hudson.FilePath.FileCallable;
 import jenkins.security.Roles;
-import org.jenkinsci.remoting.RoleChecker;
 
 /**
  * {@link FileCallable}s that can be executed on the master, sent by the agent.

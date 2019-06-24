@@ -23,10 +23,13 @@
  */
 package hudson.views;
 
-import hudson.Extension;
-import hudson.model.Item;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.Item;
 
 /**
  * Renders {@link Item#getName()}
@@ -41,7 +44,7 @@ public class JobColumn extends ListViewColumn {
     public static class DescriptorImpl extends ListViewColumnDescriptor {
         @Override
         public String getDisplayName() {
-            return Messages.JobColumn_DisplayName();
+            return LocalizedString.JobColumn_DisplayName.toString();
         }
     }
 

@@ -24,10 +24,13 @@
 package hudson.model;
 
 import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.DataBoundConstructor;
-import net.sf.json.JSONObject;
+import org.kohsuke.stapler.StaplerRequest;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
+import net.sf.json.JSONObject;
 
 /**
  * {@link ParameterDefinition} that is either 'true' or 'false'.
@@ -79,7 +82,7 @@ public class BooleanParameterDefinition extends SimpleParameterDefinition {
     public static class DescriptorImpl extends ParameterDescriptor {
         @Override
         public String getDisplayName() {
-            return Messages.BooleanParameterDefinition_DisplayName();
+            return LocalizedString.BooleanParameterDefinition_DisplayName.toString();
         }
 
         @Override

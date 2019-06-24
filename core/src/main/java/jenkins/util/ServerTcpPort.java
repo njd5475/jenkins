@@ -1,7 +1,8 @@
 package jenkins.util;
 
-import net.sf.json.JSONObject;
 import org.kohsuke.stapler.DataBoundConstructor;
+
+import net.sf.json.JSONObject;
 
 /**
  * Used in conjunction with /lib/form/serverTcpPort tag to parse the submitted JSON back into a port number.

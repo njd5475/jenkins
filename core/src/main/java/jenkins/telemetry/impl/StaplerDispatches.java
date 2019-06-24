@@ -23,25 +23,27 @@
  */
 package jenkins.telemetry.impl;
 
-import hudson.Extension;
-import hudson.PluginWrapper;
-import hudson.util.VersionNumber;
-import jenkins.model.Jenkins;
-import jenkins.telemetry.Telemetry;
-import net.sf.json.JSONObject;
-import org.kohsuke.MetaInfServices;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.EvaluationTrace;
-import org.kohsuke.stapler.StaplerRequest;
-
-import javax.annotation.Nonnull;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentSkipListSet;
+
+import javax.annotation.Nonnull;
+
+import org.kohsuke.MetaInfServices;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.EvaluationTrace;
+import org.kohsuke.stapler.StaplerRequest;
+
+import hudson.Extension;
+import hudson.PluginWrapper;
+import hudson.util.VersionNumber;
+import jenkins.model.Jenkins;
+import jenkins.telemetry.Telemetry;
+import net.sf.json.JSONObject;
 
 /**
  * Telemetry implementation gathering information about Stapler dispatch routes.

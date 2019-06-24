@@ -1,16 +1,18 @@
 package hudson.model;
 
-import hudson.ExtensionList;
-import hudson.ExtensionPoint;
-import hudson.scm.SCMDescriptor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+
+import hudson.ExtensionList;
+import hudson.ExtensionPoint;
+import hudson.scm.SCMDescriptor;
 import jenkins.ExtensionFilter;
 import jenkins.util.SystemProperties;
 

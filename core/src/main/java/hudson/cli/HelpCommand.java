@@ -23,15 +23,17 @@
  */
 package hudson.cli;
 
-import hudson.AbortException;
-import hudson.Extension;
-import jenkins.model.Jenkins;
-
 import java.util.Map;
 import java.util.TreeMap;
 
 import org.acegisecurity.AccessDeniedException;
 import org.kohsuke.args4j.Argument;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.AbortException;
+import hudson.Extension;
+import jenkins.model.Jenkins;
 
 /**
  * Show the list of all commands.
@@ -46,7 +48,7 @@ public class HelpCommand extends CLICommand {
 
     @Override
     public String getShortDescription() {
-        return Messages.HelpCommand_ShortDescription();
+        return LocalizedString.HelpCommand_ShortDescription.toString();
     }
 
     @Override

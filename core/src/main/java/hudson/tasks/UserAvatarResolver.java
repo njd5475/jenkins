@@ -27,13 +27,14 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jenkins.model.Jenkins;
+import javax.annotation.CheckForNull;
+
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.Functions;
 import hudson.model.User;
-import javax.annotation.CheckForNull;
+import jenkins.model.Jenkins;
 
 /**
  * Infers avatar image URLs for users

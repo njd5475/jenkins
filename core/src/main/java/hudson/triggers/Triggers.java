@@ -23,11 +23,11 @@
  */
 package hudson.triggers;
 
+import java.util.List;
+
+import hudson.Extension;
 import hudson.model.Item;
 import hudson.util.DescriptorList;
-import hudson.Extension;
-
-import java.util.List;
 
 /**
  * List of all installed {@link Trigger}s.

@@ -1,18 +1,15 @@
 package hudson;
 
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.html.DomNodeList;
-import com.gargoylesoftware.htmlunit.html.HtmlButton;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlElementUtil;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import hudson.model.DownloadService;
-import hudson.model.RootAction;
-import hudson.model.UpdateSite;
-import hudson.model.UpdateSiteTest;
-import hudson.util.HttpResponses;
-import hudson.util.Retrier;
-import jenkins.model.Jenkins;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.servlet.ServletException;
+
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -24,14 +21,21 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.xml.sax.SAXException;
 
-import javax.servlet.ServletException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.dj.runner.locales.LocalizedString;
+import com.gargoylesoftware.htmlunit.Page;
+import com.gargoylesoftware.htmlunit.html.DomNodeList;
+import com.gargoylesoftware.htmlunit.html.HtmlButton;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlElementUtil;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import hudson.model.DownloadService;
+import hudson.model.RootAction;
+import hudson.model.UpdateSite;
+import hudson.model.UpdateSiteTest;
+import hudson.util.HttpResponses;
+import hudson.util.Retrier;
+import jenkins.model.Jenkins;
 
 public class PluginManagerCheckUpdateCenterTest {
     @Rule
@@ -100,7 +104,7 @@ public class PluginManagerCheckUpdateCenterTest {
             updateSiteWrongJsonTest();
 
             // the messages has been recorded in the log
-            assertThat(logging, LoggerRule.recorded(is(Messages.PluginManager_UpdateSiteChangeLogLevel(Retrier.class.getName()))));
+            assertThat(logging, LoggerRule.recorded(is(LocalizedString.PluginManager_UpdateSiteChangeLogLevel.toLocale(Retrier.class.getName()))));
         } finally {
             // restore level
             pmLogger.setLevel(pmLevel);
@@ -140,10 +144,10 @@ public class PluginManagerCheckUpdateCenterTest {
         String page = pageAfterClick.getWebResponse().getContentAsString();
 
         // Check what is shown in the web page
-        Assert.assertNotEquals(isSuccess, page.contains(Messages.PluginManager_CheckUpdateServerError(message)));
+        Assert.assertNotEquals(isSuccess, page.contains(LocalizedString.PluginManager_CheckUpdateServerError.toLocale(message)));
 
         // Check the logs (attempted CHECK_UPDATE_ATTEMPTS times). The second argument, the exception does't matter to test the message in the log
-        Assert.assertNotEquals(isSuccess, logging.getMessages().stream().anyMatch(m -> m.contains(Messages.PluginManager_UpdateSiteError(PluginManager.CHECK_UPDATE_ATTEMPTS, ""))));
+        Assert.assertNotEquals(isSuccess, logging.getMessages().stream().anyMatch(m -> m.contains(LocalizedString.PluginManager_UpdateSiteError.toLocale(PluginManager.CHECK_UPDATE_ATTEMPTS, ""))));
     }
 
     @TestExtension("updateSiteReturn502Test")

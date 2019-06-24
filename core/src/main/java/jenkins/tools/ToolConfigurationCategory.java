@@ -1,8 +1,9 @@
 package jenkins.tools;
 
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import jenkins.model.GlobalConfigurationCategory;
-import jenkins.management.Messages;
 
 /**
  * Global configuration of tool locations and installers.
@@ -13,10 +14,10 @@ import jenkins.management.Messages;
 public class ToolConfigurationCategory extends GlobalConfigurationCategory {
     @Override
     public String getShortDescription() {
-        return Messages.ConfigureTools_Description();
+        return LocalizedString.ConfigureTools_Description.toString();
     }
 
     public String getDisplayName() {
-        return Messages.ConfigureTools_DisplayName();
+        return LocalizedString.ConfigureTools_DisplayName.toString();
     }
 }

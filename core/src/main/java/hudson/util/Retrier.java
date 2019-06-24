@@ -1,16 +1,19 @@
 package hudson.util;
 
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import java.util.concurrent.Callable;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import com.dj.runner.locales.LocalizedString;
 
 /**
  * This class implements a process of doing some action repeatedly synchronously until it is performed successfully.
@@ -57,20 +60,20 @@ public class Retrier <V>{
             currentAttempt++;
             try {
                 if (LOGGER.isLoggable(Level.INFO)) {
-                    LOGGER.log(Level.INFO, Messages.Retrier_Attempt(currentAttempt, action));
+                    LOGGER.log(Level.INFO, LocalizedString.Retrier_Attempt.toLocale(currentAttempt, action));
                 }
                 result = callable.call();
 
             } catch (Exception e) {
                 if(duringActionExceptions == null || Stream.of(duringActionExceptions).noneMatch(exception -> exception.isAssignableFrom(e.getClass()))) {
                     // if the raised exception is not considered as a controlled exception doing the action, rethrow it
-                    LOGGER.log(Level.WARNING, Messages.Retrier_ExceptionThrown(currentAttempt, action), e);
+                    LOGGER.log(Level.WARNING, LocalizedString.Retrier_ExceptionThrown.toLocale(currentAttempt, action), e);
                     throw e;
                 } else {
                     // if the exception is considered as a failed action, notify it to the listener
-                    LOGGER.log(Level.INFO, Messages.Retrier_ExceptionFailed(currentAttempt, action), e);
+                    LOGGER.log(Level.INFO, LocalizedString.Retrier_ExceptionFailed.toLocale(currentAttempt, action), e);
                     if (duringActionExceptionListener != null) {
-                        LOGGER.log(Level.INFO, Messages.Retrier_CallingListener(e.getLocalizedMessage(), currentAttempt, action));
+                        LOGGER.log(Level.INFO, LocalizedString.Retrier_CallingListener.toLocale(e.getLocalizedMessage(), currentAttempt, action));
                         result = duringActionExceptionListener.apply(currentAttempt, e);
                     }
                 }
@@ -80,21 +83,21 @@ public class Retrier <V>{
             success = checkResult.test(currentAttempt, result);
             if (!success) {
                 if (currentAttempt < attempts) {
-                    LOGGER.log(Level.WARNING, Messages.Retrier_AttemptFailed(currentAttempt, action));
-                    LOGGER.log(Level.FINE, Messages.Retrier_Sleeping(delay, action));
+                    LOGGER.log(Level.WARNING, LocalizedString.Retrier_AttemptFailed.toLocale(currentAttempt, action));
+                    LOGGER.log(Level.FINE, LocalizedString.Retrier_Sleeping.toLocale(delay, action));
                     try {
                         Thread.sleep(delay);
                     } catch (InterruptedException ie) {
-                        LOGGER.log(Level.FINE, Messages.Retrier_Interruption(action));
+                        LOGGER.log(Level.FINE, LocalizedString.Retrier_Interruption.toLocale(action));
                         Thread.currentThread().interrupt(); // flag this thread as interrupted
                         currentAttempt = attempts; // finish
                     }
                 } else {
                     // Failed to perform the action
-                    LOGGER.log(Level.INFO, Messages.Retrier_NoSuccess(action, attempts));
+                    LOGGER.log(Level.INFO, LocalizedString.Retrier_NoSuccess.toLocale(action, attempts));
                 }
             } else {
-                LOGGER.log(Level.INFO, Messages.Retrier_Success(action, currentAttempt));
+                LOGGER.log(Level.INFO, LocalizedString.Retrier_Success.toLocale(action, currentAttempt));
             }
         }
 

@@ -24,6 +24,36 @@
 
 package jenkins.model;
 
+import static javax.servlet.http.HttpServletResponse.SC_CONFLICT;
+import static javax.servlet.http.HttpServletResponse.SC_CREATED;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.CheckForNull;
+import javax.servlet.ServletException;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.DoNotUse;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.accmod.restrictions.ProtectedExternally;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.stapler.HttpRedirect;
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.HttpResponses;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Util;
 import hudson.cli.declarative.CLIMethod;
 import hudson.cli.declarative.CLIResolver;
@@ -32,7 +62,6 @@ import hudson.model.BuildableItem;
 import hudson.model.Cause;
 import hudson.model.CauseAction;
 import hudson.model.Item;
-import static hudson.model.Item.CONFIGURE;
 import hudson.model.Items;
 import hudson.model.Job;
 import hudson.model.ParameterDefinition;
@@ -48,33 +77,9 @@ import hudson.triggers.Trigger;
 import hudson.triggers.TriggerDescriptor;
 import hudson.util.AlternativeUiTextProvider;
 import hudson.views.BuildButtonColumn;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-import javax.annotation.CheckForNull;
-import javax.servlet.ServletException;
-import static javax.servlet.http.HttpServletResponse.SC_CREATED;
-import static javax.servlet.http.HttpServletResponse.SC_CONFLICT;
 import jenkins.model.lazy.LazyBuildMixIn;
 import jenkins.triggers.SCMTriggerItem;
 import jenkins.util.TimeDuration;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.DoNotUse;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.accmod.restrictions.ProtectedExternally;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.CmdLineException;
-import org.kohsuke.stapler.HttpRedirect;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.HttpResponses;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-import org.kohsuke.stapler.interceptor.RequirePOST;
 
 /**
  * Allows a {@link Job} to make use of {@link ParametersDefinitionProperty} and be scheduled in various ways.
@@ -291,8 +296,8 @@ public abstract class ParameterizedJobMixIn<JobT extends Job<JobT, RunT> & Param
      * Suggested implementation of {@link ParameterizedJob#getBuildNowText}.
      */
     public final String getBuildNowText() {
-        return isParameterized() ? AlternativeUiTextProvider.get(BUILD_NOW_TEXT, asJob(), Messages.ParameterizedJobMixIn_build_with_parameters())
-                : AlternativeUiTextProvider.get(BUILD_NOW_TEXT, asJob(), Messages.ParameterizedJobMixIn_build_now());
+        return isParameterized() ? AlternativeUiTextProvider.get(BUILD_NOW_TEXT, asJob(), LocalizedString.ParameterizedJobMixIn_build_with_parameters)
+                : AlternativeUiTextProvider.get(BUILD_NOW_TEXT, asJob(), LocalizedString.ParameterizedJobMixIn_build_now);
     }
 
     /**
@@ -331,8 +336,8 @@ public abstract class ParameterizedJobMixIn<JobT extends Job<JobT, RunT> & Param
             if (item == null) {
                 ParameterizedJob project = Items.findNearest(ParameterizedJob.class, name, Jenkins.getInstance());
                 throw new CmdLineException(null, project == null ?
-                        hudson.model.Messages.AbstractItem_NoSuchJobExistsWithoutSuggestion(name) :
-                        hudson.model.Messages.AbstractItem_NoSuchJobExists(name, project.getFullName()));
+                        LocalizedString.AbstractItem_NoSuchJobExistsWithoutSuggestion.toLocale(name) :
+                        LocalizedString.AbstractItem_NoSuchJobExists.toLocale(name, project.getFullName()));
             }
             return item;
         }

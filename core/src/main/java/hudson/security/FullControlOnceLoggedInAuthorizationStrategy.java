@@ -23,18 +23,22 @@
  */
 package hudson.security;
 
-import hudson.Extension;
-import hudson.model.Descriptor;
-import jenkins.model.Jenkins;
+import java.util.Collections;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
 
-import javax.inject.Inject;
-import java.util.Collections;
-import java.util.List;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.Descriptor;
+import jenkins.model.Jenkins;
 
 /**
  * {@link AuthorizationStrategy} that grants full-control to authenticated user
@@ -100,7 +104,7 @@ public class FullControlOnceLoggedInAuthorizationStrategy extends AuthorizationS
         }
 
         public String getDisplayName() {
-            return Messages.FullControlOnceLoggedInAuthorizationStrategy_DisplayName();
+            return LocalizedString.FullControlOnceLoggedInAuthorizationStrategy_DisplayName.toString();
         }
     }
 }

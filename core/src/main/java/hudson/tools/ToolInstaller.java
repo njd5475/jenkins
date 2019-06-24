@@ -24,21 +24,21 @@
 
 package hudson.tools;
 
-import hudson.ExtensionPoint;
-import hudson.FilePath;
-import hudson.Util;
-import hudson.model.Describable;
-import jenkins.model.Jenkins;
-import hudson.model.Label;
-import hudson.model.Node;
-import hudson.model.TaskListener;
-
 import java.io.File;
 import java.io.IOException;
 
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
+
+import hudson.ExtensionPoint;
+import hudson.FilePath;
+import hudson.Util;
+import hudson.model.Describable;
+import hudson.model.Label;
+import hudson.model.Node;
+import hudson.model.TaskListener;
+import jenkins.model.Jenkins;
 
 /**
  * An object which can ensure that a generic {@link ToolInstallation} in fact exists on a node.

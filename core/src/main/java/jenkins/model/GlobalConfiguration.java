@@ -1,13 +1,14 @@
 package jenkins.model;
 
+import javax.annotation.Nonnull;
+
+import org.kohsuke.stapler.StaplerRequest;
+
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.model.Describable;
 import hudson.model.Descriptor;
 import net.sf.json.JSONObject;
-import org.kohsuke.stapler.StaplerRequest;
-
-import javax.annotation.Nonnull;
 
 /**
  * Convenient base class for extensions that contributes to the system configuration page but nothing

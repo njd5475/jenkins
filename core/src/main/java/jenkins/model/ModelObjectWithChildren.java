@@ -1,9 +1,10 @@
 package jenkins.model;
 
-import hudson.model.ModelObject;
-import jenkins.model.ModelObjectWithContextMenu.ContextMenu;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
+
+import hudson.model.ModelObject;
+import jenkins.model.ModelObjectWithContextMenu.ContextMenu;
 
 /**
  * {@link ModelObject} that has the children context menu in the breadcrumb.

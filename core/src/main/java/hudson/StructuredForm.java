@@ -23,13 +23,15 @@
  */
 package hudson;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import org.kohsuke.stapler.StaplerRequest;
-
-import javax.servlet.ServletException;
 import java.util.Collections;
 import java.util.List;
+
+import javax.servlet.ServletException;
+
+import org.kohsuke.stapler.StaplerRequest;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * Obtains the structured form data from {@link StaplerRequest}.

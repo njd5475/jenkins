@@ -1,5 +1,15 @@
 package jenkins.slaves.restarter;
 
+import static java.util.logging.Level.FINE;
+import static java.util.logging.Level.SEVERE;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.logging.Logger;
+
 import hudson.Extension;
 import hudson.Functions;
 import hudson.model.Computer;
@@ -10,16 +20,6 @@ import hudson.remoting.EngineListenerAdapter;
 import hudson.remoting.VirtualChannel;
 import hudson.slaves.ComputerListener;
 import jenkins.model.Jenkins.MasterComputer;
-
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.logging.Logger;
-
-import static java.util.logging.Level.*;
 import jenkins.security.MasterToSlaveCallable;
 
 /**

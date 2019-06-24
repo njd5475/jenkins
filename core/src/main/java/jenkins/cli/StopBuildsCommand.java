@@ -23,6 +23,14 @@
  */
 package jenkins.cli;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.args4j.Argument;
+
 import hudson.Extension;
 import hudson.cli.CLICommand;
 import hudson.model.Executor;
@@ -30,13 +38,6 @@ import hudson.model.Item;
 import hudson.model.Job;
 import hudson.model.Run;
 import jenkins.model.Jenkins;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.args4j.Argument;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 @Extension
 @Restricted(NoExternalUse.class)

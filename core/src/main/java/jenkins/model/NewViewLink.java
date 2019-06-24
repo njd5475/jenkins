@@ -1,15 +1,18 @@
 package jenkins.model;
 
-import com.google.common.annotations.VisibleForTesting;
-import hudson.Extension;
-import hudson.model.Action;
-import hudson.model.TransientViewActionFactory;
-import hudson.model.View;
 import java.util.Collections;
 import java.util.List;
 
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import com.dj.runner.locales.LocalizedString;
+import com.google.common.annotations.VisibleForTesting;
+
+import hudson.Extension;
+import hudson.model.Action;
+import hudson.model.TransientViewActionFactory;
+import hudson.model.View;
 
 @Extension
 @Restricted(NoExternalUse.class)
@@ -39,7 +42,7 @@ public class NewViewLink extends TransientViewActionFactory {
                     return null;
                 }
 
-                return Messages.NewViewLink_NewView();
+                return LocalizedString.NewViewLink_NewView.toString();
             }
 
             @Override

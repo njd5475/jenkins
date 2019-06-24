@@ -23,14 +23,6 @@
  */
 package hudson.model;
 
-import hudson.diagnosis.OldDataMonitor;
-import hudson.model.Queue.Task;
-import hudson.model.queue.FoldableAction;
-import hudson.util.XStream2;
-import org.kohsuke.stapler.export.Exported;
-import org.kohsuke.stapler.export.ExportedBean;
-import com.thoughtworks.xstream.converters.UnmarshallingContext;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -38,6 +30,16 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
+
+import com.thoughtworks.xstream.converters.UnmarshallingContext;
+
+import hudson.diagnosis.OldDataMonitor;
+import hudson.model.Queue.Task;
+import hudson.model.queue.FoldableAction;
+import hudson.util.XStream2;
 import jenkins.model.RunAction2;
 
 @ExportedBean

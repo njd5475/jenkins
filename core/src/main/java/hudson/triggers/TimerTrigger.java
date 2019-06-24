@@ -24,9 +24,24 @@
  */
 package hudson.triggers;
 
+import static hudson.Util.fixNull;
+
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+
+import javax.annotation.Nonnull;
+
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.AncestorInPath;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.QueryParameter;
+
+import com.dj.runner.locales.LocalizedString;
+
 import antlr.ANTLRException;
 import hudson.Extension;
-import static hudson.Util.fixNull;
 import hudson.model.BuildableItem;
 import hudson.model.Cause;
 import hudson.model.Item;
@@ -34,17 +49,6 @@ import hudson.scheduler.CronTabList;
 import hudson.scheduler.Hash;
 import hudson.scheduler.RareOrImpossibleDateException;
 import hudson.util.FormValidation;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.AncestorInPath;
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.QueryParameter;
-
-import javax.annotation.Nonnull;
 
 /**
  * {@link Trigger} that runs a job periodically.
@@ -74,7 +78,7 @@ public class TimerTrigger extends Trigger<BuildableItem> {
         }
 
         public String getDisplayName() {
-            return Messages.TimerTrigger_DisplayName();
+            return LocalizedString.TimerTrigger_DisplayName.toString();
         }
 
         // backward compatibility
@@ -94,7 +98,7 @@ public class TimerTrigger extends Trigger<BuildableItem> {
                 return FormValidation.aggregate(validations);
             } catch (ANTLRException e) {
                 if (value.trim().indexOf('\n')==-1 && value.contains("**"))
-                    return FormValidation.error(Messages.TimerTrigger_MissingWhitespace());
+                    return FormValidation.error(LocalizedString.TimerTrigger_MissingWhitespace);
                 return FormValidation.error(e.getMessage());
             }
         }
@@ -110,12 +114,12 @@ public class TimerTrigger extends Trigger<BuildableItem> {
                 Calendar next = ctl.next();
                 if (prev != null && next != null) {
                     DateFormat fmt = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL);
-                    validations.add(FormValidation.ok(Messages.TimerTrigger_would_last_have_run_at_would_next_run_at(fmt.format(prev.getTime()), fmt.format(next.getTime()))));
+                    validations.add(FormValidation.ok(LocalizedString.TimerTrigger_would_last_have_run_at_would_next_run_at.toLocale(fmt.format(prev.getTime()), fmt.format(next.getTime()))));
                 } else {
-                    validations.add(FormValidation.warning(Messages.TimerTrigger_no_schedules_so_will_never_run()));
+                    validations.add(FormValidation.warning(LocalizedString.TimerTrigger_no_schedules_so_will_never_run));
                 }
             } catch (RareOrImpossibleDateException ex) {
-                validations.add(FormValidation.warning(Messages.TimerTrigger_the_specified_cron_tab_is_rare_or_impossible()));
+                validations.add(FormValidation.warning(LocalizedString.TimerTrigger_the_specified_cron_tab_is_rare_or_impossible));
             }
         }
     }
@@ -123,7 +127,7 @@ public class TimerTrigger extends Trigger<BuildableItem> {
     public static class TimerTriggerCause extends Cause {
         @Override
         public String getShortDescription() {
-            return Messages.TimerTrigger_TimerTriggerCause_ShortDescription();
+            return LocalizedString.TimerTrigger_TimerTriggerCause_ShortDescription.toString();
         }
 
         @Override

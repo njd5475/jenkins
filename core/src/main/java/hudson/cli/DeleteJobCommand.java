@@ -23,14 +23,17 @@
  */
 package hudson.cli;
 
+import java.util.HashSet;
+import java.util.List;
+
+import org.kohsuke.args4j.Argument;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.AbortException;
 import hudson.Extension;
 import hudson.model.AbstractItem;
 import jenkins.model.Jenkins;
-import org.kohsuke.args4j.Argument;
-
-import java.util.List;
-import java.util.HashSet;
 
 /**
  * CLI command, which deletes a job or multiple jobs.
@@ -46,7 +49,7 @@ public class DeleteJobCommand extends CLICommand {
     @Override
     public String getShortDescription() {
 
-        return Messages.DeleteJobCommand_ShortDescription();
+        return LocalizedString.DeleteJobCommand_ShortDescription.toString();
     }
 
     @Override

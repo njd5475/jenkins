@@ -23,10 +23,10 @@
  */
 package jenkins.widgets;
 
+import javax.annotation.Nonnull;
+
 import hudson.model.Queue;
 import hudson.model.Run;
-
-import javax.annotation.Nonnull;
 
 /**
  * Represents an entry used by the {@link HistoryPageFilter}.

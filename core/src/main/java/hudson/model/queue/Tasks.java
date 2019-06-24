@@ -23,14 +23,16 @@
  */
 package hudson.model.queue;
 
+import java.util.Collection;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
+import org.acegisecurity.Authentication;
+
 import hudson.model.Queue;
 import hudson.model.Queue.Item;
 import hudson.model.Queue.Task;
-import javax.annotation.CheckForNull;
-import org.acegisecurity.Authentication;
-
-import java.util.Collection;
-import javax.annotation.Nonnull;
 import jenkins.security.QueueItemAuthenticator;
 import jenkins.security.QueueItemAuthenticatorProvider;
 

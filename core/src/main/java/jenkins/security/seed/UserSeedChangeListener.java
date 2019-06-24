@@ -23,17 +23,19 @@
  */
 package jenkins.security.seed;
 
-import hudson.ExtensionList;
-import hudson.model.User;
-import jenkins.security.SecurityListener;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.Nonnull;
+
 import org.apache.tools.ant.ExtensionPoint;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import hudson.ExtensionList;
+import hudson.model.User;
+import jenkins.security.SecurityListener;
 
 /**
  * Listener notified when a user was requested to changed their seed

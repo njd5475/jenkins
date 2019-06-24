@@ -1,11 +1,11 @@
 package jenkins.mvn;
 
-import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
-import hudson.DescriptorExtensionList;
-import hudson.model.Descriptor;
-
 import java.util.List;
 
+import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
+
+import hudson.DescriptorExtensionList;
+import hudson.model.Descriptor;
 import jenkins.model.Jenkins;
 
 /**

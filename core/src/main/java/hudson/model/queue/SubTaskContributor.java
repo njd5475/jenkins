@@ -23,13 +23,13 @@
  */
 package hudson.model.queue;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.model.AbstractProject;
-
-import java.util.Collection;
-import java.util.Collections;
 
 /**
  * Externally contributes {@link SubTask}s to {@link AbstractProject#getSubTasks()}.

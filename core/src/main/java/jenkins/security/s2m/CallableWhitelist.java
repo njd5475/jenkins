@@ -1,16 +1,17 @@
 package jenkins.security.s2m;
 
+import java.util.Collection;
+
+import org.jenkinsci.remoting.Role;
+import org.jenkinsci.remoting.RoleChecker;
+import org.jenkinsci.remoting.RoleSensitive;
+
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.remoting.Callable;
 import hudson.remoting.ChannelBuilder;
 import jenkins.model.Jenkins;
 import jenkins.security.ChannelConfigurator;
-import org.jenkinsci.remoting.Role;
-import org.jenkinsci.remoting.RoleChecker;
-import org.jenkinsci.remoting.RoleSensitive;
-
-import java.util.Collection;
 
 /**
  * Used on the master to selectively allow specific {@link Callable}s to execute on the master

@@ -23,8 +23,6 @@
  */
 package hudson.model;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import hudson.Util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -32,14 +30,19 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import jenkins.model.ModelObjectWithContextMenu;
-import jenkins.model.TransientActionFactory;
+
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import hudson.Util;
+import jenkins.model.ModelObjectWithContextMenu;
+import jenkins.model.TransientActionFactory;
 
 /**
  * {@link ModelObject} that can have additional {@link Action}s.

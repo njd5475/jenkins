@@ -23,15 +23,18 @@
  */
 package hudson.cli;
 
-import hudson.Extension;
-import hudson.model.Run;
-
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashSet;
 import java.util.List;
+
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.Run;
 
 /**
  * Deletes builds records in a bulk.
@@ -43,7 +46,7 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 public class DeleteBuildsCommand extends RunRangeCommand {
     @Override
     public String getShortDescription() {
-        return Messages.DeleteBuildsCommand_ShortDescription();
+        return LocalizedString.DeleteBuildsCommand_ShortDescription.toString();
     }
 
     @Override

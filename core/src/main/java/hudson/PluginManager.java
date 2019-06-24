@@ -23,12 +23,7 @@
  */
 package hudson;
 
-import static hudson.init.InitMilestone.COMPLETED;
-import static hudson.init.InitMilestone.PLUGINS_LISTED;
-import static hudson.init.InitMilestone.PLUGINS_PREPARED;
-import static hudson.init.InitMilestone.PLUGINS_STARTED;
 import static java.util.logging.Level.FINE;
-import static java.util.logging.Level.INFO;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Level.WARNING;
 
@@ -114,6 +109,8 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.dj.runner.locales.LocalizedString;
+
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.PluginWrapper.Dependency;
@@ -159,6 +156,9 @@ import jenkins.util.SystemProperties;
 import jenkins.util.xml.RestrictiveEntityResolver;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
+import static hudson.init.InitMilestone.*;
+import static java.util.logging.Level.*;
 
 /**
  * Manages {@link PluginWrapper}s.
@@ -887,14 +887,14 @@ public abstract class PluginManager extends AbstractModelObject implements Stapl
                         }
                     }
                 } else {
-                    throw new RestartRequiredException(Messages._PluginManager_PluginIsAlreadyInstalled_RestartRequired(sn));
+                    throw new RestartRequiredException(LocalizedString._PluginManager_PluginIsAlreadyInstalled_RestartRequired.asLocale(sn));
                 }
             }
             if (p == null) {
                 p = strategy.createPluginWrapper(arc);
             }
             if (p.supportsDynamicLoad()== YesNoMaybe.NO) {
-                throw new RestartRequiredException(Messages._PluginManager_PluginDoesntSupportDynamicLoad_RestartRequired(sn));
+                throw new RestartRequiredException(LocalizedString._PluginManager_PluginDoesntSupportDynamicLoad_RestartRequired.asLocale(sn));
             }
 
             // there's no need to do cyclic dependency check, because we are deploying one at a time,
@@ -1259,7 +1259,7 @@ public abstract class PluginManager extends AbstractModelObject implements Stapl
     }
 
     public String getDisplayName() {
-        return Messages.PluginManager_DisplayName();
+        return LocalizedString.PluginManager_DisplayName.toString();
     }
 
     public String getSearchUrl() {
@@ -1640,7 +1640,7 @@ public abstract class PluginManager extends AbstractModelObject implements Stapl
             }
             // we allow the upload of the new jpi's and the legacy hpi's
             if(!fileName.endsWith(".jpi") && !fileName.endsWith(".hpi")){
-                throw new Failure(hudson.model.Messages.Hudson_NotAPlugin(fileName));
+                throw new Failure(LocalizedString.Hudson_NotAPlugin.toLocale(fileName));
             }
 
             // first copy into a temporary file name
@@ -1728,12 +1728,12 @@ public abstract class PluginManager extends AbstractModelObject implements Stapl
 
             // Check how it went
             if (!FormValidation.Kind.OK.equals(result.kind)) {
-                LOGGER.log(Level.SEVERE, Messages.PluginManager_UpdateSiteError(CHECK_UPDATE_ATTEMPTS, result.getMessage()));
+                LOGGER.log(Level.SEVERE, LocalizedString.PluginManager_UpdateSiteError.toLocale(CHECK_UPDATE_ATTEMPTS, result.getMessage()));
                 if (CHECK_UPDATE_ATTEMPTS > 1 && !Logger.getLogger(Retrier.class.getName()).isLoggable(Level.WARNING)) {
-                    LOGGER.log(Level.SEVERE, Messages.PluginManager_UpdateSiteChangeLogLevel(Retrier.class.getName()));
+                    LOGGER.log(Level.SEVERE, LocalizedString.PluginManager_UpdateSiteChangeLogLevel.toLocale(Retrier.class.getName()));
                 }
 
-                lastErrorCheckUpdateCenters = Messages.PluginManager_CheckUpdateServerError(result.getMessage());
+                lastErrorCheckUpdateCenters = LocalizedString.PluginManager_CheckUpdateServerError.toLocale(result.getMessage());
             } else {
                 lastErrorCheckUpdateCenters = null;
             }
@@ -1741,7 +1741,7 @@ public abstract class PluginManager extends AbstractModelObject implements Stapl
         } catch (Exception e) {
             // It's never going to be reached because we declared all Exceptions in the withDuringActionExceptions, so
             // whatever exception is considered a expected failed attempt and the retries continue
-            LOGGER.log(Level.WARNING, Messages.PluginManager_UnexpectedException(), e);
+            LOGGER.log(Level.WARNING, LocalizedString.PluginManager_UnexpectedException.toString(), e);
 
             // In order to leave this method as it was, rethrow as IOException
             throw new IOException(e);
@@ -1962,7 +1962,7 @@ public abstract class PluginManager extends AbstractModelObject implements Stapl
             PluginWrapper plugin = this.getPlugin(pluginName);
 
             if (plugin == null) {
-                results.add(new PluginWrapper.PluginDisableResult(pluginName, PluginWrapper.PluginDisableStatus.NO_SUCH_PLUGIN, Messages.PluginWrapper_NoSuchPlugin(pluginName)));
+                results.add(new PluginWrapper.PluginDisableResult(pluginName, PluginWrapper.PluginDisableStatus.NO_SUCH_PLUGIN, LocalizedString.PluginWrapper_NoSuchPlugin.toLocale(pluginName)));
             } else {
                 results.add(plugin.disable(strategy));
             }
@@ -2098,8 +2098,8 @@ public abstract class PluginManager extends AbstractModelObject implements Stapl
     }
     public static boolean FAST_LOOKUP = !SystemProperties.getBoolean(PluginManager.class.getName()+".noFastLookup");
 
-    public static final Permission UPLOAD_PLUGINS = new Permission(Jenkins.PERMISSIONS, "UploadPlugins", Messages._PluginManager_UploadPluginsPermission_Description(),Jenkins.ADMINISTER,PermissionScope.JENKINS);
-    public static final Permission CONFIGURE_UPDATECENTER = new Permission(Jenkins.PERMISSIONS, "ConfigureUpdateCenter", Messages._PluginManager_ConfigureUpdateCenterPermission_Description(),Jenkins.ADMINISTER,PermissionScope.JENKINS);
+    public static final Permission UPLOAD_PLUGINS = new Permission(Jenkins.PERMISSIONS, "UploadPlugins", LocalizedString._PluginManager_UploadPluginsPermission_Description.asLocale(),Jenkins.ADMINISTER,PermissionScope.JENKINS);
+    public static final Permission CONFIGURE_UPDATECENTER = new Permission(Jenkins.PERMISSIONS, "ConfigureUpdateCenter", LocalizedString._PluginManager_ConfigureUpdateCenterPermission_Description.asLocale(),Jenkins.ADMINISTER,PermissionScope.JENKINS);
 
     /**
      * Remembers why a plugin failed to deploy.
@@ -2133,7 +2133,7 @@ public abstract class PluginManager extends AbstractModelObject implements Stapl
 
         @Override
         public String getDisplayName() {
-            return Messages.PluginManager_PluginCycleDependenciesMonitor_DisplayName();
+            return LocalizedString.PluginManager_PluginCycleDependenciesMonitor_DisplayName.toString();
         }
 
         private transient volatile boolean isActive = false;
@@ -2197,7 +2197,7 @@ public abstract class PluginManager extends AbstractModelObject implements Stapl
 
         @Override
         public String getDisplayName() {
-            return Messages.PluginManager_PluginUpdateMonitor_DisplayName();
+            return LocalizedString.PluginManager_PluginUpdateMonitor_DisplayName.toString();
         }
 
         /**

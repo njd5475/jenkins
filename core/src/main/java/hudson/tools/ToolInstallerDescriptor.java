@@ -24,12 +24,12 @@
 
 package hudson.tools;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hudson.DescriptorExtensionList;
 import hudson.model.Descriptor;
 import jenkins.model.Jenkins;
-
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Descriptor for a {@link ToolInstaller}.

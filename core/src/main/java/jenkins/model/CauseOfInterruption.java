@@ -23,17 +23,21 @@
  */
 package jenkins.model;
 
+import java.io.Serializable;
+import java.util.Collections;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.console.ModelHyperlinkNote;
 import hudson.model.Executor;
 import hudson.model.TaskListener;
 import hudson.model.User;
-import org.kohsuke.stapler.export.Exported;
-import org.kohsuke.stapler.export.ExportedBean;
-
-import java.io.Serializable;
-import java.util.Collections;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 
 /**
  * Records why an {@linkplain Executor#interrupt() executor is interrupted}.
@@ -119,14 +123,14 @@ public abstract class CauseOfInterruption implements Serializable {
         }
 
         public String getShortDescription() {
-            return Messages.CauseOfInterruption_ShortDescription(user);
+            return LocalizedString.CauseOfInterruption_ShortDescription.toLocale(user);
         }
 
         @Override
         public void print(TaskListener listener) {
             final User userInstance = getUser();
             listener.getLogger().println(
-                Messages.CauseOfInterruption_ShortDescription(
+                LocalizedString.CauseOfInterruption_ShortDescription.toLocale(
                         userInstance != null ? ModelHyperlinkNote.encodeTo(userInstance) : user));
         }
 

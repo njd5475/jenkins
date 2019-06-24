@@ -23,7 +23,26 @@
  */
 package hudson.model;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Stack;
+import java.util.StringTokenizer;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
+import org.acegisecurity.Authentication;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
+
 import com.thoughtworks.xstream.XStream;
+
 import hudson.DescriptorExtensionList;
 import hudson.Extension;
 import hudson.XmlFile;
@@ -35,26 +54,10 @@ import hudson.security.AccessControlled;
 import hudson.triggers.Trigger;
 import hudson.util.DescriptorList;
 import hudson.util.EditDistance;
-import jenkins.util.MemoryReductionUtil;
 import hudson.util.XStream2;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Stack;
-import java.util.StringTokenizer;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import jenkins.model.DirectlyModifiableTopLevelItemGroup;
 import jenkins.model.Jenkins;
-import org.acegisecurity.Authentication;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
+import jenkins.util.MemoryReductionUtil;
 
 /**
  * Convenience methods related to {@link Item}.

@@ -23,13 +23,16 @@
  */
 package hudson.views;
 
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.StaplerRequest;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.model.View;
 import jenkins.model.GlobalConfiguration;
 import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.StaplerRequest;
 
 /**
  * Adds the default view configuration to the system config page.
@@ -46,7 +49,7 @@ public class GlobalDefaultViewConfiguration extends GlobalConfiguration {
             final String viewName = json.getString("primaryView");
             final View newPrimaryView = j.getView(viewName);
             if (newPrimaryView == null) {
-                throw new FormException(Messages.GlobalDefaultViewConfiguration_ViewDoesNotExist(viewName), "primaryView");
+                throw new FormException(LocalizedString.GlobalDefaultViewConfiguration_ViewDoesNotExist.toLocale(viewName), "primaryView");
             }
             j.setPrimaryView(newPrimaryView);
         } else {

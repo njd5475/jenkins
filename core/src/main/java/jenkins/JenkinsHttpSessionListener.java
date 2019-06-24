@@ -23,13 +23,15 @@
  */
 package jenkins;
 
-import jenkins.util.HttpSessionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.servlet.http.HttpSessionEvent;
+
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import javax.servlet.http.HttpSessionEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import jenkins.util.HttpSessionListener;
 
 /**
  * Web container hook for the {@link HttpSessionListener} {@link hudson.ExtensionPoint}.

@@ -24,25 +24,6 @@
  */
 package hudson.triggers;
 
-import hudson.DependencyRunner;
-import hudson.DependencyRunner.ProjectRunnable;
-import hudson.DescriptorExtensionList;
-import hudson.Extension;
-import hudson.ExtensionPoint;
-import hudson.model.AbstractProject;
-import hudson.model.Action;
-import hudson.model.Build;
-import hudson.model.Describable;
-import hudson.scheduler.Hash;
-import jenkins.model.Jenkins;
-import hudson.model.Item;
-import hudson.model.PeriodicWork;
-import hudson.model.Project;
-import hudson.model.TopLevelItem;
-import hudson.model.TopLevelItemDescriptor;
-import hudson.scheduler.CronTab;
-import hudson.scheduler.CronTabList;
-
 import java.io.InvalidObjectException;
 import java.io.ObjectStreamException;
 import java.util.ArrayList;
@@ -52,18 +33,37 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import antlr.ANTLRException;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
-import hudson.model.Items;
-import jenkins.model.ParameterizedJobMixIn;
 import org.jenkinsci.Symbol;
+
+import antlr.ANTLRException;
+import hudson.DependencyRunner;
+import hudson.DependencyRunner.ProjectRunnable;
+import hudson.DescriptorExtensionList;
+import hudson.Extension;
+import hudson.ExtensionPoint;
+import hudson.model.AbstractProject;
+import hudson.model.Action;
+import hudson.model.Build;
+import hudson.model.Describable;
+import hudson.model.Item;
+import hudson.model.Items;
+import hudson.model.PeriodicWork;
+import hudson.model.Project;
+import hudson.model.TopLevelItem;
+import hudson.model.TopLevelItemDescriptor;
+import hudson.scheduler.CronTab;
+import hudson.scheduler.CronTabList;
+import hudson.scheduler.Hash;
+import jenkins.model.Jenkins;
+import jenkins.model.ParameterizedJobMixIn;
 
 /**
  * Triggers a {@link Build}.

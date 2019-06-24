@@ -1,12 +1,13 @@
 package jenkins;
 
+import java.io.File;
+
+import org.jenkinsci.remoting.RoleChecker;
+
 import hudson.FilePath.FileCallable;
 import hudson.remoting.VirtualChannel;
 import jenkins.security.Roles;
 import jenkins.slaves.RemotingVersionInfo;
-import org.jenkinsci.remoting.RoleChecker;
-
-import java.io.File;
 
 /**
  * {@link FileCallable}s that are meant to be only used on the master.

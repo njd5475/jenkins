@@ -23,7 +23,13 @@
  */
 package jenkins.security.stapler;
 
-import hudson.ExtensionList;
+import java.lang.annotation.Annotation;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
+
+import javax.annotation.Nonnull;
+
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.Function;
@@ -31,11 +37,7 @@ import org.kohsuke.stapler.FunctionList;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.interceptor.InterceptorAnnotation;
 
-import javax.annotation.Nonnull;
-import java.lang.annotation.Annotation;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.regex.Pattern;
+import hudson.ExtensionList;
 
 @Restricted(NoExternalUse.class)
 public class DoActionFilter implements FunctionList.Filter {

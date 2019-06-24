@@ -23,17 +23,18 @@
  */
 package jenkins;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 import com.google.common.collect.Lists;
+
 import hudson.ExtensionComponent;
 import hudson.ExtensionFinder;
 import hudson.ExtensionPoint;
 import hudson.model.Descriptor;
 import hudson.model.Hudson;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Represents the components that's newly discovered during {@link ExtensionFinder#refresh()}.

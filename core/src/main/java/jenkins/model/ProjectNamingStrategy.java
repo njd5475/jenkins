@@ -23,6 +23,20 @@
  */
 package jenkins.model;
 
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
+import javax.servlet.ServletException;
+
+import org.apache.commons.lang.StringUtils;
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.QueryParameter;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.DescriptorExtensionList;
 import hudson.Extension;
 import hudson.ExtensionPoint;
@@ -30,19 +44,7 @@ import hudson.Util;
 import hudson.model.Describable;
 import hudson.model.Descriptor;
 import hudson.model.Failure;
-import jenkins.model.Messages;
 import hudson.util.FormValidation;
-import java.io.IOException;
-
-import java.io.Serializable;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-import javax.servlet.ServletException;
-
-import org.apache.commons.lang.StringUtils;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.QueryParameter;
 
 /**
  * This ExtensionPoint allows to enforce the name of projects/jobs.
@@ -113,7 +115,7 @@ public abstract class ProjectNamingStrategy implements Describable<ProjectNaming
         public static final class DescriptorImpl extends ProjectNamingStrategyDescriptor {
             @Override
             public String getDisplayName() {
-                return Messages.DefaultProjectNamingStrategy_DisplayName();
+                return LocalizedString.DefaultProjectNamingStrategy_DisplayName.toString();
             }
 
             @Override
@@ -156,7 +158,7 @@ public abstract class ProjectNamingStrategy implements Describable<ProjectNaming
             if (StringUtils.isNotBlank(namePattern) && StringUtils.isNotBlank(name)) {
                 if (!Pattern.matches(namePattern, name)) {
                     throw new Failure(StringUtils.isEmpty(description) ?
-                        Messages.Hudson_JobNameConventionNotApplyed(name, namePattern) :
+                        LocalizedString.Hudson_JobNameConventionNotApplyed.toLocale(name, namePattern) :
                         description);
                 }
             }
@@ -182,7 +184,7 @@ public abstract class ProjectNamingStrategy implements Describable<ProjectNaming
 
             @Override
             public String getDisplayName() {
-                return Messages.PatternProjectNamingStrategy_DisplayName();
+                return LocalizedString.PatternProjectNamingStrategy_DisplayName.toString();
             }
 
             @Override
@@ -194,12 +196,12 @@ public abstract class ProjectNamingStrategy implements Describable<ProjectNaming
                     throws IOException, ServletException {
                 String pattern = Util.fixEmptyAndTrim(value);
                 if (pattern == null) {
-                    return FormValidation.error(Messages.PatternProjectNamingStrategy_NamePatternRequired());
+                    return FormValidation.error(LocalizedString.PatternProjectNamingStrategy_NamePatternRequired);
                 }
                 try {
                     Pattern.compile(pattern);
                 } catch (PatternSyntaxException e) {
-                    return FormValidation.error(Messages.PatternProjectNamingStrategy_NamePatternInvalidSyntax());
+                    return FormValidation.error(LocalizedString.PatternProjectNamingStrategy_NamePatternInvalidSyntax);
                 }
                 return FormValidation.ok();
             }

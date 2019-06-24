@@ -1,15 +1,15 @@
 package jenkins;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.util.Set;
+
+import javax.annotation.CheckForNull;
+
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.TcpSlaveAgentListener;
-
-import java.io.IOException;
-import java.net.Socket;
-import java.util.Set;
-import javax.annotation.CheckForNull;
-
 import jenkins.model.Jenkins;
 
 /**

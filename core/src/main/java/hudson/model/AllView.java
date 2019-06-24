@@ -23,25 +23,29 @@
  */
 package hudson.model;
 
+import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.Nonnull;
-import jenkins.util.SystemProperties;
+import javax.servlet.ServletException;
+
 import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.Symbol;
+import org.kohsuke.args4j.spi.Messages;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
-
-import javax.servlet.ServletException;
-import java.io.IOException;
-import java.util.Collection;
-
-import hudson.model.Descriptor.FormException;
-import hudson.Extension;
 import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.Descriptor.FormException;
+import jenkins.util.SystemProperties;
 
 /**
  * {@link View} that contains everything.
@@ -87,7 +91,7 @@ public class AllView extends View {
 
     @Override
     public String getDisplayName() {
-        return DEFAULT_VIEW_NAME.equals(name) ? Messages.Hudson_ViewName() : name;
+        return DEFAULT_VIEW_NAME.equals(name) ? LocalizedString.Hudson_ViewName.toLocale() : name;
     }
 
     @RequirePOST
@@ -159,7 +163,7 @@ public class AllView extends View {
             if (allView != null) {
                 // the primary view is an AllView but using a non-default name
                 for (Locale l : Locale.getAvailableLocales()) {
-                    if (primaryView.equals(Messages._Hudson_ViewName().toString(l))) {
+                    if (primaryView.equals(LocalizedString._Hudson_ViewName.toString(l))) {
                         // bingo JENKINS-38606 detected
                         LOGGER.log(Level.INFO,
                                 "JENKINS-38606 detected for AllView in {0}; renaming view from {1} to {2}",
@@ -186,7 +190,7 @@ public class AllView extends View {
         }
 
         public String getDisplayName() {
-            return Messages.Hudson_ViewName();
+            return LocalizedString.Hudson_ViewName.toString();
         }
     }
 }

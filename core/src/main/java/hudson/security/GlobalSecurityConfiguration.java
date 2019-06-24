@@ -23,17 +23,6 @@
  */
 package hudson.security;
 
-import com.google.common.base.Predicate;
-import hudson.BulkChange;
-import hudson.Extension;
-import hudson.Functions;
-import hudson.markup.MarkupFormatter;
-import hudson.model.Descriptor;
-import hudson.model.Descriptor.FormException;
-import hudson.model.Describable;
-import hudson.model.ManagementLink;
-import hudson.util.FormApply;
-
 import java.io.IOException;
 import java.util.Set;
 import java.util.TreeSet;
@@ -42,18 +31,30 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 
-import jenkins.model.GlobalConfigurationCategory;
-import jenkins.model.Jenkins;
-import jenkins.util.ServerTcpPort;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
+import com.google.common.base.Predicate;
+
+import hudson.BulkChange;
+import hudson.Extension;
+import hudson.Functions;
+import hudson.markup.MarkupFormatter;
+import hudson.model.Describable;
+import hudson.model.Descriptor;
+import hudson.model.Descriptor.FormException;
+import hudson.model.ManagementLink;
+import hudson.util.FormApply;
+import jenkins.model.GlobalConfigurationCategory;
+import jenkins.model.Jenkins;
+import jenkins.util.ServerTcpPort;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * Security configuration.
@@ -170,7 +171,7 @@ public class GlobalSecurityConfiguration extends ManagementLink implements Descr
     
     @Override
     public String getDescription() {
-        return Messages.GlobalSecurityConfiguration_Description();
+        return LocalizedString.GlobalSecurityConfiguration_Description.toString();
     }
 
     @Override
@@ -208,7 +209,7 @@ public class GlobalSecurityConfiguration extends ManagementLink implements Descr
     public static final class DescriptorImpl extends Descriptor<GlobalSecurityConfiguration> {
         @Override
         public String getDisplayName() {
-            return Messages.GlobalSecurityConfiguration_DisplayName();
+            return LocalizedString.GlobalSecurityConfiguration_DisplayName.toString();
         }
     }
 }

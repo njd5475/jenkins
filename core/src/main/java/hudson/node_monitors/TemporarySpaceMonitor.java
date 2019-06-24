@@ -23,21 +23,24 @@
  */
 package hudson.node_monitors;
 
-import hudson.Extension;
-import hudson.FilePath;
-import jenkins.MasterToSlaveFileCallable;
-import hudson.model.Computer;
-import hudson.model.Node;
-import hudson.remoting.Callable;
-import jenkins.model.Jenkins;
-import hudson.node_monitors.DiskSpaceMonitorDescriptor.DiskSpace;
-import hudson.remoting.VirtualChannel;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.DataBoundConstructor;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.FilePath;
+import hudson.model.Computer;
+import hudson.model.Node;
+import hudson.node_monitors.DiskSpaceMonitorDescriptor.DiskSpace;
+import hudson.remoting.Callable;
+import hudson.remoting.VirtualChannel;
+import jenkins.MasterToSlaveFileCallable;
+import jenkins.model.Jenkins;
 
 /**
  * Monitors the disk space of "/tmp".
@@ -75,7 +78,7 @@ public class TemporarySpaceMonitor extends AbstractDiskSpaceMonitor {
         }
 
         public String getDisplayName() {
-            return Messages.TemporarySpaceMonitor_DisplayName();
+            return LocalizedString.TemporarySpaceMonitor_DisplayName.toString();
         }
 
         @Override

@@ -1,13 +1,15 @@
 package hudson.node_monitors;
 
-import hudson.model.Computer;
-import hudson.node_monitors.DiskSpaceMonitorDescriptor.DiskSpace;
+import java.text.ParseException;
+import java.util.logging.Logger;
 
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import java.text.ParseException;
-import java.util.logging.Logger;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.model.Computer;
+import hudson.node_monitors.DiskSpaceMonitorDescriptor.DiskSpace;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -47,7 +49,7 @@ public abstract class AbstractDiskSpaceMonitor extends NodeMonitor {
         if(size!=null && size.size > getThresholdBytes() && c.isOffline() && c.getOfflineCause() instanceof DiskSpace)
             if(this.getClass().equals(((DiskSpace)c.getOfflineCause()).getTrigger()))
                 if(getDescriptor().markOnline(c)) {
-                    LOGGER.info(Messages.DiskSpaceMonitor_MarkedOnline(c.getDisplayName()));
+                    LOGGER.info(LocalizedString.DiskSpaceMonitor_MarkedOnline.toLocale(c.getDisplayName()));
                 }
         return size;
     }
@@ -64,7 +66,7 @@ public abstract class AbstractDiskSpaceMonitor extends NodeMonitor {
         if(size!=null && size.size < getThresholdBytes()) {
         	size.setTriggered(this.getClass(), true);
         	if(getDescriptor().markOffline(c,size)) {
-        		LOGGER.warning(Messages.DiskSpaceMonitor_MarkedOffline(c.getDisplayName()));
+        		LOGGER.warning(LocalizedString.DiskSpaceMonitor_MarkedOffline.toLocale(c.getDisplayName()));
         	}
         }
         return size;

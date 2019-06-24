@@ -24,11 +24,11 @@
 
 package hudson.util.io;
 
-import hudson.FilePath.TarCompression;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
+
+import hudson.FilePath.TarCompression;
 
 /**
  * Creates {@link Archiver} on top of a stream.

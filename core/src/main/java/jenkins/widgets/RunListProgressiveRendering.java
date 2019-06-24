@@ -24,16 +24,18 @@
 
 package jenkins.widgets;
 
-import hudson.model.Run;
-import hudson.util.RunList;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import hudson.model.Run;
+import hudson.util.RunList;
 import jenkins.util.ProgressiveRendering;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
 
 /**
  * Makes it possible to incrementally render some information from a {@link RunList}.

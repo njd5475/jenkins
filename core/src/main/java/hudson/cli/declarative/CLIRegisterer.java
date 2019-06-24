@@ -23,29 +23,8 @@
  */
 package hudson.cli.declarative;
 
-import hudson.AbortException;
-import hudson.Extension;
-import hudson.ExtensionComponent;
-import hudson.ExtensionFinder;
-import hudson.Functions;
-import hudson.Util;
-import hudson.cli.CLICommand;
-import hudson.cli.CloneableCLICommand;
-import hudson.model.Hudson;
-import jenkins.ExtensionComponentSet;
-import jenkins.ExtensionRefreshException;
-import jenkins.model.Jenkins;
-import org.acegisecurity.AccessDeniedException;
-import org.acegisecurity.Authentication;
-import org.acegisecurity.BadCredentialsException;
-import org.acegisecurity.context.SecurityContext;
-import org.acegisecurity.context.SecurityContextHolder;
-import org.jvnet.hudson.annotation_indexer.Index;
-import org.jvnet.localizer.ResourceBundleHolder;
-import org.kohsuke.args4j.CmdLineParser;
-import org.kohsuke.args4j.CmdLineException;
+import static java.util.logging.Level.SEVERE;
 
-import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -59,11 +38,34 @@ import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.Stack;
-import static java.util.logging.Level.SEVERE;
-
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.annotation.Nonnull;
+
+import org.acegisecurity.AccessDeniedException;
+import org.acegisecurity.Authentication;
+import org.acegisecurity.BadCredentialsException;
+import org.acegisecurity.context.SecurityContext;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.jvnet.hudson.annotation_indexer.Index;
+import org.jvnet.localizer.ResourceBundleHolder;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+
+import hudson.AbortException;
+import hudson.Extension;
+import hudson.ExtensionComponent;
+import hudson.ExtensionFinder;
+import hudson.Functions;
+import hudson.Util;
+import hudson.cli.CLICommand;
+import hudson.cli.CloneableCLICommand;
+import hudson.model.Hudson;
+import jenkins.ExtensionComponentSet;
+import jenkins.ExtensionRefreshException;
+import jenkins.model.Jenkins;
 
 /**
  * Discover {@link CLIMethod}s and register them as {@link CLICommand} implementations.
@@ -166,7 +168,7 @@ public class CLIRegisterer extends ExtensionFinder {
                          *      then "foo" is the sub-command and the argument list is ["bar","zot"].
                          * @param locale
                          *      Locale of the client (which can be different from that of the server.) Good behaving command implementation
-                         *      would use this locale for formatting messages.
+                         *      would use this locale for formatting Localized.
                          * @param stdin
                          *      Connected to the stdin of the CLI client.
                          * @param stdout

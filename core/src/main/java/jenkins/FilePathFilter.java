@@ -1,12 +1,13 @@
 package jenkins;
 
+import java.io.File;
+
+import javax.annotation.CheckForNull;
+
 import hudson.FilePath;
 import hudson.remoting.Channel;
 import hudson.remoting.ChannelBuilder;
 import jenkins.security.ChannelConfigurator;
-
-import javax.annotation.CheckForNull;
-import java.io.File;
 
 /**
  * Inspects {@link FilePath} access from remote channels.

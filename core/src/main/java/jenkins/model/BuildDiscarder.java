@@ -1,5 +1,7 @@
 package jenkins.model;
 
+import java.io.IOException;
+
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
@@ -7,6 +9,7 @@ import com.thoughtworks.xstream.core.JVM;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.mapper.Mapper;
+
 import hudson.ExtensionPoint;
 import hudson.model.AbstractDescribableImpl;
 import hudson.model.AbstractProject;
@@ -14,8 +17,6 @@ import hudson.model.Job;
 import hudson.model.Run;
 import hudson.tasks.LogRotator;
 import hudson.util.RobustReflectionConverter;
-
-import java.io.IOException;
 
 /**
  * Implementation of "Discard old build records" feature.

@@ -1,19 +1,7 @@
 package jenkins.model;
 
-import hudson.Extension;
-import hudson.Util;
-import hudson.XmlFile;
-import hudson.model.PersistentDescriptor;
-import hudson.util.FormValidation;
-import hudson.util.XStream2;
-import org.jenkinsci.Symbol;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.QueryParameter;
+import static hudson.Util.fixNull;
 
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -21,9 +9,25 @@ import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static hudson.Util.fixNull;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.servlet.ServletContext;
+
+import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.QueryParameter;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.Util;
+import hudson.XmlFile;
+import hudson.model.PersistentDescriptor;
+import hudson.util.FormValidation;
+import hudson.util.XStream2;
 
 /**
  * Stores the location of Jenkins (e-mail address and the HTTP URL.)
@@ -91,7 +95,7 @@ public class JenkinsLocationConfiguration extends GlobalConfiguration implements
      */
     public @Nonnull String getAdminAddress() {
         String v = adminAddress;
-        if(v==null)     v = Messages.Mailer_Address_Not_Configured();
+        if(v==null)     v = LocalizedString.Mailer_Address_Not_Configured.toLocale();
         return v;
     }
 
@@ -161,7 +165,7 @@ public class JenkinsLocationConfiguration extends GlobalConfiguration implements
      */
     public FormValidation doCheckUrl(@QueryParameter String value) {
         if(value.startsWith("http://localhost"))
-            return FormValidation.warning(Messages.Mailer_Localhost_Error());
+            return FormValidation.warning(LocalizedString.Mailer_Localhost_Error);
         return FormValidation.ok();
     }
 

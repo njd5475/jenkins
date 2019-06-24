@@ -23,9 +23,6 @@
  */
 package hudson.util;
 
-import hudson.CloseProofOutputStream;
-import hudson.model.TaskListener;
-import hudson.remoting.RemoteOutputStream;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
@@ -42,11 +39,16 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jenkins.util.SystemProperties;
-import org.kohsuke.stapler.framework.io.WriterOutputStream;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+
+import org.kohsuke.stapler.framework.io.WriterOutputStream;
+
+import hudson.CloseProofOutputStream;
+import hudson.model.TaskListener;
+import hudson.remoting.RemoteOutputStream;
+import jenkins.util.SystemProperties;
 
 // TODO: AbstractTaskListener is empty now, but there are dependencies on that e.g. Ruby Runtime - JENKINS-48116)
 // The change needs API deprecation policy or external usages cleanup.

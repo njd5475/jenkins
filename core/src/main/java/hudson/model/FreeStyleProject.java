@@ -23,14 +23,17 @@
  */
 package hudson.model;
 
-import hudson.Extension;
-import jenkins.model.Jenkins;
 import org.jenkins.ui.icon.Icon;
 import org.jenkins.ui.icon.IconSet;
 import org.jenkinsci.Symbol;
-import jenkins.model.item_category.StandaloneProjectsCategory;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import jenkins.model.Jenkins;
+import jenkins.model.item_category.StandaloneProjectsCategory;
 
 /**
  * Free-style software project.
@@ -77,7 +80,7 @@ public class FreeStyleProject extends Project<FreeStyleProject,FreeStyleBuild> i
         }
 
         public String getDisplayName() {
-            return Messages.FreeStyleProject_DisplayName();
+            return LocalizedString.FreeStyleProject_DisplayName.toString();
         }
 
         public FreeStyleProject newInstance(ItemGroup parent, String name) {
@@ -86,7 +89,7 @@ public class FreeStyleProject extends Project<FreeStyleProject,FreeStyleBuild> i
 
         @Override
         public String getDescription() {
-            return Messages.FreeStyleProject_Description();
+            return LocalizedString.FreeStyleProject_Description.toString();
         }
 
         @Override

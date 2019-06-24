@@ -23,9 +23,12 @@
  */
 package hudson.cli;
 
+import org.kohsuke.args4j.Argument;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.model.Node;
-import org.kohsuke.args4j.Argument;
 
 /**
  * CLI command, which waits till the node switches to the online state.
@@ -40,7 +43,7 @@ public class WaitNodeOnlineCommand extends CLICommand {
 
     @Override
     public String getShortDescription() {
-        return Messages.WaitNodeOnlineCommand_ShortDescription();
+        return LocalizedString.WaitNodeOnlineCommand_ShortDescription.toString();
     }
 
     @Override

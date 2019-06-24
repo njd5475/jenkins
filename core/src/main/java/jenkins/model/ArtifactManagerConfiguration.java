@@ -24,15 +24,17 @@
 
 package jenkins.model;
 
-import hudson.Extension;
-import hudson.model.PersistentDescriptor;
-import hudson.util.DescribableList;
 import java.io.IOException;
-import net.sf.json.JSONObject;
+
+import javax.annotation.Nonnull;
+
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.StaplerRequest;
 
-import javax.annotation.Nonnull;
+import hudson.Extension;
+import hudson.model.PersistentDescriptor;
+import hudson.util.DescribableList;
+import net.sf.json.JSONObject;
 
 /**
  * List of configured {@link ArtifactManagerFactory}s.

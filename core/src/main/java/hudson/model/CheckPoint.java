@@ -23,11 +23,12 @@
  */
 package hudson.model;
 
-import hudson.tasks.BuildStep;
-import hudson.tasks.Recorder;
-import hudson.tasks.Builder;
-import hudson.scm.SCM;
 import javax.annotation.Nonnull;
+
+import hudson.scm.SCM;
+import hudson.tasks.BuildStep;
+import hudson.tasks.Builder;
+import hudson.tasks.Recorder;
 
 /**
  * Provides a mechanism for synchronizing build executions in the face of concurrent builds.

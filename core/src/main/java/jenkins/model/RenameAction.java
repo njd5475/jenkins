@@ -24,13 +24,15 @@
 
 package jenkins.model;
 
+import java.util.Collection;
+import java.util.Collections;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
 import hudson.Extension;
 import hudson.model.AbstractItem;
 import hudson.model.Action;
-import java.util.Collection;
-import java.util.Collections;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
 
 @Restricted(NoExternalUse.class)
 public class RenameAction implements Action {

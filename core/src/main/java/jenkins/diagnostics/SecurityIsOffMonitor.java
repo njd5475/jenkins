@@ -1,14 +1,17 @@
 package jenkins.diagnostics;
 
-import hudson.Extension;
-import hudson.model.AdministrativeMonitor;
-import jenkins.model.Jenkins;
+import java.io.IOException;
+
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import java.io.IOException;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.AdministrativeMonitor;
+import jenkins.model.Jenkins;
 
 /**
  * Unsecured Jenkins is, well, insecure.
@@ -24,7 +27,7 @@ public class SecurityIsOffMonitor extends AdministrativeMonitor {
 
     @Override
     public String getDisplayName() {
-        return Messages.SecurityIsOffMonitor_DisplayName();
+        return LocalizedString.SecurityIsOffMonitor_DisplayName.toString();
     }
 
     @Override

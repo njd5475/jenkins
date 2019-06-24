@@ -23,8 +23,10 @@
  */
 package hudson.node_monitors;
 
-import hudson.model.AdministrativeMonitor;
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
+import hudson.model.AdministrativeMonitor;
 
 /**
  * If {@link NodeMonitor} marks the node as offline, we'll show this to the admin to get their attention.
@@ -39,7 +41,7 @@ import hudson.Extension;
 public class MonitorMarkedNodeOffline extends AdministrativeMonitor {
     @Override
     public String getDisplayName() {
-        return Messages.MonitorMarkedNodeOffline_DisplayName();
+        return LocalizedString.MonitorMarkedNodeOffline_DisplayName.toString();
     }
 
     public boolean active = false;

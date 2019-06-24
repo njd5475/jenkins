@@ -24,17 +24,6 @@
 
 package hudson.tools;
 
-import hudson.Extension;
-import hudson.FilePath;
-import jenkins.MasterToSlaveFileCallable;
-import hudson.ProxyConfiguration;
-import hudson.Util;
-import hudson.Functions;
-import hudson.model.Node;
-import hudson.model.TaskListener;
-import hudson.remoting.VirtualChannel;
-import hudson.util.FormValidation;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -42,11 +31,24 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import jenkins.model.Jenkins;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.FilePath;
+import hudson.Functions;
+import hudson.ProxyConfiguration;
+import hudson.Util;
+import hudson.model.Node;
+import hudson.model.TaskListener;
+import hudson.remoting.VirtualChannel;
+import hudson.util.FormValidation;
+import jenkins.MasterToSlaveFileCallable;
+import jenkins.model.Jenkins;
 
 /**
  * Installs a tool into the Hudson working area by downloading and unpacking a ZIP file.
@@ -94,7 +96,7 @@ public class ZipExtractionInstaller extends ToolInstaller {
     public static class DescriptorImpl extends ToolInstallerDescriptor<ZipExtractionInstaller> {
 
         public String getDisplayName() {
-            return Messages.ZipExtractionInstaller_DescriptorImpl_displayName();
+            return LocalizedString.ZipExtractionInstaller_DescriptorImpl_displayName.toString();
         }
 
         @RequirePOST
@@ -106,14 +108,14 @@ public class ZipExtractionInstaller extends ToolInstaller {
                 conn.connect();
                 if (conn instanceof HttpURLConnection) {
                     if (((HttpURLConnection) conn).getResponseCode() != HttpURLConnection.HTTP_OK) {
-                        return FormValidation.error(Messages.ZipExtractionInstaller_bad_connection());
+                        return FormValidation.error(LocalizedString.ZipExtractionInstaller_bad_connection);
                     }
                 }
                 return FormValidation.ok();
             } catch (MalformedURLException x) {
-                return FormValidation.error(Messages.ZipExtractionInstaller_malformed_url());
+                return FormValidation.error(LocalizedString.ZipExtractionInstaller_malformed_url);
             } catch (IOException x) {
-                return FormValidation.error(x,Messages.ZipExtractionInstaller_could_not_connect());
+                return FormValidation.error(x,LocalizedString.ZipExtractionInstaller_could_not_connect);
             }
         }
 

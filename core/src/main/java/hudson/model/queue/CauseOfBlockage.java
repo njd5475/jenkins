@@ -1,15 +1,17 @@
 package hudson.model.queue;
 
+import javax.annotation.Nonnull;
+
+import com.dj.runner.locales.Localizable;
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.console.ModelHyperlinkNote;
 import hudson.model.Computer;
-import hudson.model.Queue.Task;
-import hudson.model.Node;
-import hudson.model.Messages;
 import hudson.model.Label;
+import hudson.model.Node;
+import hudson.model.Queue.Task;
 import hudson.model.TaskListener;
 import hudson.slaves.Cloud;
-import javax.annotation.Nonnull;
-import org.jvnet.localizer.Localizable;
 
 /**
  * If something is blocked/vetoed, this object represents why.
@@ -45,7 +47,6 @@ public abstract class CauseOfBlockage {
      * Obtains a simple implementation backed by {@link Localizable}.
      */
     public static CauseOfBlockage fromMessage(@Nonnull final Localizable l) {
-        l.getKey(); // null check
         return new CauseOfBlockage() {
             @Override
             public String getShortDescription() {
@@ -97,13 +98,13 @@ public abstract class CauseOfBlockage {
 
         public String getShortDescription() {
             String name = (node.toComputer() != null) ? node.toComputer().getDisplayName() : node.getDisplayName();
-            return Messages.Queue_NodeOffline(name);
+            return LocalizedString.Queue_NodeOffline.toLocale(name);
         }
         
         @Override
         public void print(TaskListener listener) {
             listener.getLogger().println(
-                Messages.Queue_NodeOffline(ModelHyperlinkNote.encodeTo(node)));
+                LocalizedString.Queue_NodeOffline.toLocale(ModelHyperlinkNote.encodeTo(node)));
         }
     }
 
@@ -123,13 +124,13 @@ public abstract class CauseOfBlockage {
         public String getShortDescription() {
             Computer computer = node.toComputer();
             String name = computer != null ? computer.getDisplayName() : node.getDisplayName();
-            return Messages.Node_BecauseNodeIsNotAcceptingTasks(name);
+            return LocalizedString.Node_BecauseNodeIsNotAcceptingTasks.toLocale(name);
         }
 
         @Override
         public void print(TaskListener listener) {
             listener.getLogger().println(
-                Messages.Node_BecauseNodeIsNotAcceptingTasks(ModelHyperlinkNote.encodeTo(node)));
+                LocalizedString.Node_BecauseNodeIsNotAcceptingTasks.toLocale(ModelHyperlinkNote.encodeTo(node)));
         }
 
     }
@@ -146,9 +147,9 @@ public abstract class CauseOfBlockage {
 
         public String getShortDescription() {
             if (label.isEmpty()) {
-                return Messages.Queue_LabelHasNoNodes(label.getName());
+                return LocalizedString.Queue_LabelHasNoNodes.toLocale(label.getName());
             } else {
-                return Messages.Queue_AllNodesOffline(label.getName());
+                return LocalizedString.Queue_AllNodesOffline.toLocale(label.getName());
             }
         }
     }
@@ -165,12 +166,12 @@ public abstract class CauseOfBlockage {
 
         public String getShortDescription() {
             String name = (node.toComputer() != null) ? node.toComputer().getDisplayName() : node.getDisplayName();
-            return Messages.Queue_WaitingForNextAvailableExecutorOn(name);
+            return LocalizedString.Queue_WaitingForNextAvailableExecutorOn.toLocale(name);
         }
         
         @Override
         public void print(TaskListener listener) {
-            listener.getLogger().println(Messages.Queue_WaitingForNextAvailableExecutorOn(ModelHyperlinkNote.encodeTo(node)));
+            listener.getLogger().println(LocalizedString.Queue_WaitingForNextAvailableExecutorOn.toLocale(ModelHyperlinkNote.encodeTo(node)));
         }
     }
 
@@ -185,7 +186,7 @@ public abstract class CauseOfBlockage {
         }
 
         public String getShortDescription() {
-            return Messages.Queue_WaitingForNextAvailableExecutorOn(label.getName());
+            return LocalizedString.Queue_WaitingForNextAvailableExecutorOn.toLocale(label.getName());
         }
     }
 }

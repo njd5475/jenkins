@@ -24,12 +24,16 @@
 
 package hudson.tools;
 
+import java.io.ObjectStreamException;
+
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.util.LineEndingConversion;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.DataBoundConstructor;
-import java.io.ObjectStreamException;
 
 /**
  * Installs a tool by running an arbitrary shell command.
@@ -61,7 +65,7 @@ public class CommandInstaller extends AbstractCommandInstaller {
 
         @Override
         public String getDisplayName() {
-            return Messages.CommandInstaller_DescriptorImpl_displayName();
+            return LocalizedString.CommandInstaller_DescriptorImpl_displayName.toString();
         }
     }
 }

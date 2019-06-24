@@ -23,30 +23,31 @@
  */
 package hudson.model;
 
-import java.util.concurrent.TimeUnit;
-import hudson.util.NoOverlapCategoryAxis;
-import hudson.util.ChartUtil;
-
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
-import java.io.IOException;
-import java.awt.*;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.chart.JFreeChart;
+import javax.servlet.ServletException;
+
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.RectangleInsets;
 import org.jvnet.localizer.Localizable;
 import org.kohsuke.stapler.HttpResponse;
@@ -55,7 +56,10 @@ import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 
-import javax.servlet.ServletException;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.util.ChartUtil;
+import hudson.util.NoOverlapCategoryAxis;
 
 /**
  * Maintains several {@link TimeSeries} with different update frequencies to satisfy three goals;
@@ -70,7 +74,7 @@ public class MultiStageTimeSeries implements Serializable {
     /**
      * Name of this data series.
      */
-    public final Localizable title;
+    public final LocalizedString title;
 
     /**
      * Used to render a line in the trend chart.
@@ -98,8 +102,8 @@ public class MultiStageTimeSeries implements Serializable {
     private static final Font CHART_FONT = Font.getFont(MultiStageTimeSeries.class.getName() + ".chartFont",
             new Font(Font.SANS_SERIF, Font.PLAIN, 10));
 
-    public MultiStageTimeSeries(Localizable title, Color color, float initialValue, float decay) {
-        this.title = title;
+    public MultiStageTimeSeries(LocalizedString multistagetimeseriesEmptyString, Color color, float initialValue, float decay) {
+        this.title = multistagetimeseriesEmptyString;
         this.color = color;
         this.sec10 = new TimeSeries(initialValue,decay,6*60);
         this.min = new TimeSeries(initialValue,decay,60*24);
@@ -112,7 +116,7 @@ public class MultiStageTimeSeries implements Serializable {
      */
     @Deprecated
     public MultiStageTimeSeries(float initialValue, float decay) {
-        this(Messages._MultiStageTimeSeries_EMPTY_STRING(), Color.WHITE, initialValue,decay);
+        this(LocalizedString._MultiStageTimeSeries_EMPTY_STRING, Color.WHITE, initialValue,decay);
     }
 
     /**

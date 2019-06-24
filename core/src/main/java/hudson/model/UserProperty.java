@@ -23,14 +23,14 @@
  */
 package hudson.model;
 
-import hudson.ExtensionPoint;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.export.ExportedBean;
+
 import hudson.DescriptorExtensionList;
+import hudson.ExtensionPoint;
 import hudson.model.Descriptor.FormException;
 import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
-
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.export.ExportedBean;
 
 /**
  * Extensible property of {@link User}.

@@ -23,10 +23,14 @@
  */
 package hudson.util;
 
-import hudson.ExtensionPoint;
-import hudson.security.SecurityRealm;
+import java.io.IOException;
 import java.util.ArrayList;
-import jenkins.model.Jenkins;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.CheckForNull;
 import javax.servlet.Filter;
@@ -36,15 +40,13 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Vector;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import hudson.ExtensionPoint;
+import hudson.security.SecurityRealm;
+import jenkins.model.Jenkins;
 
 /**
  * Servlet {@link Filter} that chains multiple {@link Filter}s, provided by plugins

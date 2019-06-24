@@ -1,9 +1,10 @@
 package hudson.model;
 
-import hudson.ExtensionList;
-import hudson.ExtensionPoint;
 import java.util.ArrayList;
 import java.util.List;
+
+import hudson.ExtensionList;
+import hudson.ExtensionPoint;
 
 /**
  * Adds box rendered in the computer side panel.

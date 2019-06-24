@@ -23,9 +23,9 @@
  */
 package hudson.util;
 
-import hudson.remoting.Future;
-
 import java.util.concurrent.TimeUnit;
+
+import hudson.remoting.Future;
 
 /**
  * Various {@link Future} implementations.

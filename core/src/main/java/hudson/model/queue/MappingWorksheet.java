@@ -23,8 +23,20 @@
  */
 package hudson.model.queue;
 
+import static java.lang.Math.max;
+
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
+
 import hudson.model.Computer;
 import hudson.model.Executor;
 import hudson.model.Label;
@@ -37,17 +49,6 @@ import hudson.model.Queue.JobOffer;
 import hudson.model.Queue.Task;
 import hudson.model.labels.LabelAssignmentAction;
 import hudson.security.ACL;
-
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import static java.lang.Math.*;
 
 /**
  * Defines a mapping problem for answering "where do we execute this task?"

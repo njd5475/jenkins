@@ -23,11 +23,14 @@
  */
 package hudson.model;
 
-import hudson.Extension;
-import net.sf.json.JSONObject;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import net.sf.json.JSONObject;
 
 /**
  * {@link StringParameterDefinition} that uses textarea, instead of text box.
@@ -42,7 +45,7 @@ public class TextParameterDefinition extends StringParameterDefinition {
     public static class DescriptorImpl extends ParameterDescriptor {
         @Override
         public String getDisplayName() {
-            return Messages.TextParameterDefinition_DisplayName();
+            return LocalizedString.TextParameterDefinition_DisplayName.toString();
         }
     }
 

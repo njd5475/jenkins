@@ -24,10 +24,12 @@
 
 package jenkins.management;
 
+import org.jenkinsci.Symbol;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.model.ManagementLink;
-import jenkins.management.Messages;
-import org.jenkinsci.Symbol;
 
 /**
  * @author <a href="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
@@ -41,12 +43,12 @@ public class NodesLink extends ManagementLink {
     }
 
     public String getDisplayName() {
-        return Messages.NodesLink_DisplayName();
+        return LocalizedString.NodesLink_DisplayName.toString();
     }
 
     @Override
     public String getDescription() {
-        return Messages.NodesLink_Description();
+        return LocalizedString.NodesLink_Description.toString();
     }
 
     @Override

@@ -24,12 +24,14 @@
 
 package jenkins.security;
 
-import hudson.security.ACL;
-import hudson.security.ACLContext;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
-import jenkins.util.InterceptingExecutorService;
+
 import org.acegisecurity.Authentication;
+
+import hudson.security.ACL;
+import hudson.security.ACLContext;
+import jenkins.util.InterceptingExecutorService;
 
 /**
  * Uses {@link ACL#impersonate(Authentication)} for all tasks.

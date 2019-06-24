@@ -24,11 +24,11 @@
 
 package hudson.util;
 
-import hudson.ExtensionList;
-import hudson.ExtensionPoint;
-
 import java.io.IOException;
 import java.io.Serializable;
+
+import hudson.ExtensionList;
+import hudson.ExtensionPoint;
 
 /**
  * Extension point that defines more elaborate way of killing processes, such as

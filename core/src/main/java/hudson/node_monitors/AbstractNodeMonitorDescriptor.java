@@ -23,17 +23,6 @@
  */
 package hudson.node_monitors;
 
-import hudson.Util;
-import hudson.model.Computer;
-import hudson.model.Descriptor;
-import jenkins.model.Jenkins;
-import hudson.model.ComputerSet;
-import hudson.model.AdministrativeMonitor;
-import hudson.triggers.SafeTimerTask;
-import hudson.slaves.OfflineCause;
-import jenkins.util.Timer;
-
-import javax.annotation.concurrent.GuardedBy;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Date;
@@ -42,6 +31,20 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.annotation.concurrent.GuardedBy;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Util;
+import hudson.model.AdministrativeMonitor;
+import hudson.model.Computer;
+import hudson.model.ComputerSet;
+import hudson.model.Descriptor;
+import hudson.slaves.OfflineCause;
+import hudson.triggers.SafeTimerTask;
+import jenkins.model.Jenkins;
+import jenkins.util.Timer;
 
 /**
  * Convenient base class for common {@link NodeMonitor} implementation
@@ -189,8 +192,8 @@ public abstract class AbstractNodeMonitorDescriptor<T> extends Descriptor<NodeMo
 
     public String getTimestampString() {
         if (record==null)
-            return Messages.AbstractNodeMonitorDescriptor_NoDataYet();
-//        return Messages.AbstractNodeMonitorDescriptor_DataObtainedSometimeAgo(
+            return LocalizedString.AbstractNodeMonitorDescriptor_NoDataYet.toString();
+//        return Localized.AbstractNodeMonitorDescriptor_DataObtainedSometimeAgo(
 //                Util.getTimeSpanString(System.currentTimeMillis()-record.timestamp));
         return Util.getPastTimeString(System.currentTimeMillis()-record.timestamp);
     }

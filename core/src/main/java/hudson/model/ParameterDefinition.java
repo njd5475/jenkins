@@ -23,24 +23,24 @@
  */
 package hudson.model;
 
-import hudson.DescriptorExtensionList;
-import hudson.Extension;
-import hudson.ExtensionPoint;
-import hudson.AbortException;
-import hudson.cli.CLICommand;
-import hudson.util.DescriptorList;
-
-import java.io.Serializable;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.logging.Logger;
-import javax.annotation.CheckForNull;
 
-import jenkins.model.Jenkins;
-import net.sf.json.JSONObject;
+import javax.annotation.CheckForNull;
 
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
+
+import hudson.AbortException;
+import hudson.DescriptorExtensionList;
+import hudson.Extension;
+import hudson.ExtensionPoint;
+import hudson.cli.CLICommand;
+import hudson.util.DescriptorList;
+import jenkins.model.Jenkins;
+import net.sf.json.JSONObject;
 
 /**
  * Defines a parameter for a build.

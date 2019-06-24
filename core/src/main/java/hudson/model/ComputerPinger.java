@@ -1,13 +1,13 @@
 package hudson.model;
 
-import hudson.Extension;
-import hudson.ExtensionList;
-import hudson.ExtensionPoint;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
+
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.ExtensionPoint;
 
 /**
  * A way to see if a computer is reachable.

@@ -24,6 +24,9 @@
  */
 package hudson.util.xstream;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.common.collect.ImmutableList;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.XStreamException;
@@ -35,10 +38,6 @@ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.mapper.Mapper;
 
 import hudson.util.RobustReflectionConverter;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import jenkins.util.xstream.CriticalXStreamException;
 
 /**

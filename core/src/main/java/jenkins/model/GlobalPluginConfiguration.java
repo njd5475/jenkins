@@ -1,14 +1,16 @@
 package jenkins.model;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.StaplerRequest;
+
 import hudson.Extension;
 import hudson.Plugin;
 import hudson.StructuredForm;
 import net.sf.json.JSONObject;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.StaplerRequest;
-
-import javax.servlet.ServletException;
-import java.io.IOException;
 
 /**
  * Include config.jelly defined for {@link Plugin}s.

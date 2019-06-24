@@ -24,8 +24,6 @@
 
 package hudson.util;
 
-import hudson.console.ConsoleNote;
-import hudson.model.TaskListener;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
@@ -34,6 +32,9 @@ import java.io.PrintStream;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
+
+import hudson.console.ConsoleNote;
+import hudson.model.TaskListener;
 
 // TODO: AbstractTaskListener is empty now, but there are dependencies on that e.g. Ruby Runtime - JENKINS-48116)
 // The change needs API deprecation policy or external usages cleanup.

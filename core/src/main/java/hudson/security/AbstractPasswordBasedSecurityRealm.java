@@ -1,10 +1,5 @@
 package hudson.security;
 
-import groovy.lang.Binding;
-import hudson.util.spring.BeanBuilder;
-import jenkins.model.Jenkins;
-import jenkins.security.ImpersonatingUserDetailsService;
-import jenkins.security.SecurityListener;
 import org.acegisecurity.AuthenticationException;
 import org.acegisecurity.AuthenticationManager;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
@@ -14,6 +9,12 @@ import org.acegisecurity.userdetails.UserDetailsService;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.context.WebApplicationContext;
+
+import groovy.lang.Binding;
+import hudson.util.spring.BeanBuilder;
+import jenkins.model.Jenkins;
+import jenkins.security.ImpersonatingUserDetailsService;
+import jenkins.security.SecurityListener;
 
 /**
  * Partial implementation of {@link SecurityRealm} for username/password based authentication.

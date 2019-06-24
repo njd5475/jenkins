@@ -23,10 +23,10 @@
  */
 package hudson.slaves;
 
+import java.io.IOException;
+
 import hudson.model.Descriptor;
 import hudson.model.TaskListener;
-
-import java.io.IOException;
 
 /**
  * {@link ComputerLauncher} filter that can be used as a base class for decorators.

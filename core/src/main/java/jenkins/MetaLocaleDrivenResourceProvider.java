@@ -23,16 +23,18 @@
  */
 package jenkins;
 
-import hudson.ExtensionList;
+import java.net.URL;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
 import org.apache.log4j.Logger;
 import org.kohsuke.MetaInfServices;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.LocaleDrivenResourceProvider;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import java.net.URL;
+import hudson.ExtensionList;
 
 /**
  * Look up plugin-provided localized resources for the given URL.

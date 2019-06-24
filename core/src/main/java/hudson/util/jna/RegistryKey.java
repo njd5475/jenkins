@@ -15,13 +15,12 @@ Lesser General Public License for more details.
  */
 package hudson.util.jna;
 
-import com.sun.jna.ptr.IntByReference;
-
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
+import com.sun.jna.ptr.IntByReference;
 
 /**
  * Represents a Win32 registry key.

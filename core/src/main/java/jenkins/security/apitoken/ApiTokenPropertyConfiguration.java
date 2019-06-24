@@ -23,11 +23,12 @@
  */
 package jenkins.security.apitoken;
 
+import org.jenkinsci.Symbol;
+
 import hudson.Extension;
 import hudson.model.PersistentDescriptor;
 import jenkins.model.GlobalConfiguration;
 import jenkins.model.GlobalConfigurationCategory;
-import org.jenkinsci.Symbol;
 
 /**
  * Configuration for the new token generation when a user is created

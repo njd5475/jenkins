@@ -24,43 +24,31 @@
 
 package hudson.security;
 
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.HttpMethod;
-import com.gargoylesoftware.htmlunit.WebRequest;
-import com.gargoylesoftware.htmlunit.util.Cookie;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
-import com.gargoylesoftware.htmlunit.util.NameValuePair;
-import com.gargoylesoftware.htmlunit.xml.XmlPage;
-import hudson.ExtensionList;
-import hudson.model.User;
-import hudson.remoting.Base64;
 import static hudson.security.HudsonPrivateSecurityRealm.CLASSIC;
 import static hudson.security.HudsonPrivateSecurityRealm.PASSWORD_ENCODER;
-import hudson.security.pages.SignupPage;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.xml.HasXPath.hasXPath;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import jenkins.security.ApiTokenProperty;
-import jenkins.security.SecurityListener;
-import jenkins.security.apitoken.ApiTokenPropertyConfiguration;
-import jenkins.security.apitoken.ApiTokenTestHelper;
-import jenkins.security.seed.UserSeedProperty;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.xml.HasXPath.hasXPath;
-import static org.junit.Assert.*;
+import javax.annotation.Nonnull;
 
 import org.apache.commons.lang.StringUtils;
-
-import java.lang.reflect.Field;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -72,7 +60,24 @@ import org.jvnet.hudson.test.TestExtension;
 import org.jvnet.hudson.test.WithoutJenkins;
 import org.mindrot.jbcrypt.BCrypt;
 
-import javax.annotation.Nonnull;
+import com.dj.runner.locales.LocalizedString;
+import com.gargoylesoftware.htmlunit.HttpMethod;
+import com.gargoylesoftware.htmlunit.WebRequest;
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
+import com.gargoylesoftware.htmlunit.util.Cookie;
+import com.gargoylesoftware.htmlunit.util.NameValuePair;
+import com.gargoylesoftware.htmlunit.xml.XmlPage;
+
+import hudson.ExtensionList;
+import hudson.model.User;
+import hudson.remoting.Base64;
+import hudson.security.pages.SignupPage;
+import jenkins.security.ApiTokenProperty;
+import jenkins.security.SecurityListener;
+import jenkins.security.apitoken.ApiTokenTestHelper;
+import jenkins.security.seed.UserSeedProperty;
 
 @For({UserSeedProperty.class, HudsonPrivateSecurityRealm.class})
 public class HudsonPrivateSecurityRealmTest {
@@ -596,7 +601,7 @@ public class HudsonPrivateSecurityRealmTest {
         signup.enterEmail(email);
         HtmlPage success = signup.submit(j);
         assertThat(success.getElementById("main-panel").getTextContent(), not(containsString("Success")));
-        assertThat(success.getElementById("main-panel").getTextContent(), containsString(Messages.HudsonPrivateSecurityRealm_CreateAccount_UserNameInvalidCharacters()));
+        assertThat(success.getElementById("main-panel").getTextContent(), containsString(LocalizedString.HudsonPrivateSecurityRealm_CreateAccount_UserNameInvalidCharacters.toLocale()));
     }
     
     private void checkUserCannotBeCreatedWith_custom(HudsonPrivateSecurityRealm securityRealm, String id, String password, String fullName, String email, String regex) throws Exception {

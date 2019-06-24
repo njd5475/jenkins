@@ -23,12 +23,6 @@
  */
 package hudson.model;
 
-import hudson.console.ConsoleNote;
-import hudson.console.HyperlinkNote;
-import hudson.remoting.Channel;
-import hudson.util.NullStream;
-import hudson.util.StreamTaskListener;
-
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
@@ -36,11 +30,21 @@ import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Formatter;
+
 import javax.annotation.Nonnull;
+
 import org.jenkinsci.remoting.SerializableOnlyOverRemoting;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.accmod.restrictions.ProtectedExternally;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.console.ConsoleNote;
+import hudson.console.HyperlinkNote;
+import hudson.remoting.Channel;
+import hudson.util.NullStream;
+import hudson.util.StreamTaskListener;
 
 /**
  * Receives events that happen during some lengthy operation
@@ -126,6 +130,11 @@ public interface TaskListener extends SerializableOnlyOverRemoting {
     default PrintWriter error(String msg) {
         return _error("ERROR: ", msg);
     }
+    
+    @Nonnull
+    default PrintWriter error(LocalizedString msg) {
+      return error(msg.toLocale());
+    }
 
     /**
      * {@link Formatter#format(String, Object[])} version of {@link #error(String)}.
@@ -144,6 +153,11 @@ public interface TaskListener extends SerializableOnlyOverRemoting {
     @Nonnull
     default PrintWriter fatalError(String msg) {
         return _error("FATAL: ", msg);
+    }
+    
+    @Nonnull
+    default PrintWriter fatalError(LocalizedString msg) {
+        return _error("FATAL: ", msg.toString());
     }
 
     /**

@@ -23,27 +23,29 @@
  */
 package hudson.fsp;
 
-import hudson.scm.PollingResult;
-import hudson.scm.SCM;
-import hudson.scm.ChangeLogParser;
-import hudson.scm.SCMDescriptor;
-import hudson.scm.SCMRevisionState;
-import hudson.model.AbstractProject;
-import hudson.model.TaskListener;
-import hudson.model.AbstractBuild;
-import hudson.model.BuildListener;
-import jenkins.model.Jenkins;
-import hudson.model.Result;
-import hudson.model.PermalinkProjectAction.Permalink;
-import hudson.Launcher;
-import hudson.FilePath;
-import hudson.WorkspaceSnapshot;
-import hudson.PermalinkList;
-
-import java.io.IOException;
 import java.io.File;
+import java.io.IOException;
 
 import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.FilePath;
+import hudson.Launcher;
+import hudson.PermalinkList;
+import hudson.WorkspaceSnapshot;
+import hudson.model.AbstractBuild;
+import hudson.model.AbstractProject;
+import hudson.model.BuildListener;
+import hudson.model.PermalinkProjectAction.Permalink;
+import hudson.model.Result;
+import hudson.model.TaskListener;
+import hudson.scm.ChangeLogParser;
+import hudson.scm.PollingResult;
+import hudson.scm.SCM;
+import hudson.scm.SCMDescriptor;
+import hudson.scm.SCMRevisionState;
+import jenkins.model.Jenkins;
 
 /**
  * {@link SCM} that inherits the workspace from another build through {@link WorkspaceSnapshot}
@@ -99,24 +101,24 @@ public class WorkspaceSnapshotSCM extends SCM {
         if(job==null) {
             if(h.getItemByFullName(jobName)==null) {
                 AbstractProject nearest = AbstractProject.findNearest(jobName);
-                throw new ResolvedFailedException(Messages.WorkspaceSnapshotSCM_NoSuchJob(jobName,nearest.getFullName()));
+                throw new ResolvedFailedException(LocalizedString.WorkspaceSnapshotSCM_NoSuchJob.toLocale(jobName,nearest.getFullName()));
             } else
-                throw new ResolvedFailedException(Messages.WorkspaceSnapshotSCM_IncorrectJobType(jobName));
+                throw new ResolvedFailedException(LocalizedString.WorkspaceSnapshotSCM_IncorrectJobType.toLocale(jobName));
         }
 
         PermalinkList permalinks = job.getPermalinks();
         Permalink p = permalinks.get(permalink);
         if(p==null) {
-            throw new ResolvedFailedException(Messages.WorkspaceSnapshotSCM_NoSuchPermalink(permalink,jobName));
+            throw new ResolvedFailedException(LocalizedString.WorkspaceSnapshotSCM_NoSuchPermalink.toLocale(permalink,jobName));
         }
 
         AbstractBuild<?,?> b = (AbstractBuild<?,?>)p.resolve(job);
         if(b==null) {
-            throw new ResolvedFailedException(Messages.WorkspaceSnapshotSCM_NoBuild(permalink,jobName));
+            throw new ResolvedFailedException(LocalizedString.WorkspaceSnapshotSCM_NoBuild.toLocale(permalink,jobName));
         }
         WorkspaceSnapshot snapshot = b.getAction(WorkspaceSnapshot.class);
         if(snapshot==null) {
-            throw new ResolvedFailedException(Messages.WorkspaceSnapshotSCM_NoWorkspace(jobName,permalink));
+            throw new ResolvedFailedException(LocalizedString.WorkspaceSnapshotSCM_NoWorkspace.toLocale(jobName,permalink));
         }
         return new Snapshot(snapshot,b);
     }

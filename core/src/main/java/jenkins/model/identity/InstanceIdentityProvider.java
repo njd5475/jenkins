@@ -23,8 +23,6 @@
  */
 package jenkins.model.identity;
 
-import hudson.ExtensionList;
-import hudson.ExtensionPoint;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -37,8 +35,12 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+
+import hudson.ExtensionList;
+import hudson.ExtensionPoint;
 
 /**
  * A source of instance identity.

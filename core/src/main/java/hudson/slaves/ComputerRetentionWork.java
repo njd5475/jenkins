@@ -27,13 +27,14 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
+import org.jenkinsci.Symbol;
+
+import hudson.Extension;
 import hudson.model.Computer;
-import hudson.model.Queue;
-import jenkins.model.Jenkins;
 import hudson.model.Node;
 import hudson.model.PeriodicWork;
-import hudson.Extension;
-import org.jenkinsci.Symbol;
+import hudson.model.Queue;
+import jenkins.model.Jenkins;
 
 /**
  * Periodically checks the agents and try to reconnect dead agents.

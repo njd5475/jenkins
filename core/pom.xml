@@ -652,7 +652,6 @@ THE SOFTWARE.
                  <configuration>
                      <sources>
                          <source>${project.build.directory}/generated-sources/antlr</source>
-                         <source>${project.build.directory}/generated-sources/localizer</source>
                          <source>${project.build.directory}/generated-sources/taglib-interface</source>
                      </sources>
                  </configuration>
@@ -703,23 +702,6 @@ THE SOFTWARE.
           <fork>${staplerFork}</fork><!-- the source code is big enough now that otherwise it fails with OutOfMemoryError -->
           <maxmem>128m</maxmem>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.jvnet.localizer</groupId>
-        <artifactId>maven-localizer-plugin</artifactId>
-        <!-- version specified in grandparent pom -->
-        <executions>
-          <execution>
-            <goals>
-              <goal>generate</goal>
-            </goals>
-            <configuration>
-              <fileMask>Messages.properties</fileMask>
-              <outputDirectory>target/generated-sources/localizer</outputDirectory>
-              <accessModifierAnnotations>true</accessModifierAnnotations>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.kohsuke</groupId>

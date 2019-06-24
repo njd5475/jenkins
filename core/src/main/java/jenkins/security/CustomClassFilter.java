@@ -24,12 +24,6 @@
 
 package jenkins.security;
 
-import hudson.Extension;
-import hudson.ExtensionList;
-import hudson.ExtensionPoint;
-import hudson.init.InitMilestone;
-import hudson.init.Initializer;
-import hudson.remoting.ClassFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -39,12 +33,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.CheckForNull;
-import jenkins.model.Jenkins;
-import jenkins.util.SystemProperties;
+
 import org.apache.commons.io.IOUtils;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.ExtensionPoint;
+import hudson.init.InitMilestone;
+import hudson.init.Initializer;
+import hudson.remoting.ClassFilter;
+import jenkins.model.Jenkins;
+import jenkins.util.SystemProperties;
 
 /**
  * Allows extensions to adjust the behavior of {@link ClassFilter#DEFAULT}.

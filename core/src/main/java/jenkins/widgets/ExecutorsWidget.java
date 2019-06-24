@@ -1,9 +1,10 @@
 package jenkins.widgets;
 
+import org.jenkinsci.Symbol;
+
 import hudson.Extension;
 import hudson.widgets.Widget;
 import jenkins.model.Jenkins;
-import org.jenkinsci.Symbol;
 
 /**
  * The default executors widget.

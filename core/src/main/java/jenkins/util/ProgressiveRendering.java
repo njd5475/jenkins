@@ -37,10 +37,10 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
-import net.sf.json.JSON;
-import net.sf.json.JSONObject;
+
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.kohsuke.stapler.Ancestor;
@@ -51,6 +51,10 @@ import org.kohsuke.stapler.bind.Bound;
 import org.kohsuke.stapler.bind.BoundObjectTable;
 import org.kohsuke.stapler.bind.JavaScriptMethod;
 import org.kohsuke.stapler.jelly.BindTag;
+
+import hudson.model.AbstractItem;
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
 
 /**
  * A helper thread which does some computation in the background and displays incremental results using JavaScript.

@@ -1,16 +1,21 @@
 package jenkins.slaves;
 
-import hudson.Extension;
-import hudson.ExtensionList;
-import hudson.model.Computer;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Collections;
+
 import javax.inject.Inject;
-import jenkins.AgentProtocol;
+
 import org.jenkinsci.Symbol;
 import org.jenkinsci.remoting.engine.JnlpConnectionState;
 import org.jenkinsci.remoting.engine.JnlpProtocol2Handler;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.model.Computer;
+import jenkins.AgentProtocol;
 
 /**
  * {@link JnlpSlaveAgentProtocol} Version 2.
@@ -60,7 +65,7 @@ public class JnlpSlaveAgentProtocol2 extends AgentProtocol {
      */
     @Override
     public String getDisplayName() {
-        return Messages.JnlpSlaveAgentProtocol2_displayName();
+        return LocalizedString.JnlpSlaveAgentProtocol2_displayName.toString();
     }
 
     @Override

@@ -25,8 +25,6 @@
 package hudson.search;
 
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
-import hudson.Util;
-import hudson.util.EditDistance;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -43,8 +41,6 @@ import java.util.logging.Logger;
 import javax.annotation.CheckForNull;
 import javax.servlet.ServletException;
 
-import jenkins.util.MemoryReductionUtil;
-import jenkins.model.Jenkins;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.Ancestor;
@@ -56,6 +52,11 @@ import org.kohsuke.stapler.export.DataWriter;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 import org.kohsuke.stapler.export.Flavor;
+
+import hudson.Util;
+import hudson.util.EditDistance;
+import jenkins.model.Jenkins;
+import jenkins.util.MemoryReductionUtil;
 
 /**
  * Web-bound object that provides search/navigation capability.

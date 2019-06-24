@@ -23,14 +23,16 @@
  */
 package hudson.model.queue;
 
+import javax.annotation.CheckForNull;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
 import hudson.model.Executor;
 import hudson.model.Queue;
 import hudson.model.Queue.Executable;
 import hudson.model.Queue.Task;
-import javax.annotation.CheckForNull;
 import hudson.model.Run;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
 
 /**
  * Represents a unit of hand-over to {@link Executor} from {@link Queue}.

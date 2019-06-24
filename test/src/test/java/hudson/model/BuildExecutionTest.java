@@ -24,17 +24,22 @@
 
 package hudson.model;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.IOException;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.jvnet.hudson.test.Issue;
+import org.jvnet.hudson.test.JenkinsRule;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.FilePath;
 import hudson.Launcher;
 import hudson.slaves.WorkspaceList;
 import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Notifier;
-import java.io.IOException;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Rule;
-import org.jvnet.hudson.test.Issue;
-import org.jvnet.hudson.test.JenkinsRule;
 
 public class BuildExecutionTest {
 
@@ -45,7 +50,7 @@ public class BuildExecutionTest {
         FreeStyleProject p = r.createFreeStyleProject();
         p.getPublishersList().add(new BrokenPublisher());
         FreeStyleBuild b = r.assertBuildStatus(Result.FAILURE, p.scheduleBuild2(0).get());
-        r.assertLogContains(Messages.Build_post_build_steps_failed(), b);
+        r.assertLogContains(LocalizedString.Build_post_build_steps_failed.toLocale(), b);
         FilePath ws = r.jenkins.getWorkspaceFor(p);
         WorkspaceList.Lease lease = r.jenkins.toComputer().getWorkspaceList().allocate(ws);
         try {

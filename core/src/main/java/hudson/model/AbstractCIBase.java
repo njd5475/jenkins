@@ -27,22 +27,27 @@
 package hudson.model;
 
 
-import hudson.security.AccessControlled;
-import hudson.slaves.ComputerListener;
-import hudson.slaves.RetentionStrategy;
-import jenkins.model.Jenkins;
-import org.kohsuke.stapler.StaplerFallback;
-import org.kohsuke.stapler.StaplerProxy;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.CheckForNull;
 
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.StaplerFallback;
+import org.kohsuke.stapler.StaplerProxy;
+
+import hudson.security.AccessControlled;
+import hudson.slaves.ComputerListener;
+import hudson.slaves.RetentionStrategy;
 import jenkins.model.Configuration;
+import jenkins.model.Jenkins;
 
 public abstract class AbstractCIBase extends Node implements ItemGroup<TopLevelItem>, StaplerProxy, StaplerFallback, ViewGroup, AccessControlled, DescriptorByNameOwner {
 

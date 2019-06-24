@@ -24,13 +24,16 @@
 
 package jenkins.model;
 
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.model.Descriptor;
 import hudson.model.DescriptorVisibilityFilter;
 import hudson.model.Items;
 import hudson.model.Job;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
  * Defines a {@link BuildDiscarder}.
@@ -55,7 +58,7 @@ public class BuildDiscarderProperty extends OptionalJobProperty<Job<?,?>> {
 
         @Override
         public String getDisplayName() {
-            return Messages.BuildDiscarderProperty_displayName();
+            return LocalizedString.BuildDiscarderProperty_displayName.toString();
         }
 
         static {

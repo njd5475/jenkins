@@ -23,28 +23,6 @@
  */
 package hudson.model;
 
-import hudson.ExtensionList;
-import jenkins.util.xml.FilteredFunctionContext;
-import jenkins.model.Jenkins;
-import jenkins.security.SecureRequester;
-
-import org.dom4j.CharacterData;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentFactory;
-import org.dom4j.Element;
-import org.dom4j.XPath;
-import org.dom4j.io.SAXReader;
-import org.dom4j.io.XMLWriter;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-import org.kohsuke.stapler.export.*;
-import org.kohsuke.stapler.export.TreePruner.ByDepth;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.StringReader;
@@ -54,8 +32,39 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.stream.StreamResult;
+
+import org.dom4j.CharacterData;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentFactory;
+import org.dom4j.Element;
+import org.dom4j.XPath;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.Flavor;
+import org.kohsuke.stapler.export.Model;
+import org.kohsuke.stapler.export.ModelBuilder;
+import org.kohsuke.stapler.export.NamedPathPruner;
+import org.kohsuke.stapler.export.SchemaGenerator;
+import org.kohsuke.stapler.export.TreePruner;
+import org.kohsuke.stapler.export.TreePruner.ByDepth;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.ExtensionList;
+import jenkins.model.Jenkins;
+import jenkins.security.SecureRequester;
+import jenkins.util.xml.FilteredFunctionContext;
 
 /**
  * Used to expose remote access API for ".../api/"
@@ -145,7 +154,7 @@ public class Api extends AbstractModelObject {
 
                     if(!wrapper.matches(validNameRE)) {
                         rsp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                        rsp.getWriter().print(Messages.Api_WrapperParamInvalid());
+                        rsp.getWriter().print(LocalizedString.Api_WrapperParamInvalid);
                         return;
                     }
 
@@ -160,11 +169,11 @@ public class Api extends AbstractModelObject {
                     result = root;
                 } else if (list.isEmpty()) {
                     rsp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                    rsp.getWriter().print(Messages.Api_NoXPathMatch(xpath));
+                    rsp.getWriter().print(LocalizedString.Api_NoXPathMatch.toLocale(xpath));
                     return;
                 } else if (list.size() > 1) {
                     rsp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    rsp.getWriter().print(Messages.Api_MultipleMatch(xpath,list.size()));
+                    rsp.getWriter().print(LocalizedString.Api_MultipleMatch.toLocale(xpath,list.size()));
                     return;
                 } else {
                     result = list.get(0);

@@ -23,16 +23,17 @@
  */
 package jenkins;
 
-import hudson.Extension;
-import hudson.model.RootAction;
-import hudson.util.HttpResponses;
-import jenkins.util.ResourceBundleUtil;
+import java.util.Locale;
+
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.StaplerRequest;
 
-import java.util.Locale;
+import hudson.Extension;
+import hudson.model.RootAction;
+import hudson.util.HttpResponses;
+import jenkins.util.ResourceBundleUtil;
 
 /**
  * Internationalization REST (ish) API.

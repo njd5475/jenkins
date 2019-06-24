@@ -1,12 +1,14 @@
 package jenkins.model.identity;
 
-import hudson.Extension;
-import hudson.model.UnprotectedRootAction;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPublicKey;
+
 import org.apache.commons.codec.Charsets;
 import org.apache.commons.codec.binary.Base64;
+
+import hudson.Extension;
+import hudson.model.UnprotectedRootAction;
 
 /**
  * A simple root action that exposes the public key to users so that they do not need to search for the

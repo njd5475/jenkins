@@ -23,15 +23,16 @@
  */
 package hudson.model;
 
-import hudson.Util;
-import hudson.util.RunList;
+import java.io.IOException;
+import java.util.Date;
+
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 import org.koshuke.stapler.simile.timeline.Event;
 import org.koshuke.stapler.simile.timeline.TimelineEventList;
 
-import java.io.IOException;
-import java.util.Date;
+import hudson.Util;
+import hudson.util.RunList;
 
 /**
  * UI widget for showing the SIMILE timeline control.

@@ -23,24 +23,6 @@
  */
 package hudson.model;
 
-import hudson.Util;
-import hudson.XmlFile;
-import hudson.model.listeners.ItemListener;
-import hudson.security.AccessControlled;
-import hudson.util.CopyOnWriteMap;
-import hudson.util.Function1;
-import hudson.util.Secret;
-import jenkins.model.Jenkins;
-import jenkins.util.xml.XMLUtils;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.transform.Source;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -51,9 +33,31 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
-import jenkins.security.NotReallyRoleSensitiveCallable;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.Source;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
 import org.acegisecurity.AccessDeniedException;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
 import org.xml.sax.SAXException;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Util;
+import hudson.XmlFile;
+import hudson.model.listeners.ItemListener;
+import hudson.security.AccessControlled;
+import hudson.util.CopyOnWriteMap;
+import hudson.util.Function1;
+import hudson.util.Secret;
+import jenkins.model.Jenkins;
+import jenkins.security.NotReallyRoleSensitiveCallable;
+import jenkins.util.xml.XMLUtils;
 
 /**
  * Defines a bunch of static methods to be used as a "mix-in" for {@link ItemGroup}
@@ -168,7 +172,7 @@ public abstract class ItemGroupMixIn {
             Jenkins.checkGoodName(name);
             name = name.trim();
             if(parent.getItem(name)!=null)
-                throw new Failure(Messages.Hudson_JobAlreadyExists(name));
+                throw new Failure(LocalizedString.Hudson_JobAlreadyExists.toLocale(name));
         }
 
         if(mode!=null && mode.equals("copy")) {
@@ -230,7 +234,7 @@ public abstract class ItemGroupMixIn {
             while (matcher.find()) {
                 if (Secret.decrypt(matcher.group(1)) != null) {
                     // AccessDeniedException2 does not permit a custom message, and anyway redirecting the user to the login screen is obviously pointless.
-                    throw new AccessDeniedException(Messages.ItemGroupMixIn_may_not_copy_as_it_contains_secrets_and_(src.getFullName(), Jenkins.getAuthentication().getName(), Item.PERMISSIONS.title, Item.EXTENDED_READ.name, Item.CONFIGURE.name));
+                    throw new AccessDeniedException(LocalizedString.ItemGroupMixIn_may_not_copy_as_it_contains_secrets_and_.toLocale(src.getFullName(), Jenkins.getAuthentication().getName(), Item.PERMISSIONS.title, Item.EXTENDED_READ.name, Item.CONFIGURE.name));
                 }
             }
         }

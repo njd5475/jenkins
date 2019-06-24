@@ -23,6 +23,45 @@
  */
 package hudson.slaves;
 
+import static hudson.slaves.SlaveComputer.LogHolder.SLAVE_LOG_HANDLER;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.nio.charset.Charset;
+import java.security.Security;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.Future;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
+
+import org.acegisecurity.context.SecurityContext;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.jenkinsci.remoting.util.LoggingChannelListener;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.Beta;
+import org.kohsuke.accmod.restrictions.DoNotUse;
+import org.kohsuke.stapler.HttpRedirect;
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.WebMethod;
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.AbortException;
 import hudson.FilePath;
 import hudson.Functions;
@@ -60,41 +99,6 @@ import jenkins.slaves.JnlpSlaveAgentProtocol;
 import jenkins.slaves.RemotingVersionInfo;
 import jenkins.slaves.systemInfo.SlaveSystemInfo;
 import jenkins.util.SystemProperties;
-import org.acegisecurity.context.SecurityContext;
-import org.acegisecurity.context.SecurityContextHolder;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.Beta;
-import org.kohsuke.accmod.restrictions.DoNotUse;
-import org.kohsuke.stapler.HttpRedirect;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-import org.kohsuke.stapler.WebMethod;
-import org.kohsuke.stapler.export.Exported;
-import org.kohsuke.stapler.interceptor.RequirePOST;
-
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.nio.charset.Charset;
-import java.security.Security;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.Future;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
-
-import static hudson.slaves.SlaveComputer.LogHolder.SLAVE_LOG_HANDLER;
-import org.jenkinsci.remoting.util.LoggingChannelListener;
 
 
 /**
@@ -297,13 +301,13 @@ public class SlaveComputer extends Computer {
                         throw e;
                     } catch (IOException e) {
                         Util.displayIOException(e,taskListener);
-                        Functions.printStackTrace(e, taskListener.error(Messages.ComputerLauncher_unexpectedError()));
+                        Functions.printStackTrace(e, taskListener.error(LocalizedString.ComputerLauncher_unexpectedError));
                         throw e;
                     } catch (InterruptedException e) {
-                        Functions.printStackTrace(e, taskListener.error(Messages.ComputerLauncher_abortedLaunch()));
+                        Functions.printStackTrace(e, taskListener.error(LocalizedString.ComputerLauncher_abortedLaunch));
                         throw e;
                     } catch (Exception e) {
-                        Functions.printStackTrace(e, taskListener.error(Messages.ComputerLauncher_unexpectedError()));
+                        Functions.printStackTrace(e, taskListener.error(LocalizedString.ComputerLauncher_unexpectedError));
                         throw e;
                     }
                 } finally {
@@ -633,7 +637,7 @@ public class SlaveComputer extends Computer {
         }
 
         boolean _isUnix = channel.call(new DetectOS());
-        log.println(_isUnix? hudson.model.Messages.Slave_UnixSlave():hudson.model.Messages.Slave_WindowsSlave());
+        log.println(_isUnix? LocalizedString.Slave_UnixSlave:LocalizedString.Slave_WindowsSlave);
 
         String defaultCharsetName = channel.call(new DetectDefaultCharset());
 

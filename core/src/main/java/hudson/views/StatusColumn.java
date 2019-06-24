@@ -23,10 +23,13 @@
  */
 package hudson.views;
 
-import hudson.Extension;
-import hudson.model.StatusIcon;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.StatusIcon;
 
 /**
  * Shows the status icon for item. It's colored ball for jobs.
@@ -42,7 +45,7 @@ public class StatusColumn extends ListViewColumn {
     public static class DescriptorImpl extends ListViewColumnDescriptor {
         @Override
         public String getDisplayName() {
-            return Messages.StatusColumn_DisplayName();
+            return LocalizedString.StatusColumn_DisplayName.toString();
         }
     }
 

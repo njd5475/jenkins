@@ -24,10 +24,6 @@
 
 package hudson.tools;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import hudson.model.Descriptor;
-import hudson.util.DescribableList;
-import hudson.util.FormValidation;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -36,15 +32,22 @@ import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 
-import jenkins.model.GlobalConfigurationCategory;
-import jenkins.model.Jenkins;
-import jenkins.tools.ToolConfigurationCategory;
-import net.sf.json.JSONObject;
+import javax.annotation.Nonnull;
+
 import org.jvnet.tiger_types.Types;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
-import javax.annotation.Nonnull;
+import com.dj.runner.locales.LocalizedString;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import hudson.model.Descriptor;
+import hudson.util.DescribableList;
+import hudson.util.FormValidation;
+import jenkins.model.GlobalConfigurationCategory;
+import jenkins.model.Jenkins;
+import jenkins.tools.ToolConfigurationCategory;
+import net.sf.json.JSONObject;
 
 /**
  * {@link Descriptor} for {@link ToolInstallation}.
@@ -165,7 +168,7 @@ public abstract class ToolDescriptor<T extends ToolInstallation> extends Descrip
         }
 
         if (!value.isDirectory()) {
-            return FormValidation.warning(Messages.ToolDescriptor_NotADirectory(value));
+            return FormValidation.warning(LocalizedString.ToolDescriptor_NotADirectory.toLocale(value));
         }
 
         return checkHomeDirectory(value);

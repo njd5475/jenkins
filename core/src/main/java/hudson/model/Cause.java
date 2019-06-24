@@ -23,26 +23,30 @@
  */
 package hudson.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
-import hudson.console.ModelHyperlinkNote;
-import hudson.diagnosis.OldDataMonitor;
-import hudson.util.XStream2;
-import jenkins.model.Jenkins;
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.DoNotUse;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
+
+import com.dj.runner.locales.LocalizedString;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
+
 import hudson.Util;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
+import hudson.console.ModelHyperlinkNote;
+import hudson.diagnosis.OldDataMonitor;
+import hudson.util.XStream2;
+import jenkins.model.Jenkins;
 
 /**
  * Cause object base class.  This class hierarchy is used to keep track of why
@@ -136,7 +140,7 @@ public abstract class Cause {
 
         @Override
         public String getShortDescription() {
-            return Messages.Cause_LegacyCodeCause_ShortDescription();
+            return LocalizedString.Cause_LegacyCodeCause_ShortDescription.toString();
         }
     }
 
@@ -290,7 +294,7 @@ public abstract class Cause {
         
         @Override
         public String getShortDescription() {
-            return Messages.Cause_UpstreamCause_ShortDescription(upstreamProject, upstreamBuild);
+            return LocalizedString.Cause_UpstreamCause_ShortDescription.toLocale(upstreamProject, upstreamBuild);
         }
 
         @Override
@@ -307,13 +311,13 @@ public abstract class Cause {
         private void print(TaskListener listener, int depth) {
             indent(listener, depth);
             listener.getLogger().println(
-                Messages.Cause_UpstreamCause_ShortDescription(
+                LocalizedString.Cause_UpstreamCause_ShortDescription.toLocale(
                     ModelHyperlinkNote.encodeTo('/' + upstreamUrl, upstreamProject),
                     ModelHyperlinkNote.encodeTo('/'+upstreamUrl+upstreamBuild, Integer.toString(upstreamBuild)))
             );
             if (upstreamCauses != null && !upstreamCauses.isEmpty()) {
                 indent(listener, depth);
-                listener.getLogger().println(Messages.Cause_UpstreamCause_CausedBy());
+                listener.getLogger().println(LocalizedString.Cause_UpstreamCause_CausedBy);
                 for (Cause cause : upstreamCauses) {
                     if (cause instanceof UpstreamCause) {
                         ((UpstreamCause) cause).print(listener, depth + 1);
@@ -379,7 +383,7 @@ public abstract class Cause {
 
         @Override
         public String getShortDescription() {
-            return Messages.Cause_UserCause_ShortDescription(authenticationName);
+            return LocalizedString.Cause_UserCause_ShortDescription.toLocale(authenticationName);
         }
 
         @Override
@@ -447,17 +451,17 @@ public abstract class Cause {
 
         @Override
         public String getShortDescription() {
-            return Messages.Cause_UserIdCause_ShortDescription(getUserName());
+            return LocalizedString.Cause_UserIdCause_ShortDescription.toLocale(getUserName());
         }
 
         @Override
         public void print(TaskListener listener) {
             User user = getUserId() == null ? null : User.getById(getUserId(), false);
             if (user != null) {
-                listener.getLogger().println(Messages.Cause_UserIdCause_ShortDescription(
+                listener.getLogger().println(LocalizedString.Cause_UserIdCause_ShortDescription.toLocale(
                         ModelHyperlinkNote.encodeTo(user)));
             } else {
-                listener.getLogger().println(Messages.Cause_UserIdCause_ShortDescription(
+                listener.getLogger().println(LocalizedString.Cause_UserIdCause_ShortDescription.toLocale(
                         "unknown or anonymous"));
             }
         }
@@ -486,12 +490,12 @@ public abstract class Cause {
         public String getShortDescription() {
             if(note != null) {
                 try {
-                    return Messages.Cause_RemoteCause_ShortDescriptionWithNote(addr, Jenkins.getInstance().getMarkupFormatter().translate(note));
+                    return LocalizedString.Cause_RemoteCause_ShortDescriptionWithNote.toLocale(addr, Jenkins.getInstance().getMarkupFormatter().translate(note));
                 } catch (IOException x) {
                     // ignore
                 }
             }
-            return Messages.Cause_RemoteCause_ShortDescription(addr);
+            return LocalizedString.Cause_RemoteCause_ShortDescription.toLocale(addr);
         }
         
         @Exported(visibility = 3)

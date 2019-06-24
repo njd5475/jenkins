@@ -23,12 +23,14 @@
  */
 package hudson.model;
 
-import hudson.model.Descriptor.FormException;
-import hudson.slaves.NodeProperty;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import net.sf.json.JSONObject;
+
 import org.kohsuke.stapler.StaplerRequest;
+
+import hudson.model.Descriptor.FormException;
+import hudson.slaves.NodeProperty;
+import net.sf.json.JSONObject;
 
 /**
  * Marks modern {@link Describable}s that allow the current instances to pass information down to the next

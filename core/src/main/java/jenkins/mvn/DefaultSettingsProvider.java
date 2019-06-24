@@ -1,12 +1,14 @@
 package jenkins.mvn;
 
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.model.AbstractBuild;
 import hudson.model.TaskListener;
-
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
  * @author <a href="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
@@ -29,7 +31,7 @@ public class DefaultSettingsProvider extends SettingsProvider {
 
         @Override
         public String getDisplayName() {
-            return Messages.DefaultSettingsProvider_DisplayName();
+            return LocalizedString.DefaultSettingsProvider_DisplayName.toString();
         }
     }
 }

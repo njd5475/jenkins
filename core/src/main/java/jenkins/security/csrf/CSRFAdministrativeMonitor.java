@@ -23,12 +23,15 @@
  */
 package jenkins.security.csrf;
 
-import hudson.Extension;
-import hudson.model.AdministrativeMonitor;
-import jenkins.model.Jenkins;
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.AdministrativeMonitor;
+import jenkins.model.Jenkins;
 
 /**
  * Monitor that the CSRF protection is enabled on the application.
@@ -41,7 +44,7 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 public class CSRFAdministrativeMonitor extends AdministrativeMonitor {
     @Override
     public String getDisplayName() {
-        return Messages.CSRFAdministrativeMonitor_displayName();
+        return LocalizedString.CSRFAdministrativeMonitor_displayName.toString();
     }
     
     @Override

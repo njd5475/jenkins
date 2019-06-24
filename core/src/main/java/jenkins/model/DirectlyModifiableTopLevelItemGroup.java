@@ -24,10 +24,11 @@
 
 package jenkins.model;
 
+import java.io.IOException;
+
 import hudson.model.Item;
 import hudson.model.TopLevelItem;
 import hudson.model.listeners.ItemListener;
-import java.io.IOException;
 
 /**
  * Item group which supports items being directly moved in or out of it.

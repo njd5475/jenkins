@@ -23,9 +23,8 @@
  */
 package jenkins.security.apitoken;
 
-import hudson.Extension;
-import hudson.model.AdministrativeMonitor;
-import hudson.util.HttpResponses;
+import java.io.IOException;
+
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
@@ -33,7 +32,11 @@ import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import java.io.IOException;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.AdministrativeMonitor;
+import hudson.util.HttpResponses;
 
 /**
  * Monitor that the API Token cannot be created for a user without existing legacy token
@@ -44,7 +47,7 @@ import java.io.IOException;
 public class ApiTokenPropertyEnabledNewLegacyAdministrativeMonitor extends AdministrativeMonitor {
     @Override
     public String getDisplayName() {
-        return Messages.ApiTokenPropertyEnabledNewLegacyAdministrativeMonitor_displayName();
+        return LocalizedString.ApiTokenPropertyEnabledNewLegacyAdministrativeMonitor_displayName.toString();
     }
     
     @Override

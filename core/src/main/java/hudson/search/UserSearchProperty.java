@@ -1,14 +1,16 @@
 package hudson.search;
 
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.export.Exported;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.model.User;
 import hudson.model.UserProperty;
 import hudson.model.UserPropertyDescriptor;
 import net.sf.json.JSONObject;
-
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.export.Exported;
 
 public class UserSearchProperty extends hudson.model.UserProperty {
 
@@ -39,7 +41,7 @@ public class UserSearchProperty extends hudson.model.UserProperty {
     @Extension @Symbol("search")
     public static final class DescriptorImpl extends UserPropertyDescriptor {
         public String getDisplayName() {
-            return Messages.UserSearchProperty_DisplayName();
+            return LocalizedString.UserSearchProperty_DisplayName.toString();
         }
 
         public UserProperty newInstance(User user) {

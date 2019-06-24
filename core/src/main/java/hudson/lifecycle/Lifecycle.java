@@ -23,18 +23,18 @@
  */
 package hudson.lifecycle;
 
-import hudson.ExtensionPoint;
-import hudson.Functions;
-import jenkins.util.SystemProperties;
-import hudson.Util;
-import jenkins.model.Jenkins;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
+
+import hudson.ExtensionPoint;
+import hudson.Functions;
+import hudson.Util;
+import jenkins.model.Jenkins;
+import jenkins.util.SystemProperties;
 
 /**
  * Provides the capability for starting/stopping/restarting/uninstalling Hudson.

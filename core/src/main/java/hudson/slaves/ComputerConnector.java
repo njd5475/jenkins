@@ -23,12 +23,13 @@
  */
 package hudson.slaves;
 
+import java.io.IOException;
+
+import javax.annotation.Nonnull;
+
 import hudson.ExtensionPoint;
 import hudson.model.AbstractDescribableImpl;
 import hudson.model.TaskListener;
-
-import java.io.IOException;
-import javax.annotation.Nonnull;
 
 /**
  * Factory of {@link ComputerLauncher}.

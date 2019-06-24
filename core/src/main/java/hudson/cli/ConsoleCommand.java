@@ -1,20 +1,23 @@
 package hudson.cli;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
+
+import org.apache.commons.io.IOUtils;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.Option;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.console.AnnotatedLargeText;
 import hudson.model.Item;
 import hudson.model.Job;
 import hudson.model.PermalinkProjectAction.Permalink;
 import hudson.model.Run;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.Option;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintStream;
-import org.apache.commons.io.IOUtils;
 
 /**
  * cat/tail/head of the console output.
@@ -25,7 +28,7 @@ import org.apache.commons.io.IOUtils;
 public class ConsoleCommand extends CLICommand {
     @Override
     public String getShortDescription() {
-        return Messages.ConsoleCommand_ShortDescription();
+        return LocalizedString.ConsoleCommand_ShortDescription.toString();
     }
 
     @Argument(metaVar="JOB",usage="Name of the job",required=true)

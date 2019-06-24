@@ -24,6 +24,33 @@
 
 package jenkins.triggers;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.WeakHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
+import org.acegisecurity.AccessDeniedException;
+import org.acegisecurity.Authentication;
+import org.acegisecurity.context.SecurityContext;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.apache.commons.lang.StringUtils;
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.AncestorInPath;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.DataBoundSetter;
+import org.kohsuke.stapler.QueryParameter;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.Util;
@@ -52,32 +79,9 @@ import hudson.tasks.BuildTrigger;
 import hudson.triggers.Trigger;
 import hudson.triggers.TriggerDescriptor;
 import hudson.util.FormValidation;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-import java.util.WeakHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jenkins.model.DependencyDeclarer;
 import jenkins.model.Jenkins;
 import jenkins.model.ParameterizedJobMixIn;
-import org.acegisecurity.AccessDeniedException;
-import org.acegisecurity.Authentication;
-import org.acegisecurity.context.SecurityContext;
-import org.acegisecurity.context.SecurityContextHolder;
-import org.apache.commons.lang.StringUtils;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.AncestorInPath;
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.DataBoundSetter;
-import org.kohsuke.stapler.QueryParameter;
-
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 
 /**
  * Like {@link BuildTrigger} but defined on the downstream project.
@@ -164,7 +168,7 @@ public final class ReverseBuildTrigger extends Trigger<Job> implements Dependenc
         if(authUpstream != upstream) {
             if (downstreamVisible) {
                 // TODO ModelHyperlink
-                listener.getLogger().println(Messages.ReverseBuildTrigger_running_as_cannot_even_see_for_trigger_f(auth.getName(),
+                listener.getLogger().println(LocalizedString.ReverseBuildTrigger_running_as_cannot_even_see_for_trigger_f.toLocale(auth.getName(),
                         upstream.getFullName(), job.getFullName()));
             } else  {
                 LOGGER.log(Level.WARNING, "Running as {0} cannot even {1} {2} for trigger from {3}, (but cannot tell {4} that)",
@@ -200,7 +204,7 @@ public final class ReverseBuildTrigger extends Trigger<Job> implements Dependenc
     public static final class DescriptorImpl extends TriggerDescriptor {
 
         @Override public String getDisplayName() {
-            return Messages.ReverseBuildTrigger_build_after_other_projects_are_built();
+            return LocalizedString.ReverseBuildTrigger_build_after_other_projects_are_built.toString();
         }
 
         @Override public boolean isApplicable(Item item) {
@@ -224,13 +228,13 @@ public final class ReverseBuildTrigger extends Trigger<Job> implements Dependenc
                     if (item == null) {
                         Job nearest = Items.findNearest(Job.class, projectName, project.getParent());
                         String alternative = nearest != null ? nearest.getRelativeNameFrom(project) : "?";
-                        return FormValidation.error(hudson.tasks.Messages.BuildTrigger_NoSuchProject(projectName, alternative));
+                        return FormValidation.error(LocalizedString.BuildTrigger_NoSuchProject.toLocale(projectName, alternative));
                     }
                     hasProjects = true;
                 }
             }
             if (!hasProjects) {
-                return FormValidation.error(hudson.tasks.Messages.BuildTrigger_NoProjectSpecified());
+                return FormValidation.error(LocalizedString.BuildTrigger_NoProjectSpecified.toLocale());
             }
 
             return FormValidation.ok();
@@ -290,14 +294,14 @@ public final class ReverseBuildTrigger extends Trigger<Job> implements Dependenc
             for (final ReverseBuildTrigger trigger : triggers) {
                 if (trigger.shouldTrigger(r, listener)) {
                     if (!trigger.job.isBuildable()) {
-                        listener.getLogger().println(hudson.tasks.Messages.BuildTrigger_Disabled(ModelHyperlinkNote.encodeTo(trigger.job)));
+                        listener.getLogger().println(LocalizedString.BuildTrigger_Disabled.toLocale(ModelHyperlinkNote.encodeTo(trigger.job)));
                         continue;
                     }
                     String name = ModelHyperlinkNote.encodeTo(trigger.job) + " #" + trigger.job.getNextBuildNumber();
                     if (ParameterizedJobMixIn.scheduleBuild2(trigger.job, -1, new CauseAction(new Cause.UpstreamCause(r))) != null) {
-                        listener.getLogger().println(hudson.tasks.Messages.BuildTrigger_Triggering(name));
+                        listener.getLogger().println(LocalizedString.BuildTrigger_Triggering.toLocale(name));
                     } else {
-                        listener.getLogger().println(hudson.tasks.Messages.BuildTrigger_InQueue(name));
+                        listener.getLogger().println(LocalizedString.BuildTrigger_InQueue.toLocale(name));
                     }
                 }
             }

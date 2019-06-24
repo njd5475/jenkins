@@ -23,14 +23,16 @@
  */
 package jenkins.model;
 
-import hudson.ExtensionPoint;
-import hudson.model.Action;
-import hudson.model.Fingerprint;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import java.util.List;
-import javax.annotation.Nonnull;
+import hudson.ExtensionPoint;
+import hudson.model.Action;
+import hudson.model.Fingerprint;
 
 /**
  * Plugin-specific additions to fingerprint information.

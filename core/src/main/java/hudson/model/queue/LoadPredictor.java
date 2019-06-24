@@ -23,15 +23,15 @@
  */
 package hudson.model.queue;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.model.Computer;
 import hudson.model.Executor;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Predicts future load to the system, to assist the scheduling decisions

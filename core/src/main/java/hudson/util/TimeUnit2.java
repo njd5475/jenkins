@@ -29,11 +29,12 @@
 
 package hudson.util;
 
-import hudson.RestrictedSince;
+import java.util.concurrent.TimeUnit;
+
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import java.util.concurrent.TimeUnit;
+import hudson.RestrictedSince;
 
 /**
  * A {@code TimeUnit} represents time durations at a given unit of

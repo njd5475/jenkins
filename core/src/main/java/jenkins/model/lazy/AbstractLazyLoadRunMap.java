@@ -23,9 +23,9 @@
  */
 package jenkins.model.lazy;
 
-import hudson.model.Job;
-import hudson.model.Run;
-import hudson.model.RunMap;
+import static jenkins.model.lazy.AbstractLazyLoadRunMap.Direction.ASC;
+import static jenkins.model.lazy.AbstractLazyLoadRunMap.Direction.DESC;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.AbstractMap;
@@ -39,14 +39,16 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.CheckForNull;
 
-import jenkins.util.MemoryReductionUtil;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import static jenkins.model.lazy.AbstractLazyLoadRunMap.Direction.ASC;
-import static jenkins.model.lazy.AbstractLazyLoadRunMap.Direction.DESC;
+import hudson.model.Job;
+import hudson.model.Run;
+import hudson.model.RunMap;
+import jenkins.util.MemoryReductionUtil;
 
 /**
  * {@link SortedMap} that keeps build records by their build numbers, in the descending order

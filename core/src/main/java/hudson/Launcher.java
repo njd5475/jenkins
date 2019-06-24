@@ -23,28 +23,8 @@
  */
 package hudson;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import hudson.Proc.LocalProc;
-import hudson.model.Computer;
-import jenkins.util.MemoryReductionUtil;
-import hudson.util.QuotedStringTokenizer;
-import jenkins.model.Jenkins;
-import hudson.model.TaskListener;
-import hudson.model.Node;
-import hudson.remoting.Channel;
-import hudson.remoting.Pipe;
-import hudson.remoting.RemoteInputStream;
-import hudson.remoting.RemoteOutputStream;
-import hudson.remoting.VirtualChannel;
-import hudson.util.StreamCopyThread;
-import hudson.util.ArgumentListBuilder;
-import hudson.util.ProcessTree;
-import jenkins.security.MasterToSlaveCallable;
-import org.apache.commons.io.input.NullInputStream;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
+import static org.apache.commons.io.output.NullOutputStream.NULL_OUTPUT_STREAM;
 
-import javax.annotation.CheckForNull;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -52,16 +32,38 @@ import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.apache.commons.io.output.NullOutputStream.NULL_OUTPUT_STREAM;
-import hudson.Proc.ProcWithJenkins23271Patch;
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+
+import org.apache.commons.io.input.NullInputStream;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import hudson.Proc.LocalProc;
+import hudson.Proc.ProcWithJenkins23271Patch;
+import hudson.model.Computer;
+import hudson.model.Node;
+import hudson.model.TaskListener;
+import hudson.remoting.Channel;
+import hudson.remoting.Pipe;
+import hudson.remoting.RemoteInputStream;
+import hudson.remoting.RemoteOutputStream;
+import hudson.remoting.VirtualChannel;
+import hudson.util.ArgumentListBuilder;
+import hudson.util.ProcessTree;
+import hudson.util.QuotedStringTokenizer;
+import hudson.util.StreamCopyThread;
+import jenkins.model.Jenkins;
+import jenkins.security.MasterToSlaveCallable;
+import jenkins.util.MemoryReductionUtil;
 
 /**
  * Starts a process.

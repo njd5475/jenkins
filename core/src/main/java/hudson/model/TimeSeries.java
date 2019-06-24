@@ -23,11 +23,12 @@
  */
 package hudson.model;
 
-import hudson.CopyOnWrite;
-import org.kohsuke.stapler.export.ExportedBean;
-import org.kohsuke.stapler.export.Exported;
-
 import java.io.Serializable;
+
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
+
+import hudson.CopyOnWrite;
 
 /**
  * Scalar value that changes over the time (such as load average, Q length, # of executors, etc.)

@@ -23,9 +23,12 @@
  */
 package hudson.model;
 
+import org.jenkinsci.Symbol;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import jenkins.model.Jenkins;
-import org.jenkinsci.Symbol;
 
 /**
  * Adds the "Manage Jenkins" link to the top page.
@@ -42,7 +45,7 @@ public class ManageJenkinsAction implements RootAction {
     }
 
     public String getDisplayName() {
-        return Messages.ManageJenkinsAction_DisplayName();
+        return LocalizedString.ManageJenkinsAction_DisplayName.toString();
     }
 
     public String getUrlName() {

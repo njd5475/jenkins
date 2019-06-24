@@ -23,22 +23,6 @@
  */
 package jenkins.security.stapler;
 
-import com.google.common.annotations.VisibleForTesting;
-import hudson.BulkChange;
-import hudson.Extension;
-import hudson.ExtensionList;
-import hudson.model.Saveable;
-import jenkins.model.Jenkins;
-import jenkins.util.SystemProperties;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.Function;
-import org.kohsuke.stapler.WebApp;
-import org.kohsuke.stapler.lang.FieldRef;
-
-import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,6 +33,25 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.annotation.Nonnull;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.Function;
+import org.kohsuke.stapler.WebApp;
+import org.kohsuke.stapler.lang.FieldRef;
+
+import com.google.common.annotations.VisibleForTesting;
+
+import hudson.BulkChange;
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.model.Saveable;
+import jenkins.model.Jenkins;
+import jenkins.util.SystemProperties;
 
 /**
  * Fill the list of getter methods that are whitelisted for Stapler

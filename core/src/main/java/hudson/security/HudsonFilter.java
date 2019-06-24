@@ -23,11 +23,10 @@
  */
 package hudson.security;
 
-import jenkins.model.Jenkins;
+import static java.util.logging.Level.SEVERE;
 
 import java.io.IOException;
 import java.util.logging.Logger;
-import static java.util.logging.Level.SEVERE;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -41,6 +40,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.acegisecurity.AuthenticationManager;
 import org.acegisecurity.ui.rememberme.RememberMeServices;
 import org.acegisecurity.userdetails.UserDetailsService;
+
+import jenkins.model.Jenkins;
 
 /**
  * {@link Filter} that Jenkins uses to implement security support.

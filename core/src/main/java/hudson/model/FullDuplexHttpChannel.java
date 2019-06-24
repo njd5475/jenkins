@@ -23,15 +23,16 @@
  */
 package hudson.model;
 
-import hudson.remoting.Channel;
-import hudson.remoting.PingThread;
-import hudson.remoting.Channel.Mode;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import hudson.remoting.Channel;
+import hudson.remoting.Channel.Mode;
+import hudson.remoting.PingThread;
 import jenkins.util.FullDuplexHttpService;
 
 /**

@@ -23,13 +23,6 @@
  */
 package hudson.util;
 
-import edu.umd.cs.findbugs.annotations.CreatesObligation;
-
-import hudson.Util;
-import jenkins.util.io.LinesStream;
-
-import java.nio.file.Files;
-import javax.annotation.Nonnull;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -40,6 +33,13 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+
+import javax.annotation.Nonnull;
+
+import edu.umd.cs.findbugs.annotations.CreatesObligation;
+import hudson.Util;
+import jenkins.util.io.LinesStream;
 
 /**
  * Represents a text file.

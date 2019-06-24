@@ -23,6 +23,14 @@
  */
 package hudson.model.listeners;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+import javax.annotation.CheckForNull;
+
 import hudson.Extension;
 import hudson.ExtensionPoint;
 import hudson.FilePath;
@@ -36,12 +44,6 @@ import hudson.model.TaskListener;
 import hudson.scm.ChangeLogSet;
 import hudson.scm.SCM;
 import hudson.scm.SCMRevisionState;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import javax.annotation.CheckForNull;
 import jenkins.model.Jenkins;
 
 /**

@@ -1,11 +1,11 @@
 package hudson.tools;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hudson.Functions;
 import hudson.model.Describable;
 import hudson.model.Descriptor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Base {@link Descriptor} type used for {@code XyzProperty} classes.

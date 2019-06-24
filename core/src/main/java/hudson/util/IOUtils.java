@@ -1,19 +1,31 @@
 package hudson.util;
 
-import hudson.Functions;
-import hudson.Util;
-import hudson.os.PosixAPI;
-import hudson.os.PosixException;
+import static hudson.Util.fileToPath;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
-import org.apache.commons.io.LineIterator;
-
-import java.io.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static hudson.Util.fileToPath;
+import org.apache.commons.io.LineIterator;
+
+import hudson.Functions;
+import hudson.Util;
+import hudson.os.PosixAPI;
+import hudson.os.PosixException;
 
 /**
  * Adds more to commons-io.

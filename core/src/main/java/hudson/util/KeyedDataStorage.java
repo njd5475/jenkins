@@ -23,16 +23,17 @@
  */
 package hudson.util;
 
-import hudson.model.Fingerprint;
-import hudson.model.FingerprintMap;
-
 import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.text.MessageFormat;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+
+import hudson.model.Fingerprint;
+import hudson.model.FingerprintMap;
 
 /**
  * Convenient base class for implementing data storage.

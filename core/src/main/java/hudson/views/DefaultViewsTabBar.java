@@ -23,9 +23,12 @@
  */
 package hudson.views;
 
-import hudson.Extension;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
 
 /**
  * The Default ViewsTabBar Extension for {@link ViewsTabBar}.
@@ -43,7 +46,7 @@ public class DefaultViewsTabBar extends ViewsTabBar {
     public static class DescriptorImpl extends ViewsTabBarDescriptor {
         @Override
         public String getDisplayName() {
-            return Messages.DefaultViewsTabsBar_DisplayName();
+            return LocalizedString.DefaultViewsTabsBar_DisplayName.toString();
             //return "Default Views TabsBar";
         }
     }

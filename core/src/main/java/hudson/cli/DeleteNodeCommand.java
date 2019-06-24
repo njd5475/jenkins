@@ -23,14 +23,17 @@
  */
 package hudson.cli;
 
+import java.util.HashSet;
+import java.util.List;
+
+import org.kohsuke.args4j.Argument;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.AbortException;
 import hudson.Extension;
 import hudson.model.Node;
 import jenkins.model.Jenkins;
-import org.kohsuke.args4j.Argument;
-
-import java.util.HashSet;
-import java.util.List;
 
 /**
  * CLI command, which deletes Jenkins nodes.
@@ -46,7 +49,7 @@ public class DeleteNodeCommand extends CLICommand {
     @Override
     public String getShortDescription() {
 
-        return Messages.DeleteNodeCommand_ShortDescription();
+        return LocalizedString.DeleteNodeCommand_ShortDescription.toString();
     }
 
     @Override

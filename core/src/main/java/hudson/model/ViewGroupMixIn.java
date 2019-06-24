@@ -23,16 +23,18 @@
  */
 package hudson.model;
 
-import java.util.Locale;
-import org.kohsuke.stapler.export.Exported;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+
+import org.kohsuke.stapler.export.Exported;
+
+import com.dj.runner.locales.LocalizedString;
 
 /**
  * Implements {@link ViewGroup} to be used as a "mix-in".
@@ -138,7 +140,7 @@ public abstract class ViewGroupMixIn {
             if (pv instanceof AllView && AllView.DEFAULT_VIEW_NAME.equals(pv.name)) {
                 // JENKINS-38606: primary view is the default AllView, is somebody using an old link to localized form?
                 for (Locale l : Locale.getAvailableLocales()) {
-                    if (name.equals(Messages._Hudson_ViewName().toString(l))) {
+                    if (name.equals(LocalizedString._Hudson_ViewName.toString(l))) {
                         // why yes they are, let's keep that link working
                         return pv;
                     }

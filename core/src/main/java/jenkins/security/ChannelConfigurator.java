@@ -1,12 +1,12 @@
 package jenkins.security;
 
+import javax.annotation.Nullable;
+
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.remoting.Channel;
 import hudson.remoting.ChannelBuilder;
 import hudson.slaves.SlaveComputer;
-
-import javax.annotation.Nullable;
 
 /**
  * Intercepts the new creation of {@link Channel} and tweak its configuration.

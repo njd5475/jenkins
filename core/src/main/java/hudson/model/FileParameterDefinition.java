@@ -23,17 +23,22 @@
  */
 package hudson.model;
 
-import hudson.Extension;
-import hudson.cli.CLICommand;
 import java.io.File;
 import java.io.IOException;
+
 import javax.servlet.ServletException;
-import net.sf.json.JSONObject;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.io.FileUtils;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.cli.CLICommand;
+import net.sf.json.JSONObject;
 
 /**
  * {@link ParameterDefinition} for doing file upload.
@@ -60,7 +65,7 @@ public class FileParameterDefinition extends ParameterDefinition {
     public static class DescriptorImpl extends ParameterDescriptor {
         @Override
         public String getDisplayName() {
-            return Messages.FileParameterDefinition_DisplayName();
+            return LocalizedString.FileParameterDefinition_DisplayName.toString();
         }
 
         @Override

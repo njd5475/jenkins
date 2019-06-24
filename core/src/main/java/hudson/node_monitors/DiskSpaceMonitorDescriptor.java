@@ -23,12 +23,6 @@
  */
 package hudson.node_monitors;
 
-import hudson.Functions;
-import jenkins.MasterToSlaveFileCallable;
-import hudson.remoting.VirtualChannel;
-import hudson.Util;
-import hudson.node_monitors.DiskSpaceMonitorDescriptor.DiskSpace;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -38,8 +32,16 @@ import java.util.Locale;
 
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.DoNotUse;
-import org.kohsuke.stapler.export.ExportedBean;
 import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Functions;
+import hudson.Util;
+import hudson.node_monitors.DiskSpaceMonitorDescriptor.DiskSpace;
+import hudson.remoting.VirtualChannel;
+import jenkins.MasterToSlaveFileCallable;
 
 /**
  * {@link AbstractNodeMonitorDescriptor} for {@link NodeMonitor} that checks a free disk space of some directory.
@@ -71,7 +73,7 @@ public abstract class DiskSpaceMonitorDescriptor extends AbstractAsyncNodeMonito
 
         @Override
         public String toString() {
-            return Messages.DiskSpaceMonitorDescriptor_DiskSpace_FreeSpaceTooLow(getGbLeft(), path);
+            return LocalizedString.DiskSpaceMonitorDescriptor_DiskSpace_FreeSpaceTooLow.toLocale(getGbLeft(), path);
         }
         
         /**

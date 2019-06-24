@@ -1,13 +1,14 @@
 package hudson.scm;
 
-import hudson.model.AbstractProject;
-import hudson.model.TaskListener;
-import hudson.Launcher;
-import hudson.FilePath;
+import java.io.Serializable;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import java.io.Serializable;
+
+import hudson.FilePath;
+import hudson.Launcher;
+import hudson.model.AbstractProject;
+import hudson.model.TaskListener;
 
 /**
  * Immutable object that represents the result of {@linkplain SCM#poll(AbstractProject, Launcher, FilePath, TaskListener, SCMRevisionState) SCM polling}.

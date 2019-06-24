@@ -25,10 +25,12 @@ package hudson.cli;
 
 import org.kohsuke.args4j.Argument;
 
-import jenkins.model.Jenkins;
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.model.Failure;
 import hudson.model.View;
+import jenkins.model.Jenkins;
 
 /**
  * @author ogondza
@@ -43,7 +45,7 @@ public class CreateViewCommand extends CLICommand {
     @Override
     public String getShortDescription() {
 
-        return Messages.CreateViewCommand_ShortDescription();
+        return LocalizedString.CreateViewCommand_ShortDescription.toString();
     }
 
     @Override

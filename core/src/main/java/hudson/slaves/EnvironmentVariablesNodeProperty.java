@@ -23,6 +23,18 @@
  */
 package hudson.slaves;
 
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.Stapler;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.EnvVars;
 import hudson.Extension;
 import hudson.Launcher;
@@ -32,15 +44,6 @@ import hudson.model.ComputerSet;
 import hudson.model.Environment;
 import hudson.model.Node;
 import hudson.model.TaskListener;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.Stapler;
-
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * {@link NodeProperty} that sets additional environment variables.
@@ -91,7 +94,7 @@ public class EnvironmentVariablesNodeProperty extends NodeProperty<Node> {
 
         @Override
 		public String getDisplayName() {
-			return Messages.EnvironmentVariablesNodeProperty_displayName();
+			return LocalizedString.EnvironmentVariablesNodeProperty_displayName.toString();
 		}
 
         public String getHelpPage() {

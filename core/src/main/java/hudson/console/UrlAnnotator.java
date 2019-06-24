@@ -1,11 +1,12 @@
 package hudson.console;
 
+import java.util.regex.Pattern;
+
+import org.jenkinsci.Symbol;
+
 import hudson.Extension;
 import hudson.MarkupText;
 import hudson.MarkupText.SubText;
-import org.jenkinsci.Symbol;
-
-import java.util.regex.Pattern;
 
 /**
  * Annotates URLs in the console output to hyperlink.

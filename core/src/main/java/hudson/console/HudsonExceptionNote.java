@@ -23,9 +23,10 @@
  */
 package hudson.console;
 
+import org.jenkinsci.Symbol;
+
 import hudson.Extension;
 import hudson.MarkupText;
-import org.jenkinsci.Symbol;
 
 // TODO: the implementation has been deprecated due to JENKINS-42861
 // Consider providing alternate search mechanisms (JIRA, grepcode, etc.) as proposed in 

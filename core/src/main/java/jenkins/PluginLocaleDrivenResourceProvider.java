@@ -23,11 +23,12 @@
  */
 package jenkins;
 
-import hudson.ExtensionPoint;
+import java.net.URL;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import java.net.URL;
+
+import hudson.ExtensionPoint;
 
 /**
  * Contribute localizations for arbitrary resources from plugins.

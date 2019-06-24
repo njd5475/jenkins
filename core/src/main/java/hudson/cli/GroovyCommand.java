@@ -23,18 +23,21 @@
  */
 package hudson.cli;
 
-import groovy.lang.GroovyShell;
-import groovy.lang.Binding;
-import jenkins.model.Jenkins;
-import hudson.Extension;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.CmdLineException;
-import org.apache.commons.io.IOUtils;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.io.IOUtils;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.CmdLineException;
+
+import com.dj.runner.locales.LocalizedString;
+
+import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
+import hudson.Extension;
+import jenkins.model.Jenkins;
 
 /**
  * Executes the specified groovy script.
@@ -45,7 +48,7 @@ import java.util.List;
 public class GroovyCommand extends CLICommand {
     @Override
     public String getShortDescription() {
-        return Messages.GroovyCommand_ShortDescription();
+        return LocalizedString.GroovyCommand_ShortDescription.toString();
     }
 
     @Argument(metaVar="SCRIPT",usage="Script to be executed. Only '=' (to represent stdin) is supported.")

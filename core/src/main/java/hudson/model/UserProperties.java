@@ -23,10 +23,10 @@
  */
 package hudson.model;
 
+import java.util.List;
+
 import hudson.Extension;
 import hudson.util.DescriptorList;
-
-import java.util.List;
 
 /**
  * List of all installed {@link UserProperty} types.

@@ -23,10 +23,10 @@
  */
 package hudson.search;
 
-import hudson.model.AbstractModelObject;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import hudson.model.AbstractModelObject;
 
 /**
  * Builds {@link SearchIndex}.

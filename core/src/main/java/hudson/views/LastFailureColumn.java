@@ -23,9 +23,12 @@
  */
 package hudson.views;
 
-import hudson.Extension;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
 
 public class LastFailureColumn extends ListViewColumn {
     @DataBoundConstructor
@@ -36,7 +39,7 @@ public class LastFailureColumn extends ListViewColumn {
     public static class DescriptorImpl extends ListViewColumnDescriptor {
         @Override
         public String getDisplayName() {
-            return Messages.LastFailureColumn_DisplayName();
+            return LocalizedString.LastFailureColumn_DisplayName.toString();
         }
     }
 }

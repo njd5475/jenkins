@@ -23,20 +23,23 @@
  */
 package hudson.slaves;
 
-import hudson.model.AsyncPeriodicWork;
-import hudson.model.TaskListener;
-import jenkins.model.Jenkins;
-import hudson.model.Computer;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-import hudson.remoting.VirtualChannel;
-import hudson.remoting.Channel;
-import hudson.Extension;
-import jenkins.util.SystemProperties;
-import jenkins.security.SlaveToMasterCallable;
+import java.util.logging.Logger;
+
 import org.jenkinsci.Symbol;
 
-import java.io.IOException;
-import java.util.logging.Logger;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.AsyncPeriodicWork;
+import hudson.model.Computer;
+import hudson.model.TaskListener;
+import hudson.remoting.Channel;
+import hudson.remoting.VirtualChannel;
+import jenkins.model.Jenkins;
+import jenkins.security.SlaveToMasterCallable;
+import jenkins.util.SystemProperties;
 
 /**
  * Makes sure that connections to agents are alive, and if they are not, cut them off.
@@ -68,7 +71,7 @@ public class ConnectionActivityMonitor extends AsyncPeriodicWork {
 
                     if (lastPing!=null && now-lastPing > TIMEOUT) {
                         LOGGER.info("Repeated ping attempts failed on "+c.getName()+". Disconnecting");
-                        c.disconnect(OfflineCause.create(Messages._ConnectionActivityMonitor_OfflineCause()));
+                        c.disconnect(OfflineCause.create(LocalizedString._ConnectionActivityMonitor_OfflineCause));
                     } else {
                         // send a ping. if we receive a reply, it will be reflected in the next getLastHeard() call.
                         channel.callAsync(PING_COMMAND);

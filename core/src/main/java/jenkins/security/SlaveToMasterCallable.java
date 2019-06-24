@@ -1,7 +1,8 @@
 package jenkins.security;
 
-import hudson.remoting.Callable;
 import org.jenkinsci.remoting.RoleChecker;
+
+import hudson.remoting.Callable;
 
 
 /**

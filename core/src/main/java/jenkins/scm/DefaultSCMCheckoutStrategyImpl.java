@@ -1,9 +1,10 @@
 package jenkins.scm;
 
-import hudson.Extension;
-import hudson.model.AbstractProject;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
+
+import hudson.Extension;
+import hudson.model.AbstractProject;
 
 /**
  * Default {@link SCMCheckoutStrategy} implementation.

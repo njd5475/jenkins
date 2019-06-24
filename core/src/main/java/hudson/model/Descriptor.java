@@ -71,6 +71,8 @@ import org.kohsuke.stapler.jelly.JellyCompatibleFacet;
 import org.kohsuke.stapler.lang.Klass;
 import org.springframework.util.StringUtils;
 
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.BulkChange;
 import hudson.DescriptorExtensionList;
 import hudson.ExtensionList;
@@ -936,7 +938,7 @@ public abstract class Descriptor<T extends Describable<T>> implements Saveable {
         if (pw!=null) {
             rsp.setHeader("X-Plugin-Short-Name",pw.getShortName());
             rsp.setHeader("X-Plugin-Long-Name",pw.getLongName());
-            rsp.setHeader("X-Plugin-From", Messages.Descriptor_From(
+            rsp.setHeader("X-Plugin-From", LocalizedString.Descriptor_From.toLocale(
                     pw.getLongName().replace("Hudson","Jenkins").replace("hudson","jenkins"), pw.getUrl()));
         }
 
@@ -1148,6 +1150,10 @@ public abstract class Descriptor<T extends Describable<T>> implements Saveable {
         public FormException(Throwable cause, String formField) {
             super(cause);
             this.formField = formField;
+        }
+
+        public FormException(LocalizedString slaveInvalidconfigNoname, Object formField2) {
+          this(slaveInvalidconfigNoname.toString(), String.valueOf(formField2));
         }
 
         /**

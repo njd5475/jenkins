@@ -23,18 +23,21 @@
  */
 package hudson.cli;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.logging.Logger;
+
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.Option;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.AbortException;
 import hudson.Extension;
 import hudson.model.Computer;
 import hudson.model.ComputerSet;
 import hudson.util.EditDistance;
 import jenkins.model.Jenkins;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.Option;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Reconnect to a node or nodes.
@@ -54,7 +57,7 @@ public class ConnectNodeCommand extends CLICommand {
 
     @Override
     public String getShortDescription() {
-        return Messages.ConnectNodeCommand_ShortDescription();
+        return LocalizedString.ConnectNodeCommand_ShortDescription.toString();
     }
 
     @Override
@@ -79,8 +82,8 @@ public class ConnectNodeCommand extends CLICommand {
                     }
                     String adv = EditDistance.findNearest(node_s, names);
                     throw new IllegalArgumentException(adv == null ?
-                            hudson.model.Messages.Computer_NoSuchSlaveExistsWithoutAdvice(node_s) :
-                            hudson.model.Messages.Computer_NoSuchSlaveExists(node_s, adv));
+                            LocalizedString.Computer_NoSuchSlaveExistsWithoutAdvice.toLocale(node_s) :
+                            LocalizedString.Computer_NoSuchSlaveExists.toLocale(node_s, adv));
                 }
 
                 computer.cliConnect(force);

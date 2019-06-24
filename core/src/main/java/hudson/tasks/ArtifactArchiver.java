@@ -23,15 +23,33 @@
  */
 package hudson.tasks;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
+import org.apache.tools.ant.types.FileSet;
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.AncestorInPath;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.DataBoundSetter;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.StaplerRequest;
+
+import com.dj.runner.locales.LocalizedString;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.AbortException;
+import hudson.Extension;
 import hudson.FilePath;
-import jenkins.MasterToSlaveFileCallable;
+import hudson.Functions;
 import hudson.Launcher;
 import hudson.Util;
-import hudson.Extension;
-import hudson.Functions;
-import jenkins.util.SystemProperties;
 import hudson.model.AbstractProject;
 import hudson.model.Result;
 import hudson.model.Run;
@@ -39,29 +57,13 @@ import hudson.model.TaskListener;
 import hudson.model.listeners.ItemListener;
 import hudson.remoting.VirtualChannel;
 import hudson.util.FormValidation;
-import java.io.File;
-
-import org.apache.tools.ant.types.FileSet;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.AncestorInPath;
-import org.kohsuke.stapler.QueryParameter;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.CheckForNull;
-
-import net.sf.json.JSONObject;
-import javax.annotation.Nonnull;
+import jenkins.MasterToSlaveFileCallable;
 import jenkins.model.BuildDiscarder;
 import jenkins.model.Jenkins;
 import jenkins.tasks.SimpleBuildStep;
 import jenkins.util.BuildListenerAdapter;
-import org.kohsuke.stapler.DataBoundSetter;
+import jenkins.util.SystemProperties;
+import net.sf.json.JSONObject;
 
 /**
  * Copies the artifacts into an archive directory.
@@ -217,16 +219,16 @@ public class ArtifactArchiver extends Recorder implements SimpleBuildStep {
     @Override
     public void perform(Run<?,?> build, FilePath ws, Launcher launcher, TaskListener listener) throws IOException, InterruptedException {
         if(artifacts.length()==0) {
-            throw new AbortException(Messages.ArtifactArchiver_NoIncludes());
+            throw new AbortException(LocalizedString.ArtifactArchiver_NoIncludes);
         }
 
         Result result = build.getResult();
         if (onlyIfSuccessful && result != null && result.isWorseThan(Result.UNSTABLE)) {
-            listener.getLogger().println(Messages.ArtifactArchiver_SkipBecauseOnlyIfSuccessful());
+            listener.getLogger().println(LocalizedString.ArtifactArchiver_SkipBecauseOnlyIfSuccessful);
             return;
         }
 
-        listener.getLogger().println(Messages.ArtifactArchiver_ARCHIVING_ARTIFACTS());
+        listener.getLogger().println(LocalizedString.ArtifactArchiver_ARCHIVING_ARTIFACTS);
         try {
             String artifacts = build.getEnvironment(listener).expand(this.artifacts);
 
@@ -248,9 +250,9 @@ public class ArtifactArchiver extends Recorder implements SimpleBuildStep {
                         Functions.printStackTrace(e, listener.getLogger());
                     }
                     if (allowEmptyArchive) {
-                        listener.getLogger().println(Messages.ArtifactArchiver_NoMatchFound(artifacts));
+                        listener.getLogger().println(LocalizedString.ArtifactArchiver_NoMatchFound.toLocale(artifacts));
                     } else {
-                        throw new AbortException(Messages.ArtifactArchiver_NoMatchFound(artifacts));
+                        throw new AbortException(LocalizedString.ArtifactArchiver_NoMatchFound.toLocale(artifacts));
                     }
                 } else {
                     // If a freestyle build failed, do not complain that there was no matching artifact:
@@ -312,7 +314,7 @@ public class ArtifactArchiver extends Recorder implements SimpleBuildStep {
         }
 
         public String getDisplayName() {
-            return Messages.ArtifactArchiver_DisplayName();
+            return LocalizedString.ArtifactArchiver_DisplayName.toString();
         }
 
         /**

@@ -24,6 +24,23 @@
 
 package hudson.slaves;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
+import java.util.List;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.jvnet.hudson.test.Issue;
+import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.SleepBuilder;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.model.FreeStyleBuild;
 import hudson.model.FreeStyleProject;
 import hudson.model.Node;
@@ -32,16 +49,6 @@ import hudson.model.Queue.BuildableItem;
 import hudson.model.Result;
 import hudson.model.Slave;
 import hudson.model.queue.CauseOfBlockage;
-import java.util.List;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import static org.junit.Assert.*;
-import org.junit.Rule;
-import org.junit.Test;
-import org.jvnet.hudson.test.Issue;
-import org.jvnet.hudson.test.JenkinsRule;
-import org.jvnet.hudson.test.SleepBuilder;
 
 public class NodeCanTakeTaskTest {
 
@@ -104,7 +111,7 @@ public class NodeCanTakeTaskTest {
         while ((item = r.jenkins.getQueue().getItem(project)) == null || !item.isBuildable()) {
             Thread.sleep(100);
         }
-        assertEquals(hudson.model.Messages.Queue_WaitingForNextAvailableExecutorOn(slave.getDisplayName()), item.getWhy());
+        assertEquals(LocalizedString.Queue_WaitingForNextAvailableExecutorOn.toLocale(slave.getDisplayName()), item.getWhy());
     }
 
 }

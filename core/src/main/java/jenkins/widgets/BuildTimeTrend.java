@@ -24,14 +24,17 @@
 
 package jenkins.widgets;
 
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.DoNotUse;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.model.AbstractBuild;
 import hudson.model.BallColor;
 import hudson.model.Node;
 import hudson.model.Run;
 import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.DoNotUse;
 
 @Restricted(DoNotUse.class) // only for buildTimeTrend.jelly
 public class BuildTimeTrend extends RunListProgressiveRendering {
@@ -57,7 +60,7 @@ public class BuildTimeTrend extends RunListProgressiveRendering {
                 element.put("builtOn", n.getNodeName());
                 element.put("builtOnStr", n.getDisplayName());
             } else {
-                element.put("builtOnStr", hudson.model.Messages.Hudson_Computer_DisplayName());
+                element.put("builtOnStr", LocalizedString.Hudson_Computer_DisplayName.toString());
             }
         }
     }

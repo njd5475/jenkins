@@ -23,14 +23,18 @@
  */
 package hudson.model;
 
-import jenkins.model.Jenkins;
+import java.io.IOException;
+
+import javax.annotation.CheckForNull;
+import javax.servlet.ServletException;
+
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
-import javax.annotation.CheckForNull;
-import javax.servlet.ServletException;
-import java.io.IOException;
+import com.dj.runner.locales.LocalizedString;
+
+import jenkins.model.Jenkins;
 
 /**
  * Represents an error induced by user, encountered during HTTP request processing.
@@ -46,13 +50,18 @@ import java.io.IOException;
 public class Failure extends RuntimeException implements HttpResponse {
     private final boolean pre;
 
-    public Failure(String message) {
-        this(message,false);
+    public Failure(LocalizedString hudsonNoname) {
+        this(hudsonNoname.toLocale(),false);
     }
 
     public Failure(String message, boolean pre) {
         super(message);
         this.pre = pre;
+    }
+
+    public Failure(String locale) {
+      super(locale);
+      this.pre = false;
     }
 
     public void generateResponse(StaplerRequest req, StaplerResponse rsp, Object node, @CheckForNull Throwable throwable) throws IOException, ServletException {

@@ -1,10 +1,6 @@
 package jenkins.security.s2m;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import hudson.Functions;
-import hudson.model.Failure;
-import jenkins.model.Jenkins;
+import static hudson.Functions.isWindows;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,7 +8,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static hudson.Functions.isWindows;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+
+import hudson.Functions;
+import hudson.model.Failure;
+import jenkins.model.Jenkins;
 
 /**
  * Config file that lists {@link FilePathRule} rules.

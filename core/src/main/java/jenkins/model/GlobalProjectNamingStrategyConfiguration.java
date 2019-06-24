@@ -23,12 +23,12 @@
  */
 package jenkins.model;
 
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.StaplerRequest;
+
 import hudson.Extension;
 import jenkins.model.ProjectNamingStrategy.DefaultProjectNamingStrategy;
 import net.sf.json.JSONObject;
-
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.StaplerRequest;
 
 /**
  * Configures the project naming strategy.

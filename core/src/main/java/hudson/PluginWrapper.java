@@ -24,34 +24,14 @@
  */
 package hudson;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
-import hudson.PluginManager.PluginInstanceStore;
-import hudson.model.AdministrativeMonitor;
-import hudson.model.Api;
-import hudson.model.ModelObject;
-import hudson.model.UpdateCenter;
-import hudson.model.UpdateSite;
-import hudson.util.VersionNumber;
-import io.jenkins.lib.versionnumber.JavaSpecificationVersion;
-import jenkins.YesNoMaybe;
-import jenkins.model.Jenkins;
-import jenkins.util.java.JavaUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.LogFactory;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.DoNotUse;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.HttpResponses;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-import org.kohsuke.stapler.export.Exported;
-import org.kohsuke.stapler.export.ExportedBean;
-import org.kohsuke.stapler.interceptor.RequirePOST;
+import static hudson.PluginWrapper.PluginDisableStatus.ALREADY_DISABLED;
+import static hudson.PluginWrapper.PluginDisableStatus.DISABLED;
+import static hudson.PluginWrapper.PluginDisableStatus.ERROR_DISABLING;
+import static hudson.PluginWrapper.PluginDisableStatus.NOT_DISABLED_DEPENDANTS;
+import static hudson.PluginWrapper.PluginDisableStatus.NO_SUCH_PLUGIN;
+import static java.util.logging.Level.WARNING;
+import static org.apache.commons.io.FilenameUtils.getBaseName;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
@@ -78,13 +58,37 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import static hudson.PluginWrapper.PluginDisableStatus.ALREADY_DISABLED;
-import static hudson.PluginWrapper.PluginDisableStatus.DISABLED;
-import static hudson.PluginWrapper.PluginDisableStatus.ERROR_DISABLING;
-import static hudson.PluginWrapper.PluginDisableStatus.NOT_DISABLED_DEPENDANTS;
-import static hudson.PluginWrapper.PluginDisableStatus.NO_SUCH_PLUGIN;
-import static java.util.logging.Level.WARNING;
-import static org.apache.commons.io.FilenameUtils.getBaseName;
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.LogFactory;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.DoNotUse;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.HttpResponses;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
+
+import hudson.PluginManager.PluginInstanceStore;
+import hudson.model.AdministrativeMonitor;
+import hudson.model.Api;
+import hudson.model.ModelObject;
+import hudson.model.UpdateCenter;
+import hudson.model.UpdateSite;
+import hudson.util.VersionNumber;
+import io.jenkins.lib.versionnumber.JavaSpecificationVersion;
+import jenkins.YesNoMaybe;
+import jenkins.model.Jenkins;
+import jenkins.util.java.JavaUtils;
 
 /**
  * Represents a Jenkins plug-in and associated control information
@@ -650,7 +654,7 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
         PluginDisableResult result = new PluginDisableResult(shortName);
 
         if (!this.isEnabled()) {
-            result.setMessage(Messages.PluginWrapper_Already_Disabled(shortName));
+            result.setMessage(LocalizedString.PluginWrapper_Already_Disabled.toLocale(shortName));
             result.setStatus(ALREADY_DISABLED);
             return result;
         }
@@ -669,7 +673,7 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
 
             // The dependent plugin doesn't exist, add an error to the report
             if (dependentPlugin == null) {
-                PluginDisableResult dependentStatus = new PluginDisableResult(dependent, NO_SUCH_PLUGIN, Messages.PluginWrapper_NoSuchPlugin(dependent));
+                PluginDisableResult dependentStatus = new PluginDisableResult(dependent, NO_SUCH_PLUGIN, LocalizedString.PluginWrapper_NoSuchPlugin.toLocale(dependent));
                 result.addDependentDisableStatus(dependentStatus);
 
             // If the strategy is none and there is some enabled dependent plugin, the plugin cannot be disabled. If
@@ -682,7 +686,7 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
 
             // If the strategy is not none and this dependent plugin is not enabled, add it as already disabled
             } else if (!dependentPlugin.isEnabled()) {
-                PluginDisableResult dependentStatus = new PluginDisableResult(dependent, ALREADY_DISABLED, Messages.PluginWrapper_Already_Disabled(dependent));
+                PluginDisableResult dependentStatus = new PluginDisableResult(dependent, ALREADY_DISABLED, LocalizedString.PluginWrapper_Already_Disabled.toLocale(dependent));
                 result.addDependentDisableStatus(dependentStatus);
 
             // If the strategy is not none and this dependent plugin is enabled, disable it
@@ -706,16 +710,16 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
         if (aDependentNotDisabled == null) {
             try {
                 this.disableWithoutCheck();
-                result.setMessage(Messages.PluginWrapper_Plugin_Disabled(shortName));
+                result.setMessage(LocalizedString.PluginWrapper_Plugin_Disabled.toLocale(shortName));
                 result.setStatus(DISABLED);
             } catch (IOException io) {
-                result.setMessage(Messages.PluginWrapper_Error_Disabling(shortName, io.toString()));
+                result.setMessage(LocalizedString.PluginWrapper_Error_Disabling.toLocale(shortName, io.toString()));
                 result.setStatus(ERROR_DISABLING);
             }
         // if there is yet some not disabled dependent plugin (only possible with none strategy), this plugin cannot
         // be disabled.
         } else {
-            result.setMessage(Messages.PluginWrapper_Plugin_Has_Dependent(shortName, aDependentNotDisabled, strategy));
+            result.setMessage(LocalizedString.PluginWrapper_Plugin_Has_Dependent.toLocale(shortName, aDependentNotDisabled, strategy));
             result.setStatus(NOT_DISABLED_DEPENDANTS);
         }
 
@@ -805,7 +809,7 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
             } else {
                 VersionNumber actualVersion = Jenkins.getVersion();
                 if (actualVersion.isOlderThan(new VersionNumber(requiredCoreVersion))) {
-                    versionDependencyError(Messages.PluginWrapper_obsoleteCore(Jenkins.getVersion().toString(), requiredCoreVersion), Jenkins.getVersion().toString(), requiredCoreVersion);
+                    versionDependencyError(LocalizedString.PluginWrapper_obsoleteCore.toLocale(Jenkins.getVersion().toString(), requiredCoreVersion), Jenkins.getVersion().toString(), requiredCoreVersion);
                 }
             }
 
@@ -813,7 +817,7 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
             if (minimumJavaVersion != null) {
                 JavaSpecificationVersion actualVersion = JavaUtils.getCurrentJavaRuntimeVersionNumber();
                 if (actualVersion.isOlderThan(new JavaSpecificationVersion(minimumJavaVersion))) {
-                    versionDependencyError(Messages.PluginWrapper_obsoleteJava(actualVersion.toString(), minimumJavaVersion), actualVersion.toString(), minimumJavaVersion);
+                    versionDependencyError(LocalizedString.PluginWrapper_obsoleteJava.toLocale(actualVersion.toString(), minimumJavaVersion), actualVersion.toString(), minimumJavaVersion);
                 }
             }
         }
@@ -823,21 +827,21 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
             if (dependency == null) {
                 PluginWrapper failedDependency = NOTICE.getPlugin(d.shortName);
                 if (failedDependency != null) {
-                    dependencyErrors.put(Messages.PluginWrapper_failed_to_load_dependency(failedDependency.getLongName(), failedDependency.getVersion()), true);
+                    dependencyErrors.put(LocalizedString.PluginWrapper_failed_to_load_dependency.toLocale(failedDependency.getLongName(), failedDependency.getVersion()), true);
                     break;
                 } else {
-                    dependencyErrors.put(Messages.PluginWrapper_missing(d.shortName, d.version), false);
+                    dependencyErrors.put(LocalizedString.PluginWrapper_missing.toLocale(d.shortName, d.version), false);
                 }
             } else {
                 if (dependency.isActive()) {
                     if (isDependencyObsolete(d, dependency)) {
-                        versionDependencyError(Messages.PluginWrapper_obsolete(dependency.getLongName(), dependency.getVersion(), d.version), dependency.getVersion(), d.version);
+                        versionDependencyError(LocalizedString.PluginWrapper_obsolete.toLocale(dependency.getLongName(), dependency.getVersion(), d.version), dependency.getVersion(), d.version);
                     }
                 } else {
                     if (isDependencyObsolete(d, dependency)) {
-                        versionDependencyError(Messages.PluginWrapper_disabledAndObsolete(dependency.getLongName(), dependency.getVersion(), d.version), dependency.getVersion(), d.version);
+                        versionDependencyError(LocalizedString.PluginWrapper_disabledAndObsolete.toLocale(dependency.getLongName(), dependency.getVersion(), d.version), dependency.getVersion(), d.version);
                     } else {
-                        dependencyErrors.put(Messages.PluginWrapper_disabled(dependency.getLongName()), false);
+                        dependencyErrors.put(LocalizedString.PluginWrapper_disabled.toLocale(dependency.getLongName()), false);
                     }
                 }
 
@@ -848,7 +852,7 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
             PluginWrapper dependency = parent.getPlugin(d.shortName);
             if (dependency != null && dependency.isActive()) {
                 if (isDependencyObsolete(d, dependency)) {
-                    versionDependencyError(Messages.PluginWrapper_obsolete(dependency.getLongName(), dependency.getVersion(), d.version), dependency.getVersion(), d.version);
+                    versionDependencyError(LocalizedString.PluginWrapper_obsolete.toLocale(dependency.getLongName(), dependency.getVersion(), d.version), dependency.getVersion(), d.version);
                 } else {
                     dependencies.add(d);
                 }
@@ -857,7 +861,7 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
         if (!dependencyErrors.isEmpty()) {
             NOTICE.addPlugin(this);
             StringBuilder messageBuilder = new StringBuilder();
-            messageBuilder.append(Messages.PluginWrapper_failed_to_load_plugin(getLongName(), getVersion())).append(System.lineSeparator());
+            messageBuilder.append(LocalizedString.PluginWrapper_failed_to_load_plugin.toLocale(getLongName(), getVersion())).append(System.lineSeparator());
             for (Iterator<String> iterator = dependencyErrors.keySet().iterator(); iterator.hasNext(); ) {
                 String dependencyError = iterator.next();
                 messageBuilder.append(" - ").append(dependencyError);
@@ -1021,7 +1025,7 @@ public class PluginWrapper implements Comparable<PluginWrapper>, ModelObject {
 
         @Override
         public String getDisplayName() {
-            return Messages.PluginWrapper_PluginWrapperAdministrativeMonitor_DisplayName();
+            return LocalizedString.PluginWrapper_PluginWrapperAdministrativeMonitor_DisplayName.toString();
         }
 
         public Collection<PluginWrapper> getPlugins() {

@@ -23,23 +23,26 @@
  */
 package hudson.slaves;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
+import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.DataBoundSetter;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.Util;
 import hudson.model.Computer;
 import hudson.model.Descriptor;
 import hudson.model.DescriptorVisibilityFilter;
 import hudson.model.TaskListener;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-
 import jenkins.model.Jenkins;
 import jenkins.slaves.RemotingWorkDirSettings;
 import jenkins.util.java.JavaUtils;
-import org.jenkinsci.Symbol;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.DataBoundSetter;
 
 /**
  * {@link ComputerLauncher} via inbound connections.
@@ -177,7 +180,7 @@ public class JNLPLauncher extends ComputerLauncher {
         }
 
         public String getDisplayName() {
-            return Messages.JNLPLauncher_displayName();
+            return LocalizedString.JNLPLauncher_displayName.toString();
         }
         
         /**

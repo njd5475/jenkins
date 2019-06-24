@@ -1,16 +1,19 @@
 package jenkins.diagnostics;
 
-import hudson.Extension;
-import hudson.model.*;
-import hudson.util.FormValidation;
-import jenkins.model.Jenkins;
+import static hudson.Util.fixEmpty;
+
+import java.io.IOException;
+
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.StaplerRequest;
 
-import java.io.IOException;
+import com.dj.runner.locales.LocalizedString;
 
-import static hudson.Util.fixEmpty;
+import hudson.Extension;
+import hudson.model.AdministrativeMonitor;
+import hudson.util.FormValidation;
+import jenkins.model.Jenkins;
 
 @Restricted(NoExternalUse.class)
 @Extension
@@ -27,7 +30,7 @@ public class URICheckEncodingMonitor extends AdministrativeMonitor {
 
     @Override
     public String getDisplayName() {
-        return Messages.URICheckEncodingMonitor_DisplayName();
+        return LocalizedString.URICheckEncodingMonitor_DisplayName.toString();
     }
 
     public FormValidation doCheckURIEncoding(StaplerRequest request) throws IOException {
@@ -36,7 +39,7 @@ public class URICheckEncodingMonitor extends AdministrativeMonitor {
         final String expected = "\u57f7\u4e8b";
         final String value = fixEmpty(request.getParameter("value"));
         if (!expected.equals(value))
-            return FormValidation.warningWithMarkup(hudson.model.Messages.Hudson_NotUsesUTF8ToDecodeURL());
+            return FormValidation.warningWithMarkup(LocalizedString.Hudson_NotUsesUTF8ToDecodeURL.toLocale());
         return FormValidation.ok();
     }
 }

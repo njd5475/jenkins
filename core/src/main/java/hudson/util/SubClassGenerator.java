@@ -23,15 +23,20 @@
  */
 package hudson.util;
 
-import hudson.PluginManager.UberClassLoader;
-import jenkins.model.Jenkins;
+import static org.kohsuke.asm5.Opcodes.ACC_PUBLIC;
+import static org.kohsuke.asm5.Opcodes.ALOAD;
+import static org.kohsuke.asm5.Opcodes.ILOAD;
+import static org.kohsuke.asm5.Opcodes.INVOKESPECIAL;
+import static org.kohsuke.asm5.Opcodes.RETURN;
+
+import java.lang.reflect.Constructor;
+
 import org.kohsuke.asm5.ClassWriter;
 import org.kohsuke.asm5.MethodVisitor;
 import org.kohsuke.asm5.Type;
 
-import java.lang.reflect.Constructor;
-
-import static org.kohsuke.asm5.Opcodes.*;
+import hudson.PluginManager.UberClassLoader;
+import jenkins.model.Jenkins;
 
 /**
  * Generates a new class that just defines constructors into the super types.

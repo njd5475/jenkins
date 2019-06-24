@@ -23,88 +23,106 @@
  */
 package hudson.util;
 
+import com.dj.runner.locales.Localizable;
+
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
+import hudson.model.AbstractItem;
 import hudson.model.AbstractProject;
 
 /**
  * Provides the alternative text to be rendered in the UI.
  *
  * <p>
- * In a few limited places in Jenkins, we want to provide an ability for plugins to replace
- * the text to be shown in the UI. Since each such case is rather trivial and can't justify
- * its own extension point, we consolidate all such use cases into a single extension point.
+ * In a few limited places in Jenkins, we want to provide an ability for plugins
+ * to replace the text to be shown in the UI. Since each such case is rather
+ * trivial and can't justify its own extension point, we consolidate all such
+ * use cases into a single extension point.
  *
  * <p>
- * Each such overridable UI text can have a context, which represents some information
- * that enables the {@link AlternativeUiTextProvider} to make intelligent decision. This
- * is normally some kind of a model object, such as {@link AbstractProject}.
+ * Each such overridable UI text can have a context, which represents some
+ * information that enables the {@link AlternativeUiTextProvider} to make
+ * intelligent decision. This is normally some kind of a model object, such as
+ * {@link AbstractProject}.
  *
  * <p>
- * To define a new UI text that can be overridable by {@link AlternativeUiTextProvider},
- * define a constant of {@link Message} (parameterized with the context object type),
- * then call {@link #get(Message, Object)} to obtain a text.
+ * To define a new UI text that can be overridable by
+ * {@link AlternativeUiTextProvider}, define a constant of {@link Message}
+ * (parameterized with the context object type), then call
+ * {@link #get(Message, Object)} to obtain a text.
  *
  * <p>
- * To define an implementation that overrides text, define a subtype and put @{@link Extension} on it.
- * See {@link AbstractProject#getBuildNowText()} as an example.
+ * To define an implementation that overrides text, define a subtype and
+ * put @{@link Extension} on it. See {@link AbstractProject#getBuildNowText()}
+ * as an example.
  *
  * @author Kohsuke Kawaguchi
  * @since 1.401
  */
 public abstract class AlternativeUiTextProvider implements ExtensionPoint {
-    /**
-     * Provides an opportunity to override the message text.
-     *
-     * @param text
-     *      Always non-null. Caller should pass in a {@link Message} constant that
-     *      represents the text that we are being considered.
-     * @param context
-     *      Context object. See class javadoc above.
-     */
-    public abstract <T> String getText(Message<T> text, T context);
+  /**
+   * Provides an opportunity to override the message text.
+   *
+   * @param text    Always non-null. Caller should pass in a {@link Message}
+   *                constant that represents the text that we are being
+   *                considered.
+   * @param context Context object. See class javadoc above.
+   */
+  public abstract <T> String getText(Message<T> text, T context);
 
-    /**
-     * All the registered extension point instances.
-     */
-    public static ExtensionList<AlternativeUiTextProvider> all() {
-        return ExtensionList.lookup(AlternativeUiTextProvider.class);
+  /**
+   * All the registered extension point instances.
+   */
+  public static ExtensionList<AlternativeUiTextProvider> all() {
+    return ExtensionList.lookup(AlternativeUiTextProvider.class);
+  }
+
+  public static <T> String get(Message<T> text, T context, String defaultValue) {
+    String s = get(text, context);
+    return s != null ? s : defaultValue;
+  }
+
+  public static <T> String get(Message<T> text, T context, Localizable defaultValue) {
+    String s = get(text, context);
+    return s != null ? s : defaultValue.toLocale();
+  }
+
+  /**
+   * Consults all the existing {@link AlternativeUiTextProvider} and return an
+   * override, if any, or null.
+   */
+  public static <T> String get(Message<T> text, T context) {
+    for (AlternativeUiTextProvider p : all()) {
+      String s = p.getText(text, context);
+      if(s != null)
+        return s;
     }
+    return null;
+  }
 
-    public static <T> String get(Message<T> text, T context, String defaultValue) {
-        String s = get(text,context);
-        return s!=null ? s : defaultValue;
-    }
-
-    /**
-     * Consults all the existing {@link AlternativeUiTextProvider} and return an override, if any,
-     * or null.
-     */
-    public static <T> String get(Message<T> text, T context) {
-        for (AlternativeUiTextProvider p : all()) {
-            String s = p.getText(text, context);
-            if (s!=null)
-                return s;
-        }
-        return null;
-    }
+  /**
+   * Each instance of this class represents a text that can be replaced by
+   * {@link AlternativeUiTextProvider}.
+   *
+   * @param <T> Context object type. Use {@link Void} to indicate that there's no
+   *            context.
+   */
+  public static final class Message<T> {
+    // decided not to retain T as Class so that we can have Message<List<Foo>>, for
+    // example.
 
     /**
-     * Each instance of this class represents a text that can be replaced by {@link AlternativeUiTextProvider}.
-     *
-     * @param <T>
-     *          Context object type. Use {@link Void} to indicate that there's no context.
+     * Assists pattern matching in the {@link AlternativeUiTextProvider}
+     * implementation.
      */
-    public static final class Message<T> {
-        // decided not to retain T as Class so that we can have Message<List<Foo>>, for example.
-
-        /**
-         * Assists pattern matching in the {@link AlternativeUiTextProvider} implementation.
-         */
-        @SuppressWarnings({"unchecked"})
-        public T cast(Object context) {
-            return (T)context;
-        }
+    @SuppressWarnings({ "unchecked" })
+    public T cast(Object context) {
+      return (T) context;
     }
+  }
+
+  public static String get(Message<AbstractItem> pronoun, AbstractItem abstractItem, Localizable abstractitemPronoun) {
+    return get(pronoun, abstractItem, abstractitemPronoun.toString());
+  }
 }

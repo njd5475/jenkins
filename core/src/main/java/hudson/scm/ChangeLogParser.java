@@ -23,13 +23,15 @@
  */
 package hudson.scm;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.xml.sax.SAXException;
+
 import hudson.Util;
 import hudson.model.AbstractBuild;
 import hudson.model.Run;
 import hudson.scm.ChangeLogSet.Entry;
-import java.io.File;
-import java.io.IOException;
-import org.xml.sax.SAXException;
 
 /**
  * Encapsulates the file format of the changelog.

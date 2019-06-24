@@ -15,7 +15,13 @@
  */
 package hudson.util.spring;
 
-import groovy.lang.GroovyObjectSupport;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -26,7 +32,7 @@ import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.ChildBeanDefinition;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 
-import java.util.*;
+import groovy.lang.GroovyObjectSupport;
 
 /**
  * Default implementation of the BeanConfiguration interface

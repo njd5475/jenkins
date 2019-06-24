@@ -1,8 +1,7 @@
 package jenkins.util.groovy;
 
-import groovy.lang.Binding;
-import groovy.lang.GroovyCodeSource;
-import groovy.lang.GroovyShell;
+import static java.util.logging.Level.WARNING;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -10,10 +9,14 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
-import static java.util.logging.Level.WARNING;
 import java.util.logging.Logger;
+
 import javax.annotation.Nonnull;
 import javax.servlet.ServletContext;
+
+import groovy.lang.Binding;
+import groovy.lang.GroovyCodeSource;
+import groovy.lang.GroovyShell;
 import jenkins.model.Jenkins;
 
 /**

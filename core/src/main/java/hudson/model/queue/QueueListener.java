@@ -1,5 +1,7 @@
 package hudson.model.queue;
 
+import java.util.concurrent.Executor;
+
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.model.Computer;
@@ -9,8 +11,6 @@ import hudson.model.Queue.BuildableItem;
 import hudson.model.Queue.Item;
 import hudson.model.Queue.LeftItem;
 import hudson.model.Queue.WaitingItem;
-
-import java.util.concurrent.Executor;
 
 /**
  * Listener for events in {@link Queue}.

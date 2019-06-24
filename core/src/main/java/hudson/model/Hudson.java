@@ -25,6 +25,27 @@
  */
 package hudson.model;
 
+import static hudson.Util.fixEmpty;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.List;
+
+import javax.annotation.Nullable;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+
+import org.jvnet.hudson.reactor.ReactorException;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.Stapler;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.ExtensionListView;
 import hudson.Functions;
 import hudson.Platform;
@@ -35,23 +56,6 @@ import hudson.slaves.ComputerListener;
 import hudson.util.CopyOnWriteList;
 import hudson.util.FormValidation;
 import jenkins.model.Jenkins;
-import org.jvnet.hudson.reactor.ReactorException;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.Stapler;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-import org.kohsuke.stapler.interceptor.RequirePOST;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import java.io.File;
-import java.io.IOException;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.List;
-
-import static hudson.Util.fixEmpty;
-import javax.annotation.Nullable;
 
 public class Hudson extends Jenkins {
 
@@ -233,13 +237,13 @@ public class Hudson extends Jenkins {
                     NumberFormat.getInstance().parse(value);
                 } else if (type.equalsIgnoreCase("number-positive")) {
                     if (NumberFormat.getInstance().parse(value).floatValue() <= 0)
-                        return FormValidation.error(Messages.Hudson_NotAPositiveNumber());
+                        return FormValidation.error(LocalizedString.Hudson_NotAPositiveNumber);
                 } else if (type.equalsIgnoreCase("number-negative")) {
                     if (NumberFormat.getInstance().parse(value).floatValue() >= 0)
-                        return FormValidation.error(Messages.Hudson_NotANegativeNumber());
+                        return FormValidation.error(LocalizedString.Hudson_NotANegativeNumber);
                 }
             } catch (ParseException e) {
-                return FormValidation.error(Messages.Hudson_NotANumber());
+                return FormValidation.error(LocalizedString.Hudson_NotANumber);
             }
         }
 

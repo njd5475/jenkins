@@ -24,14 +24,16 @@
 package hudson.slaves;
 
 
-import jenkins.util.SystemProperties;
-import javax.annotation.concurrent.GuardedBy;
+import static java.util.concurrent.TimeUnit.MINUTES;
+import static java.util.logging.Level.WARNING;
+
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static java.util.concurrent.TimeUnit.*;
-import java.util.logging.Level;
-import static java.util.logging.Level.*;
+import javax.annotation.concurrent.GuardedBy;
+
+import jenkins.util.SystemProperties;
 
 /**
  * {@link RetentionStrategy} implementation for {@link AbstractCloudComputer} that terminates

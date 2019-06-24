@@ -23,34 +23,35 @@
  */
 package hudson.tasks;
 
+import java.io.IOException;
+import java.util.AbstractList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.WeakHashMap;
+
+import javax.annotation.Nonnull;
+
+import org.acegisecurity.Authentication;
+
 import hudson.AbortException;
-import hudson.Launcher;
 import hudson.Extension;
 import hudson.ExtensionList;
-import hudson.util.DescriptorList;
+import hudson.Launcher;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 import hudson.model.Action;
 import hudson.model.Build;
 import hudson.model.BuildListener;
+import hudson.model.CheckPoint;
 import hudson.model.Descriptor;
 import hudson.model.Project;
-import hudson.model.CheckPoint;
 import hudson.model.Run;
 import hudson.security.ACL;
 import hudson.security.Permission;
-
-import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
-import java.util.AbstractList;
-import java.util.Iterator;
-import java.util.WeakHashMap;
-import jenkins.security.QueueItemAuthenticator;
-import org.acegisecurity.Authentication;
-
-import javax.annotation.Nonnull;
+import hudson.util.DescriptorList;
 import jenkins.model.Jenkins;
+import jenkins.security.QueueItemAuthenticator;
 
 /**
  * One step of the whole build process.

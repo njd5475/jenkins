@@ -24,18 +24,19 @@
 
 package hudson.util.io;
 
-import hudson.util.FileVisitor;
-import hudson.util.IOUtils;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
-import org.apache.tools.zip.ZipEntry;
-import org.apache.tools.zip.Zip64Mode;
-import org.apache.tools.zip.ZipOutputStream;
-
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+
+import org.apache.tools.zip.Zip64Mode;
+import org.apache.tools.zip.ZipEntry;
+import org.apache.tools.zip.ZipOutputStream;
+
+import hudson.util.FileVisitor;
+import hudson.util.IOUtils;
 
 /**
  * {@link FileVisitor} that creates a zip archive.

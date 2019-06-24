@@ -23,15 +23,15 @@
  */
 package hudson.model.queue;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import hudson.model.Action;
 import hudson.model.Executor;
 import hudson.model.Queue;
 import hudson.model.Queue.BuildableItem;
 import hudson.model.Queue.Task;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Holds the information shared between {@link WorkUnit}s created from the same {@link Task}.

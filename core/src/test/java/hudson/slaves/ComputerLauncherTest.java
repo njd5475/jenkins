@@ -35,6 +35,8 @@ import java.io.StringReader;
 import org.apache.commons.io.output.NullOutputStream;
 import org.junit.Test;
 
+import com.dj.runner.locales.LocalizedString;
+
 public class ComputerLauncherTest {
 
     @Test(expected=IOException.class) public void jdk7() throws IOException {
@@ -73,7 +75,7 @@ public class ComputerLauncherTest {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         ComputerLauncher.checkJavaVersion(new PrintStream(os), "bin/java", new BufferedReader(new StringReader(text)));
         String logged = os.toString();
-        assertTrue(logged, logged.contains(Messages.ComputerLauncher_JavaVersionResult("bin/java", spec)));
+        assertTrue(logged, logged.contains(LocalizedString.ComputerLauncher_JavaVersionResult.toLocale("bin/java", spec)));
     }
 
 }

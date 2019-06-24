@@ -23,13 +23,16 @@
  */
 package jenkins.diagnostics;
 
+import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.model.AdministrativeMonitor;
 import jenkins.model.JenkinsLocationConfiguration;
 import jenkins.util.UrlHelper;
-import org.jenkinsci.Symbol;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
 
 /**
  * Jenkins root URL is required for a lot of operations in both core and plugins.
@@ -46,7 +49,7 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 public class RootUrlNotSetMonitor extends AdministrativeMonitor {
     @Override
     public String getDisplayName() {
-        return Messages.RootUrlNotSetMonitor_DisplayName();
+        return LocalizedString.RootUrlNotSetMonitor_DisplayName.toString();
     }
 
     @Override

@@ -24,17 +24,6 @@
 
 package jenkins.util;
 
-import hudson.FilePath;
-import hudson.Util;
-import hudson.model.DirectoryBrowserSupport;
-import hudson.os.PosixException;
-import hudson.remoting.Callable;
-import hudson.remoting.Channel;
-import hudson.remoting.RemoteInputStream;
-import hudson.remoting.VirtualChannel;
-import hudson.util.DirScanner;
-import hudson.util.FileVisitor;
-import hudson.util.IOUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -54,12 +43,10 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
-import jenkins.MasterToSlaveFileCallable;
-import jenkins.model.ArtifactManager;
-import jenkins.security.MasterToSlaveCallable;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.types.AbstractFileSet;
 import org.apache.tools.ant.types.selectors.SelectorUtils;
@@ -68,6 +55,21 @@ import org.apache.tools.ant.types.selectors.TokenizedPattern;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.Beta;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import hudson.FilePath;
+import hudson.Util;
+import hudson.model.DirectoryBrowserSupport;
+import hudson.os.PosixException;
+import hudson.remoting.Callable;
+import hudson.remoting.Channel;
+import hudson.remoting.RemoteInputStream;
+import hudson.remoting.VirtualChannel;
+import hudson.util.DirScanner;
+import hudson.util.FileVisitor;
+import hudson.util.IOUtils;
+import jenkins.MasterToSlaveFileCallable;
+import jenkins.model.ArtifactManager;
+import jenkins.security.MasterToSlaveCallable;
 
 /**
  * Abstraction over {@link File}, {@link FilePath}, or other items such as network resources or ZIP entries.

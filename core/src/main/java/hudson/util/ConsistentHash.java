@@ -23,14 +23,13 @@
  */
 package hudson.util;
 
-import java.lang.RuntimeException;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import hudson.util.Iterators.DuplicateFilterIterator;

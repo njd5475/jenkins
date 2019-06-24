@@ -24,11 +24,14 @@
 
 package hudson.cli;
 
+import org.kohsuke.stapler.WebApp;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.util.HudsonIsLoading;
 import hudson.util.JenkinsReloadFailed;
 import jenkins.model.Jenkins;
-import org.kohsuke.stapler.WebApp;
 
 /**
  * Reload everything from the file system.
@@ -41,7 +44,7 @@ public class ReloadConfigurationCommand extends CLICommand {
 
     @Override
     public String getShortDescription() {
-        return Messages.ReloadConfigurationCommand_ShortDescription();
+        return LocalizedString.ReloadConfigurationCommand_ShortDescription.toString();
     }
 
     @Override

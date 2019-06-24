@@ -23,40 +23,11 @@
  */
 package hudson.os.solaris;
 
-import com.sun.akuma.Daemon;
-import com.sun.akuma.JavaVMArguments;
-import hudson.Launcher.LocalLauncher;
-import hudson.Util;
-import hudson.Extension;
-import hudson.Functions;
-import jenkins.util.SystemProperties;
-import hudson.os.SU;
-import hudson.model.AdministrativeMonitor;
-import jenkins.model.Jenkins;
-import hudson.model.TaskListener;
-import hudson.util.ForkOutputStream;
-import hudson.util.HudsonIsRestarting;
-import hudson.util.StreamTaskListener;
-import static hudson.util.jna.GNUCLibrary.*;
+import static hudson.util.jna.GNUCLibrary.FD_CLOEXEC;
+import static hudson.util.jna.GNUCLibrary.F_GETFD;
+import static hudson.util.jna.GNUCLibrary.F_SETFD;
+import static hudson.util.jna.GNUCLibrary.LIBC;
 
-import jenkins.security.MasterToSlaveCallable;
-import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.jvnet.libpam.impl.CLibrary.passwd;
-import org.jvnet.solaris.libzfs.ACLBuilder;
-import org.jvnet.solaris.libzfs.LibZFS;
-import org.jvnet.solaris.libzfs.ZFSException;
-import org.jvnet.solaris.libzfs.ZFSFileSystem;
-import org.jvnet.solaris.libzfs.ErrorCode;
-import org.jvnet.solaris.mount.MountFlags;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.HttpResponses;
-import org.kohsuke.stapler.HttpRedirect;
-import org.kohsuke.stapler.interceptor.RequirePOST;
-
-import javax.servlet.ServletException;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -64,6 +35,41 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.servlet.ServletException;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.jvnet.libpam.impl.CLibrary.passwd;
+import org.jvnet.solaris.libzfs.ACLBuilder;
+import org.jvnet.solaris.libzfs.ErrorCode;
+import org.jvnet.solaris.libzfs.LibZFS;
+import org.jvnet.solaris.libzfs.ZFSException;
+import org.jvnet.solaris.libzfs.ZFSFileSystem;
+import org.jvnet.solaris.mount.MountFlags;
+import org.kohsuke.stapler.HttpRedirect;
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.HttpResponses;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.sun.akuma.Daemon;
+import com.sun.akuma.JavaVMArguments;
+
+import hudson.Extension;
+import hudson.Functions;
+import hudson.Launcher.LocalLauncher;
+import hudson.Util;
+import hudson.model.AdministrativeMonitor;
+import hudson.model.TaskListener;
+import hudson.os.SU;
+import hudson.util.ForkOutputStream;
+import hudson.util.HudsonIsRestarting;
+import hudson.util.StreamTaskListener;
+import jenkins.model.Jenkins;
+import jenkins.security.MasterToSlaveCallable;
+import jenkins.util.SystemProperties;
 
 /**
  * Encourages the user to migrate JENKINS_HOME on a ZFS file system.

@@ -24,13 +24,6 @@
 
 package jenkins.util.io;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import hudson.Functions;
-import hudson.Util;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-
-import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -44,6 +37,15 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.annotation.Nonnull;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import hudson.Functions;
+import hudson.Util;
 
 @Restricted(NoExternalUse.class)
 public class PathRemover {

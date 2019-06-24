@@ -23,42 +23,43 @@
  */
 package hudson.cli;
 
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.nio.file.NoSuchFileException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.Option;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.AbortException;
+import hudson.Extension;
 import hudson.Util;
 import hudson.console.ModelHyperlinkNote;
 import hudson.model.Cause.UserIdCause;
 import hudson.model.CauseAction;
-import hudson.model.Job;
-import hudson.model.Run;
-import hudson.model.ParametersAction;
-import hudson.model.ParameterValue;
-import hudson.model.ParametersDefinitionProperty;
-import hudson.model.ParameterDefinition;
-import hudson.Extension;
-import hudson.AbortException;
-import hudson.model.Queue;
 import hudson.model.Item;
+import hudson.model.Job;
+import hudson.model.ParameterDefinition;
+import hudson.model.ParameterValue;
+import hudson.model.ParametersAction;
+import hudson.model.ParametersDefinitionProperty;
+import hudson.model.Queue;
+import hudson.model.Run;
 import hudson.model.TaskListener;
 import hudson.model.User;
 import hudson.model.queue.QueueTaskFuture;
 import hudson.util.EditDistance;
 import hudson.util.StreamTaskListener;
-
-import java.nio.file.NoSuchFileException;
-import jenkins.scm.SCMDecisionHandler;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.CmdLineException;
-import org.kohsuke.args4j.Option;
-
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map.Entry;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-
 import jenkins.model.Jenkins;
 import jenkins.model.ParameterizedJobMixIn;
+import jenkins.scm.SCMDecisionHandler;
 import jenkins.triggers.SCMTriggerItem;
 
 /**
@@ -70,7 +71,7 @@ import jenkins.triggers.SCMTriggerItem;
 public class BuildCommand extends CLICommand {
     @Override
     public String getShortDescription() {
-        return Messages.BuildCommand_ShortDescription();
+        return LocalizedString.BuildCommand_ShortDescription.toString();
     }
 
     @Argument(metaVar="JOB",usage="Name of the job to build",required=true)
@@ -156,11 +157,11 @@ public class BuildCommand extends CLICommand {
         }
 
         if (!job.isBuildable()) {
-            String msg = Messages.BuildCommand_CLICause_CannotBuildUnknownReasons(job.getFullDisplayName());
+            String msg = LocalizedString.BuildCommand_CLICause_CannotBuildUnknownReasons.toLocale(job.getFullDisplayName());
             if (job instanceof ParameterizedJobMixIn.ParameterizedJob && ((ParameterizedJobMixIn.ParameterizedJob) job).isDisabled()) {
-                msg = Messages.BuildCommand_CLICause_CannotBuildDisabled(job.getFullDisplayName());
+                msg = LocalizedString.BuildCommand_CLICause_CannotBuildDisabled.toLocale(job.getFullDisplayName());
             } else if (job.isHoldOffBuildUntilSave()){
-                msg = Messages.BuildCommand_CLICause_CannotBuildConfigNotSaved(job.getFullDisplayName());
+                msg = LocalizedString.BuildCommand_CLICause_CannotBuildConfigNotSaved.toLocale(job.getFullDisplayName());
             }
             throw new IllegalStateException(msg);
         }
@@ -254,12 +255,12 @@ public class BuildCommand extends CLICommand {
         public String getShortDescription() {
             User user = User.get(startedBy, false);
             String userName = user != null ? user.getDisplayName() : startedBy;
-            return Messages.BuildCommand_CLICause_ShortDescription(userName);
+            return LocalizedString.BuildCommand_CLICause_ShortDescription.toLocale(userName);
         }
 
         @Override
         public void print(TaskListener listener) {
-            listener.getLogger().println(Messages.BuildCommand_CLICause_ShortDescription(
+            listener.getLogger().println(LocalizedString.BuildCommand_CLICause_ShortDescription.toLocale(
                     ModelHyperlinkNote.encodeTo("/user/" + startedBy, startedBy)));
         }
 

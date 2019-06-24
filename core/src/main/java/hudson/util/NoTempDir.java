@@ -23,10 +23,10 @@
  */
 package hudson.util;
 
+import java.io.IOException;
+
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
-
-import java.io.IOException;
 
 /**
  * Model object used to display the error top page if

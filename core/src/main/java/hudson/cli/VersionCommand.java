@@ -23,6 +23,8 @@
  */
 package hudson.cli;
 
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import jenkins.model.Jenkins;
 
@@ -35,7 +37,7 @@ import jenkins.model.Jenkins;
 public class VersionCommand extends CLICommand {
     @Override
     public String getShortDescription() {
-        return Messages.VersionCommand_ShortDescription();
+        return LocalizedString.VersionCommand_ShortDescription.toString();
     }
 
     protected int run() {

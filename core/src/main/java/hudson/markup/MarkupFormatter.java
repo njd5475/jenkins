@@ -23,16 +23,19 @@
  */
 package hudson.markup;
 
-import hudson.ExtensionPoint;
-import hudson.model.AbstractDescribableImpl;
-import hudson.util.HttpResponses;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.QueryParameter;
+
+import hudson.ExtensionPoint;
+import hudson.model.AbstractDescribableImpl;
+import hudson.util.HttpResponses;
 
 /**
  * Generalization of a function that takes text with some markup and converts that to HTML.

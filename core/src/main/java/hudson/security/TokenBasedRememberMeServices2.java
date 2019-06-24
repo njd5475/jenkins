@@ -23,14 +23,21 @@
  */
 package hudson.security;
 
-import hudson.Functions;
-import hudson.model.User;
-import jenkins.model.Jenkins;
-import jenkins.security.HMACConfidentialKey;
-import jenkins.security.ImpersonatingUserDetailsService;
-import jenkins.security.LastGrantedAuthoritiesProperty;
-import jenkins.security.seed.UserSeedProperty;
-import jenkins.util.SystemProperties;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.acegisecurity.Authentication;
 import org.acegisecurity.providers.rememberme.RememberMeAuthenticationToken;
 import org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices;
@@ -42,19 +49,14 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import hudson.Functions;
+import hudson.model.User;
+import jenkins.model.Jenkins;
+import jenkins.security.HMACConfidentialKey;
+import jenkins.security.ImpersonatingUserDetailsService;
+import jenkins.security.LastGrantedAuthoritiesProperty;
+import jenkins.security.seed.UserSeedProperty;
+import jenkins.util.SystemProperties;
 
 /**
  * {@link TokenBasedRememberMeServices} with modification so as not to rely

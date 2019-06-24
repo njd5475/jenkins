@@ -14,23 +14,25 @@
  */
 package jenkins.security;
 
-import hudson.Extension;
-import jenkins.util.SystemProperties;
-import jenkins.ExtensionFilter;
-import jenkins.model.Jenkins;
+import static java.util.logging.Level.FINER;
+
+import java.io.IOException;
+import java.util.logging.Logger;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationException;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.acegisecurity.ui.AuthenticationDetailsSource;
 import org.acegisecurity.ui.AuthenticationDetailsSourceImpl;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.logging.Logger;
-
-import static java.util.logging.Level.*;
+import hudson.Extension;
+import jenkins.ExtensionFilter;
+import jenkins.model.Jenkins;
+import jenkins.util.SystemProperties;
 
 /**
  * Checks if the password given in the BASIC header matches the user's actual password,

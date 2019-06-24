@@ -23,11 +23,14 @@
  */
 package hudson.cli;
 
-import jenkins.model.Jenkins;
+import org.kohsuke.args4j.Argument;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.model.Item;
+import jenkins.model.Jenkins;
 import jenkins.model.ModifiableTopLevelItemGroup;
-import org.kohsuke.args4j.Argument;
 
 /**
  * Creates a new job by reading stdin as a configuration XML file.
@@ -38,7 +41,7 @@ import org.kohsuke.args4j.Argument;
 public class CreateJobCommand extends CLICommand {
     @Override
     public String getShortDescription() {
-        return Messages.CreateJobCommand_ShortDescription();
+        return LocalizedString.CreateJobCommand_ShortDescription.toString();
     }
 
     @Argument(metaVar="NAME",usage="Name of the job to create",required=true)

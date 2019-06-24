@@ -23,6 +23,19 @@
  */
 package jenkins.security;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.acegisecurity.Authentication;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.model.AdministrativeMonitor;
 import hudson.model.Job;
@@ -34,16 +47,6 @@ import hudson.security.FullControlOnceLoggedInAuthorizationStrategy;
 import hudson.security.LegacyAuthorizationStrategy;
 import hudson.util.HttpResponses;
 import jenkins.model.Jenkins;
-import org.acegisecurity.Authentication;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.interceptor.RequirePOST;
-
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Display an administrative monitor if we expect {@link QueueItemAuthenticator} to be a useful security measure,
@@ -98,7 +101,7 @@ public class QueueItemAuthenticatorMonitor extends AdministrativeMonitor {
 
     @Override
     public String getDisplayName() {
-        return Messages.QueueItemAuthenticatorMonitor_DisplayName();
+        return LocalizedString.QueueItemAuthenticatorMonitor_DisplayName.toString();
     }
 
     @Restricted(NoExternalUse.class)

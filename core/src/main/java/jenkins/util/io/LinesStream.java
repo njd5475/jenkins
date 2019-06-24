@@ -23,11 +23,6 @@
  */
 package jenkins.util.io;
 
-import com.google.common.collect.AbstractIterator;
-
-import edu.umd.cs.findbugs.annotations.CleanupObligation;
-import edu.umd.cs.findbugs.annotations.DischargesObligation;
-
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;
@@ -37,6 +32,11 @@ import java.util.Iterator;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.google.common.collect.AbstractIterator;
+
+import edu.umd.cs.findbugs.annotations.CleanupObligation;
+import edu.umd.cs.findbugs.annotations.DischargesObligation;
 
 /**
  * Represents a stream over the lines of a text file.

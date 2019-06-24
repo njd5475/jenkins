@@ -23,31 +23,6 @@
  */
 package jenkins.security;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import hudson.Extension;
-import hudson.Util;
-import jenkins.security.apitoken.ApiTokenPropertyConfiguration;
-import jenkins.security.apitoken.ApiTokenStats;
-import jenkins.security.apitoken.ApiTokenStore;
-import jenkins.util.SystemProperties;
-import hudson.model.Descriptor.FormException;
-import hudson.model.User;
-import hudson.model.UserProperty;
-import hudson.model.UserPropertyDescriptor;
-import hudson.security.ACL;
-import hudson.util.HttpResponses;
-import hudson.util.Secret;
-import jenkins.model.Jenkins;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.AncestorInPath;
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.time.ZonedDateTime;
@@ -60,14 +35,43 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import org.apache.commons.lang.StringUtils;
+import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.args4j.spi.Messages;
+import org.kohsuke.stapler.AncestorInPath;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import hudson.Extension;
+import hudson.Util;
+import hudson.model.Descriptor.FormException;
+import hudson.model.User;
+import hudson.model.UserProperty;
+import hudson.model.UserPropertyDescriptor;
+import hudson.security.ACL;
+import hudson.util.HttpResponses;
+import hudson.util.Secret;
+import jenkins.model.Jenkins;
+import jenkins.security.apitoken.ApiTokenPropertyConfiguration;
+import jenkins.security.apitoken.ApiTokenStats;
+import jenkins.security.apitoken.ApiTokenStore;
+import jenkins.util.SystemProperties;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * Remembers the API token for this user, that can be used like a password to login.
@@ -162,7 +166,7 @@ public class ApiTokenProperty extends UserProperty {
         }
         return hasPermissionToSeeToken()
                 ? getApiTokenInsecure()
-                : Messages.ApiTokenProperty_ChangeToken_TokenIsHidden();
+                : LocalizedString.ApiTokenProperty_ChangeToken_TokenIsHidden.toString();
     }
     
     /**
@@ -177,7 +181,7 @@ public class ApiTokenProperty extends UserProperty {
     @Restricted(NoExternalUse.class)
     /*package*/ String getApiTokenInsecure() {
         if(apiToken == null){
-            return Messages.ApiTokenProperty_NoLegacyToken();
+            return LocalizedString.ApiTokenProperty_NoLegacyToken.toString();
         }
 
         String p = apiToken.getPlainText();
@@ -359,12 +363,12 @@ public class ApiTokenProperty extends UserProperty {
     @Symbol("apiToken")
     public static final class DescriptorImpl extends UserPropertyDescriptor {
         public String getDisplayName() {
-            return Messages.ApiTokenProperty_DisplayName();
+            return LocalizedString.ApiTokenProperty_DisplayName.toString();
         }
 
         @Restricted(NoExternalUse.class) // Jelly use
         public String getNoLegacyToken(){
-            return Messages.ApiTokenProperty_NoLegacyToken();
+            return LocalizedString.ApiTokenProperty_NoLegacyToken.toString();
         }
 
         /**
@@ -447,7 +451,7 @@ public class ApiTokenProperty extends UserProperty {
 
             if(!mustDisplayLegacyApiToken(u)){
                 // user does not have legacy token and the capability to create one without an existing one is disabled
-                return HttpResponses.html(Messages.ApiTokenProperty_ChangeToken_CapabilityNotAllowed());
+                return HttpResponses.html(LocalizedString.ApiTokenProperty_ChangeToken_CapabilityNotAllowed.toLocale());
             }
 
             ApiTokenProperty p = u.getProperty(ApiTokenProperty.class);
@@ -462,8 +466,8 @@ public class ApiTokenProperty extends UserProperty {
             
             rsp.setHeader("script","document.getElementById('apiToken').value='"+p.getApiToken()+"'");
             return HttpResponses.html(p.hasPermissionToSeeToken()
-                    ? Messages.ApiTokenProperty_ChangeToken_Success()
-                    : Messages.ApiTokenProperty_ChangeToken_SuccessHidden());
+                    ? LocalizedString.ApiTokenProperty_ChangeToken_Success.toString()
+                    : LocalizedString.ApiTokenProperty_ChangeToken_SuccessHidden.toString());
         }
 
         @RequirePOST
@@ -474,7 +478,7 @@ public class ApiTokenProperty extends UserProperty {
             
             final String tokenName;
             if (StringUtils.isBlank(newTokenName)) {
-                tokenName = Messages.Token_Created_on(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
+                tokenName = LocalizedString.Token_Created_on.toLocale(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
             }else{
                 tokenName = newTokenName;
             }

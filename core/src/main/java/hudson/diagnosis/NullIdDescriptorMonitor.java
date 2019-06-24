@@ -23,13 +23,7 @@
  */
 package hudson.diagnosis;
 
-import hudson.Extension;
-import hudson.PluginWrapper;
-import hudson.init.Initializer;
-import hudson.model.AdministrativeMonitor;
-import hudson.model.Descriptor;
-import jenkins.model.Jenkins;
-import org.jenkinsci.Symbol;
+import static hudson.init.InitMilestone.EXTENSIONS_AUGMENTED;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -38,7 +32,16 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static hudson.init.InitMilestone.EXTENSIONS_AUGMENTED;
+import org.jenkinsci.Symbol;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.PluginWrapper;
+import hudson.init.Initializer;
+import hudson.model.AdministrativeMonitor;
+import hudson.model.Descriptor;
+import jenkins.model.Jenkins;
 
 /**
  * Some old descriptors apparently has the getId() method that's used in different ways
@@ -52,7 +55,7 @@ public class NullIdDescriptorMonitor extends AdministrativeMonitor {
 
     @Override
     public String getDisplayName() {
-        return Messages.NullIdDescriptorMonitor_DisplayName();
+        return LocalizedString.NullIdDescriptorMonitor_DisplayName.toString();
     }
 
     private final List<Descriptor> problems = new ArrayList<>();

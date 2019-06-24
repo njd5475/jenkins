@@ -1,6 +1,21 @@
 package jenkins.model;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.apache.commons.io.FileUtils;
+
 import com.google.common.base.Predicate;
+
 import hudson.Extension;
 import hudson.Util;
 import hudson.model.Job;
@@ -10,17 +25,6 @@ import hudson.model.TaskListener;
 import hudson.model.listeners.RunListener;
 import hudson.util.AtomicFileWriter;
 import hudson.util.StreamTaskListener;
-import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import org.apache.commons.io.FileUtils;
 
 /**
  * Convenient base implementation for {@link Permalink}s that satisfy

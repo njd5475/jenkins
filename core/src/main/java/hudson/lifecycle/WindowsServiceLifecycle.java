@@ -23,24 +23,25 @@
  */
 package hudson.lifecycle;
 
-import hudson.FilePath;
-import hudson.Launcher.LocalLauncher;
-import hudson.Util;
-import jenkins.model.Jenkins;
-import hudson.util.StreamTaskListener;
-import hudson.util.jna.Kernel32;
 import static hudson.util.jna.Kernel32.MOVEFILE_DELAY_UNTIL_REBOOT;
 import static hudson.util.jna.Kernel32.MOVEFILE_REPLACE_EXISTING;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.FileWriter;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import hudson.FilePath;
+import hudson.Launcher.LocalLauncher;
+import hudson.Util;
+import hudson.util.StreamTaskListener;
+import hudson.util.jna.Kernel32;
+import jenkins.model.Jenkins;
 
 /**
  * {@link Lifecycle} for Hudson installed as Windows service.

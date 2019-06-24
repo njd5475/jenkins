@@ -23,12 +23,12 @@
  */
 package hudson.model;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
-
-import java.util.Collection;
-import java.util.Collections;
 
 /**
  * Extension point for inserting transient {@link Action}s into {@link User}s.

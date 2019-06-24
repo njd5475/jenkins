@@ -1,17 +1,18 @@
 package jenkins.util;
 
-import com.google.common.util.concurrent.SettableFuture;
-import hudson.remoting.AtmostOneThreadExecutor;
-import hudson.security.ACL;
-import hudson.util.DaemonThreadFactory;
-import hudson.util.NamingThreadFactory;
-
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.google.common.util.concurrent.SettableFuture;
+
+import hudson.remoting.AtmostOneThreadExecutor;
+import hudson.security.ACL;
+import hudson.util.DaemonThreadFactory;
+import hudson.util.NamingThreadFactory;
 import jenkins.security.ImpersonatingExecutorService;
 
 /**

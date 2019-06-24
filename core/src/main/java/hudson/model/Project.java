@@ -24,26 +24,6 @@
  */
 package hudson.model;
 
-import hudson.Util;
-import hudson.model.Descriptor.FormException;
-import hudson.scm.SCM;
-import hudson.tasks.BuildStep;
-import hudson.tasks.BuildWrapper;
-import hudson.tasks.BuildWrappers;
-import hudson.tasks.Builder;
-import hudson.tasks.Fingerprinter;
-import hudson.tasks.Publisher;
-import hudson.tasks.Maven;
-import hudson.tasks.Maven.ProjectWithMaven;
-import hudson.tasks.Maven.MavenInstallation;
-import hudson.triggers.SCMTrigger;
-import hudson.triggers.Trigger;
-import hudson.util.DescribableList;
-import net.sf.json.JSONObject;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-
-import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
@@ -54,7 +34,28 @@ import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.ServletException;
+
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+
+import hudson.Util;
+import hudson.model.Descriptor.FormException;
+import hudson.scm.SCM;
+import hudson.tasks.BuildStep;
+import hudson.tasks.BuildWrapper;
+import hudson.tasks.BuildWrappers;
+import hudson.tasks.Builder;
+import hudson.tasks.Fingerprinter;
+import hudson.tasks.Maven;
+import hudson.tasks.Maven.MavenInstallation;
+import hudson.tasks.Maven.ProjectWithMaven;
+import hudson.tasks.Publisher;
+import hudson.triggers.SCMTrigger;
+import hudson.triggers.Trigger;
+import hudson.util.DescribableList;
 import jenkins.triggers.SCMTriggerItem;
+import net.sf.json.JSONObject;
 
 /**
  * Buildable software project.

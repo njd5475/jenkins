@@ -23,12 +23,7 @@
  */
 package hudson.model;
 
-import hudson.ExtensionList;
-import hudson.ExtensionListListener;
-import hudson.ExtensionPoint;
-import hudson.init.Initializer;
-import hudson.triggers.SafeTimerTask;
-import jenkins.util.Timer;
+import static hudson.init.InitMilestone.JOB_LOADED;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -36,7 +31,12 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-import static hudson.init.InitMilestone.JOB_LOADED;
+import hudson.ExtensionList;
+import hudson.ExtensionListListener;
+import hudson.ExtensionPoint;
+import hudson.init.Initializer;
+import hudson.triggers.SafeTimerTask;
+import jenkins.util.Timer;
 
 
 /**

@@ -23,7 +23,21 @@
  */
 package jenkins.tools;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.servlet.ServletException;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
 import com.google.common.base.Predicate;
+
 import hudson.Extension;
 import hudson.Functions;
 import hudson.model.Descriptor;
@@ -33,17 +47,6 @@ import hudson.util.FormApply;
 import jenkins.model.GlobalConfigurationCategory;
 import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
-
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-import org.kohsuke.stapler.interceptor.RequirePOST;
-
-import javax.servlet.ServletException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Extension(ordinal = Integer.MAX_VALUE - 220)
 @Restricted(NoExternalUse.class)
@@ -56,12 +59,12 @@ public class GlobalToolConfiguration extends ManagementLink {
 
     @Override
     public String getDisplayName() {
-        return jenkins.management.Messages.ConfigureTools_DisplayName();
+        return LocalizedString.ConfigureTools_DisplayName.toString();
     }
 
     @Override
     public String getDescription() {
-        return jenkins.management.Messages.ConfigureTools_Description();
+        return LocalizedString.ConfigureTools_Description.toString();
     }
 
     @Override

@@ -23,15 +23,16 @@
  */
 package hudson.cli;
 
+import java.io.IOException;
+
+import org.kohsuke.args4j.Argument;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.model.Computer;
 import hudson.model.Node;
-
-import java.io.IOException;
-
 import jenkins.model.Jenkins;
-
-import org.kohsuke.args4j.Argument;
 
 /**
  * @author ogondza
@@ -46,7 +47,7 @@ public class GetNodeCommand extends CLICommand {
     @Override
     public String getShortDescription() {
 
-        return Messages.GetNodeCommand_ShortDescription();
+        return LocalizedString.GetNodeCommand_ShortDescription.toString();
     }
 
     @Override

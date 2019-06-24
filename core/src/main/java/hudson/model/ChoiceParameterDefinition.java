@@ -1,23 +1,27 @@
 package hudson.model;
 
-import hudson.util.FormValidation;
-import org.jenkinsci.Symbol;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.DataBoundSetter;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.export.Exported;
-import org.apache.commons.lang.StringUtils;
-import net.sf.json.JSONObject;
-import hudson.Extension;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Arrays;
+
+import org.apache.commons.lang.StringUtils;
+import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.DataBoundSetter;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.export.Exported;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.util.FormValidation;
+import net.sf.json.JSONObject;
 
 /**
  * @author huybrechts
@@ -154,7 +158,7 @@ public class ChoiceParameterDefinition extends SimpleParameterDefinition {
     public static class DescriptorImpl extends ParameterDescriptor {
         @Override
         public String getDisplayName() {
-            return Messages.ChoiceParameterDefinition_DisplayName();
+            return LocalizedString.ChoiceParameterDefinition_DisplayName.toString();
         }
 
         @Override
@@ -180,7 +184,7 @@ public class ChoiceParameterDefinition extends SimpleParameterDefinition {
             if (ChoiceParameterDefinition.areValidChoices(value)) {
                 return FormValidation.ok();
             } else {
-                return FormValidation.error(Messages.ChoiceParameterDefinition_MissingChoices());
+                return FormValidation.error(LocalizedString.ChoiceParameterDefinition_MissingChoices);
             }
         }
     }

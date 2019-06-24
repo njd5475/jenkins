@@ -23,13 +23,13 @@
  */
 package hudson.tasks;
 
+import java.util.List;
+
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionListView;
 import hudson.ExtensionPoint;
 import hudson.model.User;
-
-import java.util.List;
 
 /**
  * Finds full name off the user when none is specified.

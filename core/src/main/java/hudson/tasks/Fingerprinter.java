@@ -23,34 +23,22 @@
  */
 package hudson.tasks;
 
-import com.google.common.collect.ImmutableMap;
-import hudson.EnvVars;
-import hudson.Extension;
-import hudson.FilePath;
-import hudson.Functions;
-import jenkins.MasterToSlaveFileCallable;
-import hudson.Launcher;
-import jenkins.util.SystemProperties;
-import hudson.Util;
-import hudson.model.AbstractBuild;
-import hudson.model.AbstractProject;
-import hudson.model.Action;
-import jenkins.model.DependencyDeclarer;
-import hudson.model.DependencyGraph;
-import hudson.model.DependencyGraph.Dependency;
-import hudson.model.Fingerprint;
-import hudson.model.Fingerprint.BuildPtr;
-import hudson.model.FingerprintMap;
-import hudson.model.Job;
-import jenkins.model.Jenkins;
-import hudson.model.Result;
-import hudson.model.Run;
-import hudson.model.TaskListener;
-import hudson.remoting.VirtualChannel;
-import hudson.util.FormValidation;
-import hudson.util.PackedMap;
-import hudson.util.RunList;
-import net.sf.json.JSONObject;
+import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.acegisecurity.AccessDeniedException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.types.FileSet;
@@ -60,24 +48,38 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.dj.runner.locales.LocalizedString;
+import com.google.common.collect.ImmutableMap;
+
+import hudson.EnvVars;
+import hudson.Extension;
+import hudson.FilePath;
+import hudson.Functions;
+import hudson.Launcher;
+import hudson.Util;
+import hudson.model.AbstractBuild;
+import hudson.model.AbstractProject;
+import hudson.model.Action;
+import hudson.model.DependencyGraph;
+import hudson.model.DependencyGraph.Dependency;
+import hudson.model.Fingerprint;
+import hudson.model.Fingerprint.BuildPtr;
+import hudson.model.FingerprintMap;
+import hudson.model.Job;
+import hudson.model.Result;
+import hudson.model.Run;
+import hudson.model.TaskListener;
+import hudson.remoting.VirtualChannel;
+import hudson.util.FormValidation;
+import hudson.util.PackedMap;
+import hudson.util.RunList;
+import jenkins.MasterToSlaveFileCallable;
+import jenkins.model.DependencyDeclarer;
+import jenkins.model.Jenkins;
 import jenkins.model.RunAction2;
 import jenkins.tasks.SimpleBuildStep;
+import jenkins.util.SystemProperties;
+import net.sf.json.JSONObject;
 
 /**
  * Records fingerprints of the specified files.
@@ -117,7 +119,7 @@ public class Fingerprinter extends Recorder implements Serializable, DependencyD
     @Override
     public void perform(Run<?,?> build, FilePath workspace, Launcher launcher, TaskListener listener) throws InterruptedException {
         try {
-            listener.getLogger().println(Messages.Fingerprinter_Recording());
+            listener.getLogger().println(LocalizedString.Fingerprinter_Recording);
 
             Map<String,String> record = new HashMap<>();
             
@@ -138,7 +140,7 @@ public class Fingerprinter extends Recorder implements Serializable, DependencyD
                 Jenkins.getInstance().rebuildDependencyGraphAsync();
             }
         } catch (IOException e) {
-            Functions.printStackTrace(e, listener.error(Messages.Fingerprinter_Failed()));
+            Functions.printStackTrace(e, listener.error(LocalizedString.Fingerprinter_Failed));
             build.setResult(Result.FAILURE);
         }
 
@@ -238,9 +240,9 @@ public class Fingerprinter extends Recorder implements Serializable, DependencyD
                 try {
                     results.add(new Record(produced,f,file.getName(),new FilePath(file).digest()));
                 } catch (IOException e) {
-                    throw new IOException(Messages.Fingerprinter_DigestFailed(file),e);
+                    throw new IOException(LocalizedString.Fingerprinter_DigestFailed.toLocale(file),e);
                 } catch (InterruptedException e) {
-                    throw new IOException(Messages.Fingerprinter_Aborted(),e);
+                    throw new IOException(LocalizedString.Fingerprinter_Aborted.toLocale(),e);
                 }
             }
 
@@ -253,7 +255,7 @@ public class Fingerprinter extends Recorder implements Serializable, DependencyD
         for (Record r : ws.act(new FindRecords(targets, build.getTimeInMillis()))) {
             Fingerprint fp = r.addRecord(build);
             if(fp==null) {
-                listener.error(Messages.Fingerprinter_FailedFor(r.relativePath));
+                listener.error(LocalizedString.Fingerprinter_FailedFor.toLocale(r.relativePath));
                 continue;
             }
             fp.addFor(build);
@@ -264,7 +266,7 @@ public class Fingerprinter extends Recorder implements Serializable, DependencyD
     @Extension @Symbol("fingerprint")
     public static class DescriptorImpl extends BuildStepDescriptor<Publisher> {
         public String getDisplayName() {
-            return Messages.Fingerprinter_DisplayName();
+            return LocalizedString.Fingerprinter_DisplayName.toString();
         }
 
         @Deprecated
@@ -327,7 +329,7 @@ public class Fingerprinter extends Recorder implements Serializable, DependencyD
         }
 
         public String getDisplayName() {
-            return Messages.Fingerprinter_Action_DisplayName();
+            return LocalizedString.Fingerprinter_Action_DisplayName.toString();
         }
 
         public String getUrlName() {

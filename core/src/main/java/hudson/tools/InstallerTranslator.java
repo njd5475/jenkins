@@ -24,63 +24,70 @@
 
 package hudson.tools;
 
-import hudson.Extension;
-import hudson.model.Node;
-import hudson.model.TaskListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.Semaphore;
 
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.Node;
+import hudson.model.TaskListener;
+import hudson.util.PersistedList;
+
 /**
  * Actually runs installations.
+ * 
  * @since 1.305
  */
 @Extension
 public class InstallerTranslator extends ToolLocationTranslator {
 
-    private static final Map<Node,Map<ToolInstallation,Semaphore>> mutexByNode = new WeakHashMap<>();
+  private static final Map<Node, Map<ToolInstallation, Semaphore>> mutexByNode = new WeakHashMap<>();
 
-    public String getToolHome(Node node, ToolInstallation tool, TaskListener log) throws IOException, InterruptedException {
-        if (node.getRootPath() == null) {
-            log.error(node.getDisplayName() + " is offline; cannot locate " + tool.getName());
-            return null;
-        }
-        InstallSourceProperty isp = tool.getProperties().get(InstallSourceProperty.class);
-        if (isp == null) {
-            return null;
-        }
-
-        ArrayList<String> inapplicableInstallersMessages = new ArrayList<>();
-
-        for (ToolInstaller installer : isp.installers) {
-            if (installer.appliesTo(node)) {
-                Semaphore semaphore;
-                synchronized (mutexByNode) {
-                    Map<ToolInstallation, Semaphore> mutexByTool = mutexByNode.computeIfAbsent(node, k -> new WeakHashMap<>());
-                    semaphore = mutexByTool.get(tool);
-                    if (semaphore == null) {
-                        mutexByTool.put(tool, semaphore = new Semaphore(1));
-                    }
-                }
-                semaphore.acquire();
-                try {
-                    return installer.performInstallation(tool, node, log).getRemote();
-                } finally {
-                    semaphore.release();
-                }
-            } else {
-                inapplicableInstallersMessages.add(Messages.CannotBeInstalled(
-                        installer.getDescriptor().getDisplayName(),
-                        tool.getName(),
-                        node.getDisplayName()));
-            }
-        }
-        for (String message : inapplicableInstallersMessages) {
-            log.getLogger().println(message);
-        }
-        return null;
+  public String getToolHome(Node node, ToolInstallation tool, TaskListener log)
+      throws IOException, InterruptedException {
+    if(node.getRootPath() == null) {
+      log.error(node.getDisplayName() + " is offline; cannot locate " + tool.getName());
+      return null;
     }
+    InstallSourceProperty isp = tool.getProperties().get(InstallSourceProperty.class);
+    if(isp == null) {
+      return null;
+    }
+
+    ArrayList<String> inapplicableInstallersMessages = new ArrayList<>();
+
+    for (ToolInstaller installer : isp.installers) {
+      if(installer.appliesTo(node)) {
+        Semaphore semaphore;
+        synchronized (mutexByNode) {
+          Map<ToolInstallation, Semaphore> mutexByTool = mutexByNode.computeIfAbsent(node, k -> new WeakHashMap<>());
+          semaphore = mutexByTool.get(tool);
+          if(semaphore == null) {
+            mutexByTool.put(tool, semaphore = new Semaphore(1));
+          }
+        }
+        semaphore.acquire();
+        try {
+          return installer.performInstallation(tool, node, log).getRemote();
+        } finally {
+          semaphore.release();
+        }
+      } else {
+        // TODO: delete me, because this code will always fail and obviously has never
+        // been called
+        // PersistedList<ToolProperty<?>> inapplicableInstallersLocalized;
+        // inapplicableInstallersLocalized.add(LocalizedString.CannotBeInstalled
+        //    .asLocale(installer.getDescriptor().getDisplayName(), tool.getName(), node.getDisplayName()));
+      }
+    }
+    for (String message : inapplicableInstallersMessages) {
+      log.getLogger().println(message);
+    }
+    return null;
+  }
 
 }

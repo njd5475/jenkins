@@ -56,11 +56,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.jvnet.localizer</groupId>
-      <artifactId>localizer</artifactId>
-      <version>1.26</version>
-    </dependency>
-    <dependency>
       <groupId>org.apache.sshd</groupId>
       <artifactId>sshd-core</artifactId>
       <version>1.7.0</version>
@@ -116,23 +111,6 @@
                   <Jenkins-CLI-Version>${project.version}</Jenkins-CLI-Version>
                 </manifestEntries>
               </archive>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.jvnet.localizer</groupId>
-        <artifactId>maven-localizer-plugin</artifactId>
-        <!-- version specified in grandparent pom -->
-        <executions>
-          <execution>
-            <goals>
-              <goal>generate</goal>
-            </goals>
-            <configuration>
-              <fileMask>Messages.properties</fileMask>
-              <outputDirectory>target/generated-sources/localizer</outputDirectory>
-              <accessModifierAnnotations>true</accessModifierAnnotations>
             </configuration>
           </execution>
         </executions>

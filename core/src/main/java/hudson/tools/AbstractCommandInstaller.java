@@ -23,12 +23,17 @@
  */
 package hudson.tools;
 
+import java.io.IOException;
+
+import org.kohsuke.stapler.QueryParameter;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.FilePath;
 import hudson.model.Node;
 import hudson.model.TaskListener;
+import hudson.tasks.CommandInterpreter;
 import hudson.util.FormValidation;
-import java.io.IOException;
-import org.kohsuke.stapler.QueryParameter;
 
 /**
  * A generic script-based installer.
@@ -91,7 +96,7 @@ public abstract class AbstractCommandInstaller extends ToolInstaller {
             if (value.length() > 0) {
                 return FormValidation.ok();
             } else {
-                return FormValidation.error(Messages.CommandInstaller_no_command());
+                return FormValidation.error(LocalizedString.CommandInstaller_no_command);
             }
         }
 
@@ -99,7 +104,7 @@ public abstract class AbstractCommandInstaller extends ToolInstaller {
             if (value.length() > 0) {
                 return FormValidation.ok();
             } else {
-                return FormValidation.error(Messages.CommandInstaller_no_command());
+                return FormValidation.error(LocalizedString.CommandInstaller_no_command);
             }
         }
     }

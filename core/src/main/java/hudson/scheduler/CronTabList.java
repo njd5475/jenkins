@@ -23,19 +23,22 @@
  */
 package hudson.scheduler;
 
-import antlr.ANTLRException;
 import java.util.Calendar;
-import java.util.TimeZone;
 import java.util.Collection;
+import java.util.TimeZone;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.dj.runner.locales.LocalizedString;
+
+import antlr.ANTLRException;
 
 /**
  * {@link CronTab} list (logically OR-ed).
@@ -120,7 +123,7 @@ public final class CronTabList {
             try {
                 r.add(new CronTab(line,lineNumber,hash,timezone));
             } catch (ANTLRException e) {
-                throw new ANTLRException(Messages.CronTabList_InvalidInput(line,e.toString()),e);
+                throw new ANTLRException(LocalizedString.CronTabList_InvalidInput.toLocale(line,e.toString()),e);
             }
         }
         

@@ -23,18 +23,6 @@
  */
 package hudson.model;
 
-import hudson.Extension;
-import hudson.ExtensionList;
-import hudson.Util;
-import hudson.XmlFile;
-import hudson.init.InitMilestone;
-import hudson.init.Initializer;
-import hudson.util.XStream2;
-import jenkins.model.IdStrategy;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-
-import javax.annotation.CheckForNull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -47,6 +35,20 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+
+import javax.annotation.CheckForNull;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.Util;
+import hudson.XmlFile;
+import hudson.init.InitMilestone;
+import hudson.init.Initializer;
+import hudson.util.XStream2;
+import jenkins.model.IdStrategy;
 
 @Restricted(NoExternalUse.class)
 @Extension

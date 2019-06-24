@@ -23,10 +23,10 @@
  */
 package hudson.util;
 
-import hudson.remoting.Which;
-
 import java.io.IOException;
 import java.net.URL;
+
+import hudson.remoting.Which;
 
 /**
  * Model object used to display the error top page if

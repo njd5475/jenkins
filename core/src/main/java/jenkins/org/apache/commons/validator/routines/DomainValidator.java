@@ -17,14 +17,15 @@
 /* Copied from commons-validator:commons-validator:1.6, with [PATCH] modifications */
 package jenkins.org.apache.commons.validator.routines;
 
-import jenkins.util.MemoryReductionUtil;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-
 import java.io.Serializable;
 import java.net.IDN;
 import java.util.Arrays;
 import java.util.Locale;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import jenkins.util.MemoryReductionUtil;
 
 /**
  * <p><b>Domain name</b> validation routines.</p>

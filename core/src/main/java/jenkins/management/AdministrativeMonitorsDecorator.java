@@ -23,6 +23,21 @@
  */
 package jenkins.management;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.servlet.ServletException;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.Ancestor;
+import org.kohsuke.stapler.Stapler;
+import org.kohsuke.stapler.StaplerRequest;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.Functions;
 import hudson.diagnosis.ReverseProxySetupMonitor;
@@ -32,17 +47,6 @@ import hudson.util.HudsonIsLoading;
 import hudson.util.HudsonIsRestarting;
 import jenkins.diagnostics.URICheckEncodingMonitor;
 import jenkins.model.Jenkins;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.kohsuke.stapler.Ancestor;
-import org.kohsuke.stapler.Stapler;
-import org.kohsuke.stapler.StaplerRequest;
-
-import javax.servlet.ServletException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * Show a notification and popup for active administrative monitors on all pages.
@@ -65,7 +69,7 @@ public class AdministrativeMonitorsDecorator extends PageDecorator {
 
     @Override
     public String getDisplayName() {
-        return Messages.AdministrativeMonitorsDecorator_DisplayName();
+        return LocalizedString.AdministrativeMonitorsDecorator_DisplayName.toString();
     }
 
     public int getActiveAdministrativeMonitorsCount() {

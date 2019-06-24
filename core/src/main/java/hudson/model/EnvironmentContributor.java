@@ -23,14 +23,15 @@
  */
 package hudson.model;
 
+import java.io.IOException;
+
+import javax.annotation.Nonnull;
+
 import hudson.EnvVars;
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.scm.SCM;
-
-import java.io.IOException;
-import javax.annotation.Nonnull;
 
 /**
  * Contributes environment variables to builds.

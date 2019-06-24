@@ -24,8 +24,9 @@
 
 package hudson.security;
 
-import jenkins.security.NonSerializableSecurityContext;
 import org.acegisecurity.Authentication;
+
+import jenkins.security.NonSerializableSecurityContext;
 
 /**
  * @deprecated use {@link NonSerializableSecurityContext} instead

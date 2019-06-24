@@ -25,13 +25,16 @@ package hudson.cli;
 
 import java.util.Collection;
 
+import org.kohsuke.args4j.Argument;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
 import hudson.model.Item;
 import hudson.model.TopLevelItem;
 import hudson.model.View;
-import hudson.Extension;
-import jenkins.model.ModifiableTopLevelItemGroup;
 import jenkins.model.Jenkins;
-import org.kohsuke.args4j.Argument;
+import jenkins.model.ModifiableTopLevelItemGroup;
 
 /**
  * Lists all jobs (in a specific view).
@@ -42,7 +45,7 @@ import org.kohsuke.args4j.Argument;
 public class ListJobsCommand extends CLICommand {
     @Override
     public String getShortDescription() {
-        return Messages.ListJobsCommand_ShortDescription();
+        return LocalizedString.ListJobsCommand_ShortDescription.toString();
     }
 
     @Argument(metaVar="NAME",usage="Name of the view",required=false)

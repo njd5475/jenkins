@@ -23,38 +23,8 @@
  */
 package hudson;
 
-import com.google.common.collect.Lists;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import hudson.Plugin.DummyImpl;
-import hudson.PluginWrapper.Dependency;
-import hudson.model.Hudson;
-import hudson.util.CyclicGraphDetector;
-import hudson.util.CyclicGraphDetector.CycleDetectedException;
-import hudson.util.IOUtils;
-import hudson.util.MaskingClassLoader;
-import jenkins.ClassLoaderReflectionToolkit;
-import jenkins.ExtensionFilter;
-import jenkins.plugins.DetachedPluginsUtil;
-import jenkins.util.AntClassLoader;
-import jenkins.util.AntWithFindResourceClassLoader;
-import jenkins.util.SystemProperties;
-import org.apache.commons.io.output.NullOutputStream;
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.taskdefs.Expand;
-import org.apache.tools.ant.taskdefs.Zip;
-import org.apache.tools.ant.types.FileSet;
-import org.apache.tools.ant.types.PatternSet;
-import org.apache.tools.ant.types.Resource;
-import org.apache.tools.ant.types.ZipFileSet;
-import org.apache.tools.ant.types.resources.MappedResourceCollection;
-import org.apache.tools.ant.util.GlobPatternMapper;
-import org.apache.tools.zip.ZipEntry;
-import org.apache.tools.zip.ZipExtraField;
-import org.apache.tools.zip.ZipOutputStream;
-import org.jenkinsci.bytecode.Transformer;
+import static org.apache.commons.io.FilenameUtils.getBaseName;
 
-import javax.annotation.Nonnull;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -76,7 +46,40 @@ import java.util.jar.Manifest;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.apache.commons.io.FilenameUtils.getBaseName;
+import javax.annotation.Nonnull;
+
+import org.apache.commons.io.output.NullOutputStream;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.taskdefs.Expand;
+import org.apache.tools.ant.taskdefs.Zip;
+import org.apache.tools.ant.types.FileSet;
+import org.apache.tools.ant.types.PatternSet;
+import org.apache.tools.ant.types.Resource;
+import org.apache.tools.ant.types.ZipFileSet;
+import org.apache.tools.ant.types.resources.MappedResourceCollection;
+import org.apache.tools.ant.util.GlobPatternMapper;
+import org.apache.tools.zip.ZipEntry;
+import org.apache.tools.zip.ZipExtraField;
+import org.apache.tools.zip.ZipOutputStream;
+import org.jenkinsci.bytecode.Transformer;
+
+import com.google.common.collect.Lists;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import hudson.Plugin.DummyImpl;
+import hudson.PluginWrapper.Dependency;
+import hudson.model.Hudson;
+import hudson.util.CyclicGraphDetector;
+import hudson.util.CyclicGraphDetector.CycleDetectedException;
+import hudson.util.IOUtils;
+import hudson.util.MaskingClassLoader;
+import jenkins.ClassLoaderReflectionToolkit;
+import jenkins.ExtensionFilter;
+import jenkins.plugins.DetachedPluginsUtil;
+import jenkins.util.AntClassLoader;
+import jenkins.util.AntWithFindResourceClassLoader;
+import jenkins.util.SystemProperties;
 
 public class ClassicPluginStrategy implements PluginStrategy {
 

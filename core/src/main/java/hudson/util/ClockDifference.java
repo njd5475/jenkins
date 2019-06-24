@@ -23,13 +23,15 @@
  */
 package hudson.util;
 
-import hudson.Util;
-import hudson.model.Node;
-
 import java.io.IOException;
 
-import org.kohsuke.stapler.export.ExportedBean;
 import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Util;
+import hudson.model.Node;
 
 /**
  * Represents a clock difference. Immutable.
@@ -71,15 +73,15 @@ public final class ClockDifference {
     @Override
     public String toString() {
         if(-1000<diff && diff <1000)
-            return Messages.ClockDifference_InSync();  // clock is in sync
+            return LocalizedString.ClockDifference_InSync.toString();  // clock is in sync
 
         long abs = Math.abs(diff);
 
         String s = Util.getTimeSpanString(abs);
         if(diff<0)
-            s = Messages.ClockDifference_Ahead(s);
+            s = LocalizedString.ClockDifference_Ahead.toLocale(s);
         else
-            s = Messages.ClockDifference_Behind(s);
+            s = LocalizedString.ClockDifference_Behind.toLocale(s);
 
         return s;
     }
@@ -112,5 +114,5 @@ public final class ClockDifference {
     public static final ClockDifference ZERO = new ClockDifference(0);
 
     private static final String FAILED_HTML =
-            "<span class='error'>" + Messages.ClockDifference_Failed() + "</span>";
+            "<span class='error'>" + LocalizedString.ClockDifference_Failed + "</span>";
 }

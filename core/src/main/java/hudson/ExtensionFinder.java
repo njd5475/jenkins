@@ -23,37 +23,6 @@
  */
 package hudson;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.inject.AbstractModule;
-import com.google.inject.Binding;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Key;
-import com.google.inject.Module;
-import com.google.inject.Provider;
-import com.google.inject.Scope;
-import com.google.inject.Scopes;
-import com.google.inject.matcher.Matchers;
-import com.google.inject.name.Names;
-import com.google.inject.spi.ProvisionListener;
-import hudson.init.InitMilestone;
-import hudson.model.Descriptor;
-import hudson.model.Hudson;
-import jenkins.ExtensionComponentSet;
-import jenkins.ExtensionFilter;
-import jenkins.ExtensionRefreshException;
-import jenkins.ProxyInjector;
-import jenkins.model.Jenkins;
-import net.java.sezpoz.Index;
-import net.java.sezpoz.IndexItem;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-import org.springframework.util.ClassUtils;
-
-import javax.annotation.PostConstruct;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
@@ -70,6 +39,40 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.annotation.PostConstruct;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.springframework.util.ClassUtils;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.inject.AbstractModule;
+import com.google.inject.Binding;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Key;
+import com.google.inject.Module;
+import com.google.inject.Provider;
+import com.google.inject.Scope;
+import com.google.inject.Scopes;
+import com.google.inject.matcher.Matchers;
+import com.google.inject.name.Names;
+import com.google.inject.spi.ProvisionListener;
+
+import hudson.init.InitMilestone;
+import hudson.model.Descriptor;
+import hudson.model.Hudson;
+import jenkins.ExtensionComponentSet;
+import jenkins.ExtensionFilter;
+import jenkins.ExtensionRefreshException;
+import jenkins.ProxyInjector;
+import jenkins.model.Jenkins;
+import net.java.sezpoz.Index;
+import net.java.sezpoz.IndexItem;
 
 /**
  * Discovers the implementations of an extension point.

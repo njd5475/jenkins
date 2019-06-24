@@ -23,12 +23,15 @@
  */
 package hudson.util;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import org.kohsuke.stapler.HttpResponses.HttpResponseException;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
-import javax.servlet.ServletException;
-import java.io.IOException;
+import com.dj.runner.locales.LocalizedString;
 
 /**
  * Server-side code related to the {@code <f:apply>} button.
@@ -49,7 +52,7 @@ public class FormApply {
             public void generateResponse(StaplerRequest req, StaplerResponse rsp, Object node) throws IOException, ServletException {
                 if (isApply(req)) {
                     // if the submission is via 'apply', show a response in the notification bar
-                    applyResponse("notificationBar.show('"+Messages.HttpResponses_Saved()+"',notificationBar.OK)")
+                    applyResponse("notificationBar.show('"+LocalizedString.HttpResponses_Saved+"',notificationBar.OK)")
                             .generateResponse(req,rsp,node);
                 } else {
                     rsp.sendRedirect(destination);

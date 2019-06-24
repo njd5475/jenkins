@@ -1,12 +1,12 @@
 package hudson.tasks;
 
+import java.io.IOException;
+
+import hudson.Launcher;
 import hudson.model.AbstractBuild;
 import hudson.model.BuildListener;
 import hudson.model.CheckPoint;
-import hudson.Launcher;
 import hudson.model.Describable;
-
-import java.io.IOException;
 
 /**
  * Used by {@link BuildStep#getRequiredMonitorService()}.

@@ -1,12 +1,15 @@
 package hudson.cli;
 
-import hudson.Extension;
-import hudson.model.Job;
-import hudson.model.Run;
+import java.io.Serializable;
+
 import org.apache.commons.io.IOUtils;
 import org.kohsuke.args4j.Argument;
 
-import java.io.Serializable;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.Job;
+import hudson.model.Run;
 
 @Extension
 public class SetBuildDisplayNameCommand extends CLICommand implements Serializable {
@@ -14,7 +17,7 @@ public class SetBuildDisplayNameCommand extends CLICommand implements Serializab
 
     @Override
     public String getShortDescription() {
-        return Messages.SetBuildDisplayNameCommand_ShortDescription();
+        return LocalizedString.SetBuildDisplayNameCommand_ShortDescription.toString();
     }
 
     @Argument(metaVar="JOB", usage="Name of the job to build", required=true, index=0)

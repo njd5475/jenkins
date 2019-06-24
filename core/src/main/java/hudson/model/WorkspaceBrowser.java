@@ -24,11 +24,11 @@
 
 package hudson.model;
 
+import javax.annotation.CheckForNull;
+
 import hudson.ExtensionPoint;
 import hudson.FilePath;
 import hudson.slaves.WorkspaceList;
-
-import javax.annotation.CheckForNull;
 
 /**
  * Allows to access a workspace as an alternative to online build node.

@@ -23,10 +23,13 @@
  */
 package hudson.cli;
 
-import hudson.Extension;
-import jenkins.model.Jenkins;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.GrantedAuthority;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import jenkins.model.Jenkins;
 
 /**
  * Report the current granted authorities
@@ -37,7 +40,7 @@ import org.acegisecurity.GrantedAuthority;
 public class WhoAmICommand extends CLICommand {
     @Override
     public String getShortDescription() {
-        return Messages.WhoAmICommand_ShortDescription();
+        return LocalizedString.WhoAmICommand_ShortDescription.toString();
     }
 
     protected int run() {

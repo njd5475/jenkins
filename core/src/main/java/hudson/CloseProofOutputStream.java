@@ -23,9 +23,9 @@
  */
 package hudson;
 
-import hudson.util.DelegatingOutputStream;
-
 import java.io.OutputStream;
+
+import hudson.util.DelegatingOutputStream;
 
 /**
  * {@link OutputStream} that blocks {@link #close()} method.

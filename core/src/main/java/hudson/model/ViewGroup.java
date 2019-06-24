@@ -24,16 +24,16 @@
  */
 package hudson.model;
 
-import hudson.security.AccessControlled;
-import hudson.views.ViewsTabBar;
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
-import jenkins.model.Jenkins;
 
 import javax.annotation.Nonnull;
+
+import hudson.security.AccessControlled;
+import hudson.views.ViewsTabBar;
+import jenkins.model.Jenkins;
 
 /**
  * Container of {@link View}s.

@@ -23,17 +23,6 @@
  */
 package hudson;
 
-import hudson.Launcher.ProcStarter;
-import hudson.model.TaskListener;
-import hudson.remoting.Channel;
-import hudson.util.DaemonThreadFactory;
-import hudson.util.ExceptionCatchingThreadFactory;
-import hudson.util.NamingThreadFactory;
-import hudson.util.NullStream;
-import hudson.util.StreamCopyThread;
-import hudson.util.ProcessTree;
-import org.apache.commons.io.input.NullInputStream;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,9 +38,22 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.CheckForNull;
+
+import org.apache.commons.io.input.NullInputStream;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import hudson.Launcher.ProcStarter;
+import hudson.model.TaskListener;
+import hudson.remoting.Channel;
+import hudson.util.DaemonThreadFactory;
+import hudson.util.ExceptionCatchingThreadFactory;
+import hudson.util.NamingThreadFactory;
+import hudson.util.NullStream;
+import hudson.util.ProcessTree;
+import hudson.util.StreamCopyThread;
 
 /**
  * External process wrapper.

@@ -1,5 +1,9 @@
 package jenkins.model;
 
+import java.io.IOException;
+
+import org.jenkinsci.Symbol;
+
 import hudson.EnvVars;
 import hudson.Extension;
 import hudson.Util;
@@ -11,9 +15,6 @@ import hudson.model.Node;
 import hudson.model.Run;
 import hudson.model.TaskListener;
 import jenkins.model.Jenkins.MasterComputer;
-import org.jenkinsci.Symbol;
-
-import java.io.IOException;
 
 /**
  * {@link EnvironmentContributor} that adds the basic set of environment variables that

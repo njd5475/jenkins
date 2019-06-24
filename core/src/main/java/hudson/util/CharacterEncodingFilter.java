@@ -23,10 +23,10 @@
  */
 package hudson.util;
 
-import jenkins.util.SystemProperties;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -34,6 +34,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+
+import jenkins.util.SystemProperties;
 
 /**
  * Filter that sets the character encoding to be used in parsing the request

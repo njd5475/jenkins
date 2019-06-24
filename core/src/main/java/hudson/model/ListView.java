@@ -24,6 +24,38 @@
  */
 package hudson.model;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.concurrent.GuardedBy;
+import javax.servlet.ServletException;
+
+import org.jenkinsci.Symbol;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.DataBoundSetter;
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.Util;
 import hudson.diagnosis.OldDataMonitor;
@@ -39,32 +71,9 @@ import hudson.util.FormValidation;
 import hudson.util.HttpResponses;
 import hudson.views.ListViewColumn;
 import hudson.views.ViewJobFilter;
-
-import java.io.IOException;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-
-import javax.annotation.CheckForNull;
-import javax.annotation.concurrent.GuardedBy;
-import javax.servlet.ServletException;
 import jenkins.model.Jenkins;
 import jenkins.model.ParameterizedJobMixIn;
-
 import net.sf.json.JSONObject;
-import org.jenkinsci.Symbol;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
-
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.DataBoundSetter;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-import org.kohsuke.stapler.interceptor.RequirePOST;
 
 /**
  * Displays {@link Job}s in a flat list view.
@@ -485,7 +494,7 @@ public class ListView extends View implements DirectlyModifiableView {
     public static class DescriptorImpl extends ViewDescriptor {
         @Override
         public String getDisplayName() {
-            return Messages.ListView_DisplayName();
+            return LocalizedString.ListView_DisplayName.toString();
         }
 
         /**

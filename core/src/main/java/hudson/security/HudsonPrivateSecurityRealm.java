@@ -23,50 +23,20 @@
  */
 package hudson.security;
 
-import com.thoughtworks.xstream.converters.UnmarshallingContext;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import hudson.Extension;
-import hudson.ExtensionList;
-import hudson.Util;
-import hudson.diagnosis.OldDataMonitor;
-import hudson.model.Descriptor;
-import jenkins.model.Jenkins;
-import hudson.model.ManagementLink;
-import hudson.model.ModelObject;
-import hudson.model.User;
-import hudson.model.UserProperty;
-import hudson.model.UserPropertyDescriptor;
-import hudson.security.FederatedLoginService.FederatedIdentity;
-import hudson.security.captcha.CaptchaSupport;
-import hudson.util.PluginServletFilter;
-import hudson.util.Protector;
-import hudson.util.Scrambler;
-import hudson.util.XStream2;
-import jenkins.security.SecurityListener;
-import jenkins.util.SystemProperties;
-import jenkins.security.seed.UserSeedProperty;
-import net.sf.json.JSONObject;
-import org.acegisecurity.Authentication;
-import org.acegisecurity.AuthenticationException;
-import org.acegisecurity.BadCredentialsException;
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.context.SecurityContextHolder;
-import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
-import org.acegisecurity.providers.encoding.PasswordEncoder;
-import org.acegisecurity.providers.encoding.ShaPasswordEncoder;
-import org.acegisecurity.userdetails.UserDetails;
-import org.acegisecurity.userdetails.UsernameNotFoundException;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.ForwardToView;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.HttpResponses;
-import org.kohsuke.stapler.Stapler;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-import org.kohsuke.stapler.interceptor.RequirePOST;
-import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.dao.DataAccessException;
+import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
+
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 import javax.servlet.Filter;
@@ -79,17 +49,56 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
-import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.security.SecureRandom;
-import java.util.*;
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import org.acegisecurity.Authentication;
+import org.acegisecurity.AuthenticationException;
+import org.acegisecurity.BadCredentialsException;
+import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
+import org.acegisecurity.providers.encoding.PasswordEncoder;
+import org.acegisecurity.providers.encoding.ShaPasswordEncoder;
+import org.acegisecurity.userdetails.UserDetails;
+import org.acegisecurity.userdetails.UsernameNotFoundException;
+import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.ForwardToView;
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.HttpResponses;
+import org.kohsuke.stapler.Stapler;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.dao.DataAccessException;
+
+import com.dj.runner.locales.Localizable;
+import com.dj.runner.locales.LocalizedString;
+import com.thoughtworks.xstream.converters.UnmarshallingContext;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.Util;
+import hudson.diagnosis.OldDataMonitor;
+import hudson.model.Descriptor;
+import hudson.model.ManagementLink;
+import hudson.model.ModelObject;
+import hudson.model.User;
+import hudson.model.UserProperty;
+import hudson.model.UserPropertyDescriptor;
+import hudson.security.FederatedLoginService.FederatedIdentity;
+import hudson.security.captcha.CaptchaSupport;
+import hudson.util.PluginServletFilter;
+import hudson.util.Protector;
+import hudson.util.Scrambler;
+import hudson.util.XStream2;
+import jenkins.model.Jenkins;
+import jenkins.security.SecurityListener;
+import jenkins.security.seed.UserSeedProperty;
+import jenkins.util.SystemProperties;
+import net.sf.json.JSONObject;
 
 /**
  * {@link SecurityRealm} that performs authentication by looking up {@link User}.
@@ -220,7 +229,7 @@ public class HudsonPrivateSecurityRealm extends AbstractPasswordBasedSecurityRea
             @Override
             public void generateResponse(StaplerRequest req, StaplerResponse rsp, Object node) throws IOException, ServletException {
                 SignupInfo si = new SignupInfo(identity);
-                si.errorMessage = Messages.HudsonPrivateSecurityRealm_WouldYouLikeToSignUp(identity.getPronoun(),identity.getIdentifier());
+                si.errorMessage = LocalizedString.HudsonPrivateSecurityRealm_WouldYouLikeToSignUp.toLocale(identity.getPronoun(),identity.getIdentifier());
                 req.setAttribute("data", si);
                 super.generateResponse(req, rsp, node);
             }
@@ -333,8 +342,8 @@ public class HudsonPrivateSecurityRealm extends AbstractPasswordBasedSecurityRea
 
     private String getErrorMessages(SignupInfo si) {
         StringBuilder messages = new StringBuilder();
-        for (String message : si.errors.values()) {
-            messages.append(message).append(" | ");
+        for (Localizable message : si.errors.values()) {
+            messages.append(message.toLocale()).append(" | ");
         }
         return messages.toString();
     }
@@ -405,16 +414,16 @@ public class HudsonPrivateSecurityRealm extends AbstractPasswordBasedSecurityRea
         SignupInfo si = new SignupInfo(req);
 
         if (validateCaptcha && !validateCaptcha(si.captcha)) {
-            si.errors.put("captcha", Messages.HudsonPrivateSecurityRealm_CreateAccount_TextNotMatchWordInImage());
+            si.errors.put("captcha", LocalizedString.HudsonPrivateSecurityRealm_CreateAccount_TextNotMatchWordInImage);
         }
 
         if (si.username == null || si.username.length() == 0) {
-            si.errors.put("username", Messages.HudsonPrivateSecurityRealm_CreateAccount_UserNameRequired());
+            si.errors.put("username", LocalizedString.HudsonPrivateSecurityRealm_CreateAccount_UserNameRequired);
         } else if(!containsOnlyAcceptableCharacters(si.username)) {
             if (ID_REGEX == null) {
-                si.errors.put("username", Messages.HudsonPrivateSecurityRealm_CreateAccount_UserNameInvalidCharacters());
+                si.errors.put("username", LocalizedString.HudsonPrivateSecurityRealm_CreateAccount_UserNameInvalidCharacters);
             } else {
-                si.errors.put("username", Messages.HudsonPrivateSecurityRealm_CreateAccount_UserNameInvalidCharactersCustom(ID_REGEX));
+                si.errors.put("username", LocalizedString.HudsonPrivateSecurityRealm_CreateAccount_UserNameInvalidCharactersCustom.asLocale(ID_REGEX));
             }
         } else {
             // do not create the user - we just want to check if the user already exists but is not a "login" user.
@@ -422,15 +431,15 @@ public class HudsonPrivateSecurityRealm extends AbstractPasswordBasedSecurityRea
             if (null != user)
                 // Allow sign up. SCM people has no such property.
                 if (user.getProperty(Details.class) != null)
-                    si.errors.put("username", Messages.HudsonPrivateSecurityRealm_CreateAccount_UserNameAlreadyTaken());
+                    si.errors.put("username", LocalizedString.HudsonPrivateSecurityRealm_CreateAccount_UserNameAlreadyTaken);
         }
 
         if (si.password1 != null && !si.password1.equals(si.password2)) {
-            si.errors.put("password1", Messages.HudsonPrivateSecurityRealm_CreateAccount_PasswordNotMatch());
+            si.errors.put("password1", LocalizedString.HudsonPrivateSecurityRealm_CreateAccount_PasswordNotMatch);
         }
 
         if (!(si.password1 != null && si.password1.length() != 0)) {
-            si.errors.put("password1", Messages.HudsonPrivateSecurityRealm_CreateAccount_PasswordRequired());
+            si.errors.put("password1", LocalizedString.HudsonPrivateSecurityRealm_CreateAccount_PasswordRequired);
         }
 
         if (si.fullname == null || si.fullname.length() == 0) {
@@ -438,15 +447,15 @@ public class HudsonPrivateSecurityRealm extends AbstractPasswordBasedSecurityRea
         }
 
         if (isMailerPluginPresent() && (si.email == null || !si.email.contains("@"))) {
-            si.errors.put("email", Messages.HudsonPrivateSecurityRealm_CreateAccount_InvalidEmailAddress());
+            si.errors.put("email", LocalizedString.HudsonPrivateSecurityRealm_CreateAccount_InvalidEmailAddress);
         }
 
         if (!User.isIdOrFullnameAllowed(si.username)) {
-            si.errors.put("username", hudson.model.Messages.User_IllegalUsername(si.username));
+            si.errors.put("username", LocalizedString.User_IllegalUsername.asLocale(si.username));
         }
 
         if (!User.isIdOrFullnameAllowed(si.fullname)) {
-            si.errors.put("fullname", hudson.model.Messages.User_IllegalFullname(si.fullname));
+            si.errors.put("fullname", LocalizedString.User_IllegalFullname.asLocale(si.fullname));
         }
         req.setAttribute("data", si); // for error messages in the view
         return si;
@@ -532,7 +541,7 @@ public class HudsonPrivateSecurityRealm extends AbstractPasswordBasedSecurityRea
      * This is used primarily when the object is listed in the breadcrumb, in the user management screen.
      */
     public String getDisplayName() {
-        return Messages.HudsonPrivateSecurityRealm_DisplayName();
+        return LocalizedString.HudsonPrivateSecurityRealm_DisplayName.toString();
     }
 
     public ACL getACL() {
@@ -584,10 +593,10 @@ public class HudsonPrivateSecurityRealm extends AbstractPasswordBasedSecurityRea
 
         /**
          * Add field-specific error messages here.
-         * Keys are field names (e.g. {@code password2}), values are the messages.
+         * Keys are field names (e.g. {@code password2}), values are the Localized.
          */
         // TODO i18n?
-        public HashMap<String, String> errors = new HashMap<String, String>();
+        public HashMap<String, Localizable> errors = new HashMap<>();
 
         public SignupInfo() {
         }
@@ -702,7 +711,7 @@ public class HudsonPrivateSecurityRealm extends AbstractPasswordBasedSecurityRea
         public static final class DescriptorImpl extends UserPropertyDescriptor {
             @Override
             public String getDisplayName() {
-                return Messages.HudsonPrivateSecurityRealm_Details_DisplayName();
+                return LocalizedString.HudsonPrivateSecurityRealm_Details_DisplayName.toString();
             }
 
             @Override
@@ -764,12 +773,12 @@ public class HudsonPrivateSecurityRealm extends AbstractPasswordBasedSecurityRea
         }
 
         public String getDisplayName() {
-            return Messages.HudsonPrivateSecurityRealm_ManageUserLinks_DisplayName();
+            return LocalizedString.HudsonPrivateSecurityRealm_ManageUserLinks_DisplayName.toString();
         }
 
         @Override
         public String getDescription() {
-            return Messages.HudsonPrivateSecurityRealm_ManageUserLinks_Description();
+            return LocalizedString.HudsonPrivateSecurityRealm_ManageUserLinks_Description.toString();
         }
     }
 
@@ -909,7 +918,7 @@ public class HudsonPrivateSecurityRealm extends AbstractPasswordBasedSecurityRea
     @Extension @Symbol("local")
     public static final class DescriptorImpl extends Descriptor<SecurityRealm> {
         public String getDisplayName() {
-            return Messages.HudsonPrivateSecurityRealm_DisplayName();
+            return LocalizedString.HudsonPrivateSecurityRealm_DisplayName.toString();
         }
     }
 

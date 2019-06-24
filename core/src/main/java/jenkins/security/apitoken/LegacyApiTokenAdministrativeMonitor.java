@@ -23,11 +23,16 @@
  */
 package jenkins.security.apitoken;
 
-import hudson.Extension;
-import hudson.model.AdministrativeMonitor;
-import hudson.model.User;
-import hudson.util.HttpResponses;
-import jenkins.security.ApiTokenProperty;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
@@ -36,14 +41,13 @@ import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 import org.kohsuke.stapler.json.JsonBody;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.AdministrativeMonitor;
+import hudson.model.User;
+import hudson.util.HttpResponses;
+import jenkins.security.ApiTokenProperty;
 
 /**
  * Monitor the list of users that still have legacy token
@@ -60,7 +64,7 @@ public class LegacyApiTokenAdministrativeMonitor extends AdministrativeMonitor {
     
     @Override
     public String getDisplayName() {
-        return Messages.LegacyApiTokenAdministrativeMonitor_displayName();
+        return LocalizedString.LegacyApiTokenAdministrativeMonitor_displayName.toString();
     }
     
     @Override

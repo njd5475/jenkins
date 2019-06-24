@@ -1,11 +1,13 @@
 package jenkins.util;
 
+import java.util.concurrent.ScheduledExecutorService;
+
+import javax.annotation.Nonnull;
+
 import hudson.security.ACL;
 import hudson.util.ClassLoaderSanityThreadFactory;
 import hudson.util.DaemonThreadFactory;
 import hudson.util.NamingThreadFactory;
-import javax.annotation.Nonnull;
-import java.util.concurrent.ScheduledExecutorService;
 import jenkins.security.ImpersonatingScheduledExecutorService;
 
 /**

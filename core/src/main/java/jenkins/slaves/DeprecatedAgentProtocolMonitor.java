@@ -23,18 +23,23 @@
  */
 package jenkins.slaves;
 
-import hudson.Extension;
-import hudson.model.AdministrativeMonitor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 import javax.annotation.CheckForNull;
-import jenkins.AgentProtocol;
-import jenkins.model.Jenkins;
+
 import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.AdministrativeMonitor;
+import jenkins.AgentProtocol;
+import jenkins.model.Jenkins;
 
 
 /**
@@ -55,7 +60,7 @@ public class DeprecatedAgentProtocolMonitor extends AdministrativeMonitor {
 
     @Override
     public String getDisplayName() {
-        return Messages.DeprecatedAgentProtocolMonitor_displayName();
+        return LocalizedString.DeprecatedAgentProtocolMonitor_displayName.toString();
     }
 
     @Override

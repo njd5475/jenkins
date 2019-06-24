@@ -1,10 +1,11 @@
 package hudson.model;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
-import java.util.Collection;
-import java.util.Collections;
 import jenkins.model.TransientActionFactory;
 
 /**

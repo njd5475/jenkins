@@ -23,15 +23,17 @@
  */
 package hudson.scm;
 
+import static java.util.logging.Level.WARNING;
+
+import java.lang.reflect.Field;
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Logger;
+
 import hudson.Util;
 import hudson.model.AbstractProject;
 import hudson.model.Descriptor;
 import hudson.model.Job;
-import java.lang.reflect.Field;
-import java.util.Collections;
-import java.util.List;
-import static java.util.logging.Level.WARNING;
-import java.util.logging.Logger;
 
 /**
  * {@link Descriptor} for {@link SCM}.

@@ -23,20 +23,37 @@
  */
 package hudson.model;
 
-import hudson.FilePath;
-import hudson.Functions;
-import hudson.Util;
-import hudson.model.Queue.Executable;
-import hudson.model.queue.SubTask;
-import hudson.model.queue.WorkUnit;
-import hudson.security.ACL;
-import hudson.util.InterceptingProxy;
+import static hudson.model.queue.Executables.getParentOf;
+import static java.util.logging.Level.FINE;
+import static java.util.logging.Level.FINER;
+import static java.util.logging.Level.SEVERE;
+import static java.util.logging.Level.WARNING;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Vector;
 import java.util.concurrent.TimeUnit;
-import jenkins.model.CauseOfInterruption;
-import jenkins.model.CauseOfInterruption.UserInterruption;
-import jenkins.model.InterruptedBuildAction;
-import jenkins.model.Jenkins;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.annotation.concurrent.GuardedBy;
+import javax.servlet.ServletException;
+
 import org.acegisecurity.Authentication;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.DoNotUse;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.HttpResponses;
 import org.kohsuke.stapler.StaplerRequest;
@@ -45,35 +62,25 @@ import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import javax.annotation.concurrent.GuardedBy;
-import javax.servlet.ServletException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Vector;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.dj.runner.locales.LocalizedString;
 
-import static hudson.model.queue.Executables.*;
+import hudson.FilePath;
+import hudson.Functions;
+import hudson.Util;
+import hudson.model.Queue.Executable;
+import hudson.model.queue.SubTask;
+import hudson.model.queue.WorkUnit;
+import hudson.security.ACL;
 import hudson.security.ACLContext;
 import hudson.security.AccessControlled;
-import java.util.Collection;
-import static java.util.logging.Level.*;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
+import hudson.util.InterceptingProxy;
+import jenkins.model.CauseOfInterruption;
+import jenkins.model.CauseOfInterruption.UserInterruption;
+import jenkins.model.InterruptedBuildAction;
+import jenkins.model.Jenkins;
 import jenkins.model.queue.AsynchronousExecution;
 import jenkins.security.QueueItemAuthenticatorConfiguration;
 import jenkins.security.QueueItemAuthenticatorDescriptor;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.DoNotUse;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
 
 
 /**
@@ -777,12 +784,12 @@ public class Executor extends Thread implements ModelObject {
     public String getEstimatedRemainingTime() {
         long d = executableEstimatedDuration;
         if (d < 0) {
-            return Messages.Executor_NotAvailable();
+            return LocalizedString.Executor_NotAvailable.toString();
         }
 
         long eta = d - getElapsedTime();
         if (eta <= 0) {
-            return Messages.Executor_NotAvailable();
+            return LocalizedString.Executor_NotAvailable.toString();
         }
 
         return Util.getTimeSpanString(eta);

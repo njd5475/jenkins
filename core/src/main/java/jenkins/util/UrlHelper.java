@@ -23,10 +23,11 @@
  */
 package jenkins.util;
 
-import jenkins.org.apache.commons.validator.routines.DomainValidator;
-import jenkins.org.apache.commons.validator.routines.UrlValidator;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import jenkins.org.apache.commons.validator.routines.DomainValidator;
+import jenkins.org.apache.commons.validator.routines.UrlValidator;
 
 /**
  * Objective is to validate an URL in a lenient way sufficiently strict to avoid too weird URL

@@ -1,5 +1,7 @@
 package hudson.model.labels;
 
+import javax.annotation.Nonnull;
+
 import hudson.model.Action;
 import hudson.model.Label;
 import hudson.model.LoadBalancer;
@@ -7,7 +9,6 @@ import hudson.model.Queue;
 import hudson.model.Queue.QueueDecisionHandler;
 import hudson.model.Queue.Task;
 import hudson.model.queue.SubTask;
-import javax.annotation.Nonnull;
 
 /**
  * {@link Action} that can be submitted to {@link Queue} that controls where

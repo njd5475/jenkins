@@ -1,8 +1,8 @@
 package jenkins.security;
 
-import hudson.Util;
-
 import java.io.IOException;
+
+import hudson.Util;
 
 /**
  * {@link ConfidentialKey} that is the random hexadecimal string of length N.

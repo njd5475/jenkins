@@ -24,9 +24,12 @@
 
 package jenkins.model.item_category;
 
-import hudson.Extension;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.DoNotUse;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
 
 /**
  * Designed for project hierarchies with folders.
@@ -52,12 +55,12 @@ public class NestedProjectsCategory extends ItemCategory {
 
     @Override
     public String getDescription() {
-        return Messages.NestedProjects_Description();
+        return LocalizedString.NestedProjects_Description.toString();
     }
 
     @Override
     public String getDisplayName() {
-        return Messages.NestedProjects_DisplayName();
+        return LocalizedString.NestedProjects_DisplayName.toString();
     }
 
     @Override

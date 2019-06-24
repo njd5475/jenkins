@@ -1,11 +1,12 @@
 package hudson.cli.handlers;
 
-import hudson.model.TopLevelItem;
 import org.kohsuke.MetaInfServices;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.OptionDef;
 import org.kohsuke.args4j.spi.OptionHandler;
 import org.kohsuke.args4j.spi.Setter;
+
+import hudson.model.TopLevelItem;
 
 /**
  * Refers to {@link TopLevelItem} by its name.

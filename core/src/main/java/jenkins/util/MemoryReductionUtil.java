@@ -23,9 +23,10 @@
  */
 package jenkins.util;
 
-import hudson.Util;
 import java.util.HashMap;
 import java.util.Map;
+
+import hudson.Util;
 
 /**
  * Utilities to reduce memory footprint

@@ -24,10 +24,12 @@
 
 package hudson.cli;
 
+import java.util.logging.Logger;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import jenkins.model.Jenkins;
-
-import java.util.logging.Logger;
 
 /**
  * Clears the build queue
@@ -42,7 +44,7 @@ public class ClearQueueCommand extends CLICommand {
 
     @Override
     public String getShortDescription() {
-        return Messages.ClearQueueCommand_ShortDescription();
+        return LocalizedString.ClearQueueCommand_ShortDescription.toString();
     }
 
     @Override

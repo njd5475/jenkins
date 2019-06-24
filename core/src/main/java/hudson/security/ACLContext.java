@@ -24,6 +24,7 @@
 package hudson.security;
 
 import javax.annotation.Nonnull;
+
 import org.acegisecurity.Authentication;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;

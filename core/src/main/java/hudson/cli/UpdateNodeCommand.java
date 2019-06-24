@@ -28,10 +28,12 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
+import org.kohsuke.args4j.Argument;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.model.Node;
-
-import org.kohsuke.args4j.Argument;
 
 /**
  * @author ogondza
@@ -46,7 +48,7 @@ public class UpdateNodeCommand extends CLICommand {
     @Override
     public String getShortDescription() {
 
-        return Messages.UpdateNodeCommand_ShortDescription();
+        return LocalizedString.UpdateNodeCommand_ShortDescription.toString();
     }
 
     @Override

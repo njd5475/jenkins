@@ -1,10 +1,11 @@
 package hudson.util;
 
-import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
-import org.apache.commons.collections.map.LRUMap;
-
 import java.util.Collections;
 import java.util.Map;
+
+import org.apache.commons.collections.map.LRUMap;
+
+import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
 
 public class LRUStringConverter extends AbstractSingleValueConverter {
 

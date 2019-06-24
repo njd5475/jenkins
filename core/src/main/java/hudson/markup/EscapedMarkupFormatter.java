@@ -23,15 +23,16 @@
  */
 package hudson.markup;
 
-import hudson.Extension;
-import hudson.Util;
-import hudson.markup.MarkupFormatter;
-import hudson.markup.MarkupFormatterDescriptor;
 import java.io.IOException;
 import java.io.Writer;
 
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.Util;
 
 /**
  * {@link MarkupFormatter} that treats the input as the escaped html.
@@ -55,7 +56,7 @@ public class EscapedMarkupFormatter extends MarkupFormatter {
 
         @Override
         public String getDisplayName() {
-            return Messages.EscapedMarkupFormatter_DisplayName();
+            return LocalizedString.EscapedMarkupFormatter_DisplayName.toString();
         }
     }
 

@@ -23,15 +23,16 @@
  */
 package hudson.model;
 
-import hudson.util.AdaptedIterator;
-
-import java.util.Set;
-import java.util.Collection;
 import java.util.AbstractCollection;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CopyOnWriteArraySet;
+
 import javax.annotation.Nonnull;
+
+import hudson.util.AdaptedIterator;
 import jenkins.security.NotReallyRoleSensitiveCallable;
 
 /**

@@ -23,12 +23,12 @@
  */
 package hudson;
 
-import hudson.model.PermalinkProjectAction.Permalink;
-import hudson.util.EditDistance;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import hudson.model.PermalinkProjectAction.Permalink;
+import hudson.util.EditDistance;
 
 /**
  * {@link List} of {@link Permalink}s with some convenience methods.

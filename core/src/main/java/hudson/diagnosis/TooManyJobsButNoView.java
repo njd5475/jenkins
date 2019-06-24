@@ -23,15 +23,18 @@
  */
 package hudson.diagnosis;
 
-import hudson.model.AdministrativeMonitor;
-import jenkins.model.Jenkins;
-import hudson.Extension;
+import java.io.IOException;
+
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import java.io.IOException;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.Extension;
+import hudson.model.AdministrativeMonitor;
+import jenkins.model.Jenkins;
 
 /**
  * If Hudson is run with a lot of jobs but no views, suggest the user that they can create views.
@@ -46,7 +49,7 @@ public class TooManyJobsButNoView extends AdministrativeMonitor {
 
     @Override
     public String getDisplayName() {
-        return Messages.TooManyJobsButNoView_DisplayName();
+        return LocalizedString.TooManyJobsButNoView_DisplayName.toString();
     }
 
     public boolean isActivated() {

@@ -23,12 +23,12 @@
  */
 package jenkins.model;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import hudson.model.ModifiableItemGroup;
 import hudson.model.TopLevelItem;
 import hudson.model.TopLevelItemDescriptor;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * A {@link hudson.model.ModifiableItemGroup} to manage {@link hudson.model.TopLevelItem},

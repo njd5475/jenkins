@@ -23,21 +23,24 @@
  */
 package hudson.security;
 
-import org.acegisecurity.AuthenticationManager;
+import javax.servlet.Filter;
+import javax.servlet.FilterConfig;
+
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationException;
+import org.acegisecurity.AuthenticationManager;
 import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.springframework.web.context.WebApplicationContext;
+
+import com.dj.runner.locales.LocalizedString;
+
 import groovy.lang.Binding;
+import hudson.Extension;
 import hudson.model.Descriptor;
 import hudson.util.spring.BeanBuilder;
-import hudson.Extension;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterConfig;
 
 /**
  * {@link SecurityRealm} that accepts {@link ContainerAuthentication} object
@@ -108,7 +111,7 @@ public final class LegacySecurityRealm extends SecurityRealm implements Authenti
         }
 
         public String getDisplayName() {
-            return Messages.LegacySecurityRealm_Displayname();
+            return LocalizedString.LegacySecurityRealm_Displayname.toString();
         }
     }
 }

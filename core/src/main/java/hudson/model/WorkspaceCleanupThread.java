@@ -23,23 +23,26 @@
  */
 package hudson.model;
 
-import hudson.Extension;
-import hudson.ExtensionList;
-import hudson.FilePath;
-import hudson.Functions;
-import jenkins.util.SystemProperties;
-import hudson.Util;
-import hudson.slaves.WorkspaceList;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.Nonnull;
+
+import org.jenkinsci.Symbol;
+
+import hudson.Extension;
+import hudson.ExtensionList;
+import hudson.FilePath;
+import hudson.Functions;
+import hudson.Util;
+import hudson.slaves.WorkspaceList;
 import jenkins.model.Jenkins;
 import jenkins.model.ModifiableTopLevelItemGroup;
-import org.jenkinsci.Symbol;
+import jenkins.util.SystemProperties;
 
 /**
  * Clean up old left-over workspaces from agents.

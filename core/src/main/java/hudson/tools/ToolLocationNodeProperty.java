@@ -23,24 +23,26 @@
  */
 package hudson.tools;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.DescriptorExtensionList;
 import hudson.Extension;
 import hudson.model.Descriptor;
-import jenkins.model.Jenkins;
 import hudson.model.Node;
 import hudson.model.TaskListener;
 import hudson.slaves.NodeProperty;
 import hudson.slaves.NodePropertyDescriptor;
 import hudson.slaves.NodeSpecific;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.DataBoundConstructor;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import jenkins.model.Jenkins;
 
 /**
  * {@link NodeProperty} that allows users to specify different locations for {@link ToolInstallation}s.
@@ -120,7 +122,7 @@ public class ToolLocationNodeProperty extends NodeProperty<Node> {
     public static class DescriptorImpl extends NodePropertyDescriptor {
 
         public String getDisplayName() {
-            return Messages.ToolLocationNodeProperty_displayName();
+            return LocalizedString.ToolLocationNodeProperty_displayName.toString();
         }
 
         public DescriptorExtensionList<ToolInstallation, ToolDescriptor<?>> getToolDescriptors() {

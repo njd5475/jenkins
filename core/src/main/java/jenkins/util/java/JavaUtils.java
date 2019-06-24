@@ -23,10 +23,11 @@
  */
 package jenkins.util.java;
 
-import hudson.util.VersionNumber;
-import io.jenkins.lib.versionnumber.JavaSpecificationVersion;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import hudson.util.VersionNumber;
+import io.jenkins.lib.versionnumber.JavaSpecificationVersion;
 
 /**
  * FIXME: Remove this class from existence and using instances to perform version evaluation.

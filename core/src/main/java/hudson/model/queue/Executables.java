@@ -23,12 +23,13 @@
  */
 package hudson.model.queue;
 
-import hudson.model.Queue.Executable;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+
+import hudson.model.Queue.Executable;
 
 /**
  * Convenience methods around {@link Executable}.

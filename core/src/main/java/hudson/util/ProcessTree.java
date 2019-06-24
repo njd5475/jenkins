@@ -23,27 +23,10 @@
  */
 package hudson.util;
 
-import com.sun.jna.Memory;
-import com.sun.jna.Native;
-import com.sun.jna.NativeLong;
-import com.sun.jna.Pointer;
-import com.sun.jna.LastErrorException;
-import com.sun.jna.ptr.IntByReference;
-import hudson.EnvVars;
-import hudson.FilePath;
-import hudson.Util;
-import hudson.remoting.Channel;
-import hudson.remoting.VirtualChannel;
-import hudson.slaves.SlaveComputer;
-import hudson.util.ProcessKillingVeto.VetoCause;
-import hudson.util.ProcessTree.OSProcess;
-import hudson.util.ProcessTreeRemoting.IOSProcess;
-import hudson.util.ProcessTreeRemoting.IProcessTree;
-import jenkins.security.SlaveToMasterCallable;
-import org.jenkinsci.remoting.SerializableOnlyOverRemoting;
-import jenkins.util.java.JavaUtils;
-import org.jvnet.winp.WinProcess;
-import org.jvnet.winp.WinpException;
+import static com.sun.jna.Pointer.NULL;
+import static hudson.util.jna.GNUCLibrary.LIBC;
+import static java.util.logging.Level.FINER;
+import static java.util.logging.Level.FINEST;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -53,9 +36,9 @@ import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectStreamException;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
-import java.io.ObjectStreamException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -75,12 +58,32 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.CheckForNull;
-import static com.sun.jna.Pointer.NULL;
-import jenkins.util.SystemProperties;
-import static hudson.util.jna.GNUCLibrary.LIBC;
-import static java.util.logging.Level.FINER;
-import static java.util.logging.Level.FINEST;
 import javax.annotation.Nonnull;
+
+import org.jenkinsci.remoting.SerializableOnlyOverRemoting;
+import org.jvnet.winp.WinProcess;
+import org.jvnet.winp.WinpException;
+
+import com.sun.jna.LastErrorException;
+import com.sun.jna.Memory;
+import com.sun.jna.Native;
+import com.sun.jna.NativeLong;
+import com.sun.jna.Pointer;
+import com.sun.jna.ptr.IntByReference;
+
+import hudson.EnvVars;
+import hudson.FilePath;
+import hudson.Util;
+import hudson.remoting.Channel;
+import hudson.remoting.VirtualChannel;
+import hudson.slaves.SlaveComputer;
+import hudson.util.ProcessKillingVeto.VetoCause;
+import hudson.util.ProcessTree.OSProcess;
+import hudson.util.ProcessTreeRemoting.IOSProcess;
+import hudson.util.ProcessTreeRemoting.IProcessTree;
+import jenkins.security.SlaveToMasterCallable;
+import jenkins.util.SystemProperties;
+import jenkins.util.java.JavaUtils;
 
 /**
  * Represents a snapshot of the process tree of the current system.

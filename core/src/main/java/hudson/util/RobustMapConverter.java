@@ -24,12 +24,14 @@
 
 package hudson.util;
 
+import java.util.Map;
+
 import com.thoughtworks.xstream.XStreamException;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.converters.collections.MapConverter;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.mapper.Mapper;
-import java.util.Map;
+
 import jenkins.util.xstream.CriticalXStreamException;
 
 /**

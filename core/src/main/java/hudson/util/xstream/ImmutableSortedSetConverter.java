@@ -1,5 +1,8 @@
 package hudson.util.xstream;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.common.collect.ImmutableSortedSet;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
@@ -8,9 +11,6 @@ import com.thoughtworks.xstream.converters.reflection.ReflectionProvider;
 import com.thoughtworks.xstream.converters.reflection.SerializableConverter;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.mapper.Mapper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Kohsuke Kawaguchi

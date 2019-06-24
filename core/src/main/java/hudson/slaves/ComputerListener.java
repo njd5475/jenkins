@@ -23,6 +23,11 @@
  */
 package hudson.slaves;
 
+import java.io.IOException;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
 import hudson.AbortException;
 import hudson.Extension;
 import hudson.ExtensionList;
@@ -32,11 +37,6 @@ import hudson.model.Computer;
 import hudson.model.Node;
 import hudson.model.TaskListener;
 import hudson.remoting.Channel;
-
-import java.io.IOException;
-
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 
 /**
  * Receives notifications about status changes of {@link Computer}s.

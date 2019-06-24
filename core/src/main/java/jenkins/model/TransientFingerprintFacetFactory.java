@@ -23,11 +23,11 @@
  */
 package jenkins.model;
 
+import java.util.List;
+
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.model.Fingerprint;
-
-import java.util.List;
 
 /**
  * @author Kohsuke Kawaguchi

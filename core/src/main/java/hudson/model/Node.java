@@ -37,7 +37,6 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
 import org.acegisecurity.Authentication;
-import org.jvnet.localizer.Localizable;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.ProtectedExternally;
 import org.kohsuke.stapler.BindInterceptor;
@@ -46,6 +45,8 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 
+import com.dj.runner.locales.Localizable;
+import com.dj.runner.locales.LocalizedString;
 import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
 
 import hudson.Extension;
@@ -387,7 +388,7 @@ public abstract class Node extends AbstractModelObject implements Reconfigurable
     public CauseOfBlockage canTake(Queue.BuildableItem item) {
         Label l = item.getAssignedLabel();
         if(l!=null && !l.contains(this))
-            return CauseOfBlockage.fromMessage(Messages._Node_LabelMissing(getDisplayName(), l));   // the task needs to be executed on label that this node doesn't have.
+            return CauseOfBlockage.fromMessage(LocalizedString._Node_LabelMissing.asLocale(getDisplayName(), l));   // the task needs to be executed on label that this node doesn't have.
 
         if(l==null && getMode()== Mode.EXCLUSIVE) {
             // flyweight tasks need to get executed somewhere, if every node
@@ -396,14 +397,14 @@ public abstract class Node extends AbstractModelObject implements Reconfigurable
                             || Jenkins.getInstance().getNumExecutors() < 1
                             || Jenkins.getInstance().getMode() == Mode.EXCLUSIVE)
             )) {
-                return CauseOfBlockage.fromMessage(Messages._Node_BecauseNodeIsReserved(getDisplayName()));   // this node is reserved for tasks that are tied to it
+                return CauseOfBlockage.fromMessage(LocalizedString._Node_BecauseNodeIsReserved.asLocale(getDisplayName()));   // this node is reserved for tasks that are tied to it
             }
         }
 
         Authentication identity = item.authenticate();
         if (!(SKIP_BUILD_CHECK_ON_FLYWEIGHTS && item.task instanceof Queue.FlyweightTask) && !hasPermission(identity, Computer.BUILD)) {
             // doesn't have a permission
-            return CauseOfBlockage.fromMessage(Messages._Node_LackingBuildPermission(identity.getName(), getDisplayName()));
+            return CauseOfBlockage.fromMessage(LocalizedString._Node_LackingBuildPermission.asLocale(identity.getName(), getDisplayName()));
         }
 
         // Check each NodeProperty to see whether they object to this node
@@ -578,8 +579,8 @@ public abstract class Node extends AbstractModelObject implements Reconfigurable
      * Constants that control how Hudson allocates jobs to agents.
      */
     public enum Mode {
-        NORMAL(Messages._Node_Mode_NORMAL()),
-        EXCLUSIVE(Messages._Node_Mode_EXCLUSIVE());
+        NORMAL(LocalizedString._Node_Mode_NORMAL),
+        EXCLUSIVE(LocalizedString._Node_Mode_EXCLUSIVE);
 
         private final Localizable description;
 

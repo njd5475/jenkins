@@ -24,12 +24,13 @@
 
 package hudson.cli.handlers;
 
-import hudson.model.AbstractItem;
 import org.kohsuke.MetaInfServices;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.OptionDef;
 import org.kohsuke.args4j.spi.OptionHandler;
 import org.kohsuke.args4j.spi.Setter;
+
+import hudson.model.AbstractItem;
 
 /**
  * Refers to an {@link AbstractItem} by name.

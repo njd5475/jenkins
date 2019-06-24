@@ -1,8 +1,23 @@
 package jenkins.security;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.security.GeneralSecurityException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.interceptor.RequirePOST;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
-import hudson.Util;
 import hudson.Functions;
+import hudson.Util;
 import hudson.init.InitMilestone;
 import hudson.init.Initializer;
 import hudson.model.TaskListener;
@@ -12,18 +27,6 @@ import hudson.util.VersionNumber;
 import jenkins.management.AsynchronousAdministrativeMonitor;
 import jenkins.model.Jenkins;
 import jenkins.util.io.FileBoolean;
-import org.jenkinsci.Symbol;
-import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.interceptor.RequirePOST;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.security.GeneralSecurityException;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Warns the administrator to run {@link SecretRewriter}
@@ -121,7 +124,7 @@ public class RekeySecretAdminMonitor extends AsynchronousAdministrativeMonitor {
 
     @Override
     public String getDisplayName() {
-        return Messages.RekeySecretAdminMonitor_DisplayName();
+        return LocalizedString.RekeySecretAdminMonitor_DisplayName.toString();
     }
 
     /**

@@ -23,12 +23,9 @@
  */
 package hudson.cli;
 
-import hudson.cli.client.Messages;
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
+import static java.util.logging.Level.FINE;
+import static java.util.logging.Level.parse;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,9 +43,17 @@ import java.util.Properties;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static java.util.logging.Level.*;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+
+import com.dj.runner.locales.LocalizedString;
 
 /**
  * CLI entry point to Jenkins.
@@ -168,7 +173,7 @@ public class CLI {
             if(head.equals("-i") && args.size()>=2) {
                 File f = new File(args.get(1));
                 if (!f.exists()) {
-                    printUsage(Messages.CLI_NoSuchFileExists(f));
+                    printUsage(LocalizedString.CLI_NoSuchFileExists.toLocale(f));
                     return -1;
                 }
 
@@ -207,7 +212,7 @@ public class CLI {
         }
 
         if(url==null) {
-            printUsage(Messages.CLI_NoURL());
+            printUsage(LocalizedString.CLI_NoURL.toString());
             return -1;
         }
 
@@ -216,7 +221,7 @@ public class CLI {
             if (StringUtils.isNotBlank(userIdEnv) && StringUtils.isNotBlank(tokenEnv)) {
                 auth = StringUtils.defaultString(userIdEnv).concat(":").concat(StringUtils.defaultString(tokenEnv));
             } else if (StringUtils.isNotBlank(userIdEnv) || StringUtils.isNotBlank(tokenEnv)) {
-                printUsage(Messages.CLI_BadAuth());
+                printUsage(LocalizedString.CLI_BadAuth.toString());
                 return -1;
             } // Otherwise, none credentials were set
 
@@ -397,7 +402,7 @@ public class CLI {
 
     /** For access from {@code HelpCommand}. */
     static String usage() {
-        return Messages.CLI_Usage();
+        return LocalizedString.CLI_Usage.toString();
     }
 
     private static void printUsage(String msg) {

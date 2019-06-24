@@ -24,14 +24,17 @@
 
 package jenkins.model.item_category;
 
+import javax.annotation.Nonnull;
+
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.model.TopLevelItemDescriptor;
-
-import javax.annotation.Nonnull;
-import org.kohsuke.accmod.Restricted;
-import org.kohsuke.accmod.restrictions.NoExternalUse;
 
 /**
  * A category for {@link hudson.model.Item}s.
@@ -124,12 +127,12 @@ public abstract class ItemCategory implements ExtensionPoint {
 
         @Override
         public String getDescription() {
-            return Messages.Uncategorized_Description();
+            return LocalizedString.Uncategorized_Description.toString();
         }
 
         @Override
         public String getDisplayName() {
-            return Messages.Uncategorized_DisplayName();
+            return LocalizedString.Uncategorized_DisplayName.toString();
         }
 
         @Override

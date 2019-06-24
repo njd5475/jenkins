@@ -23,18 +23,20 @@
  */
 package jenkins.install;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+
+import org.apache.commons.lang.StringUtils;
 
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jenkins.model.Jenkins;
 import jenkins.model.JenkinsLocationConfiguration;
 import jenkins.security.stapler.StaplerAccessibleType;
-import org.apache.commons.lang.StringUtils;
 /**
  * Jenkins install state.
  *

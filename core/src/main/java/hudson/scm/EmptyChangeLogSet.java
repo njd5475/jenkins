@@ -1,11 +1,11 @@
 package hudson.scm;
 
-import hudson.model.Run;
 import java.io.IOException;
 import java.net.URL;
-
 import java.util.Collections;
 import java.util.Iterator;
+
+import hudson.model.Run;
 
 /**
  * {@link ChangeLogSet} that's empty.

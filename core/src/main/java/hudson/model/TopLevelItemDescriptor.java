@@ -23,9 +23,13 @@
  */
 package hudson.model;
 
-import hudson.ExtensionList;
-import jenkins.model.Jenkins;
-import jenkins.model.item_category.ItemCategory;
+import java.io.StringWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
 import org.acegisecurity.AccessDeniedException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
@@ -40,11 +44,11 @@ import org.kohsuke.stapler.WebApp;
 import org.kohsuke.stapler.jelly.DefaultScriptInvoker;
 import org.kohsuke.stapler.jelly.JellyClassTearOff;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import java.io.StringWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.dj.runner.locales.LocalizedString;
+
+import hudson.ExtensionList;
+import jenkins.model.Jenkins;
+import jenkins.model.item_category.ItemCategory;
 
 /**
  * {@link Descriptor} for {@link TopLevelItem}s.
@@ -102,7 +106,7 @@ public abstract class TopLevelItemDescriptor extends Descriptor<TopLevelItem> im
     public final void checkApplicableIn(ItemGroup parent) {
         if (!isApplicableIn(parent)) {
             throw new AccessDeniedException(
-                    Messages.TopLevelItemDescriptor_NotApplicableIn(getDisplayName(), parent.getFullDisplayName()));
+                    LocalizedString.TopLevelItemDescriptor_NotApplicableIn.toLocale(getDisplayName(), parent.getFullDisplayName()));
         }
     }
 

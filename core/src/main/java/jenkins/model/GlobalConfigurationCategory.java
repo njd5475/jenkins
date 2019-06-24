@@ -1,12 +1,15 @@
 package jenkins.model;
 
+import javax.annotation.Nonnull;
+
+import org.jenkinsci.Symbol;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.model.ModelObject;
-import org.jenkinsci.Symbol;
-
-import javax.annotation.Nonnull;
 
 /**
  * Grouping of related {@link GlobalConfiguration}s.
@@ -63,11 +66,11 @@ public abstract class GlobalConfigurationCategory implements ExtensionPoint, Mod
     public static class Unclassified extends GlobalConfigurationCategory {
         @Override
         public String getShortDescription() {
-            return jenkins.management.Messages.ConfigureLink_Description();
+            return LocalizedString.ConfigureLink_Description.toString();
         }
 
         public String getDisplayName() {
-            return jenkins.management.Messages.ConfigureLink_DisplayName();
+            return LocalizedString.ConfigureLink_DisplayName.toString();
         }
     }
 
@@ -78,11 +81,11 @@ public abstract class GlobalConfigurationCategory implements ExtensionPoint, Mod
     public static class Security extends GlobalConfigurationCategory {
         @Override
         public String getShortDescription() {
-            return hudson.security.Messages.GlobalSecurityConfiguration_Description();
+      return LocalizedString.GlobalSecurityConfiguration_Description.toString();
         }
 
         public String getDisplayName() {
-            return hudson.security.Messages.GlobalSecurityConfiguration_DisplayName();
+            return LocalizedString.GlobalSecurityConfiguration_DisplayName.toString();
         }
     }
 

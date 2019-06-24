@@ -24,16 +24,19 @@
 
 package jenkins.security;
 
-import hudson.ExtensionList;
-import hudson.ExtensionPoint;
-import hudson.security.SecurityRealm;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.Nonnull;
+
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
+
+import hudson.ExtensionList;
+import hudson.ExtensionPoint;
+import hudson.security.SecurityRealm;
 
 /**
  * Listener notified of various significant events related to security.

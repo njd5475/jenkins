@@ -23,9 +23,6 @@
  */
 package hudson.util;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.kohsuke.stapler.ClassDescriptor;
-
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
@@ -37,7 +34,11 @@ import java.util.AbstractList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.CheckForNull;
+
+import org.apache.commons.beanutils.PropertyUtils;
+import org.kohsuke.stapler.ClassDescriptor;
 
 /**
  * Utility code for reflection.

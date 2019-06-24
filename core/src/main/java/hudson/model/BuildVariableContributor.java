@@ -23,12 +23,12 @@
  */
 package hudson.model;
 
+import java.util.Map;
+
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.tasks.Builder;
 import hudson.tasks.Publisher;
-
-import java.util.Map;
 
 /**
  * Contributes build variables to builds.

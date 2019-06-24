@@ -23,26 +23,29 @@
  */
 package hudson.cli;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.io.FileUtils;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.Option;
+
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.AbortException;
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.PluginManager;
-import hudson.util.VersionNumber;
-import jenkins.model.Jenkins;
 import hudson.model.UpdateSite;
 import hudson.model.UpdateSite.Data;
 import hudson.util.EditDistance;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.Option;
-
-import java.io.File;
-import java.net.URL;
-import java.net.MalformedURLException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Set;
-import org.apache.commons.io.FileUtils;
+import hudson.util.VersionNumber;
+import jenkins.model.Jenkins;
 
 /**
  * Installs a plugin either from a file, an URL, or from update center.
@@ -53,7 +56,7 @@ import org.apache.commons.io.FileUtils;
 @Extension
 public class InstallPluginCommand extends CLICommand {
     public String getShortDescription() {
-        return Messages.InstallPluginCommand_ShortDescription();
+        return LocalizedString.InstallPluginCommand_ShortDescription.toString();
     }
 
     @Argument(metaVar="SOURCE",required=true,usage=
@@ -88,7 +91,7 @@ public class InstallPluginCommand extends CLICommand {
                 if (name == null) {
                     throw new IllegalArgumentException("-name required when using -source -");
                 }
-                stdout.println(Messages.InstallPluginCommand_InstallingPluginFromStdin());
+                stdout.println(LocalizedString.InstallPluginCommand_InstallingPluginFromStdin);
                 File f = getTargetFile(name);
                 FileUtils.copyInputStreamToFile(stdin, f);
                 if (dynamicLoad) {
@@ -100,7 +103,7 @@ public class InstallPluginCommand extends CLICommand {
             // is this an URL?
             try {
                 URL u = new URL(source);
-                stdout.println(Messages.InstallPluginCommand_InstallingPluginFromUrl(u));
+                stdout.println(LocalizedString.InstallPluginCommand_InstallingPluginFromUrl.toLocale(u));
                 String n;
                 if (name != null) {
                     n = name;
@@ -135,7 +138,7 @@ public class InstallPluginCommand extends CLICommand {
                 }
             }
             if (p!=null) {
-                stdout.println(Messages.InstallPluginCommand_InstallingFromUpdateCenter(source));
+                stdout.println(LocalizedString.InstallPluginCommand_InstallingFromUpdateCenter.toLocale(source));
                 Throwable e = p.deploy(dynamicLoad).get().getError();
                 if (e!=null) {
                     AbortException myException = new AbortException("Failed to install plugin " + source);
@@ -145,22 +148,22 @@ public class InstallPluginCommand extends CLICommand {
                 continue;
             }
 
-            stdout.println(Messages.InstallPluginCommand_NotAValidSourceName(source));
+            stdout.println(LocalizedString.InstallPluginCommand_NotAValidSourceName.toLocale(source));
 
             if (!source.contains(".") && !source.contains(":") && !source.contains("/") && !source.contains("\\")) {
                 // looks like a short plugin name. Why did we fail to find it in the update center?
                 if (h.getUpdateCenter().getSites().isEmpty()) {
-                    stdout.println(Messages.InstallPluginCommand_NoUpdateCenterDefined());
+                    stdout.println(LocalizedString.InstallPluginCommand_NoUpdateCenterDefined);
                 } else {
                     Set<String> candidates = new HashSet<>();
                     for (UpdateSite s : h.getUpdateCenter().getSites()) {
                         Data dt = s.getData();
                         if (dt==null)
-                            stdout.println(Messages.InstallPluginCommand_NoUpdateDataRetrieved(s.getUrl()));
+                            stdout.println(LocalizedString.InstallPluginCommand_NoUpdateDataRetrieved.toLocale(s.getUrl()));
                         else
                             candidates.addAll(dt.plugins.keySet());
                     }
-                    stdout.println(Messages.InstallPluginCommand_DidYouMean(source,EditDistance.findNearest(source,candidates)));
+                    stdout.println(LocalizedString.InstallPluginCommand_DidYouMean.toLocale(source,EditDistance.findNearest(source,candidates)));
                 }
             }
 

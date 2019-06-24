@@ -58,6 +58,8 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import org.jvnet.hudson.test.Issue;
 
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.model.TaskListener;
 import hudson.os.WindowsUtil;
 import hudson.util.StreamTaskListener;
@@ -113,28 +115,28 @@ public class UtilTest {
         // We're still working on the assumption that a month is 30 days, so there will
         // be 5 days at the end of the year that will be "12 months" but not "1 year".
         // First check 359 days.
-        assertEquals(Messages.Util_month(11), Util.getTimeSpanString(31017600000L));
+        assertEquals(LocalizedString.Util_month.toLocale(11), Util.getTimeSpanString(31017600000L));
         // And 362 days.
-        assertEquals(Messages.Util_month(12), Util.getTimeSpanString(31276800000L));
+        assertEquals(LocalizedString.Util_month.toLocale(12), Util.getTimeSpanString(31276800000L));
 
         // 11.25 years - Check that if the first unit has 2 or more digits, a second unit isn't used.
-        assertEquals(Messages.Util_year(11), Util.getTimeSpanString(354780000000L));
+        assertEquals(LocalizedString.Util_year.toLocale(11), Util.getTimeSpanString(354780000000L));
         // 9.25 years - Check that if the first unit has only 1 digit, a second unit is used.
-        assertEquals(Messages.Util_year(9)+ " " + Messages.Util_month(3), Util.getTimeSpanString(291708000000L));
+        assertEquals(LocalizedString.Util_year.toLocale(9)+ " " + LocalizedString.Util_month.toLocale(3), Util.getTimeSpanString(291708000000L));
         // 67 seconds
-        assertEquals(Messages.Util_minute(1) + " " + Messages.Util_second(7), Util.getTimeSpanString(67000L));
+        assertEquals(LocalizedString.Util_minute.toLocale(1) + " " + LocalizedString.Util_second.toLocale(7), Util.getTimeSpanString(67000L));
         // 17 seconds - Check that times less than a minute only use seconds.
-        assertEquals(Messages.Util_second(17), Util.getTimeSpanString(17000L));
+        assertEquals(LocalizedString.Util_second.toLocale(17), Util.getTimeSpanString(17000L));
         // 1712ms -> 1.7sec
-        assertEquals(Messages.Util_second(1.7), Util.getTimeSpanString(1712L));
+        assertEquals(LocalizedString.Util_second.toLocale(1.7), Util.getTimeSpanString(1712L));
         // 171ms -> 0.17sec
-        assertEquals(Messages.Util_second(0.17), Util.getTimeSpanString(171L));
+        assertEquals(LocalizedString.Util_second.toLocale(0.17), Util.getTimeSpanString(171L));
         // 101ms -> 0.10sec
-        assertEquals(Messages.Util_second(0.1), Util.getTimeSpanString(101L));
+        assertEquals(LocalizedString.Util_second.toLocale(0.1), Util.getTimeSpanString(101L));
         // 17ms
-        assertEquals(Messages.Util_millisecond(17), Util.getTimeSpanString(17L));
+        assertEquals(LocalizedString.Util_millisecond.toLocale(17), Util.getTimeSpanString(17L));
         // 1ms
-        assertEquals(Messages.Util_millisecond(1), Util.getTimeSpanString(1L));
+        assertEquals(LocalizedString.Util_millisecond.toLocale(1), Util.getTimeSpanString(1L));
         // Test HUDSON-2843 (locale with comma as fraction separator got exception for <10 sec)
         Locale saveLocale = Locale.getDefault();
         Locale.setDefault(Locale.GERMANY);

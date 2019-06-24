@@ -1,5 +1,12 @@
 package jenkins.security;
 
+import java.util.Calendar;
+import java.util.Collections;
+
+import javax.annotation.CheckForNull;
+
+import org.acegisecurity.Authentication;
+
 import hudson.ExtensionPoint;
 import hudson.Util;
 import hudson.model.AbstractDescribableImpl;
@@ -10,10 +17,6 @@ import hudson.model.Queue;
 import hudson.model.Queue.Item;
 import hudson.model.Queue.Task;
 import hudson.model.queue.Tasks;
-import java.util.Calendar;
-import java.util.Collections;
-import javax.annotation.CheckForNull;
-import org.acegisecurity.Authentication;
 
 /**
  * Extension point to run {@link hudson.model.Queue.Executable}s under a specific identity for better access control.

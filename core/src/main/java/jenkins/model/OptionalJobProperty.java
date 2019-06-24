@@ -24,11 +24,12 @@
 
 package jenkins.model;
 
+import org.kohsuke.stapler.StaplerRequest;
+
 import hudson.model.Job;
 import hudson.model.JobProperty;
 import hudson.model.JobPropertyDescriptor;
 import net.sf.json.JSONObject;
-import org.kohsuke.stapler.StaplerRequest;
 
 /**
  * Job property which may or may not be present.

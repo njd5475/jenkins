@@ -23,15 +23,18 @@
  */
 package hudson.lifecycle;
 
-import com.sun.akuma.JavaVMArguments;
-import com.sun.jna.Native;
-import com.sun.jna.StringArray;
+import static hudson.util.jna.GNUCLibrary.FD_CLOEXEC;
+import static hudson.util.jna.GNUCLibrary.F_GETFD;
+import static hudson.util.jna.GNUCLibrary.F_SETFD;
+import static hudson.util.jna.GNUCLibrary.LIBC;
 
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static hudson.util.jna.GNUCLibrary.*;
+import com.sun.akuma.JavaVMArguments;
+import com.sun.jna.Native;
+import com.sun.jna.StringArray;
 
 import hudson.Platform;
 import jenkins.model.Jenkins;

@@ -1,5 +1,7 @@
 package hudson.cli;
 
+import com.dj.runner.locales.LocalizedString;
+
 import hudson.Extension;
 import jenkins.model.Jenkins;
 
@@ -13,7 +15,7 @@ import jenkins.model.Jenkins;
 public class SessionIdCommand extends CLICommand {
     @Override
     public String getShortDescription() {
-        return Messages.SessionIdCommand_ShortDescription();
+        return LocalizedString.SessionIdCommand_ShortDescription.toString();
     }
 
     protected int run() {
