@@ -41,9 +41,8 @@ import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 import org.kohsuke.stapler.json.JsonBody;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.AdministrativeMonitor;
 import hudson.model.User;
 import hudson.util.HttpResponses;

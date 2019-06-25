@@ -27,9 +27,8 @@ import java.io.IOException;
 
 import org.kohsuke.stapler.QueryParameter;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.FilePath;
+import hudson.LocalizedString;
 import hudson.model.Node;
 import hudson.model.TaskListener;
 import hudson.tasks.CommandInterpreter;

@@ -28,7 +28,7 @@ import org.acegisecurity.userdetails.UserDetailsService;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.springframework.dao.DataAccessException;
 
-import com.dj.runner.locales.LocalizedString;
+import hudson.LocalizedString;
 
 /**
  * {@link UserDetailsService} proxy that delegates to another instance.

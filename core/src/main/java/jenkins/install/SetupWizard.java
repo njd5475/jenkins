@@ -45,11 +45,10 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.BulkChange;
 import hudson.Extension;
 import hudson.FilePath;
+import hudson.LocalizedString;
 import hudson.ProxyConfiguration;
 import hudson.model.PageDecorator;
 import hudson.model.UpdateCenter;

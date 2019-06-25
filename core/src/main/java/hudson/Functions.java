@@ -96,7 +96,6 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.jelly.InternationalizedStringExpression.RawHtmlArgument;
 
-import com.dj.runner.locales.LocalizedString;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 

@@ -32,8 +32,7 @@ import javax.annotation.Nonnull;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import hudson.console.ModelHyperlinkNote;
 import hudson.model.Executor;
 import hudson.model.TaskListener;

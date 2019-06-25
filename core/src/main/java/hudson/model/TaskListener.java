@@ -38,8 +38,7 @@ import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.accmod.restrictions.ProtectedExternally;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import hudson.console.ConsoleNote;
 import hudson.console.HyperlinkNote;
 import hudson.remoting.Channel;

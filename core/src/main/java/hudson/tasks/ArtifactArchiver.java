@@ -41,14 +41,13 @@ import org.kohsuke.stapler.DataBoundSetter;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
-import com.dj.runner.locales.LocalizedString;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.AbortException;
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.Functions;
 import hudson.Launcher;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.model.AbstractProject;
 import hudson.model.Result;

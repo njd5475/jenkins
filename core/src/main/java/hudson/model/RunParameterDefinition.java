@@ -32,9 +32,8 @@ import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.export.Exported;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.util.EnumConverter;
 import hudson.util.RunList;
 import jenkins.model.Jenkins;

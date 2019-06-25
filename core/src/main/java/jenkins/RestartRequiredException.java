@@ -23,7 +23,7 @@
  */
 package jenkins;
 
-import com.dj.runner.locales.Localizable;
+import hudson.Localizable;
 
 /**
  * Indicates that the plugin cannot be deployed without a restart.

@@ -33,7 +33,7 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import com.dj.runner.locales.LocalizedString;
+import hudson.LocalizedString;
 
 /**
  * Tests for {@link JenkinsLocationConfiguration}.

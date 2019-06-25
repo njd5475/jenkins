@@ -41,10 +41,9 @@ import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.EnvVars;
 import hudson.FilePath;
+import hudson.LocalizedString;
 import hudson.ProxyConfiguration;
 import hudson.Util;
 import hudson.model.AbstractProject;

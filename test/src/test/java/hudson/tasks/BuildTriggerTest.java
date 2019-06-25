@@ -60,9 +60,8 @@ import org.jvnet.hudson.test.TestBuilder;
 import org.jvnet.hudson.test.ToolInstallations;
 import org.xml.sax.SAXException;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Launcher;
+import hudson.LocalizedString;
 import hudson.maven.MavenModuleSet;
 import hudson.maven.MavenModuleSetBuild;
 import hudson.model.AbstractBuild;

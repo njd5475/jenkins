@@ -59,9 +59,8 @@ import org.kohsuke.stapler.export.SchemaGenerator;
 import org.kohsuke.stapler.export.TreePruner;
 import org.kohsuke.stapler.export.TreePruner.ByDepth;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.ExtensionList;
+import hudson.LocalizedString;
 import jenkins.model.Jenkins;
 import jenkins.security.SecureRequester;
 import jenkins.util.xml.FilteredFunctionContext;

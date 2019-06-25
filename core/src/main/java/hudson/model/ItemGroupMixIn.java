@@ -46,8 +46,7 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.xml.sax.SAXException;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.XmlFile;
 import hudson.model.listeners.ItemListener;

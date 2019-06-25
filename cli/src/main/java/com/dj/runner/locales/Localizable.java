@@ -1,9 +1,9 @@
 package com.dj.runner.locales;
 
-public class Localizable {
+public interface Localizable {
 
-  public Localizable() {
-    // TODO Auto-generated constructor stub
-  }
+  public String toLocale(Object ...args);
+  
+  public String toLocale();
 
 }

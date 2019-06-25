@@ -60,11 +60,10 @@ import org.kohsuke.stapler.WebMethod;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.AbortException;
 import hudson.FilePath;
 import hudson.Functions;
+import hudson.LocalizedString;
 import hudson.RestrictedSince;
 import hudson.Util;
 import hudson.console.ConsoleLogFilter;

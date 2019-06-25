@@ -37,8 +37,7 @@ import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import hudson.util.FormValidation;
 import hudson.views.ListViewColumn;
 import hudson.views.ListViewColumnDescriptor;

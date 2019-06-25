@@ -137,7 +137,6 @@ import org.kohsuke.stapler.jelly.JellyClassLoaderTearOff;
 import org.kohsuke.stapler.jelly.JellyRequestDispatcher;
 import org.xml.sax.InputSource;
 
-import com.dj.runner.locales.LocalizedString;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -158,6 +157,7 @@ import hudson.ExtensionPoint;
 import hudson.FilePath;
 import hudson.Functions;
 import hudson.Launcher;
+import hudson.LocalizedString;
 import hudson.Launcher.LocalLauncher;
 import hudson.Lookup;
 import hudson.Main;
@@ -5212,6 +5212,7 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
 
     private static final Logger LOGGER = Logger.getLogger(Jenkins.class.getName());
 
+    public static final LocalizedString PERM_TYPE = LocalizedString._Hudson_Permissions_Title;
     public static final PermissionGroup PERMISSIONS = Permission.HUDSON_PERMISSIONS;
     public static final Permission ADMINISTER = Permission.HUDSON_ADMINISTER;
     public static final Permission READ = new Permission(PERMISSIONS,"Read",LocalizedString._Hudson_ReadPermission_Description,Permission.READ,PermissionScope.JENKINS);

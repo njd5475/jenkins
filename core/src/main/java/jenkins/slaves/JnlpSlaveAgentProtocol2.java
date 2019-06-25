@@ -10,10 +10,9 @@ import org.jenkinsci.Symbol;
 import org.jenkinsci.remoting.engine.JnlpConnectionState;
 import org.jenkinsci.remoting.engine.JnlpProtocol2Handler;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
 import hudson.ExtensionList;
+import hudson.LocalizedString;
 import hudson.model.Computer;
 import jenkins.AgentProtocol;
 

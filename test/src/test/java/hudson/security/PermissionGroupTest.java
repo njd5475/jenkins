@@ -30,8 +30,7 @@ import org.junit.Test;
 import org.jvnet.hudson.test.Email;
 import org.jvnet.hudson.test.JenkinsRule;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import hudson.model.Hudson;
 import jenkins.model.Jenkins;
 

@@ -33,10 +33,9 @@ import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.DescriptorExtensionList;
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.model.ComputerSet;
 import hudson.model.Descriptor;

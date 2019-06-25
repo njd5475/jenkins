@@ -53,10 +53,9 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.LocalizedString;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.model.Descriptor.FormException;
 import hudson.model.User;

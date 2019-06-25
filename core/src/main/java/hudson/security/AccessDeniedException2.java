@@ -8,8 +8,7 @@ import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.GrantedAuthority;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import jenkins.util.SystemProperties;
 
 /**

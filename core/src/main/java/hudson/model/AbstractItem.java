@@ -72,12 +72,12 @@ import org.kohsuke.stapler.export.ExportedBean;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 import org.xml.sax.SAXException;
 
-import com.dj.runner.locales.LocalizedString;
 import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
 
 import hudson.AbortException;
 import hudson.BulkChange;
 import hudson.Functions;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.XmlFile;
 import hudson.cli.declarative.CLIResolver;

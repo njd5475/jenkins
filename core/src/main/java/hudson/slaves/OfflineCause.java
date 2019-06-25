@@ -34,10 +34,9 @@ import javax.annotation.Nonnull;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 
-import com.dj.runner.locales.Localizable;
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Functions;
+import hudson.Localizable;
+import hudson.LocalizedString;
 import hudson.model.Computer;
 import hudson.model.User;
 import jenkins.model.Jenkins;

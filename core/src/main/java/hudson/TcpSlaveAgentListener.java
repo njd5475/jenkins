@@ -57,8 +57,6 @@ import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import com.dj.runner.locales.LocalizedString;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.model.AperiodicWork;
 import hudson.slaves.OfflineCause;

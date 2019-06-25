@@ -30,9 +30,8 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.Semaphore;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.Node;
 import hudson.model.TaskListener;
 import hudson.util.PersistedList;

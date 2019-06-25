@@ -26,9 +26,8 @@ package hudson.cli;
 
 import org.kohsuke.stapler.WebApp;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.util.HudsonIsLoading;
 import hudson.util.JenkinsReloadFailed;
 import jenkins.model.Jenkins;

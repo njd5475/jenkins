@@ -5,11 +5,10 @@ import java.io.File;
 import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.EnvVars;
 import hudson.Extension;
 import hudson.FilePath;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.model.AbstractBuild;
 import hudson.model.TaskListener;

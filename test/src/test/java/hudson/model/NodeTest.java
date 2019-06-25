@@ -51,13 +51,13 @@ import org.jvnet.hudson.test.MockQueueItemAuthenticator;
 import org.jvnet.hudson.test.RunLoadCounter;
 import org.jvnet.hudson.test.TestExtension;
 
-import com.dj.runner.locales.LocalizedString;
 import com.gargoylesoftware.htmlunit.HttpMethod;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebRequest;
 
 import hudson.EnvVars;
 import hudson.FilePath;
+import hudson.LocalizedString;
 import hudson.maven.MavenModuleSet;
 import hudson.model.Node.Mode;
 import hudson.model.Queue.WaitingItem;

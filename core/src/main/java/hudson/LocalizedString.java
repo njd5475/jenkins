@@ -1,5 +1,6 @@
-package com.dj.runner.locales;
+package hudson;
 
+import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -69,7 +70,7 @@ public enum LocalizedString implements Localizable {
   OfflineCause_LaunchFailed,
   BuildTrigger_NoSuchProject,
   BuildTrigger_NoProjectSpecified,
-  ReverseBuildTrigger_build_after_other_projects_are_built,
+  ReverseBuildTrigger_build__after__other__projects__are__built,
   BuildTrigger_Disabled,
   BuildTrigger_Triggering,
   BuildTrigger_InQueue,
@@ -632,7 +633,7 @@ public enum LocalizedString implements Localizable {
   private static ResourceBundle bundle = ResourceBundle.getBundle(LocalizedString.class.getName(), Locale.ENGLISH);
 
   LocalizedString() {
-    this.propertyName = this.name().replace("_", ".");
+    this.propertyName = this.name().replaceFirst("^_([^_])", "$1").replaceAll("(^|[^_])_([^_]|$)", "$1.$2").replace("__", "_");
   }
 
   public String getPropertyName() {
@@ -650,21 +651,20 @@ public enum LocalizedString implements Localizable {
   public static void main(String... args) {
     System.out.println("Hello World!");
     System.out.println(
-        "LocaleKey=" + LocalizedString.PluginManager_PluginIsAlreadyInstalled_RestartRequired.getPropertyName());
-    System.out.println(LocalizedString.PluginManager_PluginIsAlreadyInstalled_RestartRequired.toLocale());
+        "LocaleKey=" + LocalizedString._Node_LackingBuildPermission.getPropertyName());
+    System.out.println(LocalizedString.PluginManager_PluginIsAlreadyInstalled_RestartRequired.toLocale("Hello"));
   }
 
   public String toLocale(Object... args) {
-    return toLocale(); // TODO: substitute formated args into locale string
+    return MessageFormat.format(bundle.getString(propertyName), args);
   }
 
   public Localizable asLocale(Object... args) {
     return new Localizable() {
 
       @Override
-      public String toLocale(Object... args) {
-        // overriding the args
-        return bundle.getString(propertyName);
+      public String toLocale(Object... override) {
+        return MessageFormat.format(bundle.getString(propertyName), "hello");
       }
 
       @Override

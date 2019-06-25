@@ -71,11 +71,10 @@ import org.kohsuke.stapler.jelly.JellyCompatibleFacet;
 import org.kohsuke.stapler.lang.Klass;
 import org.springframework.util.StringUtils;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.BulkChange;
 import hudson.DescriptorExtensionList;
 import hudson.ExtensionList;
+import hudson.LocalizedString;
 import hudson.PluginWrapper;
 import hudson.RelativePath;
 import hudson.Util;

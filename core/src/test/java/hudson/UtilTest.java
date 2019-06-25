@@ -58,8 +58,6 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import org.jvnet.hudson.test.Issue;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.model.TaskListener;
 import hudson.os.WindowsUtil;
 import hudson.util.StreamTaskListener;

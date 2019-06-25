@@ -35,11 +35,10 @@ import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.DescriptorExtensionList;
 import hudson.Extension;
 import hudson.ExtensionPoint;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.model.Describable;
 import hudson.model.Descriptor;

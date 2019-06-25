@@ -39,9 +39,9 @@ import org.kohsuke.accmod.restrictions.DoNotUse;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 
-import com.dj.runner.locales.LocalizedString;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.console.ModelHyperlinkNote;
 import hudson.diagnosis.OldDataMonitor;

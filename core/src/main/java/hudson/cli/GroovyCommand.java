@@ -32,11 +32,10 @@ import org.apache.commons.io.IOUtils;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 
-import com.dj.runner.locales.LocalizedString;
-
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import hudson.Extension;
+import hudson.LocalizedString;
 import jenkins.model.Jenkins;
 
 /**

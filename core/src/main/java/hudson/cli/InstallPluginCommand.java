@@ -35,11 +35,10 @@ import org.apache.commons.io.FileUtils;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.AbortException;
 import hudson.Extension;
 import hudson.FilePath;
+import hudson.LocalizedString;
 import hudson.PluginManager;
 import hudson.model.UpdateSite;
 import hudson.model.UpdateSite.Data;

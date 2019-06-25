@@ -10,10 +10,9 @@ import org.kohsuke.stapler.HttpResponses;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
 import hudson.FilePath;
+import hudson.LocalizedString;
 import hudson.model.AdministrativeMonitor;
 import hudson.remoting.Callable;
 import jenkins.model.Jenkins;

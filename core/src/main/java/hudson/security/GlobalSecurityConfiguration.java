@@ -38,12 +38,12 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.LocalizedString;
 import com.google.common.base.Predicate;
 
 import hudson.BulkChange;
 import hudson.Extension;
 import hudson.Functions;
+import hudson.LocalizedString;
 import hudson.markup.MarkupFormatter;
 import hudson.model.Describable;
 import hudson.model.Descriptor;

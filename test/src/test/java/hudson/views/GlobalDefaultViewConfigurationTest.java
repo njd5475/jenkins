@@ -34,8 +34,7 @@ import org.jvnet.hudson.test.JenkinsRule;
 import org.kohsuke.stapler.MockStaplerRequestBuilder;
 import org.kohsuke.stapler.StaplerRequest;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import hudson.model.Descriptor;
 import net.sf.json.JSONObject;
 

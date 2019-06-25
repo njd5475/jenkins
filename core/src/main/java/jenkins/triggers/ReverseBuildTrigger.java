@@ -49,10 +49,9 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
 import org.kohsuke.stapler.QueryParameter;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
 import hudson.ExtensionList;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.console.ModelHyperlinkNote;
 import hudson.model.AbstractBuild;
@@ -204,7 +203,7 @@ public final class ReverseBuildTrigger extends Trigger<Job> implements Dependenc
     public static final class DescriptorImpl extends TriggerDescriptor {
 
         @Override public String getDisplayName() {
-            return LocalizedString.ReverseBuildTrigger_build_after_other_projects_are_built.toString();
+            return LocalizedString.ReverseBuildTrigger_build__after__other__projects__are__built.toString();
         }
 
         @Override public boolean isApplicable(Item item) {

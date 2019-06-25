@@ -28,10 +28,9 @@ import java.io.IOException;
 
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.FilePath;
 import hudson.Launcher;
+import hudson.LocalizedString;
 import hudson.PermalinkList;
 import hudson.WorkspaceSnapshot;
 import hudson.model.AbstractBuild;

@@ -41,9 +41,8 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.Descriptor.FormException;
 import jenkins.util.SystemProperties;
 

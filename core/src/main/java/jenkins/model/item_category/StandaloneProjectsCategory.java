@@ -24,9 +24,8 @@
 
 package jenkins.model.item_category;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 
 /**
  * Designed for projects with a self-contained configuration and history.

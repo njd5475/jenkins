@@ -33,10 +33,9 @@ import org.junit.Test;
 import org.jvnet.hudson.test.Issue;
 import org.jvnet.hudson.test.JenkinsRule;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.FilePath;
 import hudson.Launcher;
+import hudson.LocalizedString;
 import hudson.slaves.WorkspaceList;
 import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Notifier;

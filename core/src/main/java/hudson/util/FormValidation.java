@@ -52,13 +52,12 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.springframework.util.StringUtils;
 
-import com.dj.runner.locales.Localizable;
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.EnvVars;
 import hudson.FilePath;
 import hudson.Functions;
 import hudson.Launcher;
+import hudson.Localizable;
+import hudson.LocalizedString;
 import hudson.ProxyConfiguration;
 import hudson.RelativePath;
 import hudson.Util;

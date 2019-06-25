@@ -32,10 +32,9 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
 import hudson.Functions;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.model.Computer;
 import jenkins.model.Jenkins;

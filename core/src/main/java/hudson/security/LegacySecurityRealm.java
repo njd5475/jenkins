@@ -35,10 +35,9 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.dj.runner.locales.LocalizedString;
-
 import groovy.lang.Binding;
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.Descriptor;
 import hudson.util.spring.BeanBuilder;
 

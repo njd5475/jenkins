@@ -34,7 +34,7 @@ import javax.annotation.Nonnull;
 
 import org.kohsuke.stapler.export.Exported;
 
-import com.dj.runner.locales.LocalizedString;
+import hudson.LocalizedString;
 
 /**
  * Implements {@link ViewGroup} to be used as a "mix-in".

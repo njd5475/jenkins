@@ -27,9 +27,8 @@ import org.jenkinsci.Symbol;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.AdministrativeMonitor;
 import jenkins.model.JenkinsLocationConfiguration;
 import jenkins.util.UrlHelper;

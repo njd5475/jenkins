@@ -28,9 +28,8 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.kohsuke.args4j.Argument;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.AbstractItem;
 
 /**

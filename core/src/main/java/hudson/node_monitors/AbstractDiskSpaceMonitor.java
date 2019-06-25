@@ -6,8 +6,7 @@ import java.util.logging.Logger;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import hudson.model.Computer;
 import hudson.node_monitors.DiskSpaceMonitorDescriptor.DiskSpace;
 

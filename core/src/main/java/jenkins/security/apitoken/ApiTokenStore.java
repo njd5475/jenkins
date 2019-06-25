@@ -50,9 +50,8 @@ import org.apache.commons.lang.StringUtils;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import com.dj.runner.locales.LocalizedString;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.util.Secret;
 import net.sf.json.JSONObject;

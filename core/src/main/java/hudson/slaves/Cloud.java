@@ -30,11 +30,10 @@ import javax.annotation.Nonnull;
 
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.DescriptorExtensionList;
 import hudson.Extension;
 import hudson.ExtensionPoint;
+import hudson.LocalizedString;
 import hudson.model.Actionable;
 import hudson.model.Computer;
 import hudson.model.Describable;

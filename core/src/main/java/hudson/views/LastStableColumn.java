@@ -26,9 +26,8 @@ package hudson.views;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 
 public class LastStableColumn extends ListViewColumn {
     @DataBoundConstructor

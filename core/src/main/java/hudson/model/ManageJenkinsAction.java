@@ -25,9 +25,8 @@ package hudson.model;
 
 import org.jenkinsci.Symbol;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import jenkins.model.Jenkins;
 
 /**

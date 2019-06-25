@@ -26,9 +26,8 @@ package hudson.cli;
 
 import java.util.logging.Logger;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import jenkins.model.Jenkins;
 
 /**

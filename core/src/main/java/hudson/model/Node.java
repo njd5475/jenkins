@@ -45,8 +45,6 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 
-import com.dj.runner.locales.Localizable;
-import com.dj.runner.locales.LocalizedString;
 import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
 
 import hudson.Extension;
@@ -54,6 +52,8 @@ import hudson.ExtensionPoint;
 import hudson.FilePath;
 import hudson.FileSystemProvisioner;
 import hudson.Launcher;
+import hudson.Localizable;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.model.Descriptor.FormException;
 import hudson.model.Queue.Task;

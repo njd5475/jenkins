@@ -26,9 +26,8 @@ package jenkins.management;
 
 import org.jenkinsci.Symbol;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.ManagementLink;
 import hudson.security.Permission;
 import jenkins.model.Jenkins;

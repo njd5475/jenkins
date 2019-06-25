@@ -49,10 +49,9 @@ import org.jenkinsci.remoting.engine.JnlpProtocol4Handler;
 import org.jenkinsci.remoting.protocol.IOHub;
 import org.jenkinsci.remoting.protocol.cert.PublicKeyMatchingX509ExtendedTrustManager;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
 import hudson.ExtensionList;
+import hudson.LocalizedString;
 import hudson.model.Computer;
 import jenkins.AgentProtocol;
 import jenkins.model.identity.InstanceIdentityProvider;

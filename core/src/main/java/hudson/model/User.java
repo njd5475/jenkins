@@ -65,7 +65,6 @@ import org.kohsuke.stapler.export.ExportedBean;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 import org.springframework.dao.DataAccessException;
 
-import com.dj.runner.locales.LocalizedString;
 import com.google.common.base.Predicate;
 import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
 
@@ -75,6 +74,7 @@ import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.FeedAdapter;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.XmlFile;
 import hudson.init.InitMilestone;

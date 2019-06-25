@@ -27,9 +27,8 @@ package jenkins.model.item_category;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.DoNotUse;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 
 /**
  * Designed for project hierarchies with folders.

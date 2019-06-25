@@ -30,10 +30,9 @@ import java.util.logging.Logger;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.AbortException;
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.Computer;
 import hudson.model.ComputerSet;
 import hudson.util.EditDistance;

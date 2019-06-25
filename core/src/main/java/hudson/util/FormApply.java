@@ -28,10 +28,11 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 
 import org.kohsuke.stapler.HttpResponses.HttpResponseException;
+
+import hudson.LocalizedString;
+
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
-
-import com.dj.runner.locales.LocalizedString;
 
 /**
  * Server-side code related to the {@code <f:apply>} button.

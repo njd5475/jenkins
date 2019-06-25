@@ -32,9 +32,9 @@ import org.kohsuke.stapler.HttpResponses;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
-import com.dj.runner.locales.LocalizedString;
 import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
 
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.security.ACL;
 import jenkins.model.Jenkins;

@@ -28,9 +28,8 @@ import java.io.IOException;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.StaplerRequest;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.Node.Mode;
 import net.sf.json.JSONObject;
 

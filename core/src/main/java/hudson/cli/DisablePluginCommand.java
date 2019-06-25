@@ -30,9 +30,8 @@ import java.util.List;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.PluginWrapper;
 import hudson.lifecycle.RestartNotSupportedException;
 import jenkins.model.Jenkins;

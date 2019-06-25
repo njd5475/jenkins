@@ -19,12 +19,12 @@ import org.jvnet.hudson.test.JenkinsRule.WebClient;
 import org.jvnet.hudson.test.MockAuthorizationStrategy;
 import org.jvnet.hudson.test.SleepBuilder;
 
-import com.dj.runner.locales.LocalizedString;
 import com.gargoylesoftware.htmlunit.HttpMethod;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.util.NameValuePair;
 
+import hudson.LocalizedString;
 import hudson.security.ACL;
 import hudson.security.ACLContext;
 import hudson.security.AccessDeniedException2;

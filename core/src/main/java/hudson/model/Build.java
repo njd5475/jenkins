@@ -39,10 +39,9 @@ import javax.annotation.Nonnull;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Functions;
 import hudson.Launcher;
+import hudson.LocalizedString;
 import hudson.tasks.BuildStep;
 import hudson.tasks.BuildWrapper;
 import hudson.tasks.Builder;

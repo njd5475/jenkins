@@ -29,9 +29,8 @@ import java.util.logging.Logger;
 
 import org.jenkinsci.Symbol;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.AsyncPeriodicWork;
 import hudson.model.Computer;
 import hudson.model.TaskListener;

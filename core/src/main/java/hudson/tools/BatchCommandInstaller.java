@@ -29,10 +29,9 @@ import java.io.ObjectStreamException;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
 import hudson.FilePath;
+import hudson.LocalizedString;
 import hudson.util.LineEndingConversion;
 
 /**

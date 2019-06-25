@@ -34,10 +34,9 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
 import org.kohsuke.stapler.QueryParameter;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
 import hudson.FilePath;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.model.AbstractProject;
 import hudson.util.FormValidation;

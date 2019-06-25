@@ -28,8 +28,7 @@ import java.io.IOException;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.model.Node;
 

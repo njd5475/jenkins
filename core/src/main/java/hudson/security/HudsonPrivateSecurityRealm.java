@@ -73,13 +73,13 @@ import org.kohsuke.stapler.interceptor.RequirePOST;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.dao.DataAccessException;
 
-import com.dj.runner.locales.Localizable;
-import com.dj.runner.locales.LocalizedString;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.Extension;
 import hudson.ExtensionList;
+import hudson.Localizable;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.diagnosis.OldDataMonitor;
 import hudson.model.Descriptor;

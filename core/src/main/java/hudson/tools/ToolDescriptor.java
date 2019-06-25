@@ -38,9 +38,8 @@ import org.jvnet.tiger_types.Types;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
-import com.dj.runner.locales.LocalizedString;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import hudson.LocalizedString;
 import hudson.model.Descriptor;
 import hudson.util.DescribableList;
 import hudson.util.FormValidation;

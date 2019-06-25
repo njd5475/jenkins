@@ -32,8 +32,7 @@ import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import jenkins.model.Jenkins;
 
 /**

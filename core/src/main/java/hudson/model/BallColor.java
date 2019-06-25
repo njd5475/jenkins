@@ -31,8 +31,7 @@ import org.jvnet.localizer.LocaleProvider;
 import org.jvnet.localizer.Localizable;
 import org.kohsuke.stapler.Stapler;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import hudson.util.ColorPalette;
 import jenkins.model.Jenkins;
 

@@ -23,6 +23,8 @@
  */
 package hudson.security;
 
+import static hudson.LocalizedString.*;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -32,10 +34,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
-import com.dj.runner.locales.Localizable;
-import com.dj.runner.locales.LocalizedString;
 import com.google.common.collect.ImmutableSet;
 
+import hudson.Localizable;
 import hudson.model.Hudson;
 import jenkins.model.Jenkins;
 import net.sf.json.util.JSONUtils;
@@ -56,25 +57,26 @@ public final class Permission {
   /**
    * Comparator that orders {@link Permission} objects based on their ID.
    */
-  public static final Comparator<Permission> ID_COMPARATOR = new Comparator<Permission>() {
+  public static final Comparator<Permission>  ID_COMPARATOR = new Comparator<Permission>() {
 
-    /**
-     * {@inheritDoc}
-     */
-    // break eclipse compilation
-    // Override
-    public int compare(@Nonnull Permission one, @Nonnull Permission two) {
-      return one.getId().compareTo(two.getId());
-    }
-  };
+                                                              /**
+                                                               * {@inheritDoc}
+                                                               */
+                                                              // break eclipse compilation
+                                                              // Override
+                                                              public int compare(@Nonnull Permission one,
+                                                                  @Nonnull Permission two) {
+                                                                return one.getId().compareTo(two.getId());
+                                                              }
+                                                            };
 
-  public final @Nonnull Class owner;
+  public final @Nonnull Class                 owner;
 
-  public final @Nonnull PermissionGroup group;
+  public final @Nonnull PermissionGroup       group;
 
   // if some plugin serialized old version of this class using XStream, `id` can
   // be null
-  private final @CheckForNull String id;
+  private final @CheckForNull String          id;
 
   /**
    * Human readable ID of the permission.
@@ -85,7 +87,7 @@ public final class Permission {
    * <p>
    * The expected naming convention is something like "BrowseWorkspace".
    */
-  public final @Nonnull String name;
+  public final @Nonnull String                name;
 
   /**
    * Human-readable description of this permission. Used as a tooltip to explain
@@ -94,7 +96,7 @@ public final class Permission {
    * <p>
    * If null, there will be no description text.
    */
-  public final @CheckForNull Localizable description;
+  public final @CheckForNull Localizable      description;
 
   /**
    * Bundled {@link Permission} that also implies this permission.
@@ -109,7 +111,7 @@ public final class Permission {
    * permission bundle is good enough, and those few that need finer control can
    * do so.
    */
-  public final @CheckForNull Permission impliedBy;
+  public final @CheckForNull Permission       impliedBy;
 
   /**
    * Whether this permission is available for use.
@@ -121,7 +123,7 @@ public final class Permission {
    *
    * @since 1.325
    */
-  public boolean enabled;
+  public boolean                              enabled;
 
   /**
    * Scopes that this permission is directly contained by.
@@ -153,16 +155,16 @@ public final class Permission {
   public Permission(@Nonnull PermissionGroup group, @Nonnull String name, @CheckForNull Localizable description,
       @CheckForNull Permission impliedBy, boolean enable, @Nonnull PermissionScope[] scopes)
       throws IllegalStateException {
-    if(!JSONUtils.isJavaIdentifier(name))
+    if (!JSONUtils.isJavaIdentifier(name))
       throw new IllegalArgumentException(name + " is not a Java identifier");
-    this.owner       = group.owner;
-    this.group       = group;
-    this.name        = name;
+    this.owner = group.owner;
+    this.group = group;
+    this.name = name;
     this.description = description;
-    this.impliedBy   = impliedBy;
-    this.enabled     = enable;
-    this.scopes      = ImmutableSet.copyOf(scopes);
-    this.id          = owner.getName() + '.' + name;
+    this.impliedBy = impliedBy;
+    this.enabled = enable;
+    this.scopes = ImmutableSet.copyOf(scopes);
+    this.id = owner.getName() + '.' + name;
 
     group.add(this);
     ALL.add(this);
@@ -213,7 +215,7 @@ public final class Permission {
    */
   public boolean isContainedBy(@Nonnull PermissionScope s) {
     for (PermissionScope c : scopes) {
-      if(c.isContainedBy(s))
+      if (c.isContainedBy(s))
         return true;
     }
     return false;
@@ -230,7 +232,7 @@ public final class Permission {
    * @see #fromId(String)
    */
   public @Nonnull String getId() {
-    if(id == null) {
+    if (id == null) {
       return owner.getName() + '.' + name;
     }
     return id;
@@ -254,16 +256,15 @@ public final class Permission {
    */
   public static @CheckForNull Permission fromId(@Nonnull String id) {
     int idx = id.lastIndexOf('.');
-    if(idx < 0)
+    if (idx < 0)
       return null;
 
     try {
       // force the initialization so that it will put all its permissions into the
       // list.
-      Class           cl = Class.forName(id.substring(0, idx), true,
-          Jenkins.getInstance().getPluginManager().uberClassLoader);
-      PermissionGroup g  = PermissionGroup.get(cl);
-      if(g == null)
+      Class cl = Class.forName(id.substring(0, idx), true, Jenkins.getInstance().getPluginManager().uberClassLoader);
+      PermissionGroup g = PermissionGroup.get(cl);
+      if (g == null)
         return null;
       return g.find(id.substring(idx + 1));
     } catch (ClassNotFoundException e) {
@@ -296,9 +297,9 @@ public final class Permission {
   /**
    * All permissions in the system but in a single list.
    */
-  private static final List<Permission> ALL = new CopyOnWriteArrayList<>();
+  private static final List<Permission> ALL                = new CopyOnWriteArrayList<>();
 
-  private static final List<Permission> ALL_VIEW = Collections.unmodifiableList(ALL);
+  private static final List<Permission> ALL_VIEW           = Collections.unmodifiableList(ALL);
 
   //
   //
@@ -314,8 +315,8 @@ public final class Permission {
    *             {@link jenkins.model.Jenkins#PERMISSIONS} instead.
    */
   @Deprecated
-  public static final PermissionGroup HUDSON_PERMISSIONS = new PermissionGroup(Hudson.class,
-      LocalizedString._Hudson_Permissions_Title);
+  public static final PermissionGroup   HUDSON_PERMISSIONS = new PermissionGroup(Hudson.class,
+      _Hudson_Permissions_Title);
   /**
    * {@link Permission} that represents the God-like access. Equivalent of Unix
    * root.
@@ -328,8 +329,8 @@ public final class Permission {
    *             instead.
    */
   @Deprecated
-  public static final Permission      HUDSON_ADMINISTER  = new Permission(HUDSON_PERMISSIONS, "Administer",
-      LocalizedString._Hudson_AdministerPermission_Description, null);
+  public static final Permission        HUDSON_ADMINISTER  = new Permission(HUDSON_PERMISSIONS, "Administer",
+      _Hudson_AdministerPermission_Description, null);
 
   //
   //
@@ -341,8 +342,8 @@ public final class Permission {
   // agnostic to
   // specific permissions.
 
-  public static final PermissionGroup GROUP = new PermissionGroup(Permission.class,
-      LocalizedString._Permission_Permissions_Title);
+  public static final PermissionGroup   GROUP              = new PermissionGroup(Permission.class,
+      _Permission_Permissions_Title);
 
   /**
    * Historically this was separate from {@link #HUDSON_ADMINISTER} but such a
@@ -351,35 +352,38 @@ public final class Permission {
    * @deprecated since 2009-01-23. Use {@link jenkins.model.Jenkins#ADMINISTER}.
    */
   @Deprecated
-  public static final Permission FULL_CONTROL = new Permission(GROUP, "FullControl", null, HUDSON_ADMINISTER);
+  public static final Permission        FULL_CONTROL       = new Permission(GROUP, "FullControl", null,
+      HUDSON_ADMINISTER);
 
   /**
    * Generic read access.
    */
-  public static final Permission READ = new Permission(GROUP, "GenericRead", null, HUDSON_ADMINISTER);
+  public static final Permission        READ               = new Permission(GROUP, "GenericRead", null,
+      HUDSON_ADMINISTER);
 
   /**
    * Generic write access.
    */
-  public static final Permission WRITE = new Permission(GROUP, "GenericWrite", null, HUDSON_ADMINISTER);
+  public static final Permission        WRITE              = new Permission(GROUP, "GenericWrite", null,
+      HUDSON_ADMINISTER);
 
   /**
    * Generic create access.
    */
-  public static final Permission CREATE = new Permission(GROUP, "GenericCreate", null, WRITE);
+  public static final Permission        CREATE             = new Permission(GROUP, "GenericCreate", null, WRITE);
 
   /**
    * Generic update access.
    */
-  public static final Permission UPDATE = new Permission(GROUP, "GenericUpdate", null, WRITE);
+  public static final Permission        UPDATE             = new Permission(GROUP, "GenericUpdate", null, WRITE);
 
   /**
    * Generic delete access.
    */
-  public static final Permission DELETE = new Permission(GROUP, "GenericDelete", null, WRITE);
+  public static final Permission        DELETE             = new Permission(GROUP, "GenericDelete", null, WRITE);
 
   /**
    * Generic configuration access.
    */
-  public static final Permission CONFIGURE = new Permission(GROUP, "GenericConfigure", null, UPDATE);
+  public static final Permission        CONFIGURE          = new Permission(GROUP, "GenericConfigure", null, UPDATE);
 }

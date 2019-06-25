@@ -30,12 +30,11 @@ import java.util.logging.Logger;
 
 import javax.annotation.Nonnull;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.EnvVars;
 import hudson.FilePath;
 import hudson.Functions;
 import hudson.Launcher;
+import hudson.LocalizedString;
 import hudson.Proc;
 import hudson.Util;
 import hudson.model.AbstractBuild;

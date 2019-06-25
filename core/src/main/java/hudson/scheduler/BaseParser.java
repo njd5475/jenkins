@@ -23,8 +23,6 @@
  */
 package hudson.scheduler;
 
-import com.dj.runner.locales.LocalizedString;
-
 import antlr.ANTLRException;
 import antlr.LLkParser;
 import antlr.ParserSharedInputState;
@@ -33,6 +31,7 @@ import antlr.Token;
 import antlr.TokenBuffer;
 import antlr.TokenStream;
 import antlr.TokenStreamException;
+import hudson.LocalizedString;
 import jenkins.util.SystemProperties;
 
 /**

@@ -39,9 +39,8 @@ import org.junit.Test;
 import org.jvnet.hudson.test.Issue;
 import org.jvnet.hudson.test.Url;
 
-import com.dj.runner.locales.LocalizedString;
-
 import antlr.ANTLRException;
+import hudson.LocalizedString;
 
 /**
  * @author Kohsuke Kawaguchi

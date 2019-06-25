@@ -35,9 +35,8 @@ import java.util.concurrent.TimeUnit;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.QueryParameter;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.MultiStageTimeSeries;
 import hudson.model.MultiStageTimeSeries.TimeScale;
 import hudson.model.MultiStageTimeSeries.TrendChart;

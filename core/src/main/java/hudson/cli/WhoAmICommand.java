@@ -26,9 +26,8 @@ package hudson.cli;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.GrantedAuthority;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import jenkins.model.Jenkins;
 
 /**

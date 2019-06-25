@@ -54,7 +54,6 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.LocalizedString;
 import com.google.common.collect.Lists;
 import com.thoughtworks.xstream.XStream;
 

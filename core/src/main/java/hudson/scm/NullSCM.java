@@ -29,11 +29,10 @@ import java.io.IOException;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.Launcher;
+import hudson.LocalizedString;
 import hudson.model.Job;
 import hudson.model.Run;
 import hudson.model.TaskListener;

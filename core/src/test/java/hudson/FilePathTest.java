@@ -79,8 +79,6 @@ import org.junit.rules.TemporaryFolder;
 import org.jvnet.hudson.test.Issue;
 import org.mockito.Mockito;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.FilePath.TarCompression;
 import hudson.model.TaskListener;
 import hudson.os.PosixAPI;

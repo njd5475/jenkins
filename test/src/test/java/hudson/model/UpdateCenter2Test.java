@@ -32,8 +32,7 @@ import org.junit.Test;
 import org.jvnet.hudson.test.Issue;
 import org.jvnet.hudson.test.JenkinsRule;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import hudson.model.UpdateCenter.DownloadJob;
 import hudson.model.UpdateCenter.DownloadJob.Failure;
 import hudson.model.UpdateCenter.DownloadJob.Success;

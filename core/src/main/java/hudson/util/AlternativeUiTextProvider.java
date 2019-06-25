@@ -23,11 +23,10 @@
  */
 package hudson.util;
 
-import com.dj.runner.locales.Localizable;
-
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
+import hudson.Localizable;
 import hudson.model.AbstractItem;
 import hudson.model.AbstractProject;
 

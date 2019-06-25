@@ -10,9 +10,8 @@ import org.apache.commons.io.IOUtils;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.console.AnnotatedLargeText;
 import hudson.model.Item;
 import hudson.model.Job;

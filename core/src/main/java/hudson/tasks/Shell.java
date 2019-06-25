@@ -42,10 +42,9 @@ import org.kohsuke.stapler.DataBoundSetter;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
 import hudson.FilePath;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.model.AbstractProject;
 import hudson.model.PersistentDescriptor;

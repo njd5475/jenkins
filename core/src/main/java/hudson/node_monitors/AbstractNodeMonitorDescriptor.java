@@ -34,8 +34,7 @@ import java.util.logging.Logger;
 
 import javax.annotation.concurrent.GuardedBy;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.model.AdministrativeMonitor;
 import hudson.model.Computer;

@@ -47,11 +47,10 @@ import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.BulkChange;
 import hudson.DescriptorExtensionList;
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.XmlFile;
 import hudson.init.Initializer;

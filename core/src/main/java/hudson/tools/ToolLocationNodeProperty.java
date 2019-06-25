@@ -32,10 +32,9 @@ import java.util.List;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.DescriptorExtensionList;
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.Descriptor;
 import hudson.model.Node;
 import hudson.model.TaskListener;

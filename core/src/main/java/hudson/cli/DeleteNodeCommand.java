@@ -28,10 +28,9 @@ import java.util.List;
 
 import org.kohsuke.args4j.Argument;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.AbortException;
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.Node;
 import jenkins.model.Jenkins;
 

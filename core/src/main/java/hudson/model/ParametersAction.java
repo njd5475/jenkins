@@ -45,10 +45,10 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 
-import com.dj.runner.locales.LocalizedString;
 import com.google.common.collect.Lists;
 
 import hudson.EnvVars;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.diagnosis.OldDataMonitor;
 import hudson.model.Queue.QueueAction;

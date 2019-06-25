@@ -44,10 +44,9 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
 import hudson.Launcher;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.console.ModelHyperlinkNote;
 import hudson.model.AbstractBuild;

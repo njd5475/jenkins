@@ -62,12 +62,12 @@ import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
-import com.dj.runner.locales.LocalizedString;
 import com.google.common.base.Preconditions;
 
 import antlr.ANTLRException;
 import hudson.Extension;
 import hudson.Functions;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.console.AnnotatedLargeText;
 import hudson.model.AbstractBuild;

@@ -34,10 +34,9 @@ import java.util.regex.Pattern;
 import org.apache.tools.ant.util.DeweyDecimal;
 import org.kohsuke.args4j.spi.Messages;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
 import hudson.ExtensionPoint;
+import hudson.LocalizedString;
 import hudson.model.AbstractDescribableImpl;
 import hudson.model.Computer;
 import hudson.model.TaskListener;

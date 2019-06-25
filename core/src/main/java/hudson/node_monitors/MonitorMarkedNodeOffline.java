@@ -23,9 +23,8 @@
  */
 package hudson.node_monitors;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.AdministrativeMonitor;
 
 /**

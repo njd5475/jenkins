@@ -1,4 +1,4 @@
-package com.dj.runner.locales;
+package hudson;
 
 public interface Localizable {
 

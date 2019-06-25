@@ -60,7 +60,6 @@ import org.jvnet.hudson.test.TestExtension;
 import org.jvnet.hudson.test.WithoutJenkins;
 import org.mindrot.jbcrypt.BCrypt;
 
-import com.dj.runner.locales.LocalizedString;
 import com.gargoylesoftware.htmlunit.HttpMethod;
 import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
@@ -71,6 +70,7 @@ import com.gargoylesoftware.htmlunit.util.NameValuePair;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
 
 import hudson.ExtensionList;
+import hudson.LocalizedString;
 import hudson.model.User;
 import hudson.remoting.Base64;
 import hudson.security.pages.SignupPage;

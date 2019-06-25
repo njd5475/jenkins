@@ -26,8 +26,7 @@ package jenkins.model;
 
 import javax.annotation.Nonnull;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import hudson.model.Executor;
 import hudson.model.Job;
 import hudson.model.Run;

@@ -51,12 +51,12 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.LocalizedString;
 import com.google.common.base.Predicate;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 
 import hudson.Extension;
 import hudson.ExtensionList;
+import hudson.LocalizedString;
 import hudson.XmlFile;
 import hudson.model.AdministrativeMonitor;
 import hudson.model.Item;

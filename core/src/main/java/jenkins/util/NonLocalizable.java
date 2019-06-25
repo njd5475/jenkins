@@ -2,7 +2,7 @@ package jenkins.util;
 
 import java.util.Locale;
 
-import com.dj.runner.locales.Localizable;
+import hudson.Localizable;
 
 /**
  * {@link Localizable} implementation that actually doesn't localize.

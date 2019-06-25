@@ -44,10 +44,9 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.ExtensionListView;
 import hudson.Functions;
+import hudson.LocalizedString;
 import hudson.Platform;
 import hudson.PluginManager;
 import hudson.cli.declarative.CLIResolver;

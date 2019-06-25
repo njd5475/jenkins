@@ -13,10 +13,9 @@ import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
 import hudson.Functions;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.init.InitMilestone;
 import hudson.init.Initializer;

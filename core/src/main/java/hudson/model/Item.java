@@ -32,9 +32,8 @@ import javax.annotation.Nonnull;
 
 import org.kohsuke.stapler.StaplerRequest;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Functions;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.search.SearchableModelObject;
 import hudson.security.AccessControlled;

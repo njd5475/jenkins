@@ -34,9 +34,8 @@ import java.util.logging.Logger;
 
 import org.jenkinsci.Symbol;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.PluginWrapper;
 import hudson.init.Initializer;
 import hudson.model.AdministrativeMonitor;

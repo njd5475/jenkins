@@ -110,9 +110,6 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.args4j.spi.Messages;
 import org.kohsuke.stapler.StaplerRequest;
 
-import com.dj.runner.locales.Localizable;
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.model.TaskListener;
 import hudson.util.QuotedStringTokenizer;
 import hudson.util.VariableResolver;

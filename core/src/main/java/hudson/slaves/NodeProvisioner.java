@@ -47,11 +47,10 @@ import javax.annotation.concurrent.GuardedBy;
 
 import org.jenkinsci.Symbol;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.AbortException;
 import hudson.Extension;
 import hudson.ExtensionPoint;
+import hudson.LocalizedString;
 import hudson.model.Computer;
 import hudson.model.Label;
 import hudson.model.LoadStatistics;

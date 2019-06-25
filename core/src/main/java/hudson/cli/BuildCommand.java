@@ -36,10 +36,9 @@ import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.Option;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.AbortException;
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.console.ModelHyperlinkNote;
 import hudson.model.Cause.UserIdCause;

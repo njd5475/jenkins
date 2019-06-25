@@ -38,10 +38,9 @@ import org.kohsuke.stapler.AncestorInPath;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 
-import com.dj.runner.locales.LocalizedString;
-
 import antlr.ANTLRException;
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.BuildableItem;
 import hudson.model.Cause;
 import hudson.model.Item;

@@ -30,8 +30,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import hudson.init.Initializer;
 import jenkins.model.Jenkins;
 

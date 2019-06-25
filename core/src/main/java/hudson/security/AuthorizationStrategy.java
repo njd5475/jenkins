@@ -32,11 +32,10 @@ import javax.annotation.Nonnull;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.StaplerRequest;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.DescriptorExtensionList;
 import hudson.Extension;
 import hudson.ExtensionPoint;
+import hudson.LocalizedString;
 import hudson.model.AbstractDescribableImpl;
 import hudson.model.AbstractItem;
 import hudson.model.AbstractProject;

@@ -67,8 +67,6 @@ import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.Localizable;
-import com.dj.runner.locales.LocalizedString;
 import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
 
 import hudson.BulkChange;
@@ -76,6 +74,8 @@ import hudson.EnvVars;
 import hudson.Extension;
 import hudson.ExtensionPoint;
 import hudson.FeedAdapter;
+import hudson.Localizable;
+import hudson.LocalizedString;
 import hudson.PermalinkList;
 import hudson.Util;
 import hudson.cli.declarative.CLIResolver;

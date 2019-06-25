@@ -45,9 +45,9 @@ import org.jvnet.hudson.test.JenkinsRule;
 import org.jvnet.hudson.test.MockAuthorizationStrategy;
 import org.jvnet.hudson.test.MockQueueItemAuthenticator;
 
-import com.dj.runner.locales.LocalizedString;
 import com.google.common.collect.ImmutableMap;
 
+import hudson.LocalizedString;
 import hudson.model.Cause;
 import hudson.model.Computer;
 import hudson.model.FreeStyleBuild;

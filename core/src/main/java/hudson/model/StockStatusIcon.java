@@ -2,8 +2,7 @@ package hudson.model;
 
 import org.kohsuke.stapler.Stapler;
 
-import com.dj.runner.locales.Localizable;
-
+import hudson.Localizable;
 import jenkins.model.Jenkins;
 
 /**

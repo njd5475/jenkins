@@ -2,9 +2,8 @@ package hudson.model.queue;
 
 import javax.annotation.Nonnull;
 
-import com.dj.runner.locales.Localizable;
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.Localizable;
+import hudson.LocalizedString;
 import hudson.console.ModelHyperlinkNote;
 import hudson.model.Computer;
 import hudson.model.Label;

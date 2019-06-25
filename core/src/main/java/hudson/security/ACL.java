@@ -39,8 +39,7 @@ import org.acegisecurity.providers.anonymous.AnonymousAuthenticationToken;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import hudson.model.Item;
 import hudson.model.ItemGroup;
 import hudson.model.TopLevelItemDescriptor;

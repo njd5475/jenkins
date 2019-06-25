@@ -36,9 +36,8 @@ import javax.annotation.Nonnull;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import com.dj.runner.locales.LocalizedString;
-
 import antlr.ANTLRException;
+import hudson.LocalizedString;
 
 /**
  * {@link CronTab} list (logically OR-ed).

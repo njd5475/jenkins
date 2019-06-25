@@ -6,10 +6,10 @@ import java.util.List;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import com.dj.runner.locales.LocalizedString;
 import com.google.common.annotations.VisibleForTesting;
 
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.Action;
 import hudson.model.TransientViewActionFactory;
 import hudson.model.View;

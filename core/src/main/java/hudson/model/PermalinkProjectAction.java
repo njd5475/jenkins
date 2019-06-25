@@ -26,8 +26,7 @@ package hudson.model;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import jenkins.model.PeepholePermalink;
 
 /**

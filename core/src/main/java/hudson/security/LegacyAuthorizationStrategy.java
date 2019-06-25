@@ -30,9 +30,8 @@ import org.acegisecurity.acls.sid.GrantedAuthoritySid;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.Descriptor;
 import jenkins.model.Jenkins;
 

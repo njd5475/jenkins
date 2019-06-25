@@ -33,11 +33,10 @@ import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.Stapler;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.EnvVars;
 import hudson.Extension;
 import hudson.Launcher;
+import hudson.LocalizedString;
 import hudson.model.AbstractBuild;
 import hudson.model.BuildListener;
 import hudson.model.ComputerSet;

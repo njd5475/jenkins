@@ -5,9 +5,8 @@ import java.io.Serializable;
 import org.apache.commons.io.IOUtils;
 import org.kohsuke.args4j.Argument;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.Job;
 import hudson.model.Run;
 

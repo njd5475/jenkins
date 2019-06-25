@@ -79,7 +79,6 @@ import org.kohsuke.stapler.export.ExportedBean;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 import org.xml.sax.SAXException;
 
-import com.dj.runner.locales.LocalizedString;
 import com.thoughtworks.xstream.converters.ConversionException;
 import com.thoughtworks.xstream.io.StreamException;
 
@@ -88,6 +87,7 @@ import hudson.Extension;
 import hudson.ExtensionPoint;
 import hudson.Functions;
 import hudson.Indenter;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.model.Descriptor.FormException;
 import hudson.model.labels.LabelAtomPropertyDescriptor;

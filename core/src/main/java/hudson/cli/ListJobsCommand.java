@@ -27,9 +27,8 @@ import java.util.Collection;
 
 import org.kohsuke.args4j.Argument;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.Item;
 import hudson.model.TopLevelItem;
 import hudson.model.View;

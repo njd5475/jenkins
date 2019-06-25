@@ -51,10 +51,9 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.FeedAdapter;
 import hudson.Functions;
+import hudson.LocalizedString;
 import hudson.init.Initializer;
 import hudson.model.AbstractModelObject;
 import hudson.model.RSS;

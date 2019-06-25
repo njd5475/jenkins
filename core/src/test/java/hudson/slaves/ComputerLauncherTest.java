@@ -35,7 +35,7 @@ import java.io.StringReader;
 import org.apache.commons.io.output.NullOutputStream;
 import org.junit.Test;
 
-import com.dj.runner.locales.LocalizedString;
+import hudson.LocalizedString;
 
 public class ComputerLauncherTest {
 

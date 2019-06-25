@@ -36,11 +36,10 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.Functions;
+import hudson.LocalizedString;
 import hudson.ProxyConfiguration;
 import hudson.Util;
 import hudson.model.Node;

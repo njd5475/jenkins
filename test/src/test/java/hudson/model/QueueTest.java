@@ -90,7 +90,6 @@ import org.jvnet.hudson.test.TestBuilder;
 import org.jvnet.hudson.test.TestExtension;
 import org.jvnet.hudson.test.recipes.LocalData;
 
-import com.dj.runner.locales.LocalizedString;
 import com.gargoylesoftware.htmlunit.HttpMethod;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebRequest;
@@ -104,6 +103,7 @@ import com.gargoylesoftware.htmlunit.xml.XmlPage;
 
 import hudson.Functions;
 import hudson.Launcher;
+import hudson.LocalizedString;
 import hudson.XmlFile;
 import hudson.matrix.Axis;
 import hudson.matrix.AxisList;

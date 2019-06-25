@@ -4,11 +4,10 @@ import javax.annotation.Nonnull;
 
 import org.jenkinsci.Symbol;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
+import hudson.LocalizedString;
 import hudson.model.ModelObject;
 
 /**

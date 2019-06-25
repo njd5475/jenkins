@@ -55,13 +55,13 @@ import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
-import com.dj.runner.locales.LocalizedString;
 import com.google.common.collect.ImmutableSet;
 
 import hudson.DescriptorExtensionList;
 import hudson.EnvVars;
 import hudson.FilePath;
 import hudson.Launcher;
+import hudson.LocalizedString;
 import hudson.Launcher.RemoteLauncher;
 import hudson.Util;
 import hudson.cli.CLI;

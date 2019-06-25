@@ -2,9 +2,8 @@ package jenkins.slaves.systemInfo;
 
 import org.jenkinsci.Symbol;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 
 /**
  * @author Kohsuke Kawaguchi

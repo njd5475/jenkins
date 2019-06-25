@@ -28,10 +28,9 @@ import java.text.ParseException;
 
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
 import hudson.FilePath;
+import hudson.LocalizedString;
 import hudson.model.Computer;
 import hudson.model.Node;
 import hudson.node_monitors.DiskSpaceMonitorDescriptor.DiskSpace;

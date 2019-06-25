@@ -74,7 +74,6 @@ import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.LocalizedString;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 

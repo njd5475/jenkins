@@ -26,9 +26,8 @@ package hudson.views;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.StaplerRequest;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.View;
 import jenkins.model.GlobalConfiguration;
 import jenkins.model.Jenkins;

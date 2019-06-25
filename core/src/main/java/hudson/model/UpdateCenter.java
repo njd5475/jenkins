@@ -90,19 +90,19 @@ import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.Localizable;
-import com.dj.runner.locales.LocalizedString;
-import com.dj.runner.locales.VerbatimString;
 import com.google.common.annotations.VisibleForTesting;
 
 import hudson.BulkChange;
 import hudson.Extension;
 import hudson.ExtensionPoint;
 import hudson.Functions;
+import hudson.Localizable;
+import hudson.LocalizedString;
 import hudson.PluginManager;
 import hudson.PluginWrapper;
 import hudson.ProxyConfiguration;
 import hudson.Util;
+import hudson.VerbatimString;
 import hudson.XmlFile;
 import hudson.init.Initializer;
 import hudson.lifecycle.Lifecycle;

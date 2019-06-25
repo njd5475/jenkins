@@ -37,9 +37,8 @@ import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Functions;
+import hudson.LocalizedString;
 import hudson.model.ModelObject;
 import hudson.model.Run;
 import jenkins.util.SystemProperties;

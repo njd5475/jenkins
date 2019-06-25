@@ -13,8 +13,9 @@ import org.jvnet.hudson.test.Issue;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.xml.sax.SAXException;
 
-import com.dj.runner.locales.LocalizedString;
 import com.gargoylesoftware.htmlunit.WebResponse;
+
+import hudson.LocalizedString;
 
 //TODO after the security fix, it could be merged inside ApiTest
 public class ApiSecurity1129Test {

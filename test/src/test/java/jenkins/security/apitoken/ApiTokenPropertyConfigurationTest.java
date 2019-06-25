@@ -33,8 +33,7 @@ import org.junit.Test;
 import org.jvnet.hudson.test.Issue;
 import org.jvnet.hudson.test.JenkinsRule;
 
-import com.dj.runner.locales.LocalizedString;
-
+import hudson.LocalizedString;
 import hudson.model.User;
 import jenkins.security.ApiTokenProperty;
 
@@ -67,7 +66,7 @@ public class ApiTokenPropertyConfigurationTest {
             assertEquals(0, withoutToken.getTokenList().size());
             
             String tokenValue = withoutToken.getApiToken();
-            Assert.assertEquals(com.dj.runner.locales.LocalizedString.ApiTokenProperty_NoLegacyToken, tokenValue);
+            Assert.assertEquals(hudson.LocalizedString.ApiTokenProperty_NoLegacyToken, tokenValue);
         }
     }
 }

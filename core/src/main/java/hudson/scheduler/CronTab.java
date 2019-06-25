@@ -38,9 +38,8 @@ import java.util.regex.Pattern;
 
 import javax.annotation.CheckForNull;
 
-import com.dj.runner.locales.LocalizedString;
-
 import antlr.ANTLRException;
+import hudson.LocalizedString;
 
 /**
  * Table for driving scheduled tasks.

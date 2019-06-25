@@ -70,7 +70,6 @@ import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
-import com.dj.runner.locales.LocalizedString;
 import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
 
 import antlr.ANTLRException;
@@ -82,6 +81,7 @@ import hudson.ExtensionPoint;
 import hudson.FilePath;
 import hudson.Functions;
 import hudson.Launcher;
+import hudson.LocalizedString;
 import hudson.Util;
 import hudson.cli.declarative.CLIResolver;
 import hudson.model.Cause.LegacyCodeCause;

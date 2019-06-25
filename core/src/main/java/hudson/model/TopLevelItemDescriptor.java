@@ -44,9 +44,8 @@ import org.kohsuke.stapler.WebApp;
 import org.kohsuke.stapler.jelly.DefaultScriptInvoker;
 import org.kohsuke.stapler.jelly.JellyClassTearOff;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.ExtensionList;
+import hudson.LocalizedString;
 import jenkins.model.Jenkins;
 import jenkins.model.item_category.ItemCategory;
 

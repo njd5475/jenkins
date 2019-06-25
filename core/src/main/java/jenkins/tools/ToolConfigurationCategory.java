@@ -1,8 +1,7 @@
 package jenkins.tools;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import jenkins.model.GlobalConfigurationCategory;
 
 /**

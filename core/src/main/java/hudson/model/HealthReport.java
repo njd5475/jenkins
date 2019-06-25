@@ -32,11 +32,11 @@ import java.util.Map;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 
-import com.dj.runner.locales.Localizable;
-import com.dj.runner.locales.LocalizedString;
-import com.dj.runner.locales.VerbatimString;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 
+import hudson.Localizable;
+import hudson.LocalizedString;
+import hudson.VerbatimString;
 import hudson.diagnosis.OldDataMonitor;
 import hudson.util.XStream2;
 import jenkins.model.Jenkins;

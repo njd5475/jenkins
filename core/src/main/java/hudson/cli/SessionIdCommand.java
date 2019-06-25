@@ -1,8 +1,7 @@
 package hudson.cli;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Extension;
+import hudson.LocalizedString;
 import jenkins.model.Jenkins;
 
 /**

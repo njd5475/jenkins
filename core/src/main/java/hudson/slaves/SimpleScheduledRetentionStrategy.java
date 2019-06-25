@@ -40,10 +40,9 @@ import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 
-import com.dj.runner.locales.LocalizedString;
-
 import antlr.ANTLRException;
 import hudson.Extension;
+import hudson.LocalizedString;
 import hudson.model.Computer;
 import hudson.model.Descriptor;
 import hudson.model.Queue;

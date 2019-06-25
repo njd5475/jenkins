@@ -36,11 +36,10 @@ import org.codehaus.groovy.tools.shell.Shell;
 import org.codehaus.groovy.tools.shell.util.XmlCommandRegistrar;
 import org.kohsuke.args4j.Argument;
 
-import com.dj.runner.locales.LocalizedString;
-
 import groovy.lang.Binding;
 import groovy.lang.Closure;
 import hudson.Extension;
+import hudson.LocalizedString;
 import jenkins.model.Jenkins;
 import jline.TerminalFactory;
 import jline.UnsupportedTerminal;

@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.dj.runner.locales.LocalizedString;
+import hudson.LocalizedString;
 
 public class RetrierTest {
     private static Logger LOG = Logger.getLogger(RetrierTest.class.getName());

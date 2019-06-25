@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
 
-import com.dj.runner.locales.LocalizedString;
+import hudson.LocalizedString;
 
 /**
  * This class implements a process of doing some action repeatedly synchronously until it is performed successfully.

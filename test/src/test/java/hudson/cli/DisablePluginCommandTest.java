@@ -48,9 +48,8 @@ import org.jvnet.hudson.test.Issue;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.jvnet.hudson.test.recipes.WithPlugin;
 
-import com.dj.runner.locales.LocalizedString;
-
 import hudson.Functions;
+import hudson.LocalizedString;
 import hudson.PluginWrapper;
 
 public class DisablePluginCommandTest {
