@@ -649,7 +649,6 @@ public enum LocalizedString implements Localizable {
   }
 
   public static void main(String... args) {
-    System.out.println("Hello World!");
     System.out.println(
         "LocaleKey=" + LocalizedString._Node_LackingBuildPermission.getPropertyName());
     System.out.println(LocalizedString.PluginManager_PluginIsAlreadyInstalled_RestartRequired.toLocale("Hello"));

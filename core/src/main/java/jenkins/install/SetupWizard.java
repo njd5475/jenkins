@@ -145,7 +145,7 @@ public class SetupWizard extends PageDecorator {
             if(iapf.exists()) {
                 String setupKey = iapf.readToString().trim();
                 String ls = System.lineSeparator();
-                LOGGER.info(ls + "Die Jenkins (DJ) is ready to be initialized" + ls);
+                LOGGER.info(ls + "Jarvis is ready to be initialized" + ls);
                 LOGGER.info(ls + ls + "*************************************************************" + ls
                         + "*************************************************************" + ls
                         + "*************************************************************" + ls
@@ -161,7 +161,7 @@ public class SetupWizard extends PageDecorator {
                         + "*************************************************************" + ls
                         + "*************************************************************" + ls
                         + "*************************************************************" + ls);
-                LOGGER.info("Die Jenkins (DJ) is ready to be initialized");
+                LOGGER.info("Jarvis is ready to be initialized");
             }
         }
 
